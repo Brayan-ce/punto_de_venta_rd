@@ -1,0 +1,1178 @@
+/* ========================================
+   VER DETALLE DE CUOTA
+   Diseño profesional con animaciones
+   ======================================== */
+
+.contenedor {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.headerNav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btnVolver {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnVolver {
+    background: #ffffff;
+    color: #475569;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.light .btnVolver:hover {
+    background: #0ea5e9;
+    color: white;
+}
+
+.dark .btnVolver {
+    background: #1e293b;
+    color: #94a3b8;
+}
+
+.dark .btnVolver:hover {
+    background: #0ea5e9;
+    color: white;
+}
+
+.btnVolver ion-icon {
+    font-size: 22px;
+}
+
+.headerBreadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.headerBreadcrumb a {
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.light .headerBreadcrumb a {
+    color: #0ea5e9;
+}
+
+.dark .headerBreadcrumb a {
+    color: #38bdf8;
+}
+
+.headerBreadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.light .headerBreadcrumb span {
+    color: #475569;
+    font-weight: 600;
+}
+
+.dark .headerBreadcrumb span {
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.light .headerBreadcrumb ion-icon {
+    color: #94a3b8;
+}
+
+.dark .headerBreadcrumb ion-icon {
+    color: #64748b;
+}
+
+.headerAcciones {
+    display: flex;
+    gap: 12px;
+}
+
+.btnPrimario, .btnSecundario {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btnPrimario {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnPrimario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btnSecundario {
+    border: 2px solid;
+}
+
+.light .btnSecundario {
+    border-color: #e5e7eb;
+    color: #475569;
+    background: #ffffff;
+}
+
+.light .btnSecundario:hover {
+    border-color: #0ea5e9;
+    color: #0284c7;
+}
+
+.dark .btnSecundario {
+    border-color: #334155;
+    color: #94a3b8;
+    background: #1e293b;
+}
+
+.dark .btnSecundario:hover {
+    border-color: #0ea5e9;
+    color: #38bdf8;
+}
+
+.btnPrimario ion-icon, .btnSecundario ion-icon {
+    font-size: 18px;
+}
+
+/* ========================================
+   ALERTA VENCIDA
+   ======================================== */
+.alertaVencida {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    border: 2px solid #fca5a5;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+.alertaIcono {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.alertaIcono ion-icon {
+    font-size: 28px;
+    color: white;
+}
+
+.alertaContenido {
+    flex: 1;
+}
+
+.alertaContenido h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #991b1b;
+    margin: 0 0 4px;
+}
+
+.alertaContenido p {
+    font-size: 14px;
+    color: #b91c1c;
+    margin: 0;
+}
+
+.btnRecalcular {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid #ef4444;
+    background: white;
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnRecalcular:hover:not(:disabled) {
+    background: #ef4444;
+    color: white;
+}
+
+.btnRecalcular:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.miniSpinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   GRID PRINCIPAL
+   ======================================== */
+.gridPrincipal {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+/* Card principal */
+.cardPrincipal {
+    padding: 28px;
+    border-radius: 20px;
+    border: 1px solid;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.light .cardPrincipal {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .cardPrincipal {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+}
+
+.cuotaNumero {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cuotaLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.light .cuotaLabel {
+    color: #94a3b8;
+}
+
+.dark .cuotaLabel {
+    color: #64748b;
+}
+
+.cuotaValor {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.badge {
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.badge.success {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+}
+
+.badge.warning {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+.badge.danger {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+}
+
+.badge.info {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #1e40af;
+}
+
+.badge.secondary {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    color: #475569;
+}
+
+.montosPrincipales {
+    margin-bottom: 28px;
+}
+
+.montoGrande {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.montoGrandeLabel {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.light .montoGrandeLabel {
+    color: #64748b;
+}
+
+.dark .montoGrandeLabel {
+    color: #94a3b8;
+}
+
+.montoGrandeValor {
+    font-size: 42px;
+    font-weight: 800;
+    font-family: 'SF Mono', 'Consolas', monospace;
+}
+
+.light .montoGrandeValor {
+    color: #0f172a;
+}
+
+.dark .montoGrandeValor {
+    color: #f1f5f9;
+}
+
+.desglose {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.desgloseItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    min-width: 140px;
+}
+
+.light .desgloseItem {
+    background: #f8fafc;
+}
+
+.dark .desgloseItem {
+    background: #0f172a;
+}
+
+.desgloseItem.mora {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+}
+
+.desgloseLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.light .desgloseLabel {
+    color: #64748b;
+}
+
+.dark .desgloseLabel {
+    color: #94a3b8;
+}
+
+.desgloseItem.mora .desgloseLabel {
+    color: #991b1b;
+}
+
+.desgloseValor {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Consolas', monospace;
+}
+
+.light .desgloseValor {
+    color: #0f172a;
+}
+
+.dark .desgloseValor {
+    color: #f1f5f9;
+}
+
+.desgloseItem.mora .desgloseValor {
+    color: #dc2626;
+}
+
+.separador {
+    height: 1px;
+    margin: 24px 0;
+}
+
+.light .separador {
+    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+}
+
+.dark .separador {
+    background: linear-gradient(90deg, transparent, #334155, transparent);
+}
+
+.estadoPago {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.estadoPagoInfo {
+    display: flex;
+    gap: 32px;
+}
+
+.estadoPagoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.estadoPagoLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.light .estadoPagoLabel {
+    color: #64748b;
+}
+
+.dark .estadoPagoLabel {
+    color: #94a3b8;
+}
+
+.estadoPagoValor {
+    font-size: 28px;
+    font-weight: 800;
+    font-family: 'SF Mono', 'Consolas', monospace;
+}
+
+.estadoPagoValor.verde {
+    color: #10b981;
+}
+
+.estadoPagoValor.naranja {
+    color: #f59e0b;
+}
+
+.barraProgreso {
+    padding: 16px 20px;
+    border-radius: 12px;
+}
+
+.light .barraProgreso {
+    background: #f8fafc;
+}
+
+.dark .barraProgreso {
+    background: #0f172a;
+}
+
+.progresoInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.light .progresoInfo {
+    color: #64748b;
+}
+
+.dark .progresoInfo {
+    color: #94a3b8;
+}
+
+.barraProgresoTrack {
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.light .barraProgresoTrack {
+    background: #e5e7eb;
+}
+
+.dark .barraProgresoTrack {
+    background: #334155;
+}
+
+.barraProgresoFill {
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    transition: width 0.5s ease;
+}
+
+/* Panel lateral */
+.panelLateral {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardSecundario {
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.cardSecundario:nth-child(1) { animation-delay: 0.1s; }
+.cardSecundario:nth-child(2) { animation-delay: 0.2s; }
+.cardSecundario:nth-child(3) { animation-delay: 0.3s; }
+
+.light .cardSecundario {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
+.dark .cardSecundario {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.cardSecundarioTitulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 16px;
+}
+
+.cardSecundarioTitulo ion-icon {
+    font-size: 20px;
+    color: #0ea5e9;
+}
+
+.light .cardSecundarioTitulo {
+    color: #0f172a;
+}
+
+.dark .cardSecundarioTitulo {
+    color: #f1f5f9;
+}
+
+.infoLista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infoLabel {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.light .infoLabel {
+    color: #64748b;
+}
+
+.dark .infoLabel {
+    color: #94a3b8;
+}
+
+.infoValor {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .infoValor {
+    color: #0f172a;
+}
+
+.dark .infoValor {
+    color: #f1f5f9;
+}
+
+.infoValor.verde {
+    color: #10b981;
+}
+
+.infoValor.rojo {
+    color: #ef4444;
+}
+
+.infoLink {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0ea5e9;
+    text-decoration: none;
+}
+
+.infoLink:hover {
+    text-decoration: underline;
+}
+
+.clienteCard {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.avatarCliente {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: white;
+    flex-shrink: 0;
+}
+
+.clienteInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.clienteNombre {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.light .clienteNombre {
+    color: #0f172a;
+}
+
+.dark .clienteNombre {
+    color: #f1f5f9;
+}
+
+.clienteDoc {
+    font-size: 12px;
+}
+
+.light .clienteDoc {
+    color: #94a3b8;
+}
+
+.dark .clienteDoc {
+    color: #64748b;
+}
+
+.clienteTelefono {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #0ea5e9;
+    text-decoration: none;
+}
+
+.clienteTelefono:hover {
+    text-decoration: underline;
+}
+
+.clienteTelefono ion-icon {
+    font-size: 14px;
+}
+
+/* ========================================
+   HISTORIAL DE PAGOS
+   ======================================== */
+.seccionPagos {
+    margin-bottom: 32px;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: 0.4s;
+}
+
+.seccionTitulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 20px;
+}
+
+.seccionTitulo ion-icon {
+    font-size: 24px;
+    color: #0ea5e9;
+}
+
+.light .seccionTitulo {
+    color: #0f172a;
+}
+
+.dark .seccionTitulo {
+    color: #f1f5f9;
+}
+
+.tablaPagos {
+    border-radius: 16px;
+    border: 1px solid;
+    overflow: hidden;
+}
+
+.light .tablaPagos {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
+.dark .tablaPagos {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.tablaPagos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tablaPagos thead {
+    background: #f8fafc;
+}
+
+.dark .tablaPagos thead {
+    background: #0f172a;
+}
+
+.tablaPagos th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.light .tablaPagos th {
+    color: #64748b;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.dark .tablaPagos th {
+    color: #94a3b8;
+    border-bottom: 2px solid #334155;
+}
+
+.tablaPagos td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid;
+}
+
+.light .tablaPagos td {
+    border-color: #f1f5f9;
+    color: #0f172a;
+}
+
+.dark .tablaPagos td {
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.tablaPagos tbody tr {
+    animation: fadeInUp 0.3s ease forwards;
+    opacity: 0;
+}
+
+.derecha {
+    text-align: right !important;
+}
+
+.reciboNumero {
+    font-weight: 600;
+    color: #0ea5e9;
+}
+
+.metodoPago {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.montoTotal {
+    font-weight: 700 !important;
+    color: #10b981 !important;
+}
+
+.registradoPor {
+    font-size: 12px;
+}
+
+.light .registradoPor {
+    color: #94a3b8;
+}
+
+.dark .registradoPor {
+    color: #64748b;
+}
+
+/* ========================================
+   ACCIONES RÁPIDAS
+   ======================================== */
+.accionesRapidas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: 0.5s;
+}
+
+.btnAccionRapida {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.light .btnAccionRapida {
+    background: #ffffff;
+    color: #475569;
+    border: 2px solid #e5e7eb;
+}
+
+.light .btnAccionRapida:hover {
+    border-color: #0ea5e9;
+    color: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.15);
+}
+
+.dark .btnAccionRapida {
+    background: #1e293b;
+    color: #94a3b8;
+    border: 2px solid #334155;
+}
+
+.dark .btnAccionRapida:hover {
+    border-color: #0ea5e9;
+    color: #38bdf8;
+    transform: translateY(-2px);
+}
+
+.btnAccionRapida ion-icon {
+    font-size: 20px;
+}
+
+/* ========================================
+   ESTADOS DE CARGA Y ERROR
+   ======================================== */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    min-height: 400px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.light .cargando {
+    color: #0ea5e9;
+}
+
+.dark .cargando {
+    color: #38bdf8;
+}
+
+.cargandoSpinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.light .cargandoSpinner {
+    border-color: #e2e8f0;
+    border-top-color: #0ea5e9;
+}
+
+.dark .cargandoSpinner {
+    border-color: #334155;
+    border-top-color: #38bdf8;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 400px;
+    text-align: center;
+}
+
+.error ion-icon {
+    font-size: 80px;
+    color: #f59e0b;
+}
+
+.error h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.light .error h2 {
+    color: #0f172a;
+}
+
+.dark .error h2 {
+    color: #f1f5f9;
+}
+
+.error p {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .error p {
+    color: #64748b;
+}
+
+.dark .error p {
+    color: #94a3b8;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+    .gridPrincipal {
+        grid-template-columns: 1fr;
+    }
+
+    .panelLateral {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .cardSecundario {
+        flex: 1;
+        min-width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .headerNav {
+        order: 1;
+    }
+
+    .headerAcciones {
+        order: 2;
+        flex-direction: column;
+    }
+
+    .headerAcciones a {
+        justify-content: center;
+    }
+
+    .alertaVencida {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .btnRecalcular {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cuotaValor {
+        font-size: 36px;
+    }
+
+    .montoGrandeValor {
+        font-size: 32px;
+    }
+
+    .desglose {
+        gap: 12px;
+    }
+
+    .desgloseItem {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .estadoPagoInfo {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .estadoPagoValor {
+        font-size: 24px;
+    }
+
+    .panelLateral {
+        flex-direction: column;
+    }
+
+    .cardSecundario {
+        min-width: auto;
+    }
+
+    .tablaPagos {
+        overflow-x: auto;
+    }
+
+    .tablaPagos th:nth-child(4),
+    .tablaPagos td:nth-child(4),
+    .tablaPagos th:nth-child(5),
+    .tablaPagos td:nth-child(5),
+    .tablaPagos th:nth-child(6),
+    .tablaPagos td:nth-child(6) {
+        display: none;
+    }
+
+    .accionesRapidas {
+        flex-direction: column;
+    }
+
+    .btnAccionRapida {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .headerBreadcrumb {
+        font-size: 12px;
+    }
+
+    .cuotaValor {
+        font-size: 28px;
+    }
+
+    .montoGrandeValor {
+        font-size: 26px;
+    }
+
+    .desgloseItem {
+        padding: 12px 14px;
+    }
+
+    .desgloseValor {
+        font-size: 16px;
+    }
+
+    .cardHeader {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+

@@ -1,0 +1,526 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+/* Stats Bar */
+.statsBar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.statCard {
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid;
+    transition: all 0.2s;
+}
+
+.statCard.light {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
+.statCard.dark {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.statLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.statValue {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.statCard.total {
+    border-color: #e2e8f0;
+}
+
+.statCard.activas {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+    color: #166534;
+}
+
+.statCard.vencidas {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #991b1b;
+}
+
+.statCard.suspendidas {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.statCard.limites {
+    background: #fff7ed;
+    border-color: #fed7aa;
+    color: #9a3412;
+}
+
+/* Filtros */
+.filtrosBar {
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.filtrosBar.light {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+}
+
+.filtrosBar.dark {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+.input,
+.select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.light .input,
+.light .select {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .input,
+.dark .select {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+/* Lista */
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cardSub {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid;
+}
+
+.cardSub.light {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
+.cardSub.dark {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.cardHeader {
+    padding: 20px 24px;
+    border-bottom: 1px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.light .cardHeader {
+    background: #f8fafc;
+    border-color: #f1f5f9;
+}
+
+.dark .cardHeader {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.empresaInfo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.empresaNombre {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.empresaRnc {
+    font-size: 13px;
+    color: #64748b;
+    margin: 2px 0 0 0;
+}
+
+.badges {
+    display: flex;
+    gap: 10px;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge.plan_basico {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.badge.plan_profesional {
+    background: #f5f3ff;
+    color: #6d28d9;
+}
+
+.badge.plan_empresarial {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.badge.estado_activa {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge.estado_vencida {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.badge.estado_suspendida {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.badge.estado_bloqueada {
+    background: #7f1d1d;
+    color: #ffffff;
+}
+
+/* Contenido Card */
+.cardBody {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 1024px) {
+    .cardBody {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .cardBody {
+        grid-template-columns: 1fr;
+    }
+}
+
+.seccion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.seccionTitulo {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.datoItem {
+    display: flex;
+    gap: 12px;
+}
+
+.iconDato {
+    color: #cbd5e1;
+    flex-shrink: 0;
+}
+
+.labelSub {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.valorSub {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Progress */
+.progressContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.progressLabel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.progressBar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.progressFill.normal {
+    background: #22c55e;
+}
+
+.progressFill.danger {
+    background: #ef4444;
+}
+
+/* Acciones */
+.btnAccion {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btnAccion.activar {
+    background: #10b981;
+    color: white;
+}
+
+.btnAccion.suspender {
+    background: #ef4444;
+    color: white;
+}
+
+.btnAccion.pagar {
+    background: #3b82f6;
+    color: white;
+}
+
+.btnAccion:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.modal.light {
+    background: #ffffff;
+}
+
+.dark .modal {
+    background: #1e293b;
+}
+
+.modalHeader {
+    padding: 24px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalHeader.suspender {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.modalHeader.activar {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.modalHeader.pago {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.modalBody {
+    padding: 24px;
+}
+
+.alertaModal {
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.alertaModal.suspender {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+}
+
+.alertaModal.activar {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.textarea,
+.modalInput {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-family: inherit;
+    margin-bottom: 20px;
+}
+
+.light .textarea,
+.light .modalInput {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.dark .textarea,
+.dark .modalInput {
+    background: #0f172a;
+    border-color: #334155;
+    color: white;
+}
+
+.modalFooter {
+    padding: 0 24px 24px;
+    display: flex;
+    gap: 15px;
+}
+
+.btnSecundario {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    background: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnPrimario {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnPrimario.suspender {
+    background: #ef4444;
+}
+
+.btnPrimario.activar {
+    background: #10b981;
+}
+
+.btnPrimario.pago {
+    background: #3b82f6;
+}
+
+.btnPrimario:disabled {
+    opacity: 0.5;
+}

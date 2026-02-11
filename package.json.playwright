@@ -1,0 +1,13 @@
+{
+  "name": "playwright-dependency",
+  "version": "1.0.0",
+  "description": "Playwright dependency for PDF generation",
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "npx playwright install chromium"
+  }
+}
+

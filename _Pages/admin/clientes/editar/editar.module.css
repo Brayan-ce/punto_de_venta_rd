@@ -1,0 +1,759 @@
+/* ============================================
+   CONTENEDOR PRINCIPAL
+   ============================================ */
+
+.contenedor {
+    padding: 32px;
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+    padding-bottom: 120px;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 20px;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.headerLeft {
+    flex: 1;
+}
+
+.titulo {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
+}
+
+.light .titulo {
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitulo {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.btnCancelarHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.light .btnCancelarHeader {
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .btnCancelarHeader {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.btnCancelarHeader:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.light .btnCancelarHeader:hover:not(:disabled) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.dark .btnCancelarHeader:hover:not(:disabled) {
+    background: #334155;
+    border-color: #475569;
+}
+
+.btnCancelarHeader ion-icon {
+    font-size: 22px;
+}
+
+/* ============================================
+   CARGANDO
+   ============================================ */
+
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 400px;
+}
+
+.light .cargando {
+    color: #64748b;
+}
+
+.dark .cargando {
+    color: #94a3b8;
+}
+
+.iconoCargando {
+    font-size: 48px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   FORMULARIO Y LAYOUT
+   ============================================ */
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.layoutPrincipal {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* En móviles: imagen arriba */
+@media (min-width: 768px) {
+    .layoutPrincipal {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* En desktop: imagen a la derecha */
+@media (min-width: 1024px) {
+    .layoutPrincipal {
+        grid-template-columns: 1fr 380px;
+    }
+    
+    /* Invertir orden para que imagen quede a la derecha */
+    .columnaIzquierda {
+        order: 1;
+    }
+    
+    .columnaDerecha {
+        order: 2;
+    }
+}
+
+.columnaIzquierda,
+.columnaDerecha {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* En móviles, la imagen va arriba */
+@media (max-width: 1023px) {
+    .layoutPrincipal {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .columnaDerecha {
+        order: -1; /* Imagen primero en móviles */
+    }
+    
+    .columnaIzquierda {
+        order: 1;
+    }
+}
+
+/* ============================================
+   SECCIONES
+   ============================================ */
+
+.seccion {
+    padding: 28px;
+    border-radius: 16px;
+    border: 2px solid;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.light .seccion {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.dark .seccion {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.seccion:hover {
+    transform: translateY(-2px);
+}
+
+.light .seccion:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
+}
+
+.dark .seccion:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: #475569;
+}
+
+.tituloSeccion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 24px 0;
+}
+
+.light .tituloSeccion {
+    color: #0f172a;
+}
+
+.dark .tituloSeccion {
+    color: #f1f5f9;
+}
+
+.tituloSeccion ion-icon {
+    font-size: 26px;
+    color: #3b82f6;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ============================================
+   FOTO / IDENTIFICACIÓN VISUAL
+   ============================================ */
+
+.seccionFoto {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.contenedorPreview {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px dashed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.light .contenedorPreview {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.dark .contenedorPreview {
+    border-color: #475569;
+    background: #0f172a;
+}
+
+.contenedorPreview:hover {
+    transform: scale(1.02);
+    border-style: solid;
+}
+
+.light .contenedorPreview:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.dark .contenedorPreview:hover {
+    border-color: #3b82f6;
+    background: #1e3a8a;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.previewImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.contenedorPreview:hover .previewImg {
+    transform: scale(1.05);
+}
+
+.placeholderFoto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.light .placeholderFoto {
+    color: #64748b;
+}
+
+.dark .placeholderFoto {
+    color: #94a3b8;
+}
+
+.placeholderFoto ion-icon {
+    font-size: 64px;
+    opacity: 0.5;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.placeholderFoto span {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.contenedorPreview:hover .placeholderFoto ion-icon {
+    opacity: 0.8;
+    transform: scale(1.1) translateY(0px);
+    animation: none;
+}
+
+/* ============================================
+   INPUTS Y FORMULARIOS
+   ============================================ */
+
+.gridDosColumnas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 640px) {
+    .gridDosColumnas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.grupoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupoInput label {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.light .grupoInput label {
+    color: #334155;
+}
+
+.dark .grupoInput label {
+    color: #cbd5e1;
+}
+
+.input,
+.select,
+.textarea {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.light .input,
+.light .select,
+.light .textarea {
+    background: #f8fafc;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .input,
+.dark .select,
+.dark .textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.light .input:focus,
+.light .select:focus,
+.light .textarea:focus {
+    border-color: #3b82f6;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dark .input:focus,
+.dark .select:focus,
+.dark .textarea:focus {
+    border-color: #3b82f6;
+    background: #1e293b;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ============================================
+   CHECKBOX
+   ============================================ */
+
+.grupoInputCheck {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.light .grupoInputCheck {
+    background: #f8fafc;
+}
+
+.dark .grupoInputCheck {
+    background: #0f172a;
+}
+
+.grupoInputCheck:hover {
+    transform: translateX(4px);
+}
+
+.labelCheck {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.light .labelCheck {
+    color: #334155;
+}
+
+.dark .labelCheck {
+    color: #cbd5e1;
+}
+
+.labelCheck input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+}
+
+/* ============================================
+   FOOTER FORMULARIO
+   ============================================ */
+
+.footerFormulario {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 32px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    border-top: 2px solid;
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.light .footerFormulario {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #e5e7eb;
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dark .footerFormulario {
+    background: rgba(30, 41, 59, 0.9);
+    border-color: #334155;
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.btnCancelarForm,
+.btnGuardar {
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnCancelarForm {
+    background: transparent;
+    border: 2px solid;
+}
+
+.light .btnCancelarForm {
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .btnCancelarForm {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.btnCancelarForm:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.light .btnCancelarForm:hover:not(:disabled) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.dark .btnCancelarForm:hover:not(:disabled) {
+    background: #334155;
+    border-color: #475569;
+}
+
+.btnGuardar {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+}
+
+.btnGuardar:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.5);
+}
+
+.btnGuardar:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.btnGuardar:disabled,
+.btnCancelarForm:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px;
+        padding-bottom: 100px;
+    }
+
+    .header {
+        margin-bottom: 24px;
+    }
+
+    .titulo {
+        font-size: 28px;
+    }
+
+    .subtitulo {
+        font-size: 14px;
+    }
+
+    .seccion {
+        padding: 20px;
+    }
+
+    .tituloSeccion {
+        font-size: 16px;
+    }
+
+    .footerFormulario {
+        padding: 16px 20px;
+        flex-direction: column-reverse;
+    }
+
+    .btnCancelarForm,
+    .btnGuardar {
+        width: 100%;
+        justify-content: center;
+        padding: 16px;
+    }
+
+    .contenedorPreview {
+        max-width: 240px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .btnCancelarHeader {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .seccion {
+        padding: 16px;
+    }
+}
+
+/* ============================================
+   UTILIDADES
+   ============================================ */
+
+.hidden {
+    display: none;
+}
+
+/* Animaciones adicionales */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    background-size: 1000px 100%;
+}

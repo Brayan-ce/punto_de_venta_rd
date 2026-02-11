@@ -1,0 +1,2805 @@
+/* ===================================
+   VARIABLES Y BASE
+=================================== */
+.contenedor {
+    padding: 24px;
+    min-height: 100vh;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    color: #1e293b;
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+}
+
+/* ===================================
+   HEADER MEJORADO
+=================================== */
+.header {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+.headerInfo {
+    flex: 1;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logoCirculo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+.logoCirculo ion-icon {
+    font-size: 32px;
+    color: #ffffff;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitulo {
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.7;
+    font-weight: 400;
+}
+
+.headerAcciones {
+    display: flex;
+    gap: 12px;
+}
+
+.btnHistorial {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+}
+
+.light .btnHistorial {
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.light .btnHistorial:hover {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.dark .btnHistorial {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.dark .btnHistorial:hover {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.btnHistorial ion-icon {
+    font-size: 20px;
+}
+
+.btnCarrito {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    position: relative;
+}
+
+.btnCarrito:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+}
+
+.btnCarrito ion-icon {
+    font-size: 22px;
+}
+
+.carritoInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.carritoLabel {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.carritoContador {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.carritoBadge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+/* ===================================
+   BARRA DE CATEGORÍAS
+=================================== */
+.categoriasBar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding: 4px;
+    animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+.categoriasBar::-webkit-scrollbar {
+    height: 6px;
+}
+
+.categoriasBar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.light .categoriasBar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.dark .categoriasBar::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 3px;
+}
+
+.categoriaChip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    background: transparent;
+}
+
+.light .categoriaChip {
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+.light .categoriaChip:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.light .categoriaChip.activo {
+    border-color: #10b981;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.dark .categoriaChip {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.dark .categoriaChip:hover {
+    border-color: #475569;
+    background: #1e293b;
+}
+
+.dark .categoriaChip.activo {
+    border-color: #10b981;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.categoriaChip ion-icon {
+    font-size: 18px;
+}
+
+.cantidadBadge {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.light .cantidadBadge {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dark .cantidadBadge {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.categoriaChip.activo .cantidadBadge {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===================================
+   BARRA DE CONTROLES
+=================================== */
+.controlesBar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+    animation: fadeIn 0.6s ease-out 0.3s both;
+}
+
+.busquedaAvanzada {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .busquedaAvanzada {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.light .busquedaAvanzada:focus-within {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.dark .busquedaAvanzada {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark .busquedaAvanzada:focus-within {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.busquedaAvanzada > ion-icon {
+    font-size: 20px;
+    opacity: 0.5;
+}
+
+.inputBusqueda {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+    font-family: inherit;
+}
+
+.light .inputBusqueda {
+    color: #1e293b;
+}
+
+.dark .inputBusqueda {
+    color: #e2e8f0;
+}
+
+.inputBusqueda::placeholder {
+    opacity: 0.5;
+}
+
+.btnLimpiarBusqueda {
+    padding: 4px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.btnLimpiarBusqueda:hover {
+    opacity: 1;
+}
+
+.btnLimpiarBusqueda ion-icon {
+    font-size: 20px;
+}
+
+.vistaControles {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.light .vistaControles {
+    background: #f1f5f9;
+}
+
+.dark .vistaControles {
+    background: #1e293b;
+}
+
+.btnVista {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+}
+
+.light .btnVista {
+    color: #64748b;
+}
+
+.light .btnVista:hover {
+    background: #e2e8f0;
+}
+
+.light .btnVista.activo {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.dark .btnVista {
+    color: #94a3b8;
+}
+
+.dark .btnVista:hover {
+    background: #334155;
+}
+
+.dark .btnVista.activo {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.btnVista ion-icon {
+    font-size: 20px;
+}
+
+.contador {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .contador {
+    background: #ffffff;
+    color: #475569;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .contador {
+    background: #1e293b;
+    color: #cbd5e1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contador ion-icon {
+    font-size: 18px;
+}
+
+/* ===================================
+   ALERTA DE AHORRO
+=================================== */
+.alertaAhorro {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    animation: slideInDown 0.5s ease-out;
+}
+
+.alertaAhorro ion-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.alertaAhorro strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.alertaAhorro span {
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   GRID DE PRODUCTOS
+=================================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.productoCard {
+    padding: 0;
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.light .productoCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.light .productoCard:hover {
+    border-color: #10b981;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+.dark .productoCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark .productoCard:hover {
+    border-color: #10b981;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+    transform: translateY(-4px);
+}
+
+/* Badges superiores */
+.badgesContainer {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    z-index: 10;
+}
+
+.badgeDestacado {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+}
+
+.badgeDestacado ion-icon {
+    font-size: 14px;
+}
+
+.badgeVolumen {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.badgeVolumen ion-icon {
+    font-size: 14px;
+}
+
+/* Imagen del producto */
+.imagenContainer {
+    width: 100%;
+    height: 240px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.light .imagenContainer {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.dark .imagenContainer {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.productoCard:hover .imagen {
+    transform: scale(1.1);
+}
+
+.imagenPlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.imagenPlaceholder ion-icon {
+    font-size: 64px;
+    opacity: 0.3;
+}
+
+.btnZoom {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.productoCard:hover .btnZoom {
+    opacity: 1;
+}
+
+.btnZoom:hover {
+    transform: scale(1.1);
+    background: #10b981;
+    color: #ffffff;
+}
+
+.btnZoom ion-icon {
+    font-size: 22px;
+}
+
+/* Información del producto */
+.productoInfo {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+.productoHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.productoNombre {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.light .productoNombre {
+    color: #0f172a;
+}
+
+.dark .productoNombre {
+    color: #f1f5f9;
+}
+
+.sku {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+.descripcion {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Detalles */
+.detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.detalleItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detalleItem ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.light .detalleItem ion-icon {
+    color: #64748b;
+}
+
+.dark .detalleItem ion-icon {
+    color: #94a3b8;
+}
+
+.detalleLabel {
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.light .detalleLabel {
+    color: #64748b;
+}
+
+.dark .detalleLabel {
+    color: #94a3b8;
+}
+
+.detalleValor {
+    flex: 1;
+}
+
+.stockBueno {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.stockBajo {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.stockAgotado {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+/* Precios */
+.precios {
+    padding-top: 16px;
+    border-top: 2px solid;
+}
+
+.light .precios {
+    border-top-color: #e2e8f0;
+}
+
+.dark .precios {
+    border-top-color: #334155;
+}
+
+.precioPrincipal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.precioLabel {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.precioValor {
+    font-size: 28px;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.precioVolumen {
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.light .precioVolumen {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.dark .precioVolumen {
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.precioVolumen > ion-icon {
+    font-size: 20px;
+    color: #10b981;
+}
+
+.precioVolumenInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.precioVolumenInfo span {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.precioVolumenInfo strong {
+    font-size: 16px;
+    color: #10b981;
+}
+
+.descuentoAplicado {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #10b981;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.light .descuentoAplicado {
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.dark .descuentoAplicado {
+    background: rgba(16, 185, 129, 0.2);
+}
+
+.descuentoAplicado ion-icon {
+    font-size: 16px;
+}
+
+/* Acciones */
+.acciones {
+    padding-top: 16px;
+    border-top: 2px solid;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.light .acciones {
+    border-top-color: #e2e8f0;
+}
+
+.dark .acciones {
+    border-top-color: #334155;
+}
+
+.btnVerMas {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+}
+
+.light .btnVerMas {
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.light .btnVerMas:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.dark .btnVerMas {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.dark .btnVerMas:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.btnVerMas ion-icon {
+    font-size: 18px;
+}
+
+.controlesCantidad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid;
+}
+
+.light .controlesCantidad {
+    border-color: #e2e8f0;
+    background: #f8fafc;
+}
+
+.dark .controlesCantidad {
+    border-color: #334155;
+    background: #0f172a;
+}
+
+.btnCantidad {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+}
+
+.btnCantidad:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btnCantidad:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btnCantidad ion-icon {
+    font-size: 20px;
+}
+
+.cantidad {
+    font-size: 20px;
+    font-weight: 700;
+    min-width: 40px;
+    text-align: center;
+}
+
+.btnAgregar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.btnAgregar:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.btnAgregar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btnAgregar ion-icon {
+    font-size: 20px;
+}
+
+/* ===================================
+   VISTA LISTA
+=================================== */
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.productoCardLista {
+    padding: 20px;
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid;
+    display: flex;
+    gap: 20px;
+}
+
+.light .productoCardLista {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.light .productoCardLista:hover {
+    border-color: #10b981;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dark .productoCardLista {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark .productoCardLista:hover {
+    border-color: #10b981;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.imagenContainerLista {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.light .imagenContainerLista {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.dark .imagenContainerLista {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.imagenLista {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.imagenLista:hover {
+    transform: scale(1.1);
+}
+
+.imagenPlaceholderLista {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagenPlaceholderLista ion-icon {
+    font-size: 48px;
+    opacity: 0.3;
+}
+
+.productoInfoLista {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.productoHeaderLista {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.productoNombreLista {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.light .productoNombreLista {
+    color: #0f172a;
+}
+
+.dark .productoNombreLista {
+    color: #f1f5f9;
+}
+
+.skuLista {
+    font-size: 13px;
+    opacity: 0.6;
+    font-weight: 600;
+}
+
+.badgesLista {
+    display: flex;
+    gap: 8px;
+}
+
+.badgeDestacadoLista {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    font-size: 16px;
+}
+
+.descripcionLista {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.detallesLista {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.stockBadge,
+.entregaBadge,
+.categoriaBadge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.light .stockBadge,
+.light .entregaBadge,
+.light .categoriaBadge {
+    background: #f1f5f9;
+}
+
+.dark .stockBadge,
+.dark .entregaBadge,
+.dark .categoriaBadge {
+    background: #0f172a;
+}
+
+.stockBadge ion-icon,
+.entregaBadge ion-icon,
+.categoriaBadge ion-icon {
+    font-size: 16px;
+}
+
+.accionesLista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-width: 200px;
+}
+
+.preciosLista {
+    text-align: right;
+}
+
+.precioPrincipalLista {
+    font-size: 28px;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.precioVolumenLista {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.precioVolumenLista ion-icon {
+    font-size: 16px;
+}
+
+.botonesLista {
+    display: flex;
+    gap: 8px;
+}
+
+.btnVerMasLista {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+}
+
+.light .btnVerMasLista {
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.light .btnVerMasLista:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.dark .btnVerMasLista {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.dark .btnVerMasLista:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.btnVerMasLista ion-icon {
+    font-size: 20px;
+}
+
+.controlesCantidadLista {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnCantidadLista {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+}
+
+.btnCantidadLista:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.btnCantidadLista:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btnCantidadLista ion-icon {
+    font-size: 18px;
+}
+
+.cantidadLista {
+    font-size: 18px;
+    font-weight: 700;
+    min-width: 30px;
+    text-align: center;
+}
+
+.btnAgregarLista {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+}
+
+.btnAgregarLista:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnAgregarLista:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnAgregarLista ion-icon {
+    font-size: 18px;
+}
+
+/* ===================================
+   ESTADOS Y UTILIDADES
+=================================== */
+.cargando,
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+    gap: 20px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.vacioIcono {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.light .vacioIcono {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.dark .vacioIcono {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.vacioIcono ion-icon {
+    font-size: 64px;
+    opacity: 0.5;
+}
+
+.vacio h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.vacio p {
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.6;
+    max-width: 400px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.light .spinner {
+    border-color: #e2e8f0;
+    border-top-color: #10b981;
+}
+
+.dark .spinner {
+    border-color: #334155;
+    border-top-color: #10b981;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===================================
+   MODAL DE IMAGEN
+=================================== */
+.modalImagen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+    backdrop-filter: blur(8px);
+}
+
+.modalContenido {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    animation: zoomIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modalContenido img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modalCerrar {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modalCerrar:hover {
+    transform: scale(1.1);
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.modalCerrar ion-icon {
+    font-size: 28px;
+}
+
+.modalTitulo {
+    margin-top: 16px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ===================================
+   MODALES (Continuará...)
+=================================== */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+    backdrop-filter: blur(4px);
+}
+
+/* Modal de Detalle del Producto */
+.modalDetalleContent {
+    max-width: 1000px;
+    width: 100%;
+    max-height: 90vh;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    animation: zoomIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .modalDetalleContent {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.dark .modalDetalleContent {
+    background: #1e293b;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.modalCerrarDetalle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .modalCerrarDetalle {
+    background: rgba(241, 245, 249, 0.95);
+    color: #64748b;
+}
+
+.light .modalCerrarDetalle:hover {
+    background: #ef4444;
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.dark .modalCerrarDetalle {
+    background: rgba(51, 65, 85, 0.95);
+    color: #94a3b8;
+}
+
+.dark .modalCerrarDetalle:hover {
+    background: #ef4444;
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.modalCerrarDetalle ion-icon {
+    font-size: 28px;
+}
+
+.detalleLayout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.detalleImagenSection {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.light .detalleImagenSection {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.dark .detalleImagenSection {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.detalleImagen {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.detalleImagenPlaceholder {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.light .detalleImagenPlaceholder {
+    background: #ffffff;
+}
+
+.dark .detalleImagenPlaceholder {
+    background: #1e293b;
+}
+
+.detalleImagenPlaceholder ion-icon {
+    font-size: 80px;
+    opacity: 0.3;
+}
+
+.detalleDestacadoBadge {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+}
+
+.detalleDestacadoBadge ion-icon {
+    font-size: 18px;
+}
+
+.detalleInfoSection {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+}
+
+.detalleHeader {
+    padding-bottom: 20px;
+    border-bottom: 2px solid;
+}
+
+.light .detalleHeader {
+    border-bottom-color: #e2e8f0;
+}
+
+.dark .detalleHeader {
+    border-bottom-color: #334155;
+}
+
+.detalleTitulo {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+}
+
+.light .detalleTitulo {
+    color: #0f172a;
+}
+
+.dark .detalleTitulo {
+    color: #f1f5f9;
+}
+
+.detalleSku {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+.detalleDescripcion h4,
+.detalleEspecificaciones h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+}
+
+.light .detalleDescripcion h4,
+.light .detalleEspecificaciones h4 {
+    color: #475569;
+}
+
+.dark .detalleDescripcion h4,
+.dark .detalleEspecificaciones h4 {
+    color: #cbd5e1;
+}
+
+.detalleDescripcion p {
+    margin: 0;
+    line-height: 1.7;
+    opacity: 0.8;
+}
+
+.especificacionesGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.especItem {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.especItem ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.light .especItem ion-icon {
+    color: #64748b;
+}
+
+.dark .especItem ion-icon {
+    color: #94a3b8;
+}
+
+.especItem > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.especLabel {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.especValor {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.detallePreciosCard {
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.light .detallePreciosCard {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+}
+
+.dark .detallePreciosCard {
+    background: #0f172a;
+    border: 2px solid #334155;
+}
+
+.precioPrincipalDetalle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.precioLabelDetalle {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.precioValorDetalle {
+    font-size: 32px;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.precioVolumenDetalle {
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.light .precioVolumenDetalle {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.dark .precioVolumenDetalle {
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.precioVolumenHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #10b981;
+    margin-bottom: 12px;
+}
+
+.precioVolumenHeader ion-icon {
+    font-size: 20px;
+}
+
+.precioVolumenBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.precioVolumenBody > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.precioVolumenBody span {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.precioVolumenBody strong {
+    font-size: 18px;
+    color: #10b981;
+}
+
+.descuentoAplicadoDetalle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #10b981;
+}
+
+.light .descuentoAplicadoDetalle {
+    background: rgba(16, 185, 129, 0.2);
+}
+
+.dark .descuentoAplicadoDetalle {
+    background: rgba(16, 185, 129, 0.3);
+}
+
+.descuentoAplicadoDetalle ion-icon {
+    font-size: 16px;
+}
+
+.detalleAccionesCard {
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.light .detalleAccionesCard {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+}
+
+.dark .detalleAccionesCard {
+    background: #0f172a;
+    border: 2px solid #334155;
+}
+
+.detalleCantidadSelector label {
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0.7;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.cantidadControles {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btnCantidadDetalle {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+}
+
+.btnCantidadDetalle:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btnCantidadDetalle:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btnCantidadDetalle ion-icon {
+    font-size: 24px;
+}
+
+.inputCantidad {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    font-family: inherit;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .inputCantidad {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #1e293b;
+}
+
+.light .inputCantidad:focus {
+    border-color: #10b981;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.dark .inputCantidad {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+.dark .inputCantidad:focus {
+    border-color: #10b981;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.detalleTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.detalleTotal strong {
+    font-size: 28px;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.btnAgregarDetalle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.btnAgregarDetalle:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btnAgregarDetalle:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnAgregarDetalle ion-icon {
+    font-size: 22px;
+}
+
+/* Modal del Carrito (continuará con mismo estilo...) */
+.modalCarritoContent {
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .modalCarritoContent {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.dark .modalCarritoContent {
+    background: #1e293b;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.modalHeader {
+    padding: 24px 32px;
+    border-bottom: 2px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.light .modalHeader {
+    border-bottom-color: #e2e8f0;
+}
+
+.dark .modalHeader {
+    border-bottom-color: #334155;
+}
+
+.modalTitulo {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.light .modalTitulo {
+    color: #0f172a;
+}
+
+.dark .modalTitulo {
+    color: #f1f5f9;
+}
+
+.modalTitulo ion-icon {
+    font-size: 28px;
+    color: #3b82f6;
+}
+
+.modalSubtitulo {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.modalHeaderAcciones {
+    display: flex;
+    gap: 8px;
+}
+
+.btnVaciarCarrito {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 2px solid;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+}
+
+.light .btnVaciarCarrito {
+    border-color: #e2e8f0;
+    color: #ef4444;
+}
+
+.light .btnVaciarCarrito:hover {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.dark .btnVaciarCarrito {
+    border-color: #334155;
+    color: #ef4444;
+}
+
+.dark .btnVaciarCarrito:hover {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.btnVaciarCarrito ion-icon {
+    font-size: 16px;
+}
+
+.btnCerrar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .btnCerrar {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.light .btnCerrar:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.dark .btnCerrar {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.dark .btnCerrar:hover {
+    background: #475569;
+    color: #e2e8f0;
+}
+
+.btnCerrar ion-icon {
+    font-size: 24px;
+}
+
+.modalBody {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 32px;
+}
+
+.carritoVacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    gap: 20px;
+}
+
+.carritoVacioIcono {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.light .carritoVacioIcono {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.dark .carritoVacioIcono {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.carritoVacioIcono ion-icon {
+    font-size: 60px;
+    opacity: 0.5;
+}
+
+.carritoVacio h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.carritoVacio p {
+    font-size: 15px;
+    margin: 0;
+    opacity: 0.6;
+}
+
+.btnSeguirComprando {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    margin-top: 8px;
+}
+
+.btnSeguirComprando:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.btnSeguirComprando ion-icon {
+    font-size: 20px;
+}
+
+.listaCarrito {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.itemCarrito {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 2px solid;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .itemCarrito {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+.light .itemCarrito:hover {
+    border-color: #cbd5e1;
+}
+
+.dark .itemCarrito {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.dark .itemCarrito:hover {
+    border-color: #475569;
+}
+
+.itemImagenContainer {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.light .itemImagenContainer {
+    background: #ffffff;
+}
+
+.dark .itemImagenContainer {
+    background: #1e293b;
+}
+
+.itemImagenContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.itemImagenPlaceholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemImagenPlaceholder ion-icon {
+    font-size: 40px;
+    opacity: 0.3;
+}
+
+.itemInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.itemNombre {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.light .itemNombre {
+    color: #0f172a;
+}
+
+.dark .itemNombre {
+    color: #f1f5f9;
+}
+
+.itemSku {
+    font-size: 12px;
+    opacity: 0.6;
+    font-weight: 600;
+}
+
+.itemPrecioInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.itemPrecio {
+    font-size: 14px;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.itemDescuento {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.itemDescuento ion-icon {
+    font-size: 14px;
+}
+
+.itemControles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.itemCantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btnCantidadCarrito {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+}
+
+.btnCantidadCarrito:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.btnCantidadCarrito:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btnCantidadCarrito ion-icon {
+    font-size: 18px;
+}
+
+.itemCantidad span {
+    font-size: 16px;
+    font-weight: 700;
+    min-width: 30px;
+    text-align: center;
+}
+
+.itemSubtotal {
+    font-size: 20px;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.btnEliminarItem {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.btnEliminarItem:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btnEliminarItem ion-icon {
+    font-size: 18px;
+}
+
+.pedidoConfig {
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.light .pedidoConfig {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+}
+
+.dark .pedidoConfig {
+    background: #0f172a;
+    border: 2px solid #334155;
+}
+
+.pedidoConfig h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.light .pedidoConfig h3 {
+    color: #0f172a;
+}
+
+.dark .pedidoConfig h3 {
+    color: #f1f5f9;
+}
+
+.configItem {
+    margin-bottom: 16px;
+}
+
+.configItem:last-child {
+    margin-bottom: 0;
+}
+
+.configItem label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.light .configItem label {
+    color: #475569;
+}
+
+.dark .configItem label {
+    color: #cbd5e1;
+}
+
+.selectConfig,
+.textareaConfig {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 15px;
+    font-family: inherit;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .selectConfig,
+.light .textareaConfig {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #1e293b;
+}
+
+.light .selectConfig:focus,
+.light .textareaConfig:focus {
+    border-color: #10b981;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.dark .selectConfig,
+.dark .textareaConfig {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+.dark .selectConfig:focus,
+.dark .textareaConfig:focus {
+    border-color: #10b981;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.textareaConfig {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.carritoResumen {
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.light .carritoResumen {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+}
+
+.dark .carritoResumen {
+    background: #0f172a;
+    border: 2px solid #334155;
+}
+
+.carritoResumen h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.light .carritoResumen h3 {
+    color: #0f172a;
+}
+
+.dark .carritoResumen h3 {
+    color: #f1f5f9;
+}
+
+.resumenLinea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 16px;
+}
+
+.resumenLineaDescuento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 15px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+.resumenLineaDescuento ion-icon {
+    font-size: 18px;
+    margin-right: 4px;
+}
+
+.resumenLineaDescuento span:first-child {
+    display: flex;
+    align-items: center;
+}
+
+.resumenLineaTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-top: 2px solid;
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .resumenLineaTotal {
+    border-top-color: #e2e8f0;
+}
+
+.dark .resumenLineaTotal {
+    border-top-color: #334155;
+}
+
+.resumenLineaTotal span:last-child {
+    font-size: 32px;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.btnCrearPedido {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    margin-top: 20px;
+}
+
+.btnCrearPedido:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+
+.btnCrearPedido:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnCrearPedido ion-icon {
+    font-size: 22px;
+}
+
+.notaPedido {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.light .notaPedido {
+    background: rgba(59, 130, 246, 0.1);
+    color: #1e40af;
+}
+
+.dark .notaPedido {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+}
+
+.notaPedido ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* ===================================
+   ANIMACIONES
+=================================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media (max-width: 1024px) {
+    .detalleLayout {
+        grid-template-columns: 1fr;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .logoContainer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .headerAcciones {
+        flex-direction: column;
+    }
+
+    .categoriasBar {
+        margin-bottom: 16px;
+    }
+
+    .controlesBar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .busquedaAvanzada {
+        min-width: 100%;
+    }
+
+    .vistaControles,
+    .contador {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .productoCardLista {
+        flex-direction: column;
+    }
+
+    .imagenContainerLista {
+        width: 100%;
+        height: 200px;
+    }
+
+    .accionesLista {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .detalleImagenSection {
+        padding: 24px;
+    }
+
+    .detalleInfoSection {
+        padding: 24px;
+    }
+
+    .modalBody {
+        padding: 16px;
+    }
+
+    .itemCarrito {
+        flex-wrap: wrap;
+    }
+
+    .itemControles {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo {
+        font-size: 24px;
+    }
+
+    .subtitulo {
+        font-size: 14px;
+    }
+
+    .btnCarrito,
+    .btnHistorial {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .productoCard {
+        border-radius: 12px;
+    }
+
+    .imagenContainer {
+        height: 200px;
+    }
+}

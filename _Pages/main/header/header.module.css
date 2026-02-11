@@ -1,0 +1,486 @@
+.header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.header.light {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.header.dark {
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.contenedor {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.botonMenu {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.light .botonMenu {
+    color: #0ea5e9;
+}
+
+.dark .botonMenu {
+    color: #38bdf8;
+}
+
+.light .botonMenu:hover {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.dark .botonMenu:hover {
+    background: #1e293b;
+    color: #7dd3fc;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logoImagen {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logoTexto {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.light .logoTexto {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .logoTexto {
+    background: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.acciones {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.botonTema {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.light .botonTema {
+    color: #0ea5e9;
+}
+
+.dark .botonTema {
+    color: #38bdf8;
+}
+
+.light .botonTema:hover {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.dark .botonTema:hover {
+    background: #1e293b;
+    color: #7dd3fc;
+}
+
+.botonAyuda {
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.light .botonAyuda {
+    color: #0ea5e9;
+}
+
+.dark .botonAyuda {
+    color: #38bdf8;
+}
+
+.light .botonAyuda:hover {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.dark .botonAyuda:hover {
+    background: #1e293b;
+    color: #7dd3fc;
+}
+
+.botonLogin {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border: 2px solid #0ea5e9;
+}
+
+.light .botonLogin {
+    background: transparent;
+    color: #0ea5e9;
+}
+
+.dark .botonLogin {
+    background: transparent;
+    color: #38bdf8;
+    border-color: #38bdf8;
+}
+
+.light .botonLogin:hover {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .botonLogin:hover {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.botonRegistro {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.light .botonRegistro {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .botonRegistro {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.light .botonRegistro:hover {
+    background: #0284c7;
+}
+
+.dark .botonRegistro:hover {
+    background: #7dd3fc;
+}
+
+.cargando {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.light .cargando {
+    color: #0ea5e9;
+}
+
+.dark .cargando {
+    color: #38bdf8;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.menuLateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 80%;
+    max-width: 320px;
+    z-index: 999;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+}
+
+.menuLateral.light {
+    background: #ffffff;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.menuLateral.dark {
+    background: #0f172a;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.botonCerrar {
+    position: fixed;
+    top: 15px;
+    right: calc(20% + 15px);
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.light .botonCerrar {
+    color: #0284c7;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dark .botonCerrar {
+    color: #38bdf8;
+    background: rgba(15, 23, 42, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.light .botonCerrar:hover {
+    background: #e0f2fe;
+    color: #0ea5e9;
+}
+
+.dark .botonCerrar:hover {
+    background: #1e293b;
+    color: #7dd3fc;
+}
+
+.menuContenido {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.menuHeader {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.light .menuHeader {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .menuHeader {
+    border-bottom: 1px solid #1e293b;
+}
+
+.menuLogo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.menuLogoTexto {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.light .menuLogoTexto {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .menuLogoTexto {
+    background: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.menuNav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.menuItem ion-icon {
+    font-size: 24px;
+}
+
+.light .menuItem {
+    color: #475569;
+}
+
+.dark .menuItem {
+    color: #cbd5e1;
+}
+
+.light .menuItem:hover {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.dark .menuItem:hover {
+    background: #1e293b;
+    color: #38bdf8;
+}
+
+.menuFooter {
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.light .menuFooter {
+    border-top: 1px solid #e5e7eb;
+}
+
+.dark .menuFooter {
+    border-top: 1px solid #1e293b;
+}
+
+.menuItemTema {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menuItemTema ion-icon {
+    font-size: 24px;
+}
+
+.light .menuItemTema {
+    color: #475569;
+}
+
+.dark .menuItemTema {
+    color: #cbd5e1;
+}
+
+.light .menuItemTema:hover {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.dark .menuItemTema:hover {
+    background: #1e293b;
+    color: #38bdf8;
+}
+
+@media (max-width: 768px) {
+    .botonMenu {
+        display: flex;
+    }
+
+    .botonLogin,
+    .botonRegistro,
+    .botonAyuda {
+        display: none;
+    }
+
+    .botonTema {
+        display: none;
+    }
+}

@@ -1,0 +1,133 @@
+.contenedor {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition: all 0.3s ease;
+}
+
+.dark .header {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: #334155;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.headerContenedor {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logoLink {
+    font-size: 20px;
+    font-weight: 800;
+    color: #3b82f6;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.logoLink:hover {
+    color: #2563eb;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+}
+
+.navLink {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.navLink:hover {
+    background: #f1f5f9;
+    color: #3b82f6;
+}
+
+.dark .navLink {
+    color: #94a3b8;
+}
+
+.dark .navLink:hover {
+    background: #1e293b;
+    color: #3b82f6;
+}
+
+.navLink.activo {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.dark .navLink.activo {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.volverLink {
+    font-size: 13px;
+    font-weight: 500;
+    color: #94a3b8;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+.volverLink:hover {
+    color: #64748b;
+}
+
+.dark .volverLink:hover {
+    color: #cbd5e1;
+}
+
+.main {
+    flex: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}

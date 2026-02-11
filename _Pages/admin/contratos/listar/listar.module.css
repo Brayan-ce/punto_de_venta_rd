@@ -1,0 +1,949 @@
+/* ========================================
+   LISTADO DE CONTRATOS - ESTILOS
+   ======================================== */
+
+.contenedor {
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Header */
+.header {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.headerInfo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.headerIcono {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
+}
+
+.headerIcono img {
+    filter: brightness(0) invert(1);
+}
+
+.titulo {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitulo {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.headerAcciones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Botones */
+.btnNuevo, .btnSecundario {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btnNuevo {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnNuevo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btnSecundario {
+    background: transparent;
+    border: 2px solid;
+}
+
+.light .btnSecundario {
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+.light .btnSecundario:hover {
+    background: #f1f5f9;
+}
+
+.dark .btnSecundario {
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.dark .btnSecundario:hover {
+    background: #334155;
+}
+
+.btnNuevo ion-icon, .btnSecundario ion-icon {
+    font-size: 18px;
+}
+
+/* Filtros */
+.filtros {
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.filtrosBusqueda {
+    display: flex;
+    gap: 12px;
+}
+
+.inputBuscarWrapper {
+    flex: 1;
+    position: relative;
+    max-width: 500px;
+}
+
+.inputBuscarWrapper ion-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.light .inputBuscarWrapper ion-icon {
+    color: #94a3b8;
+}
+
+.dark .inputBuscarWrapper ion-icon {
+    color: #64748b;
+}
+
+.inputBuscar {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.light .inputBuscar {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.light .inputBuscar:focus {
+    border-color: #0ea5e9;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.dark .inputBuscar {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.dark .inputBuscar:focus {
+    border-color: #0ea5e9;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+.btnLimpiar {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.light .btnLimpiar {
+    color: #94a3b8;
+}
+
+.light .btnLimpiar:hover {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.dark .btnLimpiar {
+    color: #64748b;
+}
+
+.dark .btnLimpiar:hover {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.btnLimpiar ion-icon {
+    font-size: 18px;
+}
+
+.filtrosEstado {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filtroBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: 2px solid;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.light .filtroBtn {
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+.light .filtroBtn:hover {
+    background: #f8fafc;
+}
+
+.light .filtroBtn.activo {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .filtroBtn {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.dark .filtroBtn:hover {
+    background: #1e293b;
+}
+
+.dark .filtroBtn.activo {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+    color: #ffffff;
+}
+
+.filtroBtn.success.activo {
+    background: #10b981;
+    border-color: #10b981;
+}
+
+.filtroBtn.info.activo {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.filtroBtn.danger.activo {
+    background: #ef4444;
+    border-color: #ef4444;
+}
+
+.filtroBtn.warning.activo {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.filtroBtn.secondary.activo {
+    background: #6b7280;
+    border-color: #6b7280;
+}
+
+.filtroBtn ion-icon {
+    font-size: 16px;
+}
+
+/* Grid de contratos */
+.gridContratos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.contratoCard {
+    border-radius: 16px;
+    border: 1px solid;
+    padding: 20px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contratoCard:nth-child(1) { animation-delay: 0.05s; }
+.contratoCard:nth-child(2) { animation-delay: 0.1s; }
+.contratoCard:nth-child(3) { animation-delay: 0.15s; }
+.contratoCard:nth-child(4) { animation-delay: 0.2s; }
+.contratoCard:nth-child(5) { animation-delay: 0.25s; }
+.contratoCard:nth-child(6) { animation-delay: 0.3s; }
+
+.light .contratoCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.light .contratoCard:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: #0ea5e9;
+}
+
+.dark .contratoCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark .contratoCard:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-color: #0ea5e9;
+}
+
+.contratoHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid;
+}
+
+.light .contratoHeader {
+    border-color: #f1f5f9;
+}
+
+.dark .contratoHeader {
+    border-color: #334155;
+}
+
+.contratoIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contratoIcono.activo {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+}
+
+.contratoIcono.pagado {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+}
+
+.contratoIcono.incumplido {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+}
+
+.contratoIcono.reestructurado {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.contratoIcono.cancelado {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.contratoHeaderInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.contratoNumero {
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.light .contratoNumero {
+    color: #0f172a;
+}
+
+.dark .contratoNumero {
+    color: #f1f5f9;
+}
+
+.contratoFecha {
+    font-size: 12px;
+    display: block;
+}
+
+.light .contratoFecha {
+    color: #94a3b8;
+}
+
+.dark .contratoFecha {
+    color: #64748b;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge.success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge.info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.badge.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.badge.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge.secondary {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.contratoCliente {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.contratoCliente ion-icon {
+    font-size: 20px;
+    color: #0ea5e9;
+}
+
+.clienteNombre {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+}
+
+.light .clienteNombre {
+    color: #0f172a;
+}
+
+.dark .clienteNombre {
+    color: #f1f5f9;
+}
+
+.clienteDoc {
+    font-size: 12px;
+    display: block;
+}
+
+.light .clienteDoc {
+    color: #64748b;
+}
+
+.dark .clienteDoc {
+    color: #94a3b8;
+}
+
+.contratoMontos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.light .contratoMontos {
+    background: #f8fafc;
+}
+
+.dark .contratoMontos {
+    background: #0f172a;
+}
+
+.montoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.montoLabel {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.light .montoLabel {
+    color: #94a3b8;
+}
+
+.dark .montoLabel {
+    color: #64748b;
+}
+
+.montoValor {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .montoValor {
+    color: #0f172a;
+}
+
+.dark .montoValor {
+    color: #f1f5f9;
+}
+
+.montoValor.pendiente {
+    color: #f59e0b;
+}
+
+.contratoProgreso {
+    margin-bottom: 16px;
+}
+
+.progresoInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.light .progresoInfo {
+    color: #64748b;
+}
+
+.dark .progresoInfo {
+    color: #94a3b8;
+}
+
+.progresoBarra {
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.light .progresoBarra {
+    background: #e2e8f0;
+}
+
+.dark .progresoBarra {
+    background: #334155;
+}
+
+.progresoRelleno {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.contratoAcciones {
+    display: flex;
+    gap: 8px;
+}
+
+.btnVer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: #ffffff;
+}
+
+.btnVer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btnVer ion-icon {
+    font-size: 18px;
+}
+
+.btnEditar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.light .btnEditar {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.light .btnEditar:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .btnEditar {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.dark .btnEditar:hover {
+    background: #475569;
+    color: #f1f5f9;
+}
+
+.btnEditar ion-icon {
+    font-size: 20px;
+}
+
+/* Paginación */
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btnPaginacion {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.light .btnPaginacion {
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+.light .btnPaginacion:hover:not(:disabled) {
+    background: #f1f5f9;
+    border-color: #0ea5e9;
+    color: #0ea5e9;
+}
+
+.light .btnPaginacion:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.dark .btnPaginacion {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.dark .btnPaginacion:hover:not(:disabled) {
+    background: #1e293b;
+    border-color: #0ea5e9;
+    color: #0ea5e9;
+}
+
+.dark .btnPaginacion:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btnPaginacion ion-icon {
+    font-size: 16px;
+}
+
+.paginacionNumeros {
+    display: flex;
+    gap: 4px;
+}
+
+.btnNumero {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.light .btnNumero {
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+.light .btnNumero:hover {
+    background: #f1f5f9;
+}
+
+.light .btnNumero.activo {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .btnNumero {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.dark .btnNumero:hover {
+    background: #1e293b;
+}
+
+.dark .btnNumero.activo {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+    color: #ffffff;
+}
+
+/* Estado de carga */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 400px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.light .cargando {
+    color: #0ea5e9;
+}
+
+.dark .cargando {
+    color: #38bdf8;
+}
+
+.cargandoSpinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.light .cargandoSpinner {
+    border-color: #e2e8f0;
+    border-top-color: #0ea5e9;
+}
+
+.dark .cargandoSpinner {
+    border-color: #334155;
+    border-top-color: #38bdf8;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estado vacío */
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 16px;
+    border: 2px dashed;
+}
+
+.light .vacio {
+    border-color: #e2e8f0;
+    background: #f8fafc;
+}
+
+.dark .vacio {
+    border-color: #334155;
+    background: #1e293b;
+}
+
+.vacioIcono {
+    margin-bottom: 20px;
+    opacity: 0.6;
+}
+
+.vacioTitulo {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.light .vacioTitulo {
+    color: #0f172a;
+}
+
+.dark .vacioTitulo {
+    color: #f1f5f9;
+}
+
+.vacioTexto {
+    font-size: 14px;
+    margin: 0 0 24px 0;
+    max-width: 400px;
+}
+
+.light .vacioTexto {
+    color: #64748b;
+}
+
+.dark .vacioTexto {
+    color: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .headerAcciones {
+        width: 100%;
+    }
+
+    .headerAcciones a {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .filtrosEstado {
+        overflow-x: auto;
+        padding-bottom: 8px;
+        flex-wrap: nowrap;
+    }
+
+    .filtroBtn {
+        white-space: nowrap;
+    }
+
+    .gridContratos {
+        grid-template-columns: 1fr;
+    }
+
+    .paginacion {
+        gap: 4px;
+    }
+
+    .btnPaginacion span {
+        display: none;
+    }
+}
+

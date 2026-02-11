@@ -1,0 +1,295 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.tituloSection {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.gridEstadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.card {
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.light .card {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .card {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.light .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.cardIcon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+.cardContent {
+    flex: 1;
+}
+
+.cardTitulo {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.light .cardTitulo {
+    color: #64748b;
+}
+
+.dark .cardTitulo {
+    color: #94a3b8;
+}
+
+.cardValor {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.light .cardValor {
+    color: #0f172a;
+}
+
+.dark .cardValor {
+    color: #f1f5f9;
+}
+
+.cardSubtitulo {
+    font-size: 13px;
+    margin: 0;
+}
+
+.light .cardSubtitulo {
+    color: #94a3b8;
+}
+
+.dark .cardSubtitulo {
+    color: #64748b;
+}
+
+.cardLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid;
+}
+
+.light .cardLink {
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.dark .cardLink {
+    background: #334155;
+    border-color: #475569;
+    color: #cbd5e1;
+}
+
+.light .cardLink:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+}
+
+.dark .cardLink:hover {
+    background: #475569;
+    border-color: #64748b;
+}
+
+.cardLink ion-icon {
+    font-size: 16px;
+}
+
+.accionesRapidas {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btnAccion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 2px solid;
+}
+
+.light .btnAccion {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #475569;
+}
+
+.dark .btnAccion {
+    background: #1e293b;
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.light .btnAccion:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.dark .btnAccion:hover {
+    border-color: #60a5fa;
+    color: #60a5fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
+.btnAccion ion-icon {
+    font-size: 24px;
+}
+
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 80px 20px;
+    border-radius: 12px;
+}
+
+.light .cargando {
+    background: #ffffff;
+    color: #3B82F6;
+}
+
+.dark .cargando {
+    background: #1e293b;
+    color: #60a5fa;
+}
+
+.cargando ion-icon {
+    font-size: 56px;
+}
+
+.iconoCargando {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px;
+    }
+
+    .gridEstadisticas {
+        grid-template-columns: 1fr;
+    }
+
+    .accionesRapidas {
+        flex-direction: column;
+    }
+
+    .btnAccion {
+        width: 100%;
+        justify-content: center;
+    }
+}
+

@@ -1,0 +1,1182 @@
+/* ===================================
+   CONTENEDOR BASE
+=================================== */
+.contenedor {
+    padding: 24px;
+    min-height: 100vh;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    color: #1e293b;
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #e2e8f0;
+}
+
+/* ===================================
+   HEADER
+=================================== */
+.header {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+.headerInfo {
+    flex: 1;
+}
+
+.tituloContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.iconoTitulo {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.iconoTitulo ion-icon {
+    font-size: 32px;
+    color: #ffffff;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.5px;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.headerAcciones {
+    display: flex;
+    gap: 12px;
+}
+
+.btnActualizar,
+.btnTienda {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btnActualizar {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.btnActualizar:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.btnActualizar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnTienda {
+    border: 2px solid;
+    background: transparent;
+}
+
+.light .btnTienda {
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.light .btnTienda:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.dark .btnTienda {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.dark .btnTienda:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+.btnActualizar ion-icon,
+.btnTienda ion-icon {
+    font-size: 20px;
+}
+
+/* ===================================
+   ESTADÍSTICAS
+=================================== */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+    animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+.estadCard {
+    padding: 24px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 2px solid;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .estadCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.light .estadCard:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.dark .estadCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark .estadCard:hover {
+    border-color: #475569;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.estadIcono {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.estadIcono ion-icon {
+    font-size: 28px;
+    color: #ffffff;
+}
+
+.estadInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.estadLabel {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.estadValor {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.light .estadValor {
+    color: #0f172a;
+}
+
+.dark .estadValor {
+    color: #f1f5f9;
+}
+
+/* ===================================
+   CONTROLES Y FILTROS
+=================================== */
+.controlesBar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+    animation: fadeIn 0.6s ease-out 0.3s both;
+}
+
+.busquedaContainer {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.light .busquedaContainer {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.light .busquedaContainer:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dark .busquedaContainer {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark .busquedaContainer:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.busquedaContainer > ion-icon {
+    font-size: 20px;
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+.inputBusqueda {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+    font-family: inherit;
+}
+
+.light .inputBusqueda {
+    color: #1e293b;
+}
+
+.dark .inputBusqueda {
+    color: #e2e8f0;
+}
+
+.inputBusqueda::placeholder {
+    opacity: 0.5;
+}
+
+.btnLimpiar {
+    padding: 4px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.btnLimpiar:hover {
+    opacity: 1;
+}
+
+.btnLimpiar ion-icon {
+    font-size: 20px;
+}
+
+.filtroEstado {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 2px solid;
+}
+
+.light .filtroEstado {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.dark .filtroEstado {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.filtroEstado label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.light .filtroEstado label {
+    color: #475569;
+}
+
+.dark .filtroEstado label {
+    color: #cbd5e1;
+}
+
+.filtroEstado label ion-icon {
+    font-size: 18px;
+}
+
+.select {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.light .select {
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+.dark .select {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.contador {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .contador {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    color: #475569;
+}
+
+.dark .contador {
+    background: #1e293b;
+    border: 2px solid #334155;
+    color: #cbd5e1;
+}
+
+.contador ion-icon {
+    font-size: 18px;
+}
+
+/* ===================================
+   LISTA DE PEDIDOS
+=================================== */
+.listaPedidos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.pedidoCard {
+    display: block;
+    padding: 24px;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
+    border: 2px solid;
+}
+
+.light .pedidoCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.light .pedidoCard:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.dark .pedidoCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark .pedidoCard:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+.pedidoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid;
+}
+
+.light .pedidoHeader {
+    border-bottom-color: #e2e8f0;
+}
+
+.dark .pedidoHeader {
+    border-bottom-color: #334155;
+}
+
+.pedidoNumero {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.light .pedidoNumero {
+    color: #0f172a;
+}
+
+.dark .pedidoNumero {
+    color: #f1f5f9;
+}
+
+.pedidoNumero ion-icon {
+    font-size: 24px;
+    color: #3b82f6;
+}
+
+.badgeEstado {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.badgeEstado ion-icon {
+    font-size: 16px;
+}
+
+.pedidoContenido {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.empresaSection {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.empresaIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    flex-shrink: 0;
+}
+
+.empresaIcono ion-icon {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.empresaInfo {
+    flex: 1;
+}
+
+.empresaNombre {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+}
+
+.light .empresaNombre {
+    color: #0f172a;
+}
+
+.dark .empresaNombre {
+    color: #f1f5f9;
+}
+
+.usuarioInfo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.usuarioInfo ion-icon {
+    font-size: 16px;
+}
+
+.pedidoDetalles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.detalleItem {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.detalleItem > ion-icon {
+    font-size: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.light .detalleItem > ion-icon {
+    color: #64748b;
+}
+
+.dark .detalleItem > ion-icon {
+    color: #94a3b8;
+}
+
+.detalleItem > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detalleLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+.detalleValor {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.light .detalleValor {
+    color: #1e293b;
+}
+
+.dark .detalleValor {
+    color: #e2e8f0;
+}
+
+.detalleValorDestacado {
+    font-size: 18px;
+    font-weight: 800;
+    color: #10b981;
+}
+
+.notasSection {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.light .notasSection {
+    background: #f8fafc;
+    color: #475569;
+}
+
+.dark .notasSection {
+    background: #0f172a;
+    color: #cbd5e1;
+}
+
+.notasSection ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    opacity: 0.7;
+}
+
+.flechaNavegacion {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    font-size: 28px;
+    opacity: 0.3;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pedidoCard:hover .flechaNavegacion {
+    opacity: 1;
+    transform: translateY(-50%) translateX(4px);
+}
+
+.light .flechaNavegacion {
+    color: #64748b;
+}
+
+.dark .flechaNavegacion {
+    color: #94a3b8;
+}
+
+/* ===================================
+   ESTADOS DE CARGA Y VACÍO
+=================================== */
+.cargando,
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+    gap: 20px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.vacioIcono {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.light .vacioIcono {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.dark .vacioIcono {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.vacioIcono ion-icon {
+    font-size: 64px;
+    opacity: 0.5;
+}
+
+.vacio h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.vacio p {
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.6;
+    max-width: 500px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.light .spinner {
+    border-color: #e2e8f0;
+    border-top-color: #3b82f6;
+}
+
+.dark .spinner {
+    border-color: #334155;
+    border-top-color: #3b82f6;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===================================
+   ANIMACIONES
+=================================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media (max-width: 1024px) {
+    .pedidoDetalles {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tituloContainer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .headerAcciones {
+        width: 100%;
+    }
+
+    .btnActualizar,
+    .btnTienda {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .estadisticas {
+        grid-template-columns: 1fr;
+    }
+
+    .controlesBar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .busquedaContainer {
+        min-width: 100%;
+    }
+
+    .filtroEstado,
+    .contador {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pedidoHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .empresaSection {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pedidoDetalles {
+        grid-template-columns: 1fr;
+    }
+
+    .flechaNavegacion {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .estadCard {
+        padding: 16px;
+    }
+
+    .estadIcono {
+        width: 48px;
+        height: 48px;
+    }
+
+    .estadIcono ion-icon {
+        font-size: 24px;
+    }
+
+    .estadValor {
+        font-size: 24px;
+    }
+}
+
+/* ===================================
+   PREVIEW DE PRODUCTOS DEL PEDIDO
+=================================== */
+
+.productosPreview {
+    border-radius: 14px;
+    padding: 20px;
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.light .productosPreview {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+.dark .productosPreview {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+/* Header */
+.productosHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.productosHeaderInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.productosHeaderInfo ion-icon {
+    font-size: 20px;
+    color: #3b82f6;
+}
+
+.productosCantidad {
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.light .productosCantidad {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.dark .productosCantidad {
+    background: #334155;
+    color: #cbd5e1;
+}
+
+/* Lista */
+.productosLista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Item */
+.productoMini {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+}
+
+.light .productoMini {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+.light .productoMini:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.dark .productoMini {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+.dark .productoMini:hover {
+    border-color: #475569;
+    transform: translateY(-1px);
+}
+
+/* Imagen */
+.productoMiniImagen {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.light .productoMiniImagen {
+    background: #f1f5f9;
+}
+
+.dark .productoMiniImagen {
+    background: #0f172a;
+}
+
+.productoMiniImagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productoMiniImagen ion-icon {
+    font-size: 24px;
+    opacity: 0.4;
+}
+
+/* Info */
+.productoMiniInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.productoMiniNombre {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.light .productoMiniNombre {
+    color: #0f172a;
+}
+
+.dark .productoMiniNombre {
+    color: #f1f5f9;
+}
+
+.productoMiniDetalle {
+    font-size: 13px;
+    margin: 0;
+    opacity: 0.7;
+}
+
+/* Más productos */
+.masProductos {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.light .masProductos {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.dark .masProductos {
+    background: #334155;
+    color: #cbd5e1;
+}
+
+/* ===================================
+   ACCIONES RÁPIDAS
+=================================== */
+
+.accionesRapidas {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+/* Base botón */
+.accionesRapidas button,
+.accionesRapidas a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+/* Ver detalle */
+
+.btnVerDetalle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 14px;
+    border-radius: 8px;
+
+    background-color: #2563eb;       /* azul */
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btnVerDetalle {
+    background: transparent;
+    border: 2px solid;
+}
+
+.light .btnVerDetalle {
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.light .btnVerDetalle:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.dark .btnVerDetalle {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.dark .btnVerDetalle:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+/* Entregar */
+.btnEntregar {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.btnEntregar:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(16, 185, 129, 0.4);
+}
+
+.btnEntregar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* WhatsApp */
+.btnWhatsApp {
+    background: linear-gradient(135deg, #25d366, #1ebe57);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35);
+}
+
+.btnWhatsApp:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(37, 211, 102, 0.45);
+}
+
+/* Cancelar */
+.btnCancelar {
+    background: transparent;
+    border: 2px solid;
+}
+
+.light .btnCancelar {
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.light .btnCancelar:hover {
+    background: #fee2e2;
+}
+
+.dark .btnCancelar {
+    border-color: #7f1d1d;
+    color: #fca5a5;
+}
+
+.dark .btnCancelar:hover {
+    background: rgba(220, 38, 38, 0.15);
+}
+
+/* Spinner pequeño */
+.spinnerSmall {
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255,255,255,0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}

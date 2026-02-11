@@ -1,0 +1,651 @@
+.contenedor {
+    min-height: 100vh;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.contenido {
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.titulo {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 16px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.sidebar {
+    border-radius: 16px;
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+}
+
+.sidebar.light {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.dark {
+    background: #1e293b;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.menuItem ion-icon {
+    font-size: 20px;
+}
+
+.light .menuItem {
+    color: #475569;
+}
+
+.dark .menuItem {
+    color: #cbd5e1;
+}
+
+.light .menuItem:hover {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.dark .menuItem:hover {
+    background: #0f172a;
+    color: #38bdf8;
+}
+
+.light .menuItem.activo {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .menuItem.activo {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.principal {
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.principal.light {
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.principal.dark {
+    background: #1e293b;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.seccion {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.seccionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.seccionHeader ion-icon {
+    font-size: 32px;
+}
+
+.light .seccionHeader ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .seccionHeader ion-icon {
+    color: #38bdf8;
+}
+
+.seccionHeader h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.light .seccionHeader h2 {
+    color: #0f172a;
+}
+
+.dark .seccionHeader h2 {
+    color: #f1f5f9;
+}
+
+.texto {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+}
+
+.light .texto {
+    color: #64748b;
+}
+
+.dark .texto {
+    color: #94a3b8;
+}
+
+.caracteristicas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.caracteristica {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.light .caracteristica {
+    background: #f8fafc;
+}
+
+.dark .caracteristica {
+    background: #0f172a;
+}
+
+.caracteristica ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.light .caracteristica ion-icon {
+    color: #10b981;
+}
+
+.dark .caracteristica ion-icon {
+    color: #34d399;
+}
+
+.caracteristica span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.light .caracteristica span {
+    color: #0f172a;
+}
+
+.dark .caracteristica span {
+    color: #f1f5f9;
+}
+
+.pasos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.paso {
+    display: flex;
+    gap: 16px;
+}
+
+.pasoNumero {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.light .pasoNumero {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .pasoNumero {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.pasoContenido h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.light .pasoContenido h3 {
+    color: #0f172a;
+}
+
+.dark .pasoContenido h3 {
+    color: #f1f5f9;
+}
+
+.pasoContenido p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.light .pasoContenido p {
+    color: #64748b;
+}
+
+.dark .pasoContenido p {
+    color: #94a3b8;
+}
+
+.nota {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.light .nota {
+    background: #dbeafe;
+    border: 1px solid #93c5fd;
+}
+
+.dark .nota {
+    background: #0f172a;
+    border: 1px solid #1e40af;
+}
+
+.nota ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.light .nota ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .nota ion-icon {
+    color: #38bdf8;
+}
+
+.nota p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.light .nota p {
+    color: #1e40af;
+}
+
+.dark .nota p {
+    color: #93c5fd;
+}
+
+.contactoCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.light .contactoCard {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+}
+
+.dark .contactoCard {
+    background: #0f172a;
+    border: 2px solid #334155;
+}
+
+.contactoIcono {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #25d366;
+}
+
+.contactoIcono ion-icon {
+    font-size: 40px;
+    color: #ffffff;
+}
+
+.contactoInfo {
+    text-align: center;
+}
+
+.contactoInfo h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.light .contactoInfo h3 {
+    color: #0f172a;
+}
+
+.dark .contactoInfo h3 {
+    color: #f1f5f9;
+}
+
+.contactoInfo p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.light .contactoInfo p {
+    color: #64748b;
+}
+
+.dark .contactoInfo p {
+    color: #94a3b8;
+}
+
+.botonWhatsapp {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #25d366;
+    color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.botonWhatsapp:hover:not(:disabled) {
+    background: #1faa52;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.botonWhatsapp:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.botonWhatsapp ion-icon {
+    font-size: 24px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.enlaceVolver {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.light .enlaceVolver {
+    color: #0ea5e9;
+}
+
+.dark .enlaceVolver {
+    color: #38bdf8;
+}
+
+.light .enlaceVolver:hover {
+    color: #0284c7;
+    text-decoration: underline;
+}
+
+.dark .enlaceVolver:hover {
+    color: #7dd3fc;
+    text-decoration: underline;
+}
+
+.enlaceVolver ion-icon {
+    font-size: 18px;
+}
+
+@media (max-width: 1024px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        overflow-x: auto;
+    }
+
+    .menu {
+        flex-direction: row;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 5px;
+    }
+
+    .menuItem {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .menuItem span {
+        display: inline;
+    }
+}
+
+@media (max-width: 640px) {
+    .contenedor {
+        padding: 10px;
+    }
+
+    .header {
+        margin-bottom: 20px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .subtitulo {
+        font-size: 14px;
+    }
+
+    .layout {
+        gap: 15px;
+    }
+
+    .sidebar {
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .menu {
+        gap: 5px;
+    }
+
+    .menuItem {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+    .menuItem ion-icon {
+        font-size: 18px;
+    }
+
+    .menuItem span {
+        display: none;
+    }
+
+    .principal {
+        padding: 20px 15px;
+        border-radius: 12px;
+    }
+
+    .seccionHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .seccionHeader ion-icon {
+        font-size: 28px;
+    }
+
+    .seccionHeader h2 {
+        font-size: 22px;
+    }
+
+    .caracteristicas {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .paso {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .pasoNumero {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .pasoContenido h3 {
+        font-size: 16px;
+    }
+
+    .pasoContenido p {
+        font-size: 14px;
+    }
+
+    .contactoCard {
+        padding: 20px 15px;
+    }
+
+    .contactoIcono {
+        width: 60px;
+        height: 60px;
+    }
+
+    .contactoIcono ion-icon {
+        font-size: 32px;
+    }
+
+    .contactoInfo h3 {
+        font-size: 18px;
+    }
+
+    .contactoInfo p {
+        font-size: 14px;
+    }
+
+    .botonWhatsapp {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .footer {
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,624 @@
+.contenedor {
+    padding: 30px;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.headerInfo {
+    flex: 1;
+}
+
+.badges {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.badge.obra {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.dark .badge.obra {
+    background: #1e3a8a;
+    color: #bfdbfe;
+}
+
+.badge.servicio {
+    background: #f3e8ff;
+    color: #6b21a8;
+}
+
+.dark .badge.servicio {
+    background: #581c87;
+    color: #e9d5ff;
+}
+
+.badgeClima {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.dark .badgeClima {
+    background: #78350f;
+    color: #fef3c7;
+}
+
+.badgeEmoji {
+    font-size: 1.1rem;
+}
+
+.titulo {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    color: #1e293b;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.fecha {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.dark .fecha {
+    color: #94a3b8;
+}
+
+.fecha ion-icon {
+    font-size: 1.3rem;
+    color: #0ea5e9;
+}
+
+.btnVolver {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid #64748b;
+    color: #64748b;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnVolver:hover {
+    background: #64748b;
+    color: white;
+}
+
+/* Sección de destino destacada */
+.seccionDestino {
+    margin-bottom: 30px;
+    padding: 30px;
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    border-radius: 20px;
+    border: 2px solid #0ea5e9;
+}
+
+.dark .seccionDestino {
+     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+
+}
+
+.destinoHeader {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.destinoHeader > ion-icon {
+    font-size: 3rem;
+    color: #0ea5e9;
+}
+
+.destinoCodigo {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(14, 165, 233, 0.2);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin-bottom: 8px;
+}
+
+.dark .destinoCodigo {
+    background: rgba(14, 165, 233, 0.3);
+    color: #e0f2fe;
+}
+
+.destinoNombre {
+    margin: 0 0 8px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0c4a6e;
+}
+
+.dark .destinoNombre {
+    color: #e0f2fe;
+}
+
+.destinoUbicacion {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #075985;
+    font-size: 0.95rem;
+}
+
+.dark .destinoUbicacion {
+    color: #bae6fd;
+}
+
+/* Secciones */
+.seccion {
+    margin-bottom: 30px;
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .seccion {
+    background: #1e293b;
+}
+
+.seccionTitulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    color: #1e293b;
+}
+
+.dark .seccionTitulo {
+    color: #f1f5f9;
+}
+
+.seccionTitulo ion-icon {
+    font-size: 1.5rem;
+    color: #0ea5e9;
+}
+
+/* Grid de información */
+.gridInfo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.infoItem {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.dark .infoItem {
+    background: #334155;
+}
+
+.infoIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #e0f2fe;
+    color: #0ea5e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dark .infoIcono {
+    background: #0c4a6e;
+}
+
+.infoIcono ion-icon {
+    font-size: 1.5rem;
+}
+
+.infoItem div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.infoItem label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.dark .infoItem label {
+    color: #94a3b8;
+}
+
+.infoItem p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.dark .infoItem p {
+    color: #f1f5f9;
+}
+
+/* Trabajadores */
+.listaTrabajadores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.trabajadorCard {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.dark .trabajadorCard {
+    background: #334155;
+    border-color: #475569;
+}
+
+.trabajadorCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.trabajadorAvatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.trabajadorInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.trabajadorInfo strong {
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.dark .trabajadorInfo strong {
+    color: #f1f5f9;
+}
+
+.trabajadorInfo span {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.dark .trabajadorInfo span {
+    color: #94a3b8;
+}
+
+.trabajadorPresente {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #10b981;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.trabajadorPresente ion-icon {
+    font-size: 1.5rem;
+}
+
+/* Trabajo realizado */
+.trabajoRealizado {
+    padding: 25px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border-left: 4px solid #0ea5e9;
+}
+
+.dark .trabajoRealizado {
+    background: #334155;
+}
+
+.trabajoRealizado p {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    font-size: 1rem;
+}
+
+.dark .trabajoRealizado p {
+    color: #f1f5f9;
+}
+
+/* Observaciones */
+.observaciones {
+    padding: 25px;
+    background: #fef3c7;
+    border-radius: 12px;
+    border-left: 4px solid #f59e0b;
+}
+
+.dark .observaciones {
+    background: #78350f;
+}
+
+.observaciones p {
+    margin: 0;
+    color: #78350f;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    font-size: 1rem;
+}
+
+.dark .observaciones p {
+    color: #fef3c7;
+}
+
+/* Galería de fotos */
+.galeriaFotos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.fotoItem {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.dark .fotoItem {
+    border-color: #475569;
+}
+
+.fotoItem:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.fotoItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fotoDescripcion {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    font-size: 0.85rem;
+}
+
+/* Modal de foto */
+.modalFoto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modalContenido {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.modalContenido img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.btnCerrarModal {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    color: #1e293b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btnCerrarModal:hover {
+    background: #ef4444;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btnCerrarModal ion-icon {
+    font-size: 1.5rem;
+}
+
+.modalDescripcion {
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    max-width: 600px;
+}
+
+/* Footer */
+.footer {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.dark .footer {
+    background: #334155;
+}
+
+.footerItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.dark .footerItem {
+    color: #94a3b8;
+}
+
+.footerItem ion-icon {
+    font-size: 1.1rem;
+}
+
+/* Estados de carga */
+.cargando,
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 15px;
+}
+
+.cargando ion-icon,
+.vacio ion-icon {
+    font-size: 4rem;
+    color: #cbd5e1;
+}
+
+.cargando span,
+.vacio span {
+    font-size: 1.1rem;
+    color: #64748b;
+}
+
+.dark .cargando span,
+.dark .vacio span {
+    color: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    .btnVolver {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .seccion {
+        padding: 20px;
+    }
+
+    .gridInfo {
+        grid-template-columns: 1fr;
+    }
+
+    .listaTrabajadores {
+        grid-template-columns: 1fr;
+    }
+
+    .galeriaFotos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .modalContenido img {
+        max-height: 70vh;
+    }
+
+    .btnCerrarModal {
+        top: -60px;
+    }
+}
+

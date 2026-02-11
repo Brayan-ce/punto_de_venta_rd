@@ -1,0 +1,161 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+/* Tabla */
+.tablaContenedor {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid;
+}
+
+.tablaContenedor.light {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tablaContenedor.dark {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.tablaScroll {
+    overflow-x: auto;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tabla th {
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 600;
+    color: #64748b;
+    border-bottom: 2px solid;
+}
+
+.light .tabla th {
+    background: #f8fafc;
+    border-color: #edf2f7;
+}
+
+.dark .tabla th {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.tabla td {
+    padding: 12px 20px;
+    border-bottom: 1px solid;
+}
+
+.light .tabla td {
+    border-color: #f1f5f9;
+}
+
+.dark .tabla td {
+    border-color: #334155;
+}
+
+.totalCol {
+    font-weight: 800;
+}
+
+.ncfCol {
+    font-family: monospace;
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.badgeAnomalia {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.btnVer {
+    background: none;
+    border: none;
+    color: #0ea5e9;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.emptyState {
+    padding: 60px;
+    text-align: center;
+}
+
+.emptyIcon {
+    color: #10b981;
+    opacity: 0.3;
+    margin-bottom: 15px;
+}
+
+.emptyTitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.emptyDesc {
+    color: #94a3b8;
+}

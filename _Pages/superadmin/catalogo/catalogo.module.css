@@ -1,0 +1,2229 @@
+.contenedor {
+    min-height: 100vh;
+    transition: all 0.3s ease;
+    background: linear-gradient(to bottom right, #f8fafc, #eff6ff, #fef7ed);
+}
+
+.contenedor.light {
+    background: linear-gradient(to bottom right, #f8fafc, #eff6ff, #fef7ed);
+}
+
+.contenedor.dark {
+    background: linear-gradient(to bottom right, #0f172a, #1e293b, #1e1b1b);
+}
+
+/* Header */
+.header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+}
+
+.contenedor.dark .header {
+    background: #1e293b;
+    border-bottom-color: #334155;
+}
+
+.headerContenedor {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 900;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.5px;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.headerAcciones {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btnVistaPrevia {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.btnVistaPrevia:hover:not(:disabled) {
+    background: #bfdbfe;
+    transform: translateY(-2px);
+}
+
+.btnVistaPrevia:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnVistaPrevia ion-icon {
+    font-size: 20px;
+}
+
+.btnGuardar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: linear-gradient(to right, #f97316, #fb923c);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.btnGuardar:hover:not(:disabled) {
+    background: linear-gradient(to right, #ea580c, #f97316);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(249, 115, 22, 0.4);
+}
+
+.btnGuardar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnGuardar ion-icon {
+    font-size: 20px;
+}
+
+.iconoCargando {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estadísticas */
+.estadisticas {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 32px 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.estadisticaCard {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid;
+    transition: all 0.2s ease;
+}
+
+.contenedor.dark .estadisticaCard {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.estadisticaCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.estadisticaHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.estadisticaIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.estadisticaIcono ion-icon {
+    font-size: 24px;
+}
+
+.estadisticaBadge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.estadisticaBadgeActivo {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.estadisticaBadgeInactivo {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.estadisticaNumero {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.light .estadisticaNumero {
+    color: #0f172a;
+}
+
+.dark .estadisticaNumero {
+    color: #f1f5f9;
+}
+
+.estadisticaTitulo {
+    font-size: 20px;
+    font-weight: 900;
+    margin: 0 0 4px 0;
+}
+
+.light .estadisticaTitulo {
+    color: #0f172a;
+}
+
+.dark .estadisticaTitulo {
+    color: #f1f5f9;
+}
+
+.estadisticaDescripcion {
+    font-size: 13px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.light .estadisticaDescripcion {
+    color: #64748b;
+}
+
+.dark .estadisticaDescripcion {
+    color: #94a3b8;
+}
+
+/* Tabs */
+.tabs {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 30px 24px 30px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 2px solid;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.light .tab {
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .tab {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.light .tab:hover {
+    border-color: #f97316;
+    color: #f97316;
+}
+
+.dark .tab:hover {
+    border-color: #fb923c;
+    color: #fb923c;
+}
+
+.tabActiva {
+    background: #f97316 !important;
+    border-color: #f97316 !important;
+    color: #ffffff !important;
+}
+
+.tab ion-icon {
+    font-size: 20px;
+}
+
+/* Contenido Principal */
+.contenidoPrincipal {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 30px 32px 30px;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 24px;
+}
+
+.contenidoIzquierdo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Secciones */
+.seccion {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+}
+
+.contenedor.dark .seccion {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.seccionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.seccionIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seccionIcono ion-icon {
+    font-size: 24px;
+}
+
+.seccionTitulo {
+    font-size: 24px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.light .seccionTitulo {
+    color: #0f172a;
+}
+
+.dark .seccionTitulo {
+    color: #f1f5f9;
+}
+
+.contadorProductos {
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.light .contadorProductos {
+    color: #64748b;
+}
+
+.dark .contadorProductos {
+    color: #94a3b8;
+}
+
+/* Formulario */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campoGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.light .label {
+    color: #374151;
+}
+
+.dark .label {
+    color: #e5e7eb;
+}
+
+.input,
+.textarea {
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.light .input,
+.light .textarea {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .input,
+.dark .textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .input:focus,
+.light .textarea:focus {
+    border-color: #f97316;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.dark .input:focus,
+.dark .textarea:focus {
+    border-color: #fb923c;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
+}
+
+.textarea {
+    resize: none;
+}
+
+/* Input Group para URL */
+.inputGroup {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: wrap;
+}
+
+.prefijo {
+    padding: 14px 16px;
+    border-radius: 12px 0 0 12px;
+    border: 2px solid;
+    border-right: none;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.light .prefijo {
+    background: #f3f4f6;
+    border-color: #e5e7eb;
+    color: #6b7280;
+}
+
+.dark .prefijo {
+    background: #1e293b;
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.inputSlug {
+    flex: 1;
+    min-width: 150px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+}
+
+.inputSlug:focus {
+    border-radius: 0;
+}
+
+.btnGenerarSlug {
+    padding: 14px 16px;
+    border-radius: 0 12px 12px 0;
+    border: 2px solid;
+    border-left: none;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.light .btnGenerarSlug {
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .btnGenerarSlug {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.light .btnGenerarSlug:hover {
+    border-color: #f97316;
+    color: #f97316;
+    background: #fff7ed;
+}
+
+.dark .btnGenerarSlug:hover {
+    border-color: #fb923c;
+    color: #fb923c;
+    background: #451a03;
+}
+
+.btnGenerarSlug ion-icon {
+    font-size: 16px;
+}
+
+.ayudaTexto {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.light .ayudaTexto {
+    color: #6b7280;
+}
+
+.dark .ayudaTexto {
+    color: #94a3b8;
+}
+
+/* Upload Area */
+.uploadArea {
+    border: 2px dashed;
+    border-radius: 12px;
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.light .uploadArea {
+    border-color: #d1d5db;
+    background: #f9fafb;
+}
+
+.dark .uploadArea {
+    border-color: #475569;
+    background: #0f172a;
+}
+
+.light .uploadArea:hover {
+    border-color: #f97316;
+    background: #fff7ed;
+}
+
+.dark .uploadArea:hover {
+    border-color: #fb923c;
+    background: #451a03;
+}
+
+.uploadIcon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.light .uploadIcon {
+    color: #9ca3af;
+}
+
+.dark .uploadIcon {
+    color: #64748b;
+}
+
+.uploadTexto {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.light .uploadTexto {
+    color: #374151;
+}
+
+.dark .uploadTexto {
+    color: #e5e7eb;
+}
+
+.uploadAyuda {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.light .uploadAyuda {
+    color: #6b7280;
+}
+
+.dark .uploadAyuda {
+    color: #94a3b8;
+}
+
+.logoPreview {
+    position: relative;
+    display: inline-block;
+}
+
+.logoPreview img {
+    max-width: 200px;
+    max-height: 100px;
+    border-radius: 8px;
+}
+
+.btnEliminarLogo {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #ef4444;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btnEliminarLogo:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+.btnEliminarLogo ion-icon {
+    font-size: 18px;
+}
+
+/* Color Inputs */
+.colorInputGroup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.colorPicker {
+    width: 64px;
+    height: 48px;
+    border-radius: 12px;
+    border: 2px solid;
+    cursor: pointer;
+}
+
+.light .colorPicker {
+    border-color: #e5e7eb;
+}
+
+.dark .colorPicker {
+    border-color: #334155;
+}
+
+.colorInput {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+}
+
+.light .colorInput {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .colorInput {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .colorInput:focus {
+    border-color: #f97316;
+    outline: none;
+}
+
+.dark .colorInput:focus {
+    border-color: #fb923c;
+    outline: none;
+}
+
+/* Lista de Productos */
+.listaProductos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.productoCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 2px solid;
+    transition: all 0.2s ease;
+}
+
+.light .productoCard {
+    background: #f9fafb;
+    border-color: #e5e7eb;
+}
+
+.dark .productoCard {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.productoCardVisible {
+    border-color: #10b981;
+    background: #d1fae5;
+}
+
+.contenedor.dark .productoCardVisible {
+    background: #064e3b;
+    border-color: #10b981;
+}
+
+.productoImagen {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.contenedor.dark .productoImagen {
+    background: #1e293b;
+}
+
+.productoImagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productoImagen ion-icon {
+    font-size: 32px;
+    color: #94a3b8;
+}
+
+.productoInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.productoHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.productoNombre {
+    font-size: 16px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.light .productoNombre {
+    color: #0f172a;
+}
+
+.dark .productoNombre {
+    color: #f1f5f9;
+}
+
+.badgeDestacado {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.productoDetalles {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.productoPrecio {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.light .productoPrecio {
+    color: #0f172a;
+}
+
+.dark .productoPrecio {
+    color: #f1f5f9;
+}
+
+.productoOferta {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f97316;
+}
+
+.productoStock {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.light .productoStock {
+    color: #64748b;
+}
+
+.dark .productoStock {
+    color: #94a3b8;
+}
+
+.productoAcciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btnDestacado {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.light .btnDestacado {
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .btnDestacado {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.btnDestacadoActivo {
+    background: #fbbf24;
+    border-color: #fbbf24;
+    color: #ffffff;
+}
+
+.btnDestacado:hover {
+    transform: translateY(-2px);
+}
+
+.btnDestacado ion-icon {
+    font-size: 20px;
+}
+
+.btnToggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.light .btnToggle {
+    border-color: #d1d5db;
+    color: #64748b;
+}
+
+.dark .btnToggle {
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.btnToggleActivo {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+}
+
+.btnToggle:hover {
+    transform: translateY(-2px);
+}
+
+.btnToggle ion-icon {
+    font-size: 18px;
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sidebarCard {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.contenedor.dark .sidebarCard {
+    background: #1e293b;
+}
+
+.sidebarTitulo {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 16px 0;
+}
+
+.light .sidebarTitulo {
+    color: #0f172a;
+}
+
+.dark .sidebarTitulo {
+    color: #f1f5f9;
+}
+
+.publicacionContenido {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.publicacionToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.publicacionLabel {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.light .publicacionLabel {
+    color: #374151;
+}
+
+.dark .publicacionLabel {
+    color: #e5e7eb;
+}
+
+.toggle {
+    position: relative;
+    width: 56px;
+    height: 32px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #d1d5db;
+}
+
+.toggleActivo {
+    background: #10b981;
+}
+
+.toggleSlider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggleActivo .toggleSlider {
+    transform: translateX(24px);
+}
+
+.publicacionDescripcion {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.light .publicacionDescripcion {
+    color: #64748b;
+}
+
+.dark .publicacionDescripcion {
+    color: #94a3b8;
+}
+
+/* Compartir */
+.sidebarCardCompartir {
+    background: linear-gradient(to bottom right, #f97316, #fb923c);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    color: #ffffff;
+}
+
+.compartirHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.compartirHeader ion-icon {
+    font-size: 24px;
+}
+
+.compartirTitulo {
+    font-size: 20px;
+    font-weight: 900;
+    margin: 0;
+    color: #ffffff;
+}
+
+.urlContainer {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.urlTexto {
+    flex: 1;
+    min-width: 0;
+}
+
+.urlTruncate {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btnCopiarUrl {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btnCopiarUrl:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.btnCopiarUrl ion-icon {
+    font-size: 18px;
+}
+
+.compartirAcciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btnQR {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btnQR:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.btnQR ion-icon {
+    font-size: 20px;
+}
+
+.btnWhatsApp {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #10b981;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnWhatsApp:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+/* Ayuda */
+.sidebarCardAyuda {
+    background: #dbeafe;
+    border: 2px solid #60a5fa;
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.contenedor.dark .sidebarCardAyuda {
+    background: #1e3a5f;
+    border-color: #3b82f6;
+}
+
+.ayudaTitulo {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 12px 0;
+}
+
+.light .ayudaTitulo {
+    color: #0f172a;
+}
+
+.dark .ayudaTitulo {
+    color: #f1f5f9;
+}
+
+.ayudaTexto {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.light .ayudaTexto {
+    color: #1e293b;
+}
+
+.dark .ayudaTexto {
+    color: #cbd5e1;
+}
+
+/* Cargando */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 80px 20px;
+    border-radius: 12px;
+}
+
+.light .cargando {
+    background: #ffffff;
+    color: #3B82F6;
+}
+
+.dark .cargando {
+    background: #1e293b;
+    color: #60a5fa;
+}
+
+.cargando ion-icon {
+    font-size: 56px;
+}
+
+/* Textos internos seguros para CSS Modules */
+.botonTexto {
+    font-size: 0.9rem;
+}
+
+.tabTexto {
+    font-size: 0.9rem;
+}
+
+.toggleTexto {
+    font-size: 0.85rem;
+}
+
+.urlTruncate {
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .contenidoPrincipal {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .headerContenedor {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .headerAcciones {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btnVistaPrevia,
+    .btnGuardar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .estadisticas {
+        grid-template-columns: 1fr;
+        padding: 24px 16px;
+    }
+
+    .tabs {
+        padding: 0 16px 24px 16px;
+    }
+
+    .contenidoPrincipal {
+        padding: 0 16px 24px 16px;
+    }
+
+    .seccion {
+        padding: 24px;
+    }
+
+    .campoGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .inputGroup {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .prefijo {
+        border-radius: 12px;
+        border: 2px solid;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .inputSlug {
+        border-radius: 12px;
+        border: 2px solid;
+        width: 100%;
+    }
+
+    .inputSlug:focus {
+        border-radius: 12px;
+    }
+
+    .btnGenerarSlug {
+        border-radius: 12px;
+        border: 2px solid;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .productoCard {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .productoAcciones {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+
+/* ============================= */
+/* 📱 RESPONSIVE 480px */
+/* ============================= */
+@media (max-width: 480px) {
+
+    /* ===== CONTENEDOR PRINCIPAL ===== */
+    .contenedor {
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    .contenidoPrincipal {
+        grid-template-columns: 1fr;
+        padding: 0 12px 24px;
+        gap: 16px;
+        min-width: 0;
+        overflow-x: hidden;
+    }
+
+    .contenidoIzquierdo {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+        padding: 12px;
+    }
+
+    .headerContenedor {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+        min-width: 0;
+    }
+
+    .headerAcciones {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btnVistaPrevia,
+    .btnGuardar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .titulo {
+        font-size: 1.4rem;
+        word-break: break-word;
+    }
+
+    .subtitulo {
+        font-size: 0.9rem;
+    }
+
+    /* ===== ESTADÍSTICAS ===== */
+    .estadisticas {
+        grid-template-columns: 1fr;
+        padding: 16px 12px;
+        gap: 12px;
+    }
+
+    .estadisticaCard {
+        padding: 16px;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .estadisticaNumero {
+        font-size: 1.6rem;
+    }
+
+    /* ===== TABS ===== */
+    .tabs {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 12px 16px;
+    }
+
+    .tab {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ===== SECCIONES ===== */
+    .seccion {
+        padding: 16px;
+        border-radius: 16px;
+        width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    .seccionHeader {
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .seccionTitulo {
+        font-size: 1.1rem;
+    }
+
+    /* ===== FORMULARIOS ===== */
+    .formulario {
+        width: 100%;
+        gap: 16px;
+        min-width: 0;
+    }
+
+    .campoGrid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .campo {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .label {
+        font-size: 0.9rem;
+    }
+
+    .input,
+    .textarea,
+    .inputSlug,
+    .colorInput {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .textarea {
+        min-height: 80px;
+    }
+
+    /* ===== URL SLUG ===== */
+    .inputGroup {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    .prefijo,
+    .inputSlug,
+    .btnGenerarSlug {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ===== APARIENCIA ===== */
+    .colorInputGroup {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .colorPicker {
+        flex-shrink: 0;
+    }
+
+    .uploadArea {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .logoPreview img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* ===== PRODUCTOS ===== */
+    .listaProductos {
+        gap: 16px;
+    }
+
+    .productoCard {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+        min-width: 0;
+        overflow-x: hidden;
+    }
+
+    .productoImagen {
+        width: 100%;
+        height: 160px;
+    }
+
+    .productoInfo {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .productoNombre {
+        font-size: 1.1rem;
+    }
+
+    .productoDetalles {
+        font-size: 0.9rem;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .productoAcciones {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .productoAcciones button {
+        flex: 1;
+        min-width: 45%;
+        height: 44px;
+        justify-content: center;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+        order: -1;
+        width: 100%;
+        min-width: 0;
+        gap: 16px;
+        overflow-x: hidden;
+    }
+
+    .sidebarCard,
+    .sidebarCardCompartir,
+    .sidebarCardAyuda {
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .sidebarTitulo {
+        font-size: 1rem;
+    }
+
+    .publicacionToggle {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    /* ===== COMPARTIR CATÁLOGO ===== */
+    .urlContainer {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .urlTexto {
+        width: 100%;
+    }
+
+    .urlTruncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btnCopiarUrl,
+    .btnQR,
+    .btnWhatsApp {
+        width: 100%;
+        justify-content: center;
+        padding: 14px;
+    }
+
+    /* ===== CONSEJO ===== */
+    .ayudaTexto {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    /* ===== MODAL ===== */
+    .modalOverlay {
+        padding: 12px;
+    }
+
+    .modal {
+        width: 100%;
+        max-height: 85vh;
+        min-width: 0;
+        border-radius: 16px;
+    }
+
+    .modalContenido {
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .modalFooter {
+        flex-direction: column-reverse;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+
+    .btnGuardarModal,
+    .btnCancelar {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+
+/* ============================= */
+/* 📱 RESPONSIVE 360px */
+/* ============================= */
+@media (max-width: 360px) {
+
+    /* ===== CONTENIDO PRINCIPAL ===== */
+    .contenidoPrincipal {
+        padding: 0 8px 16px;
+        gap: 12px;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+        padding: 10px;
+    }
+
+    .titulo {
+        font-size: 1.25rem;
+        word-break: break-word;
+    }
+
+    .subtitulo {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .headerAcciones {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    /* ===== ESTADÍSTICAS ===== */
+    .estadisticaNumero {
+        font-size: 1.4rem;
+    }
+
+    .estadisticaDescripcion {
+        font-size: 0.75rem;
+    }
+
+    /* ===== SECCIONES ===== */
+    .seccion {
+        padding: 12px;
+        border-radius: 14px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .seccionHeader {
+        gap: 8px;
+    }
+
+    .seccionTitulo {
+        font-size: 1rem;
+    }
+
+    /* ===== FORMULARIOS ===== */
+    .formulario {
+        gap: 12px;
+    }
+
+    .campoGrid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .label {
+        font-size: 0.8rem;
+    }
+
+    .input,
+    .textarea,
+    .inputSlug,
+    .colorInput {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 10px;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .textarea {
+        min-height: 70px;
+    }
+
+    /* ===== URL SLUG ===== */
+    .inputGroup {
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .prefijo,
+    .inputSlug,
+    .btnGenerarSlug {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.85rem;
+    }
+
+    /* ===== APARIENCIA ===== */
+    .colorInputGroup {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .colorPicker {
+        align-self: flex-start;
+    }
+
+    .uploadArea {
+        padding: 12px;
+        width: 100%;
+    }
+
+    .logoPreview img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* ===== PRODUCTOS ===== */
+    .listaProductos {
+        gap: 12px;
+    }
+
+    .productoCard {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .productoImagen {
+        width: 100%;
+        height: 140px;
+        border-radius: 10px;
+    }
+
+    .productoNombre {
+        font-size: 1rem;
+    }
+
+    .productoDetalles {
+        font-size: 0.8rem;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .productoAcciones {
+        width: 100%;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .productoAcciones button {
+        flex: 1;
+        min-width: 45%;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+        width: 100%;
+        gap: 12px;
+    }
+
+    .sidebarTitulo {
+        font-size: 0.95rem;
+    }
+
+    .ayudaTexto {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    /* ===== COMPARTIR CATÁLOGO ===== */
+    .urlContainer {
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .urlTexto,
+    .urlTruncate {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+
+    .btnCopiarUrl,
+    .btnQR,
+    .btnWhatsApp {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+    }
+
+    /* ===== MODAL ===== */
+    .modal {
+        width: 100%;
+        max-height: 90vh;
+        border-radius: 14px;
+    }
+
+    .modalContenido {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .modalFooter {
+        gap: 10px;
+    }
+}
+
+
+
+/* Estilos adicionales para Superadmin */
+.btnAgregarProducto {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    color: #ffffff;
+    margin-left: auto;
+}
+
+.btnAgregarProducto:hover {
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btnAgregarProducto ion-icon {
+    font-size: 18px;
+}
+
+.sinProductos {
+    text-align: center;
+    padding: 60px 20px;
+    border-radius: 16px;
+    border: 2px dashed;
+}
+
+.light .sinProductos {
+    border-color: #d1d5db;
+    background: #f9fafb;
+    color: #64748b;
+}
+
+.dark .sinProductos {
+    border-color: #475569;
+    background: #0f172a;
+    color: #94a3b8;
+}
+
+.sinProductos ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    display: block;
+    opacity: 0.5;
+}
+
+.imagenPlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+}
+
+.imagenPlaceholder ion-icon {
+    font-size: 24px;
+}
+
+.productoCategoria {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.contenedor.dark .productoCategoria {
+    background: #312e81;
+    color: #c7d2fe;
+}
+
+.btnEditar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.light .btnEditar {
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .btnEditar {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.btnEditar:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+    background: #dbeafe;
+}
+
+.btnEditar ion-icon {
+    font-size: 18px;
+}
+
+.btnEliminar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.light .btnEliminar {
+    border-color: #fee2e2;
+    color: #dc2626;
+}
+
+.dark .btnEliminar {
+    border-color: #7f1d1d;
+    color: #ef4444;
+}
+
+.btnEliminar:hover {
+    background: #fee2e2;
+    border-color: #dc2626;
+    transform: translateY(-2px);
+}
+
+.btnEliminar ion-icon {
+    font-size: 18px;
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal {
+    background: #ffffff;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+.contenedor.dark .modal {
+    background: #1e293b;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 30px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.contenedor.dark .modalHeader {
+    border-bottom-color: #334155;
+}
+
+.modalTitulo {
+    font-size: 24px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.light .modalTitulo {
+    color: #0f172a;
+}
+
+.dark .modalTitulo {
+    color: #f1f5f9;
+}
+
+.btnCerrarModal {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: #f3f4f6;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.contenedor.dark .btnCerrarModal {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.btnCerrarModal:hover {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.contenedor.dark .btnCerrarModal:hover {
+    background: #475569;
+    color: #e5e7eb;
+}
+
+.btnCerrarModal ion-icon {
+    font-size: 20px;
+}
+
+.modalContenido {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modalFooter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 24px 30px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.contenedor.dark .modalFooter {
+    border-top-color: #334155;
+}
+
+.btnCancelar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.light .btnCancelar {
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .btnCancelar {
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.btnCancelar:hover {
+    background: #f3f4f6;
+}
+
+.contenedor.dark .btnCancelar:hover {
+    background: #334155;
+}
+
+.btnGuardarModal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: linear-gradient(to right, #f97316, #fb923c);
+    color: #ffffff;
+}
+
+.btnGuardarModal:hover:not(:disabled) {
+    background: linear-gradient(to right, #ea580c, #f97316);
+    transform: translateY(-2px);
+}
+
+.btnGuardarModal:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnGuardarModal ion-icon {
+    font-size: 18px;
+}

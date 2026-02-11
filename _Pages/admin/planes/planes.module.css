@@ -1,0 +1,1077 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1800px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Header */
+.header {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.headerTitulo {
+    flex: 1;
+}
+
+.tituloWrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.tituloIcono {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    flex-shrink: 0;
+}
+
+.dark .tituloIcono {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.titulo {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+.light .titulo {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.btnPrimario {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnPrimario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btnIcono {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estadísticas */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.estadCard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+}
+
+.estadCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-start), var(--color-end));
+}
+
+.estadCard.primary {
+    --color-start: #3b82f6;
+    --color-end: #2563eb;
+}
+
+.estadCard.success {
+    --color-start: #10b981;
+    --color-end: #059669;
+}
+
+.estadCard.info {
+    --color-start: #0ea5e9;
+    --color-end: #0284c7;
+}
+
+.estadCard.warning {
+    --color-start: #f59e0b;
+    --color-end: #d97706;
+}
+
+.light .estadCard {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .estadCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.estadCard:hover {
+    transform: translateY(-6px);
+}
+
+.light .estadCard:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.dark .estadCard:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.estadIconoWrapper {
+    flex-shrink: 0;
+}
+
+.estadIcono {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.estadIcono.primary {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #1e40af;
+}
+
+.estadIcono.success {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+}
+
+.estadIcono.info {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    color: #075985;
+}
+
+.estadIcono.warning {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+.estadIconoSvg {
+    width: 32px;
+    height: 32px;
+}
+
+.estadInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.estadLabel {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.light .estadLabel {
+    color: #64748b;
+}
+
+.dark .estadLabel {
+    color: #94a3b8;
+}
+
+.estadValor {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.light .estadValor {
+    color: #0f172a;
+}
+
+.dark .estadValor {
+    color: #f1f5f9;
+}
+
+.estadTendencia {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.light .estadTendencia {
+    color: #64748b;
+}
+
+.dark .estadTendencia {
+    color: #94a3b8;
+}
+
+.tendenciaIcono {
+    width: 14px;
+    height: 14px;
+}
+
+/* Filtros */
+.filtros {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.buscarWrapper {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.buscarIcono {
+    position: absolute;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.light .buscarIcono {
+    color: #64748b;
+}
+
+.dark .buscarIcono {
+    color: #94a3b8;
+}
+
+.inputBuscar {
+    flex: 1;
+    padding: 12px 16px 12px 48px;
+    border: 1px solid;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.light .inputBuscar {
+    background: white;
+    color: #09101A;
+    border-color: #e2e8f0;
+}
+
+.dark .inputBuscar {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.inputBuscar:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.selectFiltro {
+    padding: 12px 20px;
+    border: 1px solid;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 180px;
+}
+
+.light .selectFiltro {
+    background: white;
+    color: #09101A;
+    border-color: #e2e8f0;
+}
+
+.dark .selectFiltro {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.selectFiltro:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Lista de planes */
+.listaPlanes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+}
+
+.planCard {
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    border: 1px solid;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.light .planCard {
+    background: white;
+    border-color: #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark .planCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.planCard:hover {
+    transform: translateY(-2px);
+}
+
+.light .planCard:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.dark .planCard:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.planCard.inactivo {
+    opacity: 0.75;
+}
+
+.planCardHeader {
+    margin-bottom: 0;
+}
+
+.planHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.planHeaderInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.planNombre {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+.light .planNombre {
+    color: #09101A;
+}
+
+.dark .planNombre {
+    color: #f1f5f9;
+}
+
+.planCodigo {
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+    color: #64748b;
+}
+
+.dark .planCodigo {
+    color: #94a3b8;
+}
+
+.planEstado {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.estadoPunto {
+    font-size: 12px;
+    line-height: 1;
+}
+
+.estadoPunto.activo {
+    color: #16a34a;
+}
+
+.estadoPunto.inactivo {
+    color: #64748b;
+}
+
+.dark .estadoPunto.inactivo {
+    color: #94a3b8;
+}
+
+.estadoTexto {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.dark .estadoTexto {
+    color: #94a3b8;
+}
+
+/* Secciones del plan */
+.planSeccion {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.seccionLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+}
+
+.dark .seccionLabel {
+    color: #94a3b8;
+}
+
+.plazosLista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.plazoBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    transition: all 0.2s ease;
+}
+
+.dark .plazoBadge {
+    background: #1e293b;
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.plazoBadge:hover {
+    border-color: #2563eb;
+}
+
+.plazoSugerido {
+    width: 12px;
+    height: 12px;
+    color: #fbbf24;
+}
+
+/* Métricas clave */
+.metricasGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.metricaCard {
+    padding: 12px;
+    border-radius: 10px;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border: 1px solid #e5e7eb;
+}
+
+.dark .metricaCard {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.metricaLabel {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+}
+
+.dark .metricaLabel {
+    color: #94a3b8;
+}
+
+.metricaValor {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #09101A;
+}
+
+.dark .metricaValor {
+    color: #f1f5f9;
+}
+
+/* Info secundaria */
+.infoSecundaria {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.dark .infoSecundaria {
+    color: #94a3b8;
+}
+
+.planAcciones {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid;
+}
+
+.light .planAcciones {
+    border-top-color: #e5e7eb;
+}
+
+.dark .planAcciones {
+    border-top-color: #334155;
+}
+
+.btnVer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+    color: #2563eb;
+}
+
+.light .btnVer {
+    border-color: #e5e7eb;
+    color: #2563eb;
+}
+
+.dark .btnVer {
+    border-color: #334155;
+    color: #60a5fa;
+}
+
+.btnVer:hover {
+    background: #eff6ff;
+    border-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.dark .btnVer:hover {
+    background: #1e3a8a;
+    border-color: #60a5fa;
+}
+
+.btnEditar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+    color: #374151;
+}
+
+.light .btnEditar {
+    border-color: #e5e7eb;
+    color: #374151;
+}
+
+.dark .btnEditar {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.btnEditar:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.dark .btnEditar:hover {
+    background: #334155;
+    border-color: #475569;
+}
+
+.btnAccionIcono {
+    width: 18px;
+    height: 18px;
+}
+
+/* Estados de carga y vacío */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 80px 20px;
+    min-height: 400px;
+}
+
+.iconoCargando {
+    width: 48px;
+    height: 48px;
+    animation: spin 1s linear infinite;
+    color: #3b82f6;
+}
+
+.dark .iconoCargando {
+    color: #60a5fa;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cargando span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.dark .cargando span {
+    color: #94a3b8;
+}
+
+.sinDatos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 80px 20px;
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.sinDatosIcono {
+    width: 80px;
+    height: 80px;
+    opacity: 0.4;
+    color: #64748b;
+}
+
+.dark .sinDatosIcono {
+    color: #94a3b8;
+}
+
+.sinDatos p {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    color: #64748b;
+}
+
+.dark .sinDatos p {
+    color: #94a3b8;
+}
+
+.sinDatosSubtexto {
+    font-size: 14px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.dark .sinDatosSubtexto {
+    color: #64748b;
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE FIRST
+   ============================================ */
+
+/* Tablets y dispositivos medianos (768px y menos) */
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .tituloWrapper {
+        gap: 12px;
+    }
+
+    .tituloIcono {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+    }
+
+    .titulo {
+        font-size: 28px;
+    }
+
+    .subtitulo {
+        font-size: 14px;
+    }
+
+    .estadisticas {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .estadCard {
+        padding: 20px;
+    }
+
+    .estadIcono {
+        width: 56px;
+        height: 56px;
+    }
+
+    .estadIconoSvg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .estadValor {
+        font-size: 28px;
+    }
+
+    .listaPlanes {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+/* Móviles pequeños (480px y menos) - Samsung Galaxy S8+ y similares */
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .header {
+        gap: 12px;
+    }
+
+    .tituloWrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .tituloIcono {
+        width: 36px;
+        height: 36px;
+        padding: 8px;
+    }
+
+    .titulo {
+        font-size: 24px;
+        letter-spacing: -0.01em;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+    }
+
+    .btnPrimario {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 20px;
+    }
+
+    /* Estadísticas en columna única en móviles pequeños */
+    .estadisticas {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .estadCard {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .estadCard::before {
+        height: 3px;
+    }
+
+    .estadIcono {
+        width: 48px;
+        height: 48px;
+    }
+
+    .estadIconoSvg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .estadLabel {
+        font-size: 11px;
+    }
+
+    .estadValor {
+        font-size: 24px;
+    }
+
+    .estadTendencia {
+        font-size: 11px;
+    }
+
+    .tendenciaIcono {
+        width: 12px;
+        height: 12px;
+    }
+
+    /* Filtros */
+    .filtros {
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .buscarWrapper {
+        min-width: 100%;
+    }
+
+    .inputBuscar {
+        padding: 10px 12px 10px 42px;
+        font-size: 14px;
+    }
+
+    .buscarIcono {
+        width: 18px;
+        height: 18px;
+        left: 12px;
+    }
+
+    .selectFiltro {
+        width: 100%;
+        min-width: 100%;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    /* Cards de planes */
+    .listaPlanes {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .planCard {
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .planHeader {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .planEstado {
+        align-self: flex-start;
+    }
+
+    .planNombre {
+        font-size: 17px;
+    }
+
+    .planCodigo {
+        font-size: 12px;
+    }
+
+    .metricasGrid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .metricaCard {
+        padding: 10px;
+    }
+
+    .metricaValor {
+        font-size: 15px;
+    }
+
+    .infoSecundaria {
+        font-size: 12px;
+    }
+
+    /* Acciones */
+    .planAcciones {
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 16px;
+    }
+
+    .btnVer,
+    .btnEditar {
+        width: 100%;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .btnAccionIcono {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Estados */
+    .cargando {
+        padding: 60px 16px;
+        min-height: 300px;
+    }
+
+    .iconoCargando {
+        width: 40px;
+        height: 40px;
+    }
+
+    .cargando span {
+        font-size: 14px;
+    }
+
+    .sinDatos {
+        padding: 60px 16px;
+    }
+
+    .sinDatosIcono {
+        width: 60px;
+        height: 60px;
+    }
+
+    .sinDatos p {
+        font-size: 16px;
+    }
+}
+
+/* Móviles muy pequeños (360px y menos) */
+@media (max-width: 360px) {
+    .contenedor {
+        padding: 12px;
+    }
+
+    .titulo {
+        font-size: 22px;
+    }
+
+    .estadValor {
+        font-size: 22px;
+    }
+
+    .planNombre {
+        font-size: 16px;
+    }
+
+    .metricaValor {
+        font-size: 14px;
+    }
+}

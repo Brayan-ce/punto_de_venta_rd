@@ -1,0 +1,224 @@
+.contenedor {
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.titulo {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.subtitulo {
+    color: #64748b;
+    margin: 5px 0 0;
+}
+
+.btnNuevo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnNuevo:hover {
+    background: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.tarjeta {
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.light .tarjeta {
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.dark .tarjeta {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+.avatar {
+    font-size: 3rem;
+    color: #94a3b8;
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.info p {
+    margin: 5px 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.documento {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    color: #475569;
+}
+
+.estado {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.activo {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.inactivo {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+.modalHeader {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.modalBody {
+    padding: 30px;
+}
+
+.grupo {
+    margin-bottom: 20px;
+}
+
+.grupo label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.grupo input,
+.grupo select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.grupo input:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.modalFooter {
+    display: flex;
+    gap: 15px;
+    padding: 0 30px 30px;
+}
+
+.modalFooter button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.btnGuardar {
+    background: #0ea5e9;
+    color: white;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .contenedor {
+        padding: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .btnNuevo {
+        width: 100%;
+        justify-content: center;
+    }
+}

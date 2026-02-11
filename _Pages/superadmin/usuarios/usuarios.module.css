@@ -1,0 +1,1575 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.btnNuevo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.btnNuevo:hover {
+    background: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btnNuevo ion-icon {
+    font-size: 22px;
+}
+
+.selectorEmpresa {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.selectorEmpresa.light {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.selectorEmpresa.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.selectorGrupo {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.separadorO {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.light .separadorO {
+    color: #94a3b8;
+}
+
+.dark .separadorO {
+    color: #64748b;
+}
+
+.busquedaEmpresaContainer {
+    flex: 1;
+    position: relative;
+}
+
+.busquedaEmpresa {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.busquedaEmpresa>ion-icon:first-child {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.light .busquedaEmpresa>ion-icon:first-child {
+    color: #64748b;
+}
+
+.dark .busquedaEmpresa>ion-icon:first-child {
+    color: #94a3b8;
+}
+
+.inputBusquedaEmpresa {
+    width: 100%;
+    padding: 12px 36px 12px 44px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.light .inputBusquedaEmpresa {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .inputBusquedaEmpresa {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .inputBusquedaEmpresa:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .inputBusquedaEmpresa:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.btnLimpiar {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    z-index: 3;
+}
+
+.btnLimpiar ion-icon {
+    font-size: 20px;
+}
+
+.light .btnLimpiar ion-icon {
+    color: #94a3b8;
+}
+
+.dark .btnLimpiar ion-icon {
+    color: #64748b;
+}
+
+.light .btnLimpiar:hover {
+    background: #f1f5f9;
+}
+
+.dark .btnLimpiar:hover {
+    background: #334155;
+}
+
+.light .btnLimpiar:hover ion-icon {
+    color: #ef4444;
+}
+
+.dark .btnLimpiar:hover ion-icon {
+    color: #f87171;
+}
+
+.dropdownEmpresas {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 10px;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdownEmpresas.light {
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+}
+
+.dropdownEmpresas.dark {
+    background: #1e293b;
+    border: 2px solid #334155;
+}
+
+.dropdownItem {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.dropdownItem ion-icon:first-child {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.light .dropdownItem ion-icon:first-child {
+    color: #0ea5e9;
+}
+
+.dark .dropdownItem ion-icon:first-child {
+    color: #38bdf8;
+}
+
+.dropdownItem span {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.light .dropdownItem span {
+    color: #0f172a;
+}
+
+.dark .dropdownItem span {
+    color: #f1f5f9;
+}
+
+.light .dropdownItem:hover {
+    background: #f1f5f9;
+}
+
+.dark .dropdownItem:hover {
+    background: #334155;
+}
+
+.dropdownItem.seleccionado {
+    font-weight: 600;
+}
+
+.light .dropdownItem.seleccionado {
+    background: #e0f2fe;
+}
+
+.dark .dropdownItem.seleccionado {
+    background: #1e3a5f;
+}
+
+.iconoCheck {
+    font-size: 20px;
+    color: #10b981;
+}
+
+.dropdownVacio {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.light .dropdownVacio {
+    color: #64748b;
+}
+
+.dark .dropdownVacio {
+    color: #94a3b8;
+}
+
+.dropdownVacio ion-icon {
+    font-size: 20px;
+}
+
+.selectWrapper {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.selectWrapper ion-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 22px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.light .selectWrapper ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .selectWrapper ion-icon {
+    color: #38bdf8;
+}
+
+.selectEmpresa {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .selectEmpresa {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .selectEmpresa {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .selectEmpresa:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .selectEmpresa:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.sinSeleccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 80px 20px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.sinSeleccion.light {
+    background: #ffffff;
+}
+
+.sinSeleccion.dark {
+    background: #1e293b;
+}
+
+.sinSeleccion ion-icon {
+    font-size: 80px;
+}
+
+.light .sinSeleccion ion-icon {
+    color: #cbd5e1;
+}
+
+.dark .sinSeleccion ion-icon {
+    color: #475569;
+}
+
+.sinSeleccion h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.light .sinSeleccion h3 {
+    color: #0f172a;
+}
+
+.dark .sinSeleccion h3 {
+    color: #f1f5f9;
+}
+
+.sinSeleccion p {
+    margin: 0;
+    font-size: 15px;
+    max-width: 500px;
+}
+
+.light .sinSeleccion p {
+    color: #64748b;
+}
+
+.dark .sinSeleccion p {
+    color: #94a3b8;
+}
+
+.controles {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.busqueda {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.busqueda ion-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 20px;
+    pointer-events: none;
+}
+
+.light .busqueda ion-icon {
+    color: #64748b;
+}
+
+.dark .busqueda ion-icon {
+    color: #94a3b8;
+}
+
+.inputBusqueda {
+    width: 100%;
+    padding: 12px 16px 12px 48px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.light .inputBusqueda {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .inputBusqueda {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .inputBusqueda:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .inputBusqueda:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.filtros {
+    display: flex;
+    gap: 12px;
+}
+
+.selectFiltro {
+    padding: 10px 16px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .selectFiltro {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .selectFiltro {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .selectFiltro:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .selectFiltro:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    min-height: 400px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.light .cargando {
+    color: #0ea5e9;
+}
+
+.dark .cargando {
+    color: #38bdf8;
+}
+
+.iconoCargando {
+    font-size: 48px;
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 60px 20px;
+    border-radius: 16px;
+}
+
+.vacio.light {
+    background: #ffffff;
+}
+
+.vacio.dark {
+    background: #1e293b;
+}
+
+.vacio ion-icon {
+    font-size: 64px;
+}
+
+.light .vacio ion-icon {
+    color: #cbd5e1;
+}
+
+.dark .vacio ion-icon {
+    color: #475569;
+}
+
+.vacio span {
+    font-size: 16px;
+}
+
+.light .vacio span {
+    color: #94a3b8;
+}
+
+.dark .vacio span {
+    color: #64748b;
+}
+
+.tabla {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.tablaHeader {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr 1.8fr 1fr 1fr 1fr 1.2fr;
+    gap: 16px;
+    padding: 16px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tablaHeader.light {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.tablaHeader.dark {
+    background: #1e293b;
+    color: #94a3b8;
+}
+
+.tablaBody {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fila {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr 1.8fr 1fr 1fr 1fr 1.2fr;
+    gap: 16px;
+    padding: 16px 20px;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.fila.light {
+    background: #ffffff;
+}
+
+.fila.dark {
+    background: #1e293b;
+}
+
+.fila.light:hover {
+    background: #f8fafc;
+}
+
+.fila.dark:hover {
+    background: #334155;
+}
+
+.columna {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    min-width: 0;
+}
+
+.light .columna {
+    color: #0f172a;
+}
+
+.dark .columna {
+    color: #f1f5f9;
+}
+
+.columnaAcciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.usuarioInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.avatarDefault {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.light .avatarDefault {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.dark .avatarDefault {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.avatarDefault ion-icon {
+    font-size: 20px;
+}
+
+.nombreUsuario {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cedula,
+.email {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.light .cedula,
+.light .email {
+    color: #64748b;
+}
+
+.dark .cedula,
+.dark .email {
+    color: #94a3b8;
+}
+
+.badgeTipo,
+.badgeEstado {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.badgeTipo.superadmin {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badgeTipo.admin {
+    background: #ddd6fe;
+    color: #5b21b6;
+}
+
+.badgeTipo.vendedor {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.badgeEstado.activo {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badgeEstado.inactivo {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.fecha {
+    font-size: 13px;
+}
+
+.light .fecha {
+    color: #64748b;
+}
+
+.dark .fecha {
+    color: #94a3b8;
+}
+
+.btnIcono {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnIcono ion-icon {
+    font-size: 20px;
+}
+
+.light .btnIcono {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.dark .btnIcono {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.light .btnIcono:hover:not(:disabled) {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .btnIcono:hover:not(:disabled) {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.btnIcono.activar:hover:not(:disabled) {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.btnIcono.desactivar:hover:not(:disabled) {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.btnIcono.eliminar:hover:not(:disabled) {
+    background: #8b5cf6;
+    color: #ffffff;
+}
+
+.btnIcono:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 16px;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: auto;
+}
+
+.modal.light {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal.dark {
+    background: #1e293b;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.modalHeader {
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.light .modalHeader {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dark .modalHeader {
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.light .modalHeader h2 {
+    color: #0f172a;
+}
+
+.dark .modalHeader h2 {
+    color: #f1f5f9;
+}
+
+.btnCerrar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btnCerrar ion-icon {
+    font-size: 28px;
+}
+
+.light .btnCerrar ion-icon {
+    color: #64748b;
+}
+
+.dark .btnCerrar ion-icon {
+    color: #94a3b8;
+}
+
+.light .btnCerrar:hover {
+    background: #f1f5f9;
+}
+
+.dark .btnCerrar:hover {
+    background: #334155;
+}
+
+.modalBody {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filaForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.grupoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.grupoInput label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.light .grupoInput label {
+    color: #475569;
+}
+
+.dark .grupoInput label {
+    color: #cbd5e1;
+}
+
+.grupoInput input,
+.grupoInput select {
+    padding: 10px 14px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.light .grupoInput input,
+.light .grupoInput select {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .grupoInput input,
+.dark .grupoInput select {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .grupoInput input:focus,
+.light .grupoInput select:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .grupoInput input:focus,
+.dark .grupoInput select:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.inputError {
+    border-color: #ef4444;
+}
+
+.mensajeError {
+    font-size: 12px;
+    color: #ef4444;
+    margin-top: 4px;
+}
+
+.modalFooter {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.light .modalFooter {
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+}
+
+.dark .modalFooter {
+    background: #1e293b;
+    border-top: 1px solid #334155;
+}
+
+.btnCancelar,
+.btnGuardar {
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnCancelar {
+    background: none;
+}
+
+.light .btnCancelar {
+    color: #64748b;
+    border: 2px solid #e5e7eb;
+}
+
+.dark .btnCancelar {
+    color: #94a3b8;
+    border: 2px solid #334155;
+}
+
+.light .btnCancelar:hover {
+    background: #f1f5f9;
+}
+
+.dark .btnCancelar:hover {
+    background: #334155;
+}
+
+.btnGuardar {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.btnGuardar:hover:not(:disabled) {
+    background: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btnGuardar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 1200px) {
+
+    .tablaHeader,
+    .fila {
+        grid-template-columns: 1.8fr 1.2fr 1.5fr 0.9fr 0.9fr 0.9fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px 15px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btnNuevo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .selectorGrupo {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .busquedaEmpresaContainer,
+    .selectWrapper {
+        width: 100%;
+    }
+
+    .separadorO {
+        display: none;
+    }
+
+    .controles {
+        flex-direction: column;
+    }
+
+    .filtros {
+        width: 100%;
+    }
+
+    .selectFiltro {
+        flex: 1;
+    }
+
+    .tabla {
+        overflow-x: auto;
+    }
+
+    .tablaHeader,
+    .fila {
+        min-width: 900px;
+    }
+
+    .modal {
+        max-width: 100%;
+        max-height: 95vh;
+    }
+
+    .modalBody {
+        padding: 20px;
+    }
+
+    .filaForm {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================
+   TÉRMINOS Y CONDICIONES
+   =================================== */
+
+.grupoTerminos {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 2px solid;
+}
+
+.light .grupoTerminos {
+    background: #f8fafc;
+    border-color: #e5e7eb;
+}
+
+.dark .grupoTerminos {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.terminosCheckbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.terminosCheckbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+    accent-color: #0ea5e9;
+}
+
+.labelTerminos {
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+    user-select: none;
+}
+
+.light .labelTerminos {
+    color: #475569;
+}
+
+.dark .labelTerminos {
+    color: #cbd5e1;
+}
+
+.linkTerminos {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: all 0.2s ease;
+}
+
+.light .linkTerminos {
+    color: #0ea5e9;
+}
+
+.dark .linkTerminos {
+    color: #38bdf8;
+}
+
+.linkTerminos:hover {
+    opacity: 0.8;
+}
+
+.modalTerminos {
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.light .modalTerminos {
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.dark .modalTerminos {
+    background: #1e293b;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.terminosContent {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.terminosFecha {
+    font-size: 13px;
+    font-weight: 500;
+    padding-bottom: 16px;
+    border-bottom: 2px solid;
+}
+
+.light .terminosFecha {
+    color: #64748b;
+    border-color: #e5e7eb;
+}
+
+.dark .terminosFecha {
+    color: #94a3b8;
+    border-color: #334155;
+}
+
+.terminosSeccion {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.terminosSeccion h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid;
+}
+
+.light .terminosSeccion h3 {
+    color: #0f172a;
+    border-color: #e5e7eb;
+}
+
+.dark .terminosSeccion h3 {
+    color: #f1f5f9;
+    border-color: #334155;
+}
+
+.terminosSeccion h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    margin-top: 8px;
+}
+
+.light .terminosSeccion h4 {
+    color: #1e293b;
+}
+
+.dark .terminosSeccion h4 {
+    color: #e2e8f0;
+}
+
+.terminosSeccion p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.light .terminosSeccion p {
+    color: #475569;
+}
+
+.dark .terminosSeccion p {
+    color: #cbd5e1;
+}
+
+.terminosSeccion ul {
+    margin: 8px 0;
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.terminosSeccion li {
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.light .terminosSeccion li {
+    color: #475569;
+}
+
+.dark .terminosSeccion li {
+    color: #cbd5e1;
+}
+
+.btnDeclinar,
+.btnAceptarTerminos {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.btnDeclinar {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 2px solid #e5e7eb;
+}
+
+.dark .btnDeclinar {
+    background: #334155;
+    color: #94a3b8;
+    border-color: #475569;
+}
+
+.btnDeclinar:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+}
+
+.dark .btnDeclinar:hover {
+    background: #475569;
+}
+
+.btnAceptarTerminos {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.btnAceptarTerminos:hover {
+    background: #0284c7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+@media (max-width: 768px) {
+    .modalTerminos {
+        max-width: 95vw;
+        max-height: 95vh;
+    }
+
+    .terminosContent {
+        padding: 20px;
+        gap: 24px;
+    }
+
+    .terminosSeccion h3 {
+        font-size: 20px;
+    }
+
+    .terminosSeccion h4 {
+        font-size: 16px;
+    }
+
+    .terminosSeccion p,
+    .terminosSeccion li {
+        font-size: 13px;
+    }
+
+    .labelTerminos {
+        font-size: 13px;
+    }
+
+    .modalFooter {
+        flex-direction: column;
+    }
+
+    .btnDeclinar,
+    .btnAceptarTerminos {
+        width: 100%;
+    }
+}
+
+/* Estilos para Modo de Sistema */
+.badgeModo {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: fit-content;
+}
+
+.modoPos {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.modoObras {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.selectorModo {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.opcionModo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.opcionModo ion-icon {
+    font-size: 1.5rem;
+    color: #95a5a6;
+}
+
+.opcionModo span {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #7f8c8d;
+}
+
+.opcionModo input {
+    display: none;
+}
+
+.opcionModo:hover {
+    border-color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.05);
+}
+
+.opcionModo.activo {
+    border-color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.1);
+}
+
+.opcionModo.activo ion-icon {
+    color: #0ea5e9;
+}
+
+.opcionModo.activo span {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.ayudaInput {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.dark .opcionModo {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.dark .opcionModo span {
+    color: #94a3b8;
+}
+
+.dark .opcionModo.activo {
+    background: rgba(56, 189, 248, 0.1);
+    border-color: #38bdf8;
+}
+
+.dark .opcionModo.activo span {
+    color: #f1f5f9;
+}
+
+.dark .modoPos {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.dark .modoObras {
+    background: #065f46;
+    color: #34d399;
+}

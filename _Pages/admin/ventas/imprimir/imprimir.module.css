@@ -1,0 +1,1632 @@
+.contenedor {
+    min-height: 100vh;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    transition: background 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f1f5f9;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    padding: 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.controles.light {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.controles.dark {
+    background: #1e293b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.selectores h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+}
+
+.light .selectores h3 {
+    color: #1e293b;
+}
+
+.dark .selectores h3 {
+    color: #f1f5f9;
+}
+
+.botonesTabaño {
+    display: flex;
+    gap: 10px;
+}
+
+.btnTamaño {
+    padding: 10px 24px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnTamaño.light {
+    background: transparent;
+    border-color: #cbd5e1;
+    color: #64748b;
+}
+
+.btnTamaño.dark {
+    background: transparent;
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.btnTamaño.light:hover {
+    border-color: #0ea5e9;
+    color: #0ea5e9;
+}
+
+.btnTamaño.dark:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.btnTamaño.activo {
+    border-color: #0ea5e9;
+    background: #0ea5e9;
+    color: white;
+}
+
+.botonesAccion {
+    display: flex;
+    gap: 12px;
+}
+
+.btnImprimir,
+.btnCerrar {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnImprimir {
+    background: #10b981;
+    color: white;
+}
+
+.btnImprimir:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnCerrar {
+    background: #64748b;
+    color: white;
+}
+
+.btnCerrar:hover {
+    background: #475569;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+}
+
+.cargando,
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 400px;
+    text-align: center;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.light .spinner {
+    border-color: #e5e7eb;
+    border-top-color: #0ea5e9;
+}
+
+.dark .spinner {
+    border-color: #334155;
+    border-top-color: #38bdf8;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cargando p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.light .cargando p {
+    color: #64748b;
+}
+
+.dark .cargando p {
+    color: #94a3b8;
+}
+
+.error h2 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
+}
+
+.light .error h2 {
+    color: #ef4444;
+}
+
+.dark .error h2 {
+    color: #f87171;
+}
+
+.error p {
+    font-size: 16px;
+    margin: 0 0 20px 0;
+}
+
+.light .error p {
+    color: #64748b;
+}
+
+.dark .error p {
+    color: #94a3b8;
+}
+
+.vistaPrevia {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+    padding: 20px;
+}
+
+.panelOpciones {
+    width: 280px;
+    padding: 20px;
+    border-radius: 12px;
+    position: sticky;
+    top: 20px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.light .panelOpciones {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dark .panelOpciones {
+    background: #1e293b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.panelOpciones h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+}
+
+.light .panelOpciones h3 {
+    color: #1e293b;
+}
+
+.dark .panelOpciones h3 {
+    color: #f1f5f9;
+}
+
+.listaOpciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.opcionLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.opcionLabel span {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.light .opcionLabel span {
+    color: #475569;
+}
+
+.dark .opcionLabel span {
+    color: #cbd5e1;
+}
+
+.switch {
+    position: relative;
+    width: 46px;
+    height: 24px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.light .switch {
+    background: #cbd5e1;
+}
+
+.dark .switch {
+    background: #475569;
+}
+
+.switch.activo {
+    background: #10b981;
+}
+
+.switchSlider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch.activo .switchSlider {
+    transform: translateX(22px);
+}
+
+.boucher {
+    background: white;
+    padding: 40px;
+    font-family: 'Courier New', monospace;
+    color: #000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 100%;
+}
+
+.boucher[data-size="58mm"] {
+    width: 600px;
+    font-size: 16px;
+}
+
+.boucher[data-size="80mm"] {
+    width: 800px;
+    font-size: 18px;
+}
+
+.boucher[data-size="A4"] {
+    width: 900px;
+    font-size: 18px;
+    padding: 50px;
+}
+
+.encabezado {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.encabezado h1 {
+    font-size: 1.4em;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.encabezado p {
+    margin: 4px 0;
+    line-height: 1.6;
+}
+
+.linea {
+    border-top: 2px solid #000;
+    margin: 15px 0;
+}
+
+.lineaDoble {
+    border-top: 3px double #000;
+    margin: 12px 0;
+}
+
+.lineaSencilla {
+    border-top: 1px dashed #666;
+    margin: 10px 0;
+}
+
+.comprobante {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.comprobante .tipoDoc {
+    font-size: 1.2em;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+}
+
+.comprobante .ncf {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 6px 0;
+    letter-spacing: 0.5px;
+}
+
+.comprobante p {
+    margin: 5px 0;
+}
+
+.info {
+    margin: 15px 0;
+}
+
+.info p {
+    margin: 6px 0;
+    line-height: 1.6;
+}
+
+.productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.productos th {
+    padding: 10px 8px;
+    text-align: left;
+    font-weight: 800;
+    border-bottom: 2px solid #000;
+    text-transform: uppercase;
+}
+
+.productos td {
+    padding: 8px;
+    border-bottom: 1px dotted #999;
+}
+
+.productos tbody tr:last-child td {
+    border-bottom: 2px solid #000;
+}
+
+.centrado {
+    text-align: center;
+}
+
+.derecha {
+    text-align: right;
+}
+
+.totales {
+    margin: 18px 0;
+}
+
+.totales .fila {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    line-height: 1.6;
+}
+
+.totales .fila span:first-child {
+    font-weight: 600;
+}
+
+.totales .fila span:last-child {
+    font-weight: 700;
+}
+
+.totales .fila.total {
+    font-size: 1.3em;
+    font-weight: 800;
+    margin: 10px 0;
+}
+
+.notas {
+    margin: 15px 0;
+    padding: 12px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.notas p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.footer .mensaje {
+    font-style: italic;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.footer .legal {
+    font-size: 0.85em;
+    margin: 8px 0;
+    font-weight: 600;
+}
+
+.footer .fecha {
+    font-size: 0.85em;
+    margin: 6px 0;
+}
+
+.footer .gracias {
+    font-size: 1.2em;
+    font-weight: 800;
+    margin: 15px 0 0 0;
+    letter-spacing: 1px;
+}
+
+.contenedor {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===================================== */
+/* SECCIONES DE IMPRESIÓN */
+/* ===================================== */
+
+.seccionImpresion {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.seccionHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.seccionTitulo {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.iconoImpresion {
+    font-size: 1.2rem;
+    color: var(--color-primario);
+    /* o #2563eb */
+}
+
+.badgeNuevo {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.seccionDescripcion {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+.separador {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+    margin: 24px 0;
+}
+
+.codigoQR {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 15px;
+    background: #ffffff;
+}
+
+.codigoQR svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .contenedor {
+        background: white;
+        padding: 0;
+        margin: 0;
+    }
+
+    .controles,
+    .panelOpciones {
+        display: none !important;
+    }
+
+    .vistaPrevia {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: auto;
+    }
+
+    .boucher {
+        box-shadow: none;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .boucher[data-size="58mm"] {
+        width: 58mm;
+        font-size: 9px;
+    }
+
+    .boucher[data-size="80mm"] {
+        width: 80mm;
+        font-size: 10px;
+    }
+
+    .boucher[data-size="A4"] {
+        width: 210mm;
+        font-size: 11px;
+        padding: 30px;
+    }
+
+    .encabezado {
+        margin-bottom: 12px;
+    }
+
+    .encabezado h1 {
+        margin: 0 0 6px 0;
+    }
+
+    .encabezado p {
+        margin: 2px 0;
+        line-height: 1.4;
+    }
+
+    .linea {
+        margin: 10px 0;
+    }
+
+    .lineaDoble {
+        margin: 8px 0;
+    }
+
+    .lineaSencilla {
+        margin: 6px 0;
+    }
+
+    .comprobante {
+        margin: 10px 0;
+    }
+
+    .comprobante .tipoDoc {
+        margin: 0 0 4px 0;
+    }
+
+    .comprobante .ncf {
+        margin: 4px 0;
+    }
+
+    .comprobante p {
+        margin: 3px 0;
+    }
+
+    .info {
+        margin: 10px 0;
+    }
+
+    .info p {
+        margin: 4px 0;
+        line-height: 1.5;
+    }
+
+    .productos {
+        margin: 10px 0;
+    }
+
+    .productos th {
+        padding: 6px 4px;
+    }
+
+    .productos td {
+        padding: 5px 4px;
+    }
+
+    .totales {
+        margin: 12px 0;
+    }
+
+    .totales .fila {
+        padding: 4px 0;
+        line-height: 1.4;
+    }
+
+    .totales .fila.total {
+        margin: 6px 0;
+    }
+
+    .notas {
+        margin: 10px 0;
+        padding: 8px;
+    }
+
+    .notas p {
+        line-height: 1.5;
+    }
+
+    .footer {
+        margin-top: 12px;
+    }
+
+    .footer .mensaje {
+        margin: 6px 0;
+        line-height: 1.4;
+    }
+
+    .footer .legal {
+        margin: 6px 0;
+    }
+
+    .footer .fecha {
+        margin: 4px 0;
+    }
+
+    .footer .gracias {
+        margin: 10px 0 0 0;
+    }
+
+    .codigoQR {
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    .codigoQR svg {
+        width: 100% !important;
+        height: 40px !important;
+    }
+
+    @page {
+        margin: 0;
+    }
+}
+
+body[data-print-size="58mm"] {
+    @media print {
+        @page {
+            size: 58mm auto;
+            margin: 0;
+        }
+    }
+}
+
+body[data-print-size="80mm"] {
+    @media print {
+        @page {
+            size: 80mm auto;
+            margin: 0;
+        }
+    }
+}
+
+body[data-print-size="A4"] {
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .boucher[data-size="58mm"] {
+        width: 500px;
+        font-size: 14px;
+    }
+
+    .boucher[data-size="80mm"] {
+        width: 700px;
+        font-size: 16px;
+    }
+
+    .boucher[data-size="A4"] {
+        width: 800px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .vistaPrevia {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .panelOpciones {
+        position: static;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .listaOpciones {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .boucher[data-size="58mm"] {
+        width: 500px;
+        font-size: 14px;
+    }
+
+    .boucher[data-size="80mm"] {
+        width: 650px;
+        font-size: 15px;
+    }
+
+    .boucher[data-size="A4"] {
+        width: 700px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor {
+        padding: 15px 10px;
+    }
+
+    .controles {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+    }
+
+    .selectores {
+        width: 100%;
+    }
+
+    .botonesTabaño {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .botonesAccion {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btnImprimir,
+    .btnCerrar {
+        width: 100%;
+    }
+
+    .boucher {
+        width: 100% !important;
+        max-width: 500px;
+        font-size: 13px !important;
+        padding: 30px !important;
+    }
+
+    .listaOpciones {
+        grid-template-columns: 1fr;
+    }
+}
+
+.contenedor *,
+.contenedor *::before,
+.contenedor *::after {
+    box-sizing: border-box;
+}
+
+.contenedor {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+    .vistaPrevia {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .panelOpciones {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .listaOpciones {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .boucher[data-size="58mm"] {
+        width: 100%;
+        max-width: 500px;
+        font-size: 14px;
+    }
+
+    .boucher[data-size="80mm"] {
+        width: 100%;
+        max-width: 650px;
+        font-size: 15px;
+    }
+
+    .boucher[data-size="A4"] {
+        width: 100%;
+        max-width: 700px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contenedor {
+        padding: 15px 10px;
+        gap: 20px;
+    }
+
+    .controles {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .selectores {
+        width: 100%;
+    }
+
+    .selectores h3 {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .botonesTabaño {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btnTamaño {
+        padding: 9px 20px;
+        font-size: 13px;
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .botonesAccion {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btnImprimir,
+    .btnCerrar,
+    .btnWhatsApp {
+        width: 100%;
+        padding: 11px 28px;
+        font-size: 14px;
+    }
+
+    .vistaPrevia {
+        padding: 10px;
+        gap: 20px;
+    }
+
+    .panelOpciones {
+        padding: 16px;
+    }
+
+    .panelOpciones h3 {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .listaOpciones {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .opcionLabel span {
+        font-size: 12px;
+    }
+
+    .switch {
+        width: 42px;
+        height: 22px;
+    }
+
+    .switchSlider {
+        width: 18px;
+        height: 18px;
+    }
+
+    .switch.activo .switchSlider {
+        transform: translateX(20px);
+    }
+
+    .boucher {
+        width: 100% !important;
+        max-width: 100%;
+        font-size: 13px !important;
+        padding: 25px !important;
+    }
+
+    .boucher[data-size="58mm"],
+    .boucher[data-size="80mm"],
+    .boucher[data-size="A4"] {
+        width: 100% !important;
+        max-width: 100%;
+        font-size: 13px !important;
+    }
+
+    .encabezado h1 {
+        font-size: 1.2em;
+    }
+
+    .comprobante .tipoDoc {
+        font-size: 1.1em;
+    }
+
+    .comprobante .ncf {
+        font-size: 1em;
+    }
+
+    .productos {
+        font-size: 12px;
+    }
+
+    .productos th,
+    .productos td {
+        padding: 6px 4px;
+    }
+
+    .totales .fila {
+        font-size: 13px;
+    }
+
+    .totales .fila.total {
+        font-size: 1.2em;
+    }
+
+    .codigoQR {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contenedor {
+        padding: 12px 8px;
+        gap: 15px;
+    }
+
+    .controles {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .selectores h3 {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .botonesTabaño {
+        gap: 8px;
+    }
+
+    .btnTamaño {
+        padding: 8px 16px;
+        font-size: 12px;
+        min-width: 70px;
+    }
+
+    .botonesAccion {
+        gap: 10px;
+    }
+
+    .btnImprimir,
+    .btnCerrar,
+    .btnWhatsApp {
+        padding: 10px 24px;
+        font-size: 13px;
+    }
+
+    .modalWhatsApp {
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    .modalBody {
+        padding: 20px;
+    }
+
+    .modalFooter {
+        padding: 16px 20px;
+        flex-direction: column;
+    }
+
+    .btnCancelar,
+    .btnEnviarWhatsApp {
+        width: 100%;
+    }
+
+    .vistaPrevia {
+        padding: 8px;
+        gap: 15px;
+    }
+
+    .panelOpciones {
+        padding: 14px;
+    }
+
+    .panelOpciones h3 {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .listaOpciones {
+        gap: 8px;
+    }
+
+    .opcionLabel span {
+        font-size: 11px;
+    }
+
+    .switch {
+        width: 38px;
+        height: 20px;
+    }
+
+    .switchSlider {
+        width: 16px;
+        height: 16px;
+    }
+
+    .switch.activo .switchSlider {
+        transform: translateX(18px);
+    }
+
+    .boucher {
+        padding: 20px !important;
+        font-size: 12px !important;
+    }
+
+    .encabezado {
+        margin-bottom: 15px;
+    }
+
+    .encabezado h1 {
+        font-size: 1.1em;
+        margin-bottom: 8px;
+    }
+
+    .encabezado p {
+        margin: 3px 0;
+        font-size: 0.95em;
+    }
+
+    .linea {
+        margin: 12px 0;
+    }
+
+    .lineaDoble {
+        margin: 10px 0;
+    }
+
+    .lineaSencilla {
+        margin: 8px 0;
+    }
+
+    .comprobante {
+        margin: 12px 0;
+    }
+
+    .comprobante .tipoDoc {
+        font-size: 1em;
+        margin-bottom: 6px;
+    }
+
+    .comprobante .ncf {
+        font-size: 0.95em;
+        margin: 5px 0;
+    }
+
+    .comprobante p {
+        margin: 4px 0;
+        font-size: 0.95em;
+    }
+
+    .info {
+        margin: 12px 0;
+    }
+
+    .info p {
+        margin: 5px 0;
+        font-size: 0.95em;
+    }
+
+    .productos {
+        font-size: 11px;
+        margin: 12px 0;
+    }
+
+    .productos th {
+        padding: 6px 3px;
+        font-size: 0.9em;
+    }
+
+    .productos td {
+        padding: 5px 3px;
+    }
+
+    .totales {
+        margin: 14px 0;
+    }
+
+    .totales .fila {
+        font-size: 12px;
+        padding: 5px 0;
+    }
+
+    .totales .fila.total {
+        font-size: 1.15em;
+        margin: 8px 0;
+    }
+
+    .notas {
+        margin: 12px 0;
+        padding: 10px;
+        font-size: 0.95em;
+    }
+
+    .footer {
+        margin-top: 14px;
+    }
+
+    .footer .mensaje {
+        margin: 8px 0;
+        font-size: 0.95em;
+    }
+
+    .footer .legal {
+        font-size: 0.8em;
+        margin: 6px 0;
+    }
+
+    .footer .fecha {
+        font-size: 0.8em;
+        margin: 5px 0;
+    }
+
+    .footer .gracias {
+        font-size: 1.1em;
+        margin: 12px 0 0 0;
+    }
+
+    .codigoQR {
+        margin: 15px 0;
+        padding: 8px;
+    }
+
+    .cargando,
+    .error {
+        min-height: 300px;
+        padding: 20px;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+    }
+
+    .cargando p {
+        font-size: 14px;
+    }
+
+    .error h2 {
+        font-size: 20px;
+    }
+
+    .error p {
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+.selectImpresora {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 200px;
+}
+
+.selectImpresora.light {
+    background: white;
+    border: 2px solid #cbd5e1;
+    color: #1e293b;
+}
+
+.selectImpresora.dark {
+    background: #334155;
+    border: 2px solid #475569;
+    color: #f1f5f9;
+}
+
+.selectImpresora.light:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.selectImpresora.dark:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.btnCompartir {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #8b5cf6;
+    color: white;
+}
+
+.btnCompartir:hover {
+    background: #7c3aed;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.btnImprimirNav {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #0ea5e9;
+    color: white;
+}
+
+.btnImprimirNav:hover {
+    background: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btnImprimir:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btnWhatsApp {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #25D366;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnWhatsApp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.btnWhatsApp ion-icon {
+    font-size: 20px;
+}
+
+/* Modal WhatsApp */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.modalWhatsApp {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.light .modalWhatsApp {
+    background: #ffffff;
+}
+
+.dark .modalWhatsApp {
+    background: #1e293b;
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid;
+}
+
+.light .modalHeader {
+    border-color: #e5e7eb;
+}
+
+.dark .modalHeader {
+    border-color: #334155;
+}
+
+.modalHeader h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .modalHeader h3 {
+    color: #1e293b;
+}
+
+.dark .modalHeader h3 {
+    color: #f1f5f9;
+}
+
+.btnCerrarModal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.light .btnCerrarModal {
+    color: #64748b;
+}
+
+.dark .btnCerrarModal {
+    color: #94a3b8;
+}
+
+.btnCerrarModal:hover {
+    background: #f1f5f9;
+}
+
+.dark .btnCerrarModal:hover {
+    background: #334155;
+}
+
+.modalBody {
+    padding: 24px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.modalTexto {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+}
+
+.light .modalTexto {
+    color: #475569;
+}
+
+.dark .modalTexto {
+    color: #cbd5e1;
+}
+
+.inputWhatsApp {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.light .inputWhatsApp {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #1e293b;
+}
+
+.dark .inputWhatsApp {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .inputWhatsApp:focus {
+    outline: none;
+    border-color: #25D366;
+}
+
+.dark .inputWhatsApp:focus {
+    outline: none;
+    border-color: #25D366;
+}
+
+.modalAyuda {
+    margin: 12px 0 0 0;
+    font-size: 12px;
+}
+
+.light .modalAyuda {
+    color: #64748b;
+}
+
+.dark .modalAyuda {
+    color: #94a3b8;
+}
+
+.modalFooter {
+    display: flex;
+    gap: 12px;
+    padding: 20px 24px;
+    border-top: 1px solid;
+}
+
+.light .modalFooter {
+    border-color: #e5e7eb;
+}
+
+.dark .modalFooter {
+    border-color: #334155;
+}
+
+.btnCancelar {
+    flex: 1;
+    padding: 12px 24px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+.light .btnCancelar {
+    border-color: #cbd5e1;
+    color: #64748b;
+}
+
+.dark .btnCancelar {
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.btnCancelar:hover {
+    background: #f1f5f9;
+}
+
+.dark .btnCancelar:hover {
+    background: #334155;
+}
+
+.btnEnviarWhatsApp {
+    flex: 1;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #25D366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btnEnviarWhatsApp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.btnEnviarWhatsApp ion-icon {
+    font-size: 20px;
+}

@@ -1,0 +1,2318 @@
+/* ========================================
+   DASHBOARD CONTRATOS - ESTILOS PROFESIONALES
+   Paleta: Azul (#0ea5e9), Verde (#10b981), Naranja (#f59e0b), Rojo (#ef4444)
+   ======================================== */
+
+/* Contenedor principal */
+.contenedor {
+    padding: 30px;
+    max-width: 1800px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+.header {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.headerInfo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.headerIcono {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+}
+
+.headerIcono img {
+    width: 40px;
+    height: 40px;
+    filter: brightness(0) invert(1);
+}
+
+.titulo {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.light .titulo {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.headerAcciones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Botones del header */
+.btnNuevo, .btnListar, .btnPrimario, .btnSecundario {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btnNuevo, .btnPrimario {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+}
+
+.btnNuevo:hover, .btnPrimario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btnListar {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: #ffffff;
+}
+
+.btnListar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+}
+
+.btnSecundario {
+    background: transparent;
+    border: 2px solid;
+}
+
+.light .btnSecundario {
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+.light .btnSecundario:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.dark .btnSecundario {
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.dark .btnSecundario:hover {
+    background: #334155;
+    border-color: #64748b;
+}
+
+.btnNuevo ion-icon, .btnListar ion-icon, .btnPrimario ion-icon, .btnSecundario ion-icon {
+    font-size: 20px;
+}
+
+/* ========================================
+   TARJETAS DE ESTADÍSTICAS PRINCIPALES
+   ======================================== */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.estadCard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.estadCard:nth-child(1) { animation-delay: 0.1s; }
+.estadCard:nth-child(2) { animation-delay: 0.2s; }
+.estadCard:nth-child(3) { animation-delay: 0.3s; }
+.estadCard:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.estadCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-start), var(--color-end));
+}
+
+.estadCard.primary {
+    --color-start: #3b82f6;
+    --color-end: #2563eb;
+}
+
+.estadCard.success {
+    --color-start: #10b981;
+    --color-end: #059669;
+}
+
+.estadCard.info {
+    --color-start: #0ea5e9;
+    --color-end: #0284c7;
+}
+
+.estadCard.warning {
+    --color-start: #f59e0b;
+    --color-end: #d97706;
+}
+
+.estadCard.danger {
+    --color-start: #ef4444;
+    --color-end: #dc2626;
+}
+
+.light .estadCard {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .estadCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.estadCard:hover {
+    transform: translateY(-6px);
+}
+
+.light .estadCard:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.dark .estadCard:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.estadIconoWrapper {
+    flex-shrink: 0;
+}
+
+.estadIcono {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.estadIcono.primary {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #1e40af;
+}
+
+.estadIcono.success {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+}
+
+.estadIcono.info {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    color: #075985;
+}
+
+.estadIcono.warning {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+.estadIcono.danger {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+}
+
+.estadIcono ion-icon {
+    font-size: 32px;
+}
+
+.estadIcono img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.estadInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.estadLabel {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.light .estadLabel {
+    color: #64748b;
+}
+
+.dark .estadLabel {
+    color: #94a3b8;
+}
+
+.estadValor {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.light .estadValor {
+    color: #0f172a;
+}
+
+.dark .estadValor {
+    color: #f1f5f9;
+}
+
+.estadTendencia {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.estadTendencia.positivo {
+    color: #10b981;
+}
+
+.estadTendencia.negativo {
+    color: #ef4444;
+}
+
+.estadTendencia.neutro {
+    color: #64748b;
+}
+
+.estadTendencia ion-icon {
+    font-size: 14px;
+}
+
+/* ========================================
+   GRID PRINCIPAL
+   ======================================== */
+.gridPrincipal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 1200px) {
+    .gridPrincipal {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   TARJETA DE GRÁFICA
+   ======================================== */
+.cardGrafica {
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+
+.light .cardGrafica {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .cardGrafica {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cardGraficaHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.cardGraficaTitulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.cardGraficaTitulo ion-icon {
+    font-size: 24px;
+    color: #0ea5e9;
+}
+
+.light .cardGraficaTitulo {
+    color: #0f172a;
+}
+
+.dark .cardGraficaTitulo {
+    color: #f1f5f9;
+}
+
+.cardGraficaSubtitulo {
+    font-size: 13px;
+    margin: 0;
+}
+
+.light .cardGraficaSubtitulo {
+    color: #64748b;
+}
+
+.dark .cardGraficaSubtitulo {
+    color: #94a3b8;
+}
+
+/* Gráfica de dona */
+.graficaCircular {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.donaContainer {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+}
+
+.donaCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.donaCenterValor {
+    font-size: 32px;
+    font-weight: 800;
+    display: block;
+}
+
+.light .donaCenterValor {
+    color: #0f172a;
+}
+
+.dark .donaCenterValor {
+    color: #f1f5f9;
+}
+
+.donaCenterLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.light .donaCenterLabel {
+    color: #64748b;
+}
+
+.dark .donaCenterLabel {
+    color: #94a3b8;
+}
+
+.leyendaCircular {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.leyendaItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.light .leyendaItem {
+    background: #f8fafc;
+}
+
+.dark .leyendaItem {
+    background: #0f172a;
+}
+
+.leyendaItem:hover {
+    transform: translateX(4px);
+}
+
+.light .leyendaItem:hover {
+    background: #f1f5f9;
+}
+
+.dark .leyendaItem:hover {
+    background: #1e293b;
+}
+
+.leyendaDot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.leyendaInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.leyendaLabel {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.light .leyendaLabel {
+    color: #64748b;
+}
+
+.dark .leyendaLabel {
+    color: #94a3b8;
+}
+
+.leyendaValor {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.light .leyendaValor {
+    color: #0f172a;
+}
+
+.dark .leyendaValor {
+    color: #f1f5f9;
+}
+
+.leyendaPorcentaje {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0ea5e9;
+    min-width: 45px;
+    text-align: right;
+}
+
+/* ========================================
+   TARJETA DE CONTRATOS RECIENTES
+   ======================================== */
+.cardContratos {
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.light .cardContratos {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .cardContratos {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cardContratosHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cardContratosTitulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cardContratosTitulo ion-icon {
+    font-size: 24px;
+    color: #0ea5e9;
+}
+
+.light .cardContratosTitulo {
+    color: #0f172a;
+}
+
+.dark .cardContratosTitulo {
+    color: #f1f5f9;
+}
+
+.verTodosLink {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0ea5e9;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.verTodosLink:hover {
+    color: #0284c7;
+    gap: 8px;
+}
+
+.verTodosLink ion-icon {
+    font-size: 16px;
+}
+
+/* Lista de contratos */
+.listaContratos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.itemContrato {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.light .itemContrato {
+    background: #f8fafc;
+}
+
+.dark .itemContrato {
+    background: #0f172a;
+}
+
+.itemContrato:hover {
+    transform: translateX(4px);
+}
+
+.light .itemContrato:hover {
+    background: #f1f5f9;
+    border-color: #0ea5e9;
+}
+
+.dark .itemContrato:hover {
+    background: #1e293b;
+    border-color: #0ea5e9;
+}
+
+.contratoAvatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    border: 2px solid;
+}
+
+.light .contratoAvatar {
+    border-color: #e5e7eb;
+}
+
+.dark .contratoAvatar {
+    border-color: #334155;
+}
+
+.contratoAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contratoAvatar span {
+    text-transform: uppercase;
+}
+
+.contratoIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contratoIcono img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.contratoIcono.activo {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+}
+
+.contratoIcono.pagado {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+}
+
+.contratoIcono.incumplido {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+}
+
+.contratoIcono.reestructurado {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+}
+
+.contratoIcono.cancelado {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.contratoInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.contratoNumero {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.light .contratoNumero {
+    color: #0f172a;
+}
+
+.dark .contratoNumero {
+    color: #f1f5f9;
+}
+
+.contratoCliente {
+    font-size: 13px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.light .contratoCliente {
+    color: #64748b;
+}
+
+.dark .contratoCliente {
+    color: #94a3b8;
+}
+
+.contratoMonto {
+    text-align: right;
+    min-width: 100px;
+}
+
+.contratoMontoValor {
+    font-size: 15px;
+    font-weight: 700;
+    display: block;
+}
+
+.light .contratoMontoValor {
+    color: #0f172a;
+}
+
+.dark .contratoMontoValor {
+    color: #f1f5f9;
+}
+
+.contratoMontoLabel {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.light .contratoMontoLabel {
+    color: #94a3b8;
+}
+
+.dark .contratoMontoLabel {
+    color: #64748b;
+}
+
+.contratoEstado {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contratoEstado.activo {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.contratoEstado.pagado {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.contratoEstado.incumplido {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.contratoEstado.reestructurado {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.contratoEstado.cancelado {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.contratosVacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 12px;
+}
+
+.contratosVacio ion-icon {
+    font-size: 48px;
+    color: #94a3b8;
+}
+
+.contratosVacio span {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ========================================
+   SECCIÓN DE GRÁFICA DE EVOLUCIÓN
+   ======================================== */
+.seccionEvolucion {
+    margin-bottom: 32px;
+}
+
+.cardEvolucion {
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid;
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+
+.light .cardEvolucion {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .cardEvolucion {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.graficaBarras {
+    height: 300px;
+    width: 100%;
+    min-width: 0;
+}
+
+/* ========================================
+   ALERTAS
+   ======================================== */
+.seccionAlertas {
+    margin-bottom: 32px;
+}
+
+.seccionTitulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.seccionTitulo ion-icon {
+    font-size: 28px;
+    color: #f59e0b;
+}
+
+.light .seccionTitulo {
+    color: #0f172a;
+}
+
+.dark .seccionTitulo {
+    color: #f1f5f9;
+}
+
+.gridAlertas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.alertaCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.alertaCard:nth-child(1) { animation-delay: 0.1s; }
+.alertaCard:nth-child(2) { animation-delay: 0.2s; }
+.alertaCard:nth-child(3) { animation-delay: 0.3s; }
+
+.alertaCard.danger {
+    border-color: #ef4444;
+}
+
+.alertaCard.warning {
+    border-color: #f59e0b;
+}
+
+.alertaCard.info {
+    border-color: #0ea5e9;
+}
+
+.light .alertaCard {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .alertaCard {
+    background: #1e293b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.alertaCard:hover {
+    transform: translateY(-2px);
+}
+
+.light .alertaCard:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dark .alertaCard:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.alertaIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.alertaIcono ion-icon {
+    font-size: 24px;
+}
+
+.alertaCard.danger .alertaIcono {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.alertaCard.warning .alertaIcono {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.alertaCard.info .alertaIcono {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.alertaInfo {
+    flex: 1;
+}
+
+.alertaTitulo {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.light .alertaTitulo {
+    color: #0f172a;
+}
+
+.dark .alertaTitulo {
+    color: #f1f5f9;
+}
+
+.alertaMensaje {
+    font-size: 13px;
+    display: block;
+}
+
+.light .alertaMensaje {
+    color: #64748b;
+}
+
+.dark .alertaMensaje {
+    color: #94a3b8;
+}
+
+.alertaFlecha {
+    font-size: 20px;
+    color: #94a3b8;
+    transition: transform 0.2s ease;
+}
+
+.alertaCard:hover .alertaFlecha {
+    transform: translateX(4px);
+    color: #0ea5e9;
+}
+
+/* ========================================
+   TOP CLIENTES
+   ======================================== */
+.seccionClientes {
+    margin-bottom: 32px;
+}
+
+.gridClientes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.clienteCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.clienteCard:nth-child(1) { animation-delay: 0.1s; }
+.clienteCard:nth-child(2) { animation-delay: 0.15s; }
+.clienteCard:nth-child(3) { animation-delay: 0.2s; }
+.clienteCard:nth-child(4) { animation-delay: 0.25s; }
+.clienteCard:nth-child(5) { animation-delay: 0.3s; }
+
+.light .clienteCard {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .clienteCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.clienteCard:hover {
+    transform: translateY(-2px);
+    border-color: #0ea5e9;
+}
+
+.clienteRango {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.clienteRango.oro {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+}
+
+.clienteRango.plata {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    color: #475569;
+}
+
+.clienteRango.bronce {
+    background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+    color: #9a3412;
+}
+
+.clienteInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.clienteNombre {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.light .clienteNombre {
+    color: #0f172a;
+}
+
+.dark .clienteNombre {
+    color: #f1f5f9;
+}
+
+.clienteContratos {
+    font-size: 12px;
+    display: block;
+}
+
+.light .clienteContratos {
+    color: #64748b;
+}
+
+.dark .clienteContratos {
+    color: #94a3b8;
+}
+
+.clienteMonto {
+    text-align: right;
+}
+
+.clienteMontoValor {
+    font-size: 15px;
+    font-weight: 700;
+    display: block;
+    color: #10b981;
+}
+
+.clienteMontoLabel {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.light .clienteMontoLabel {
+    color: #94a3b8;
+}
+
+.dark .clienteMontoLabel {
+    color: #64748b;
+}
+
+/* ========================================
+   MÉTRICAS SECUNDARIAS
+   ======================================== */
+.metricasSecundarias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.metricaCard {
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.metricaCard:nth-child(1) { animation-delay: 0.1s; }
+.metricaCard:nth-child(2) { animation-delay: 0.15s; }
+.metricaCard:nth-child(3) { animation-delay: 0.2s; }
+.metricaCard:nth-child(4) { animation-delay: 0.25s; }
+
+.light .metricaCard {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .metricaCard {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.metricaIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.metricaIcono img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.metricaIcono ion-icon {
+    font-size: 24px;
+}
+
+.metricaIcono.blue {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    color: #0284c7;
+}
+
+.metricaIcono.green {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #059669;
+}
+
+.metricaIcono.orange {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #d97706;
+}
+
+.metricaIcono.red {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #dc2626;
+}
+
+.metricaDetalle {
+    flex: 1;
+}
+
+.metricaLabel {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.light .metricaLabel {
+    color: #64748b;
+}
+
+.dark .metricaLabel {
+    color: #94a3b8;
+}
+
+.metricaValor {
+    font-size: 20px;
+    font-weight: 800;
+    display: block;
+}
+
+.light .metricaValor {
+    color: #0f172a;
+}
+
+.dark .metricaValor {
+    color: #f1f5f9;
+}
+
+/* ========================================
+   ESTADO DE CARGA Y VACÍO
+   ======================================== */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 400px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.light .cargando {
+    color: #0ea5e9;
+}
+
+.dark .cargando {
+    color: #38bdf8;
+}
+
+.cargandoSpinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.light .cargandoSpinner {
+    border-color: #e2e8f0;
+    border-top-color: #0ea5e9;
+}
+
+.dark .cargandoSpinner {
+    border-color: #334155;
+    border-top-color: #38bdf8;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 16px;
+    border: 2px dashed;
+    margin-top: 20px;
+}
+
+.light .vacio {
+    border-color: #e2e8f0;
+    background: #f8fafc;
+}
+
+.dark .vacio {
+    border-color: #334155;
+    background: #1e293b;
+}
+
+.vacioIcono {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.vacioIcono img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.6;
+}
+
+.vacioTitulo {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.light .vacioTitulo {
+    color: #0f172a;
+}
+
+.dark .vacioTitulo {
+    color: #f1f5f9;
+}
+
+.vacioTexto {
+    font-size: 14px;
+    margin: 0 0 24px 0;
+    max-width: 400px;
+}
+
+.light .vacioTexto {
+    color: #64748b;
+}
+
+.dark .vacioTexto {
+    color: #94a3b8;
+}
+
+/* ========================================
+   SEPARADORES Y DECORACIONES
+   ======================================== */
+.separador {
+    height: 1px;
+    margin: 32px 0;
+    border: none;
+}
+
+.light .separador {
+    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+}
+
+.dark .separador {
+    background: linear-gradient(90deg, transparent, #334155, transparent);
+}
+
+/* ========================================
+   RESPONSIVE - TABLETS
+   ======================================== */
+@media (max-width: 1024px) {
+    .gridPrincipal {
+        grid-template-columns: 1fr;
+    }
+
+    .graficaCircular {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .donaContainer {
+        width: 180px;
+        height: 180px;
+    }
+
+    .leyendaCircular {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .leyendaItem {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 140px;
+        max-width: 200px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MÓVILES
+   ======================================== */
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .headerInfo {
+        gap: 14px;
+    }
+
+    .headerIcono {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+    }
+
+    .headerIcono img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .headerAcciones {
+        width: 100%;
+    }
+
+    .headerAcciones a {
+        flex: 1;
+        justify-content: center;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+    }
+
+    /* Estadísticas principales */
+    .estadisticas {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .estadCard {
+        padding: 18px;
+        gap: 14px;
+    }
+
+    .estadIcono {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+    }
+
+    .estadIcono img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .estadIcono ion-icon {
+        font-size: 26px;
+    }
+
+    .estadValor {
+        font-size: 24px;
+    }
+
+    .estadLabel {
+        font-size: 12px;
+    }
+
+    /* Métricas secundarias */
+    .metricasSecundarias {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .metricaCard {
+        padding: 14px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .metricaIcono {
+        width: 40px;
+        height: 40px;
+    }
+
+    .metricaIcono img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .metricaValor {
+        font-size: 18px;
+    }
+
+    .metricaLabel {
+        font-size: 11px;
+    }
+
+    /* Sección de alertas */
+    .gridAlertas {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .alertaCard {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .alertaIcono {
+        width: 40px;
+        height: 40px;
+    }
+
+    .alertaIcono ion-icon {
+        font-size: 20px;
+    }
+
+    .alertaTitulo {
+        font-size: 14px;
+    }
+
+    .alertaMensaje {
+        font-size: 12px;
+    }
+
+    /* Grid principal */
+    .gridPrincipal {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* Gráfica de distribución por estado */
+    .cardGrafica {
+        padding: 18px;
+        overflow: visible;
+    }
+
+    .cardGraficaHeader {
+        margin-bottom: 16px;
+    }
+
+    .cardGraficaTitulo {
+        font-size: 16px;
+        gap: 8px;
+    }
+
+    .cardGraficaTitulo ion-icon {
+        font-size: 20px;
+    }
+
+    .cardGraficaSubtitulo {
+        font-size: 12px;
+    }
+
+    .graficaCircular {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px 0;
+        align-items: center;
+    }
+
+    .donaContainer {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+        flex-shrink: 0;
+    }
+
+    .donaCenterValor {
+        font-size: 28px;
+    }
+
+    .donaCenterLabel {
+        font-size: 11px;
+    }
+
+    .leyendaCircular {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .leyendaItem {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 140px;
+        max-width: none;
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .leyendaDot {
+        width: 12px;
+        height: 12px;
+    }
+
+    .leyendaLabel {
+        font-size: 12px;
+    }
+
+    .leyendaValor {
+        font-size: 14px;
+    }
+
+    .leyendaPorcentaje {
+        font-size: 12px;
+        min-width: 40px;
+    }
+
+    /* Contratos recientes */
+    .cardContratos {
+        padding: 18px;
+    }
+
+    .cardContratosHeader {
+        margin-bottom: 16px;
+    }
+
+    .cardContratosTitulo {
+        font-size: 16px;
+        gap: 8px;
+    }
+
+    .cardContratosTitulo ion-icon {
+        font-size: 20px;
+    }
+
+    .verTodosLink {
+        font-size: 12px;
+    }
+
+    .listaContratos {
+        gap: 10px;
+    }
+
+    .itemContrato {
+        padding: 14px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .contratoAvatar {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+        border-width: 2px;
+    }
+
+    .contratoIcono {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+    }
+
+    .contratoIcono img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .contratoInfo {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .contratoNumero {
+        font-size: 14px;
+    }
+
+    .contratoCliente {
+        font-size: 12px;
+    }
+
+    .contratoMonto {
+        min-width: auto;
+        text-align: right;
+    }
+
+    .contratoMontoValor {
+        font-size: 14px;
+    }
+
+    .contratoMontoLabel {
+        font-size: 10px;
+    }
+
+    .contratoEstado {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    /* Gráfica de evolución mensual */
+    .seccionEvolucion {
+        margin-bottom: 24px;
+    }
+
+    .cardEvolucion {
+        padding: 16px;
+        overflow: visible;
+    }
+
+    .graficaBarras {
+        height: 300px;
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Top clientes */
+    .seccionClientes {
+        margin-bottom: 24px;
+    }
+
+    .seccionTitulo {
+        font-size: 18px;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .seccionTitulo ion-icon {
+        font-size: 24px;
+    }
+
+    .gridClientes {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .clienteCard {
+        padding: 16px;
+        gap: 14px;
+    }
+
+    .clienteRango {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .clienteNombre {
+        font-size: 14px;
+    }
+
+    .clienteContratos {
+        font-size: 11px;
+    }
+
+    .clienteMontoValor {
+        font-size: 14px;
+    }
+
+    .clienteMontoLabel {
+        font-size: 10px;
+    }
+
+    /* Estado vacío */
+    .vacio {
+        padding: 40px 16px;
+    }
+
+    .vacioIcono {
+        width: 80px;
+        height: 80px;
+    }
+
+    .vacioTitulo {
+        font-size: 18px;
+    }
+
+    .vacioTexto {
+        font-size: 13px;
+    }
+
+    .contratosVacio {
+        padding: 30px;
+    }
+
+    .contratosVacio ion-icon {
+        font-size: 40px;
+    }
+
+    .contratosVacio span {
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MÓVILES PEQUEÑOS
+   ======================================== */
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 12px;
+    }
+
+    .headerInfo {
+        gap: 12px;
+    }
+
+    .headerIcono {
+        width: 46px;
+        height: 46px;
+    }
+
+    .headerIcono img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .titulo {
+        font-size: 20px;
+    }
+
+    .subtitulo {
+        font-size: 12px;
+    }
+
+    .headerAcciones {
+        flex-direction: column;
+    }
+
+    .headerAcciones a {
+        width: 100%;
+    }
+
+    /* Estadísticas */
+    .estadCard {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .estadIcono {
+        width: 46px;
+        height: 46px;
+    }
+
+    .estadIcono img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .estadIcono ion-icon {
+        font-size: 22px;
+    }
+
+    .estadValor {
+        font-size: 20px;
+    }
+
+    .estadLabel {
+        font-size: 11px;
+    }
+
+    .estadTendencia {
+        font-size: 11px;
+    }
+
+    /* Métricas secundarias */
+    .metricasSecundarias {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .metricaCard {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px;
+    }
+
+    .metricaIcono {
+        width: 38px;
+        height: 38px;
+    }
+
+    .metricaIcono img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .metricaValor {
+        font-size: 16px;
+    }
+
+    /* Gráfica de distribución */
+    .cardGrafica {
+        padding: 14px;
+    }
+
+    .donaContainer {
+        width: 160px;
+        height: 160px;
+        flex-shrink: 0;
+    }
+
+    .donaCenterValor {
+        font-size: 24px;
+    }
+
+    .donaCenterLabel {
+        font-size: 10px;
+    }
+
+    .leyendaItem {
+        flex: 1 1 100%;
+        max-width: none;
+        padding: 8px 10px;
+    }
+
+    .leyendaLabel {
+        font-size: 11px;
+    }
+
+    .leyendaValor {
+        font-size: 13px;
+    }
+
+    .leyendaPorcentaje {
+        font-size: 11px;
+        min-width: 35px;
+    }
+
+    /* Contratos recientes */
+    .cardContratos {
+        padding: 14px;
+    }
+
+    .itemContrato {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .contratoAvatar {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+        border-width: 2px;
+    }
+
+    .contratoIcono {
+        width: 38px;
+        height: 38px;
+    }
+
+    .contratoIcono img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .contratoNumero {
+        font-size: 13px;
+    }
+
+    .contratoCliente {
+        font-size: 11px;
+    }
+
+    .contratoMonto {
+        display: none;
+    }
+
+    .contratoEstado {
+        padding: 4px 8px;
+        font-size: 9px;
+    }
+
+    /* Gráfica de evolución */
+    .cardEvolucion {
+        padding: 14px;
+        overflow: visible;
+    }
+
+    .graficaBarras {
+        height: 280px;
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Top clientes */
+    .clienteCard {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .clienteRango {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .clienteNombre {
+        font-size: 13px;
+    }
+
+    .clienteContratos {
+        font-size: 10px;
+    }
+
+    .clienteMontoValor {
+        font-size: 13px;
+    }
+
+    /* Alertas */
+    .alertaCard {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .alertaIcono {
+        width: 36px;
+        height: 36px;
+    }
+
+    .alertaIcono ion-icon {
+        font-size: 18px;
+    }
+
+    .alertaTitulo {
+        font-size: 13px;
+    }
+
+    .alertaMensaje {
+        font-size: 11px;
+    }
+
+    .alertaFlecha {
+        font-size: 16px;
+    }
+
+    /* Vacío */
+    .vacio {
+        padding: 30px 12px;
+    }
+
+    .vacioIcono {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 16px;
+    }
+
+    .vacioTitulo {
+        font-size: 16px;
+    }
+
+    .vacioTexto {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .vacio .btnNuevo {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+/* ========================================
+   ANIMACIONES ADICIONALES
+   ======================================== */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* ========================================
+   TOOLTIP
+   ======================================== */
+.tooltip {
+    position: relative;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.light .tooltip::after {
+    background: #0f172a;
+    color: #f1f5f9;
+}
+
+.dark .tooltip::after {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: calc(100% + 8px);
+}
+
+/* Badge de notificación */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.badge.success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge.info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.badge.danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.badge.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.badge.secondary {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* Progreso circular mini */
+.progresoMini {
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.progresoMini svg {
+    transform: rotate(-90deg);
+}
+
+.progresoMini circle {
+    fill: none;
+    stroke-width: 4;
+}
+
+.progresoMini .fondo {
+    stroke: #e2e8f0;
+}
+
+.dark .progresoMini .fondo {
+    stroke: #334155;
+}
+
+.progresoMini .progreso {
+    stroke: #10b981;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.progresoMiniTexto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.light .progresoMiniTexto {
+    color: #0f172a;
+}
+
+.dark .progresoMiniTexto {
+    color: #f1f5f9;
+}

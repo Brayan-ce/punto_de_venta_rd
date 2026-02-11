@@ -1,0 +1,331 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.modal.dark {
+    background: #1a1a1a;
+    color: white;
+}
+
+.modalHeader {
+    padding: 20px 24px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modalHeader.dark {
+    border-bottom-color: #333;
+}
+
+.modalHeader h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.btnCerrar {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.btnCerrar:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.modalBody {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+}
+
+.tabs.dark {
+    border-bottom-color: #333;
+}
+
+.tab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.2s;
+}
+
+.tab.active {
+    background: #0070f3;
+    color: white;
+}
+
+.tab.dark {
+    color: #999;
+}
+
+.tab.dark.active {
+    background: #0070f3;
+    color: white;
+}
+
+/* Status Section */
+.statusGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.statusCard {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statusCard.dark {
+    background: #2a2a2a;
+}
+
+.statusLabel {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.statusValor {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.statusValor.dark {
+    color: white;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge.normal {
+    background: #e6f6ec;
+    color: #008a2e;
+}
+
+.badge.atrasado {
+    background: #fff4e5;
+    color: #b25e00;
+}
+
+.badge.bloqueado {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.clasificacionA {
+    color: #008a2e;
+    font-weight: 800;
+    font-size: 2rem;
+}
+
+.clasificacionB {
+    color: #0070f3;
+    font-weight: 800;
+    font-size: 2rem;
+}
+
+.clasificacionC {
+    color: #f59e0b;
+    font-weight: 800;
+    font-size: 2rem;
+}
+
+.clasificacionD {
+    color: #ef4444;
+    font-weight: 800;
+    font-size: 2rem;
+}
+
+/* Form Section */
+.gridForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.grupoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupoInput label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #444;
+}
+
+.grupoInput.dark label {
+    color: #ccc;
+}
+
+.input,
+.select {
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus,
+.select:focus {
+    border-color: #0070f3;
+}
+
+.input.dark,
+.select.dark {
+    background: #2a2a2a;
+    border-color: #444;
+    color: white;
+}
+
+/* History List */
+.historialList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.historialItem {
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    border-left: 4px solid #0070f3;
+}
+
+.historialItem.dark {
+    background: #2a2a2a;
+}
+
+.histHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.histTipo {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+}
+
+.histFecha {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.histDesc {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.histDesc.dark {
+    color: #ccc;
+}
+
+.modalFooter {
+    padding: 20px 24px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.modalFooter.dark {
+    border-top-color: #333;
+}
+
+.btnCancelar {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btnCancelar.dark {
+    background: #333;
+    border-color: #444;
+    color: white;
+}
+
+.btnGuardar {
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    background: #0070f3;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btnGuardar:hover {
+    opacity: 0.9;
+}
+
+.btnGuardar:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

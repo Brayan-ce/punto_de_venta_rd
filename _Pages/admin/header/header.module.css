@@ -1,0 +1,2064 @@
+/* Asegurar que todos los iconos sean visibles */
+.header ion-icon,
+.sidebarDesktop ion-icon,
+.menuLateral ion-icon {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    height: 70px;
+    border-bottom: 1px solid;
+    transition: all 0.3s ease;
+}
+
+.header.light {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
+.header.dark {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.contenedor {
+    max-width: 100%;
+    height: 100%;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cargando {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.header.light .cargando {
+    color: #64748b;
+}
+
+.header.dark .cargando {
+    color: #94a3b8;
+}
+
+.botonMenu {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.header.light .botonMenu {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header.dark .botonMenu {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.botonMenu:hover {
+    transform: scale(1.05);
+}
+
+.botonMenu ion-icon {
+    font-size: 24px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logoImagen {
+    height: 40px;
+    max-width: 150px;
+    object-fit: contain;
+}
+
+.logoTexto {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.header.light .logoTexto {
+    color: #0f172a;
+}
+
+.header.dark .logoTexto {
+    color: #f1f5f9;
+}
+
+.navDesktop {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.header.light .navItem {
+    color: #64748b;
+}
+
+.header.dark .navItem {
+    color: #94a3b8;
+}
+
+.header.light .navItem:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header.dark .navItem:hover {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.navItem ion-icon {
+    font-size: 20px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.navItem.activo {
+    position: relative;
+}
+
+.header.light .navItem.activo {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.header.dark .navItem.activo {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.acciones {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.botonTema {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.header.light .botonTema {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.header.dark .botonTema {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.botonTema:hover {
+    transform: scale(1.05);
+}
+
+.botonTema ion-icon {
+    font-size: 22px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px 6px 6px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.header.light .usuario {
+    background: #f1f5f9;
+}
+
+.header.dark .usuario {
+    background: #334155;
+}
+
+.header.light .usuario:hover {
+    background: #e2e8f0;
+}
+
+.header.dark .usuario:hover {
+    background: #475569;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatarDefault {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header.light .avatarDefault {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.header.dark .avatarDefault {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.avatarDefault ion-icon {
+    font-size: 20px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.usuarioInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nombreUsuario {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.header.light .nombreUsuario {
+    color: #0f172a;
+}
+
+.header.dark .nombreUsuario {
+    color: #f1f5f9;
+}
+
+.tipoUsuario {
+    font-size: 11px;
+}
+
+.header.light .tipoUsuario {
+    color: #64748b;
+}
+
+.header.dark .tipoUsuario {
+    color: #94a3b8;
+}
+
+.chevronIcon {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.usuario:hover .chevronIcon {
+    transform: rotate(180deg);
+}
+
+.header.light .chevronIcon {
+    color: #64748b;
+}
+
+.header.dark .chevronIcon {
+    color: #94a3b8;
+}
+
+.menuDesplegable {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 240px;
+    max-width: 280px;
+    max-height: 500px;
+    overflow-y: auto;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.menuDesplegable.light {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+}
+
+.menuDesplegable.dark {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+.menuDesplegable::-webkit-scrollbar {
+    width: 6px;
+}
+
+.menuDesplegable::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.menuDesplegable::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+}
+
+.header.light .menuDesplegable::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+}
+
+.header.dark .menuDesplegable::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.separadorMenu {
+    height: 1px;
+    margin: 6px 0;
+}
+
+.header.light .separadorMenu {
+    background: #e5e7eb;
+}
+
+.header.dark .separadorMenu {
+    background: #334155;
+}
+
+.menuDesplegableItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.header.light .menuDesplegableItem {
+    color: #0f172a;
+}
+
+.header.dark .menuDesplegableItem {
+    color: #f1f5f9;
+}
+
+.header.light .menuDesplegableItem:hover {
+    background: #f1f5f9;
+}
+
+.header.dark .menuDesplegableItem:hover {
+    background: #334155;
+}
+
+.menuDesplegableItem ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.header.light .menuDesplegableItem ion-icon {
+    color: #64748b;
+}
+
+.header.dark .menuDesplegableItem ion-icon {
+    color: #94a3b8;
+}
+
+.menuDesplegableItem.activo {
+    font-weight: 600;
+}
+
+.header.light .menuDesplegableItem.activo {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.header.dark .menuDesplegableItem.activo {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.header.light .menuDesplegableItem.activo ion-icon {
+    color: #0284c7;
+}
+
+.header.dark .menuDesplegableItem.activo ion-icon {
+    color: #60a5fa;
+}
+
+.header .itemSalir:hover {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.header.dark .itemSalir:hover {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+.header .itemSalir:hover ion-icon {
+    color: #ef4444;
+}
+
+.header.dark .itemSalir:hover ion-icon {
+    color: #f87171;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.menuLateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 320px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease;
+    overflow-y: auto;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.menuLateral.light {
+    background: #ffffff;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.menuLateral.dark {
+    background: #1e293b;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.botonCerrar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.menuLateral.light .botonCerrar {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.menuLateral.dark .botonCerrar {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.botonCerrar:hover {
+    transform: scale(1.05);
+}
+
+.botonCerrar ion-icon {
+    font-size: 24px;
+}
+
+.menuContenido {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.menuHeader {
+    padding: 20px;
+    border-bottom: 1px solid;
+}
+
+.menuLateral.light .menuHeader {
+    border-color: #e5e7eb;
+}
+
+.menuLateral.dark .menuHeader {
+    border-color: #334155;
+}
+
+.menuEmpresa {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid;
+}
+
+.menuLateral.light .menuEmpresa {
+    border-color: #e5e7eb;
+}
+
+.menuLateral.dark .menuEmpresa {
+    border-color: #334155;
+}
+
+.menuLogoEmpresa {
+    height: 45px;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+.menuLogoDefault {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuLateral.light .menuLogoDefault {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.menuLateral.dark .menuLogoDefault {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.menuLogoDefault ion-icon {
+    font-size: 24px;
+}
+
+.menuEmpresaInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.menuEmpresaNombre {
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menuLateral.light .menuEmpresaNombre {
+    color: #0f172a;
+}
+
+.menuLateral.dark .menuEmpresaNombre {
+    color: #f1f5f9;
+}
+
+.menuEmpresaRnc {
+    font-size: 11px;
+}
+
+.menuLateral.light .menuEmpresaRnc {
+    color: #64748b;
+}
+
+.menuLateral.dark .menuEmpresaRnc {
+    color: #94a3b8;
+}
+
+.menuUsuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menuAvatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.menuAvatarDefault {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuLateral.light .menuAvatarDefault {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.menuLateral.dark .menuAvatarDefault {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.menuAvatarDefault ion-icon {
+    font-size: 22px;
+}
+
+.menuUsuarioInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.menuUsuarioNombre {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.menuLateral.light .menuUsuarioNombre {
+    color: #0f172a;
+}
+
+.menuLateral.dark .menuUsuarioNombre {
+    color: #f1f5f9;
+}
+
+.menuUsuarioTipo {
+    font-size: 12px;
+}
+
+.menuLateral.light .menuUsuarioTipo {
+    color: #64748b;
+}
+
+.menuLateral.dark .menuUsuarioTipo {
+    color: #94a3b8;
+}
+
+.menuNav {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menuSeccion {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menuSeccionTitulo {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menuLateral.light .menuSeccionTitulo {
+    color: #94a3b8;
+}
+
+.menuLateral.dark .menuSeccionTitulo {
+    color: #64748b;
+}
+
+.menuSeccionTitulo ion-icon {
+    font-size: 16px;
+}
+
+.menuSeccionTituloBtn {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+}
+
+.menuLateral.light .menuSeccionTituloBtn {
+    color: #94a3b8;
+}
+
+.menuLateral.dark .menuSeccionTituloBtn {
+    color: #64748b;
+}
+
+.menuLateral.light .menuSeccionTituloBtn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.menuLateral.dark .menuSeccionTituloBtn:hover {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.menuSeccionTituloBtn:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.menuSeccionTituloBtn:disabled:hover {
+    background: none;
+}
+
+.menuSeccionTituloBtn ion-icon:first-child {
+    font-size: 16px;
+}
+
+.chevronSeccion {
+    font-size: 14px;
+    margin-left: auto;
+    transition: transform 0.2s ease;
+}
+
+.menuSeccionItems {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 8px;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.menuLateral.light .menuItem {
+    color: #0f172a;
+}
+
+.menuLateral.dark .menuItem {
+    color: #f1f5f9;
+}
+
+.menuLateral.light .menuItem:hover {
+    background: #f1f5f9;
+}
+
+.menuLateral.dark .menuItem:hover {
+    background: #334155;
+}
+
+.menuItem ion-icon {
+    font-size: 20px;
+}
+
+.menuLateral.light .menuItem ion-icon {
+    color: #64748b;
+}
+
+.menuLateral.dark .menuItem ion-icon {
+    color: #94a3b8;
+}
+
+.menuItem.activo {
+    font-weight: 600;
+    position: relative;
+    border-left: 3px solid;
+}
+
+.menuLateral.light .menuItem.activo {
+    background: #e0f2fe;
+    color: #0284c7;
+    border-left-color: #0284c7;
+    padding-left: 11px; /* Ajustar padding por la barra */
+}
+
+.menuLateral.dark .menuItem.activo {
+    background: #1e3a8a;
+    color: #60a5fa;
+    border-left-color: #60a5fa;
+    padding-left: 11px; /* Ajustar padding por la barra */
+}
+
+.menuLateral.light .menuItem.activo ion-icon {
+    color: #0284c7;
+}
+
+.menuLateral.dark .menuItem.activo ion-icon {
+    color: #60a5fa;
+}
+
+.menuFooter {
+    padding: 16px;
+    border-top: 1px solid;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menuLateral.light .menuFooter {
+    border-color: #e5e7eb;
+}
+
+.menuLateral.dark .menuFooter {
+    border-color: #334155;
+}
+
+.menuItemTema,
+.menuItemPerfil,
+.menuItemSalir {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.menuLateral.light .menuItemTema,
+.menuLateral.light .menuItemPerfil,
+.menuLateral.light .menuItemSalir {
+    color: #0f172a;
+}
+
+.menuLateral.dark .menuItemTema,
+.menuLateral.dark .menuItemPerfil,
+.menuLateral.dark .menuItemSalir {
+    color: #f1f5f9;
+}
+
+.menuLateral.light .menuItemTema:hover,
+.menuLateral.light .menuItemPerfil:hover {
+    background: #f1f5f9;
+}
+
+.menuLateral.dark .menuItemTema:hover,
+.menuLateral.dark .menuItemPerfil:hover {
+    background: #334155;
+}
+
+.menuLateral.light .menuItemSalir:hover {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.menuLateral.dark .menuItemSalir:hover {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+.menuItemTema ion-icon,
+.menuItemPerfil ion-icon,
+.menuItemSalir ion-icon {
+    font-size: 20px;
+}
+
+.menuLateral.light .menuItemTema ion-icon,
+.menuLateral.light .menuItemPerfil ion-icon {
+    color: #64748b;
+}
+
+.menuLateral.dark .menuItemTema ion-icon,
+.menuLateral.dark .menuItemPerfil ion-icon {
+    color: #94a3b8;
+}
+
+.menuLateral.light .menuItemSalir ion-icon {
+    color: #ef4444;
+}
+
+.menuLateral.dark .menuItemSalir ion-icon {
+    color: #f87171;
+}
+
+@media (max-width: 1024px) {
+    .navDesktop {
+        display: none;
+    }
+
+    .botonMenu {
+        display: flex;
+    }
+}
+
+/* ============================================
+   SIDEBAR DESKTOP - Diseño Enterprise
+   ============================================ */
+
+.sidebarDesktop {
+    position: fixed;
+    left: 0;
+    top: 70px; /* Debajo del header */
+    bottom: 0;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+    z-index: 100;
+    overflow-y: auto;
+    overflow-x: visible; /* ✅ Permite tooltips y botón toggle fuera del ancho */
+    border-right: 1px solid;
+}
+
+.sidebarDesktop * {
+    box-sizing: border-box;
+}
+
+.sidebarDesktop.light {
+    background: #ffffff;
+    border-right-color: #e5e7eb;
+}
+
+.sidebarDesktop.dark {
+    background: #0f172a;
+    border-right-color: #1e293b;
+}
+
+.sidebarDesktop.sidebarColapsado {
+    width: 72px;
+    min-width: 72px;
+}
+
+/* Asegurar que los iconos siempre sean visibles cuando está colapsado */
+.sidebarColapsado .sidebarItemCompacto {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+}
+
+.sidebarColapsado .sidebarItemCompacto ion-icon {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 24px !important;
+}
+
+/* Asegurar que todos los iconos del sidebar sean visibles */
+.sidebarDesktop ion-icon {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.sidebarColapsado ion-icon {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.sidebarDesktop.sidebarCargando {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.sidebarDesktop.sidebarCargando .sidebarTemaBtn {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+/* Header del Sidebar */
+.sidebarHeader {
+    padding: 20px 16px;
+    border-bottom: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px; /* ✅ Espacio entre logo y botón */
+    flex-shrink: 0;
+    position: relative;
+    overflow: visible;
+}
+
+.sidebarColapsado .sidebarHeader {
+    padding: 20px 8px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.sidebarDesktop.light .sidebarHeader {
+    border-bottom-color: #e5e7eb;
+}
+
+.sidebarDesktop.dark .sidebarHeader {
+    border-bottom-color: #1e293b;
+}
+
+.sidebarLogo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.sidebarLogoImagen {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sidebarLogoDefault {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sidebarDesktop.light .sidebarLogoDefault {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.sidebarDesktop.dark .sidebarLogoDefault {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.sidebarLogoDefault ion-icon {
+    font-size: 24px;
+}
+
+.sidebarLogoTexto {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.sidebarNombreSistema {
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebarDesktop.light .sidebarNombreSistema {
+    color: #0f172a;
+}
+
+.sidebarDesktop.dark .sidebarNombreSistema {
+    color: #f1f5f9;
+}
+
+.sidebarSubtitulo {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebarDesktop.light .sidebarSubtitulo {
+    color: #64748b;
+}
+
+.sidebarDesktop.dark .sidebarSubtitulo {
+    color: #94a3b8;
+}
+
+.sidebarToggle {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 200;
+    flex-shrink: 0;
+    position: relative;
+    margin-left: auto; /* ✅ Se pega a la derecha del contenido */
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+.sidebarDesktop.light .sidebarToggle {
+    color: #64748b;
+    border-color: #e5e7eb;
+}
+
+.sidebarDesktop.dark .sidebarToggle {
+    color: #94a3b8;
+    border-color: #334155;
+}
+
+.sidebarDesktop.light .sidebarToggle:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+    transform: scale(1.05);
+}
+
+.sidebarDesktop.dark .sidebarToggle:hover {
+    background: #1e293b;
+    color: #f1f5f9;
+    border-color: #475569;
+    transform: scale(1.05);
+}
+
+.sidebarToggle ion-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.sidebarColapsado .sidebarToggle ion-icon {
+    transform: rotate(180deg);
+}
+
+.sidebarColapsado .sidebarLogoTexto {
+    display: none;
+}
+
+.sidebarColapsado .sidebarLogo {
+    justify-content: center;
+}
+
+.sidebarColapsado .sidebarToggle {
+    position: relative; /* ✅ Vuelve al flujo normal cuando está colapsado */
+    margin: 0 auto; /* ✅ Centrado cuando está colapsado */
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+}
+
+.sidebarColapsado .sidebarToggle ion-icon {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* Tooltip para botón toggle */
+.sidebarToggle:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease forwards;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sidebarDesktop.dark .sidebarToggle:hover::after {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarToggle:hover::after {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* Navegación del Sidebar */
+.sidebarNav {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: visible; /* ✅ Permite tooltips y popovers */
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebarColapsado .sidebarNav {
+    padding: 16px 4px;
+    align-items: center;
+    overflow-x: visible; /* ✅ Permite tooltips */
+}
+
+.sidebarColapsado .sidebarSeccion {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.sidebarNav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebarNav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebarNav::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+}
+
+.sidebarDesktop.light .sidebarNav::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+}
+
+.sidebarDesktop.dark .sidebarNav::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.sidebarSeccion {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    width: 100%;
+}
+
+.sidebarColapsado .sidebarSeccion {
+    align-items: center;
+    width: 100%;
+}
+
+.sidebarSeccionTitulo {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebarDesktop.light .sidebarSeccionTitulo {
+    color: #94a3b8;
+}
+
+.sidebarDesktop.dark .sidebarSeccionTitulo {
+    color: #64748b;
+}
+
+.sidebarSeccionTitulo ion-icon {
+    font-size: 14px;
+}
+
+/* Items del Sidebar */
+.sidebarItem,
+.sidebarItemPrincipal {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+}
+
+.sidebarDesktop.light .sidebarItem,
+.sidebarDesktop.light .sidebarItemPrincipal {
+    color: #0f172a;
+}
+
+.sidebarDesktop.dark .sidebarItem,
+.sidebarDesktop.dark .sidebarItemPrincipal {
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarItem:hover,
+.sidebarDesktop.light .sidebarItemPrincipal:hover {
+    background: #f1f5f9;
+}
+
+.sidebarDesktop.dark .sidebarItem:hover,
+.sidebarDesktop.dark .sidebarItemPrincipal:hover {
+    background: #1e293b;
+}
+
+.sidebarItem ion-icon,
+.sidebarItemPrincipal ion-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.sidebarItem span,
+.sidebarItemPrincipal span {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebarItemActivo {
+    font-weight: 600;
+    border-left: 3px solid;
+}
+
+.sidebarDesktop.light .sidebarItemActivo {
+    background: #e0f2fe;
+    color: #0284c7;
+    border-left-color: #0284c7;
+    padding-left: 11px;
+}
+
+.sidebarDesktop.dark .sidebarItemActivo {
+    background: #1e3a8a;
+    color: #60a5fa;
+    border-left-color: #60a5fa;
+    padding-left: 11px;
+}
+
+.sidebarChevron {
+    font-size: 16px;
+    margin-left: auto;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* Item compacto (modo colapsado) */
+.sidebarItemCompacto {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin: 0;
+    position: relative;
+    flex-shrink: 0;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.sidebarDesktop.light .sidebarItemCompacto {
+    color: #0f172a;
+}
+
+.sidebarDesktop.dark .sidebarItemCompacto {
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarItemCompacto:hover {
+    background: #f1f5f9;
+}
+
+.sidebarDesktop.dark .sidebarItemCompacto:hover {
+    background: #1e293b;
+}
+
+.sidebarItemCompacto ion-icon {
+    font-size: 24px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.sidebarItemCompacto.sidebarItemActivo {
+    border-left: none;
+    border-radius: 10px;
+}
+
+.sidebarDesktop.light .sidebarItemCompacto.sidebarItemActivo {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.sidebarDesktop.dark .sidebarItemCompacto.sidebarItemActivo {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+/* Tooltip para items compactos */
+.sidebarItemCompacto:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease forwards;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sidebarDesktop.dark .sidebarItemCompacto:hover::after {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarItemCompacto:hover::after {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+/* Submenú */
+.sidebarSubmenu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: 20px;
+    animation: slideDown 0.2s ease;
+}
+
+.sidebarSubmenuItem {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    color: inherit;
+}
+
+.sidebarDesktop.light .sidebarSubmenuItem {
+    color: #64748b;
+}
+
+.sidebarDesktop.dark .sidebarSubmenuItem {
+    color: #94a3b8;
+}
+
+.sidebarDesktop.light .sidebarSubmenuItem:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.sidebarDesktop.dark .sidebarSubmenuItem:hover {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+.sidebarSubmenuItemActivo {
+    font-weight: 600;
+}
+
+.sidebarDesktop.light .sidebarSubmenuItemActivo {
+    color: #0284c7;
+    background: #e0f2fe;
+}
+
+.sidebarDesktop.dark .sidebarSubmenuItemActivo {
+    color: #60a5fa;
+    background: #1e3a8a;
+}
+
+/* Popover para submenú en modo colapsado - Estilo Taurus */
+.sidebarPopover {
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 0;
+    min-width: 240px;
+    max-width: 280px;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    animation: popoverSlideIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+}
+
+@keyframes popoverSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebarDesktop.light .sidebarPopover {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.sidebarDesktop.dark .sidebarPopover {
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebarPopoverTitulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.sidebarDesktop.light .sidebarPopoverTitulo {
+    color: #0f172a;
+    border-bottom-color: #e5e7eb;
+}
+
+.sidebarDesktop.dark .sidebarPopoverTitulo {
+    color: #f1f5f9;
+    border-bottom-color: #334155;
+}
+
+.sidebarPopoverTitulo ion-icon {
+    font-size: 18px;
+}
+
+.sidebarPopoverItems {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebarPopoverItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 2px 0;
+    position: relative;
+}
+
+.sidebarDesktop.light .sidebarPopoverItem {
+    color: #0f172a;
+}
+
+.sidebarDesktop.dark .sidebarPopoverItem {
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarPopoverItem:hover {
+    background: #f1f5f9;
+    transform: translateX(2px);
+}
+
+.sidebarDesktop.dark .sidebarPopoverItem:hover {
+    background: #334155;
+    transform: translateX(2px);
+}
+
+.sidebarPopoverItem ion-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+}
+
+.sidebarPopoverItem:hover ion-icon,
+.sidebarPopoverItemActivo ion-icon {
+    opacity: 1;
+}
+
+.sidebarPopoverItemActivo {
+    font-weight: 600;
+}
+
+.sidebarDesktop.light .sidebarPopoverItemActivo {
+    background: #e0f2fe;
+    color: #0284c7;
+    border-left: 3px solid #0284c7;
+    padding-left: 11px;
+}
+
+.sidebarDesktop.dark .sidebarPopoverItemActivo {
+    background: #1e3a8a;
+    color: #60a5fa;
+    border-left: 3px solid #60a5fa;
+    padding-left: 11px;
+}
+
+.sidebarPopoverItemActivo::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    border-radius: 0 2px 2px 0;
+}
+
+/* Footer del Sidebar */
+.sidebarFooter {
+    padding: 16px;
+    border-top: 1px solid;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebarDesktop.light .sidebarFooter {
+    border-top-color: #e5e7eb;
+}
+
+.sidebarDesktop.dark .sidebarFooter {
+    border-top-color: #1e293b;
+}
+
+/* Botón de cambio de tema */
+.sidebarTemaBtn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sidebarDesktop.light .sidebarTemaBtn {
+    color: #0f172a;
+}
+
+.sidebarDesktop.dark .sidebarTemaBtn {
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarTemaBtn:hover {
+    background: #f1f5f9;
+}
+
+.sidebarDesktop.dark .sidebarTemaBtn:hover {
+    background: #1e293b;
+}
+
+.sidebarTemaBtn ion-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.sidebarTemaBtn span {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebarColapsado .sidebarTemaBtn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.sidebarColapsado .sidebarTemaBtn span {
+    display: none;
+}
+
+.sidebarColapsado .sidebarTemaBtn ion-icon {
+    font-size: 22px;
+    display: block !important;
+    width: 22px;
+    height: 22px;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Tooltip para botón de tema cuando está colapsado */
+.sidebarColapsado .sidebarTemaBtn:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease forwards;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sidebarDesktop.dark .sidebarColapsado .sidebarTemaBtn:hover::after {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarColapsado .sidebarTemaBtn:hover::after {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.sidebarUsuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sidebarDesktop.light .sidebarUsuario:hover {
+    background: #f1f5f9;
+}
+
+.sidebarDesktop.dark .sidebarUsuario:hover {
+    background: #1e293b;
+}
+
+/* Tooltip para usuario cuando está colapsado */
+.sidebarColapsado .sidebarUsuario:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease forwards;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 200px;
+}
+
+.sidebarDesktop.dark .sidebarColapsado .sidebarUsuario:hover::after {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+.sidebarDesktop.light .sidebarColapsado .sidebarUsuario:hover::after {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.sidebarUsuarioAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.sidebarUsuarioAvatarDefault {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sidebarDesktop.light .sidebarUsuarioAvatarDefault {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.sidebarDesktop.dark .sidebarUsuarioAvatarDefault {
+    background: #1e3a8a;
+    color: #60a5fa;
+}
+
+.sidebarUsuarioAvatarDefault ion-icon {
+    font-size: 20px;
+}
+
+.sidebarUsuarioInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+}
+
+.sidebarUsuarioNombre {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebarDesktop.light .sidebarUsuarioNombre {
+    color: #0f172a;
+}
+
+.sidebarDesktop.dark .sidebarUsuarioNombre {
+    color: #f1f5f9;
+}
+
+.sidebarUsuarioRol {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebarDesktop.light .sidebarUsuarioRol {
+    color: #64748b;
+}
+
+.sidebarDesktop.dark .sidebarUsuarioRol {
+    color: #94a3b8;
+}
+
+.sidebarColapsado .sidebarUsuarioInfo {
+    display: none;
+}
+
+.sidebarColapsado .sidebarUsuario {
+    justify-content: center;
+}
+
+/* Contenedor principal con margen para sidebar */
+.contenedorPrincipal {
+    margin-left: 260px;
+    transition: margin-left 0.3s ease;
+    min-height: calc(100vh - 70px);
+}
+
+.contenedorPrincipalColapsado {
+    margin-left: 72px;
+}
+
+/* Responsive - Ocultar sidebar desktop en móvil */
+@media (max-width: 1024px) {
+    .sidebarDesktop {
+        display: none;
+    }
+
+    .contenedorPrincipal,
+    .contenedorPrincipalColapsado {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 0 16px;
+    }
+
+    .usuarioInfo {
+        display: none;
+    }
+
+    .chevronIcon {
+        display: none;
+    }
+
+    .menuLateral {
+        width: 280px;
+    }
+}

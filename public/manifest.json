@@ -1,0 +1,63 @@
+{
+  "name": "Punto de Venta IsiWeek",
+  "short_name": "POS IsiWeek",
+  "description": "Sistema de punto de venta profesional offline-first",
+  "lang": "es-PE",
+
+  "start_url": "/?source=pwa",
+  "scope": "/",
+
+  "display": "standalone",
+  "display_override": ["fullscreen", "standalone", "minimal-ui"],
+
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+
+  "icons": [
+    {
+      "src": "/icons/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Nueva Venta",
+      "short_name": "Venta",
+      "description": "Crear nueva venta",
+      "url": "/admin/ventas/nuevo",
+      "icons": [
+        {
+          "src": "/icons/manifest-icon-192.maskable.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Inventario",
+      "short_name": "Inventario",
+      "description": "Ver inventario",
+      "url": "/admin/inventario",
+      "icons": [
+        {
+          "src": "/icons/manifest-icon-192.maskable.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+
+  "categories": ["business", "productivity"],
+  "prefer_related_applications": false
+}

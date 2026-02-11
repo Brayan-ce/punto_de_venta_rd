@@ -1,0 +1,498 @@
+.contenedor {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #f8fafc, #fef3c7, #dbeafe);
+}
+
+.header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.headerContenedor {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.btnVolverHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #475569;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btnVolverHeader:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+}
+
+.subtitulo {
+    font-size: 16px;
+    color: #64748b;
+    margin: 0;
+}
+
+.pasosContainer {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px 0;
+}
+
+.pasos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.paso {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #94a3b8;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.pasoActivo {
+    background: linear-gradient(to right, #f97316, #f59e0b);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.pasoLinea {
+    width: 64px;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.pasoLineaActiva {
+    background: #f97316;
+}
+
+.main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.formulario {
+    width: 100%;
+}
+
+.pasoContenido {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pasoContenido h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+}
+
+.descripcionPaso {
+    font-size: 16px;
+    color: #64748b;
+    margin: 0 0 32px 0;
+}
+
+.campo {
+    margin-bottom: 24px;
+}
+
+.campo label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.campo label ion-icon {
+    font-size: 18px;
+}
+
+.campo input,
+.campo textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #f97316;
+}
+
+.campo textarea {
+    resize: vertical;
+}
+
+.opciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.opcion {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.opcion:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.opcionActiva {
+    background: #fff7ed;
+    border-color: #f97316;
+}
+
+.opcion ion-icon {
+    font-size: 32px;
+    color: #f97316;
+    flex-shrink: 0;
+}
+
+.opcion h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+}
+
+.opcion p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+}
+
+.botonesNavegacion {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.btnAtras,
+.btnContinuar,
+.btnConfirmar {
+    flex: 1;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnAtras {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.btnAtras:hover {
+    background: #e2e8f0;
+}
+
+.btnContinuar,
+.btnConfirmar {
+    background: #f97316;
+    color: #ffffff;
+}
+
+.btnContinuar:hover:not(:disabled),
+.btnConfirmar:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.btnContinuar:disabled,
+.btnConfirmar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.resumen {
+    margin-bottom: 32px;
+}
+
+.listaResumen {
+    margin-bottom: 24px;
+}
+
+.itemResumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.itemInfo h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+}
+
+.itemInfo p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+}
+
+.itemTotal {
+    font-size: 18px;
+    font-weight: 700;
+    color: #10b981;
+}
+
+.totalesResumen {
+    padding-top: 24px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.totalLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.totalFinal {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 8px;
+}
+
+.pedidoConfirmado {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    text-align: center;
+}
+
+.iconoExito {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #10b981, #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    animation: bounce 1s ease;
+}
+
+.iconoExito ion-icon {
+    font-size: 48px;
+    color: #ffffff;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.pedidoConfirmado h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 12px 0;
+}
+
+.pedidoConfirmado > p {
+    font-size: 20px;
+    color: #64748b;
+    margin: 0 0 32px 0;
+}
+
+.numeroPedidoBox {
+    background: linear-gradient(to right, #f97316, #f59e0b);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 32px;
+    color: #ffffff;
+}
+
+.numeroPedidoLabel {
+    font-size: 14px;
+    font-weight: 700;
+    opacity: 0.9;
+    margin: 0 0 8px 0;
+}
+
+.numeroPedido {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.accionesConfirmacion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btnWhatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #25d366;
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btnWhatsapp:hover {
+    background: #1da851;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btnVolver {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    color: #475569;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btnVolver:hover {
+    background: #e2e8f0;
+}
+
+.cargando {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: #3b82f6;
+}
+
+.cargando ion-icon {
+    font-size: 64px;
+}
+
+.iconoCargando {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cargando span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .headerContenedor {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pasos {
+        gap: 8px;
+    }
+
+    .paso {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .pasoLinea {
+        width: 40px;
+    }
+
+    .pasoContenido {
+        padding: 24px;
+    }
+
+    .opciones {
+        grid-template-columns: 1fr;
+    }
+
+    .botonesNavegacion {
+        flex-direction: column;
+    }
+}
+

@@ -1,0 +1,887 @@
+.contenedor {
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background: linear-gradient(to bottom right, #f8fafc, #eff6ff, #fef7ed);
+}
+
+.contenedor.light {
+    background: linear-gradient(to bottom right, #f8fafc, #eff6ff, #fef7ed);
+    color: #1e293b;
+}
+
+.contenedor.dark {
+    background: linear-gradient(to bottom right, #0f172a, #1e293b, #1e1b1b);
+    color: #e2e8f0;
+}
+
+.header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+}
+
+.contenedor.dark .header {
+    background: #1e293b;
+    border-bottom-color: #334155;
+}
+
+.headerContenedor {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.tituloSection {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.badgePedidosNuevos {
+    background: linear-gradient(to right, #f97316, #fb923c);
+    color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+    text-align: center;
+    min-width: 150px;
+}
+
+.badgePedidosNuevosLabel {
+    font-size: 12px;
+    font-weight: 900;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.badgePedidosNuevosValor {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.estadisticas {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.estadisticaCard {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid;
+    transition: all 0.2s ease;
+}
+
+.contenedor.dark .estadisticaCard {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.estadisticaCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.estadisticaHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.estadisticaIcono {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.estadisticaIcono ion-icon {
+    font-size: 24px;
+}
+
+.estadisticaNumero {
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.light .estadisticaNumero {
+    color: #0f172a;
+}
+
+.dark .estadisticaNumero {
+    color: #f1f5f9;
+}
+
+.estadisticaTitulo {
+    font-size: 16px;
+    font-weight: 900;
+    margin: 0 0 4px 0;
+}
+
+.light .estadisticaTitulo {
+    color: #0f172a;
+}
+
+.dark .estadisticaTitulo {
+    color: #f1f5f9;
+}
+
+.estadisticaDescripcion {
+    font-size: 13px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.light .estadisticaDescripcion {
+    color: #64748b;
+}
+
+.dark .estadisticaDescripcion {
+    color: #94a3b8;
+}
+
+.estadisticaCardDestacada {
+    background: linear-gradient(to bottom right, #8b5cf6, #7c3aed);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.estadisticaCardDestacada:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
+}
+
+.estadisticaIconoDestacada {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.estadisticaIconoDestacada ion-icon {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.estadisticaNumeroDestacada {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.estadisticaTituloDestacada {
+    font-size: 16px;
+    font-weight: 900;
+    margin: 0 0 4px 0;
+    color: #ffffff;
+}
+
+.estadisticaDescripcionDestacada {
+    font-size: 13px;
+    margin: 0;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.filtrosCard {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 32px 24px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.contenedor.dark .filtrosCard {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.busquedaContainer {
+    margin-bottom: 20px;
+}
+
+.busquedaInput {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.busquedaInput ion-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 20px;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.busquedaInput input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    max-width: 500px;
+}
+
+.contenedor.dark .busquedaInput input {
+    background: #0f172a;
+    border-color: #334155;
+    color: #e2e8f0;
+}
+
+.busquedaInput input:focus {
+    outline: none;
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.filtrosBotones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filtroBoton {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.contenedor.dark .filtroBoton {
+    background: #0f172a;
+    color: #cbd5e1;
+}
+
+.filtroBoton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filtroBotonActivo {
+    background: #0f172a;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contenedor.dark .filtroBotonActivo {
+    color: #ffffff;
+}
+
+.cargando,
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    gap: 16px;
+}
+
+.iconoCargando {
+    font-size: 48px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.light .cargando,
+.light .vacio {
+    color: #64748b;
+}
+
+.dark .cargando,
+.dark .vacio {
+    color: #94a3b8;
+}
+
+.cargando ion-icon,
+.vacio ion-icon {
+    font-size: 64px;
+    opacity: 0.5;
+}
+
+.listaPedidos {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pedidoCard {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid #f1f5f9;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.contenedor.dark .pedidoCard {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.pedidoCard:hover {
+    border-color: #f97316;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+}
+
+.pedidoCardContenido {
+    padding: 24px;
+}
+
+.pedidoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 24px;
+}
+
+.pedidoHeaderIzq {
+    flex: 1;
+}
+
+.pedidoNumeroBadge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.numeroPedido {
+    font-size: 24px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.light .numeroPedido {
+    color: #0f172a;
+}
+
+.dark .numeroPedido {
+    color: #f1f5f9;
+}
+
+.badgeEstado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badgeEstado ion-icon {
+    font-size: 16px;
+}
+
+.pedidoMetadatos {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.metadatoItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.light .metadatoItem {
+    color: #64748b;
+}
+
+.dark .metadatoItem {
+    color: #94a3b8;
+}
+
+.metadatoItem ion-icon {
+    font-size: 18px;
+}
+
+.pedidoHeaderDer {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.pedidoTotal {
+    font-size: 28px;
+    font-weight: 900;
+    color: #f97316;
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.pedidoProductos {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.light .pedidoProductos {
+    color: #64748b;
+}
+
+.dark .pedidoProductos {
+    color: #94a3b8;
+}
+
+.pedidoInfoCliente {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.clienteCard,
+.direccionCard,
+.notasCard {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+}
+
+.contenedor.dark .clienteCard,
+.contenedor.dark .direccionCard,
+.contenedor.dark .notasCard {
+    background: #0f172a;
+}
+
+.clienteIcono,
+.direccionIcono,
+.notasIcono {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.clienteIcono {
+    background: #dbeafe;
+}
+
+.contenedor.dark .clienteIcono {
+    background: #1e3a5f;
+}
+
+.clienteIcono ion-icon {
+    font-size: 20px;
+    color: #3b82f6;
+}
+
+.direccionIcono {
+    background: #ede9fe;
+}
+
+.contenedor.dark .direccionIcono {
+    background: #3c2a5f;
+}
+
+.direccionIcono ion-icon {
+    font-size: 20px;
+    color: #8b5cf6;
+}
+
+.notasIcono {
+    background: #fef3c7;
+}
+
+.contenedor.dark .notasIcono {
+    background: #5f4c2a;
+}
+
+.notasIcono ion-icon {
+    font-size: 20px;
+    color: #f59e0b;
+}
+
+.clienteInfo,
+.direccionInfo,
+.notasInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.clienteLabel,
+.direccionLabel,
+.notasLabel {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.light .clienteLabel,
+.light .direccionLabel,
+.light .notasLabel {
+    color: #64748b;
+}
+
+.dark .clienteLabel,
+.dark .direccionLabel,
+.dark .notasLabel {
+    color: #94a3b8;
+}
+
+.clienteNombre {
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 2px;
+}
+
+.light .clienteNombre {
+    color: #0f172a;
+}
+
+.dark .clienteNombre {
+    color: #f1f5f9;
+}
+
+.clienteTelefono {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.light .clienteTelefono {
+    color: #64748b;
+}
+
+.dark .clienteTelefono {
+    color: #94a3b8;
+}
+
+.direccionTexto,
+.notasTexto {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.light .direccionTexto,
+.light .notasTexto {
+    color: #475569;
+}
+
+.dark .direccionTexto,
+.dark .notasTexto {
+    color: #cbd5e1;
+}
+
+.notasCard {
+    grid-column: 1 / -1;
+}
+
+.productosContainer {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.contenedor.dark .productosContainer {
+    background: #0f172a;
+}
+
+.productosLabel {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.light .productosLabel {
+    color: #64748b;
+}
+
+.dark .productosLabel {
+    color: #94a3b8;
+}
+
+.productosLista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.productoItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.productoImagen {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.contenedor.dark .productoImagen {
+    background: #1e293b;
+}
+
+.productoImagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productoImagen ion-icon {
+    font-size: 24px;
+    color: #94a3b8;
+}
+
+.productoInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.productoNombre {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.light .productoNombre {
+    color: #0f172a;
+}
+
+.dark .productoNombre {
+    color: #f1f5f9;
+}
+
+.productoCantidad {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.light .productoCantidad {
+    color: #64748b;
+}
+
+.dark .productoCantidad {
+    color: #94a3b8;
+}
+
+.productoTotal {
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.light .productoTotal {
+    color: #0f172a;
+}
+
+.dark .productoTotal {
+    color: #f1f5f9;
+}
+
+.pedidoAcciones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.botonVerDetalle,
+.botonAccion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 150px;
+    text-decoration: none;
+}
+
+.botonVerDetalle {
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.botonVerDetalle:hover {
+    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+.botonAccion {
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.botonAccion:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.botonAccion:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.botonVerDetalle ion-icon,
+.botonAccion ion-icon {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .headerContenedor {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .badgePedidosNuevos {
+        width: 100%;
+    }
+
+    .estadisticas {
+        grid-template-columns: 1fr;
+        padding: 24px 16px;
+    }
+
+    .filtrosCard {
+        padding: 20px;
+        margin: 0 16px 24px 16px;
+    }
+
+    .listaPedidos {
+        padding: 0 16px 24px 16px;
+    }
+
+    .pedidoCardContenido {
+        padding: 20px;
+    }
+
+    .pedidoHeader {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .pedidoHeaderDer {
+        text-align: left;
+        width: 100%;
+    }
+
+    .pedidoInfoCliente {
+        grid-template-columns: 1fr;
+    }
+
+    .pedidoAcciones {
+        flex-direction: column;
+    }
+
+    .botonVerDetalle,
+    .botonAccion {
+        width: 100%;
+    }
+
+    .filtrosBotones {
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+}
+

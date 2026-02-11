@@ -1,0 +1,2249 @@
+/* ==========================================
+   NUEVA VENTA MEJORADA - POS MODERNO
+   Sistema profesional con soporte para crédito
+   ========================================== */
+
+/* ==========================================
+   VARIABLES GLOBALES Y TEMAS
+   ========================================== */
+.contenedorOptimizado {
+    --header-height: 75px;
+    --config-bar-height: auto;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Fuente mejorada */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* TEMA CLARO - Paleta profesional y moderna */
+.contenedorOptimizado.light {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --bg-elevated: #ffffff;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #94a3b8;
+    --text-inverse: #ffffff;
+
+    --border-light: #e5e7eb;
+    --border-medium: #d1d5db;
+    --border-strong: #9ca3af;
+
+    /* Colores primarios */
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #dbeafe;
+
+    /* Colores de éxito (ventas) */
+    --success: #10b981;
+    --success-hover: #059669;
+    --success-light: #d1fae5;
+
+    /* Colores de advertencia */
+    --warning: #f59e0b;
+    --warning-hover: #d97706;
+    --warning-light: #fef3c7;
+
+    /* Colores de peligro */
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --danger-light: #fee2e2;
+
+    /* Colores de información */
+    --info: #3b82f6;
+    --info-hover: #2563eb;
+    --info-light: #dbeafe;
+
+    /* 🔹 Colores específicos para métodos de pago */
+    --efectivo-bg: rgba(34, 197, 94, 0.12);
+    --efectivo-border: #22c55e;
+    --efectivo-text: #16a34a;
+
+    --debito-bg: rgba(59, 130, 246, 0.12);
+    --debito-border: #3b82f6;
+    --debito-text: #2563eb;
+
+    --tarjeta-credito-bg: rgba(147, 51, 234, 0.12);
+    --tarjeta-credito-border: #9333ea;
+    --tarjeta-credito-text: #7c3aed;
+
+    --transferencia-bg: rgba(245, 158, 11, 0.12);
+    --transferencia-border: #f59e0b;
+    --transferencia-text: #d97706;
+
+    --cheque-bg: rgba(100, 116, 139, 0.12);
+    --cheque-border: #64748b;
+    --cheque-text: #475569;
+
+    /* 🔹 NUEVO: Color para crédito */
+    --credito-bg: rgba(236, 72, 153, 0.12);
+    --credito-border: #ec4899;
+    --credito-text: #db2777;
+
+    /* Sombras */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* TEMA OSCURO - Paleta sofisticada y moderna */
+.contenedorOptimizado.dark {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --bg-elevated: #1e293b;
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --text-inverse: #0f172a;
+
+    --border-light: #334155;
+    --border-medium: #475569;
+    --border-strong: #64748b;
+
+    /* Colores primarios */
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --primary-light: rgba(59, 130, 246, 0.15);
+
+    /* Colores de éxito */
+    --success: #10b981;
+    --success-hover: #34d399;
+    --success-light: rgba(16, 185, 129, 0.15);
+
+    /* Colores de advertencia */
+    --warning: #f59e0b;
+    --warning-hover: #fbbf24;
+    --warning-light: rgba(245, 158, 11, 0.15);
+
+    /* Colores de peligro */
+    --danger: #ef4444;
+    --danger-hover: #f87171;
+    --danger-light: rgba(239, 68, 68, 0.15);
+
+    /* Colores de información */
+    --info: #3b82f6;
+    --info-hover: #60a5fa;
+    --info-light: rgba(59, 130, 246, 0.15);
+
+    /* Métodos de pago - versión oscura */
+    --efectivo-bg: rgba(34, 197, 94, 0.15);
+    --efectivo-border: #22c55e;
+    --efectivo-text: #4ade80;
+
+    --debito-bg: rgba(59, 130, 246, 0.15);
+    --debito-border: #3b82f6;
+    --debito-text: #60a5fa;
+
+    --tarjeta-credito-bg: rgba(147, 51, 234, 0.15);
+    --tarjeta-credito-border: #9333ea;
+    --tarjeta-credito-text: #a855f7;
+
+    --transferencia-bg: rgba(245, 158, 11, 0.15);
+    --transferencia-border: #f59e0b;
+    --transferencia-text: #fbbf24;
+
+    --cheque-bg: rgba(100, 116, 139, 0.15);
+    --cheque-border: #64748b;
+    --cheque-text: #94a3b8;
+
+    /* 🔹 NUEVO: Crédito tema oscuro */
+    --credito-bg: rgba(236, 72, 153, 0.15);
+    --credito-border: #ec4899;
+    --credito-text: #f472b6;
+
+    /* Sombras oscuras */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================
+   HEADER STICKY
+   ========================================== */
+.headerSticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-elevated);
+    border-bottom: 2px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    min-height: var(--header-height);
+    transition: var(--transition-normal);
+}
+
+.headerLeft {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.pageHeader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.pageTitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pageTitle ion-icon {
+    font-size: 28px;
+    color: var(--primary);
+}
+
+.pageTitle h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.pageSubtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.infoHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: var(--spacing-xs);
+}
+
+.labelTotal {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.montoTotal {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--success);
+    letter-spacing: -1px;
+}
+
+.cantidadItems {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btnCancelarHeader,
+.btnProcesarHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--border-radius-md);
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+
+.btnCancelarHeader {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 2px solid var(--border-medium);
+}
+
+.btnCancelarHeader:hover:not(:disabled) {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btnProcesarHeader {
+    background: linear-gradient(135deg, var(--success) 0%, var(--success-hover) 100%);
+    color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnProcesarHeader:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btnProcesarHeader:disabled,
+.btnCancelarHeader:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btnProcesarHeader ion-icon,
+.btnCancelarHeader ion-icon {
+    font-size: 20px;
+}
+
+.iconRotate {
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   BARRA DE CONFIGURACIÓN - DISEÑO HORIZONTAL
+   ========================================== */
+.barraConfig {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--transition-normal);
+}
+
+.seccionConfigIzq,
+.seccionConfigDer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.grupoConfig {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.labelConfig {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.labelConfig ion-icon {
+    font-size: 16px;
+    color: var(--primary);
+}
+
+.selectConfig {
+    padding: 10px 14px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.selectConfig:hover {
+    border-color: var(--primary);
+}
+
+.selectConfig:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* ==========================================
+   MÉTODOS DE PAGO - GRID HORIZONTAL MEJORADO
+   ========================================== */
+.metodosPagoGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-sm);
+}
+
+.metodoPagoBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 10px;
+    border-radius: var(--border-radius-md);
+    border: 2px solid transparent;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    background: var(--bg-primary);
+}
+
+.metodoPagoBtn ion-icon {
+    font-size: 24px;
+}
+
+.metodoPagoBtn span {
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* Efectivo */
+.metodoPagoBtn.efectivo {
+    background: var(--efectivo-bg);
+    border-color: var(--efectivo-border);
+    color: var(--efectivo-text);
+}
+
+.metodoPagoBtn.efectivo ion-icon {
+    color: var(--efectivo-border);
+}
+
+.metodoPagoBtn.efectivo:hover {
+    background: var(--efectivo-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.metodoPagoBtn.efectivo.activo {
+    background: var(--efectivo-border);
+    color: white;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.metodoPagoBtn.efectivo.activo ion-icon {
+    color: white;
+}
+
+/* Débito */
+.metodoPagoBtn.debito {
+    background: var(--debito-bg);
+    border-color: var(--debito-border);
+    color: var(--debito-text);
+}
+
+.metodoPagoBtn.debito ion-icon {
+    color: var(--debito-border);
+}
+
+.metodoPagoBtn.debito:hover {
+    background: var(--debito-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.metodoPagoBtn.debito.activo {
+    background: var(--debito-border);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.metodoPagoBtn.debito.activo ion-icon {
+    color: white;
+}
+
+/* Tarjeta Crédito */
+.metodoPagoBtn.tarjetaCredito {
+    background: var(--tarjeta-credito-bg);
+    border-color: var(--tarjeta-credito-border);
+    color: var(--tarjeta-credito-text);
+}
+
+.metodoPagoBtn.tarjetaCredito ion-icon {
+    color: var(--tarjeta-credito-border);
+}
+
+.metodoPagoBtn.tarjetaCredito:hover {
+    background: var(--tarjeta-credito-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.metodoPagoBtn.tarjetaCredito.activo {
+    background: var(--tarjeta-credito-border);
+    color: white;
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+}
+
+.metodoPagoBtn.tarjetaCredito.activo ion-icon {
+    color: white;
+}
+
+/* Transferencia */
+.metodoPagoBtn.transferencia {
+    background: var(--transferencia-bg);
+    border-color: var(--transferencia-border);
+    color: var(--transferencia-text);
+}
+
+.metodoPagoBtn.transferencia ion-icon {
+    color: var(--transferencia-border);
+}
+
+.metodoPagoBtn.transferencia:hover {
+    background: var(--transferencia-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.metodoPagoBtn.transferencia.activo {
+    background: var(--transferencia-border);
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.metodoPagoBtn.transferencia.activo ion-icon {
+    color: white;
+}
+
+/* Cheque */
+.metodoPagoBtn.cheque {
+    background: var(--cheque-bg);
+    border-color: var(--cheque-border);
+    color: var(--cheque-text);
+}
+
+.metodoPagoBtn.cheque ion-icon {
+    color: var(--cheque-border);
+}
+
+.metodoPagoBtn.cheque:hover {
+    background: var(--cheque-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.metodoPagoBtn.cheque.activo {
+    background: var(--cheque-border);
+    color: white;
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+}
+
+.metodoPagoBtn.cheque.activo ion-icon {
+    color: white;
+}
+
+/* 🔹 NUEVO: Crédito (Venta a Crédito) */
+.metodoPagoBtn.credito {
+    background: var(--credito-bg);
+    border-color: var(--credito-border);
+    color: var(--credito-text);
+}
+
+.metodoPagoBtn.credito ion-icon {
+    color: var(--credito-border);
+}
+
+.metodoPagoBtn.credito:hover {
+    background: var(--credito-bg);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.metodoPagoBtn.credito.activo {
+    background: var(--credito-border);
+    color: white;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+}
+
+.metodoPagoBtn.credito.activo ion-icon {
+    color: white;
+}
+
+/* ==========================================
+   SECCIÓN CLIENTE - LADO DERECHO
+   ========================================== */
+.clienteControles {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.busquedaClienteContainer {
+    flex: 1;
+    position: relative;
+}
+
+.busquedaCliente {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.busquedaCliente ion-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 18px;
+    color: var(--text-tertiary);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.inputBusquedaCliente {
+    width: 100%;
+    padding: 10px 56px 10px 38px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: var(--transition-fast);
+}
+
+.inputBusquedaCliente:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.inputBusquedaCliente:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnLimpiarCliente {
+    position: absolute;
+    right: 44px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.btnLimpiarCliente ion-icon {
+    font-size: 20px;
+    color: var(--danger);
+    position: relative;
+    left: -2px;   /* 👈 compensación óptica */
+}
+
+.btnLimpiarCliente:hover {
+    background: var(--danger-light);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.btnClienteRapido {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: var(--border-radius-sm);
+    border: 2px dashed var(--border-medium);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+
+.btnClienteRapido:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.btnClienteRapido ion-icon {
+    font-size: 18px;
+}
+
+.dropdownClientes {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-lg);
+    z-index: 9999;
+}
+
+.dropdownItemCliente {
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.dropdownItemCliente:last-child {
+    border-bottom: none;
+}
+
+.dropdownItemCliente:hover {
+    background: var(--bg-tertiary);
+}
+
+.clienteInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.clienteNombre {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.clienteDoc {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   🔹 ALERTA DE CRÉDITO
+   ========================================== */
+.alertaCredito {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.alertaWarning,
+.alertaInfo,
+.alertaDanger,
+.alertaSuccess {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--border-radius-md);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.alertaWarning {
+    background: var(--warning-light);
+    border: 2px solid var(--warning);
+    color: var(--warning-text);
+}
+
+.alertaInfo {
+    background: var(--info-light);
+    border: 2px solid var(--info);
+    color: var(--info-text);
+}
+
+.alertaDanger {
+    background: var(--danger-light);
+    border: 2px solid var(--danger);
+    color: var(--danger);
+}
+
+.alertaSuccess {
+    background: var(--success-light);
+    border: 2px solid var(--success);
+    color: var(--success);
+}
+
+.alertaWarning ion-icon,
+.alertaInfo ion-icon,
+.alertaDanger ion-icon,
+.alertaSuccess ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: block;
+    min-width: 24px;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+    opacity: 1;
+    visibility: visible;
+}
+
+.alertaSuccess ion-icon {
+    color: var(--success) !important;
+    font-size: 26px !important;
+    min-width: 26px !important;
+    width: 26px !important;
+    height: 26px !important;
+}
+
+.alertaSuccess ion-icon {
+    color: var(--success);
+}
+
+.infoCreditoGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    width: 100%;
+}
+
+.itemCredito {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.labelCredito {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-secondary);
+}
+
+.valorCredito {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.valorCredito.disponible {
+    color: var(--success);
+}
+
+.badgeClasificacion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.badgeClasificacion.A {
+    background: #10b981;
+    color: white;
+}
+
+.badgeClasificacion.B {
+    background: #3b82f6;
+    color: white;
+}
+
+.badgeClasificacion.C {
+    background: #f59e0b;
+    color: white;
+}
+
+.badgeClasificacion.D {
+    background: #ef4444;
+    color: white;
+}
+
+/* ==========================================
+   LAYOUT PRINCIPAL
+   ========================================== */
+.layoutPrincipal {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 0;
+    flex: 1;
+    overflow: hidden;
+    height: calc(100vh - var(--header-height) - var(--config-bar-height));
+}
+
+.colProductos {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    padding: var(--spacing-lg);
+}
+
+.colProductos::-webkit-scrollbar {
+    width: 8px;
+}
+
+.colProductos::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.colProductos::-webkit-scrollbar-thumb {
+    background: var(--border-medium);
+    border-radius: 4px;
+}
+
+.colProductos::-webkit-scrollbar-thumb:hover {
+    background: var(--border-strong);
+}
+
+.colResumen {
+    background: var(--bg-primary);
+    border-left: 2px solid var(--border-light);
+    overflow-y: auto;
+}
+
+.colResumen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.colResumen::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.colResumen::-webkit-scrollbar-thumb {
+    background: var(--border-medium);
+    border-radius: 3px;
+}
+
+.resumenSticky {
+    position: sticky;
+    top: 0;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.tituloResumen {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--border-light);
+}
+
+.tituloResumen ion-icon {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+/* ==========================================
+   BÚSQUEDA DE PRODUCTOS
+   ========================================== */
+.seccionBusqueda {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.busquedaProductoContainer {
+    position: relative;
+}
+
+.busquedaProducto {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.busquedaProducto ion-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 20px;
+    color: var(--text-tertiary);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.inputBusquedaProducto {
+    width: 100%;
+    padding: 12px 14px 12px 44px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: var(--transition-fast);
+}
+
+.inputBusquedaProducto:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.dropdownProductos {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-lg);
+    z-index: 9999;
+}
+
+.dropdownItem {
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.dropdownItem:last-child {
+    border-bottom: none;
+}
+
+.dropdownItem:hover {
+    background: var(--bg-tertiary);
+}
+
+.productoInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.productoNombre {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.productoCodigo {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.productoDatos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.productoStock {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: var(--info-light);
+    color: var(--info);
+    font-weight: 600;
+}
+
+.productoPrecio {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--success);
+}
+
+/* ==========================================
+   TABLA DE PRODUCTOS
+   ========================================== */
+.tablaProductos {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.estadoVacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.estadoVacio ion-icon {
+    font-size: 72px;
+    color: var(--text-tertiary);
+    opacity: 0.4;
+}
+
+.estadoVacio p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.estadoVacio span {
+    font-size: 13px;
+    color: var(--text-tertiary);
+}
+
+.tablaHeader {
+    display: grid;
+    grid-template-columns: 2fr 140px 140px 120px 50px;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border-bottom: 2px solid var(--border-light);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+}
+
+.tablaBody {
+    display: flex;
+    flex-direction: column;
+}
+
+.filaProducto {
+    display: grid;
+    grid-template-columns: 2fr 200px 200px 120px 50px;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-light);
+    transition: var(--transition-fast);
+}
+
+.filaProducto:hover {
+    background: var(--bg-secondary);
+}
+
+.infoProductoFila {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nombreProductoFila {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.detalleProductoFila {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.controlCantidadCompacto {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btnMenos,
+.btnMas {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btnMenos:hover:not(:disabled),
+.btnMas:hover:not(:disabled) {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+}
+
+.btnMenos:disabled,
+.btnMas:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.btnMenos ion-icon,
+.btnMas ion-icon {
+    font-size: 16px;
+}
+
+.inputCantidadCompacto {
+    width: 60px;
+    padding: 6px 8px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.inputCantidadCompacto:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Selector de unidades visible */
+.selectUnidadVisible {
+    margin-left: var(--spacing-sm);
+    padding: 6px 10px;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    min-width: 60px;
+}
+
+.selectUnidadVisible:hover {
+    border-color: var(--primary);
+    background: var(--bg-secondary);
+}
+
+.selectUnidadVisible:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.controlPrecioCompacto {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Contenedor de precio por unidad */
+.precioPorUnidadContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+}
+
+.precioPorUnidad {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.precioValor {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.unidadPrecio {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.equivalenciaPrecio {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+.simboloMoneda {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.inputPrecioCompacto {
+    width: 100px;
+    padding: 6px 8px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.inputPrecioCompacto:focus {
+    outline: none;
+    border-color: var(--success);
+}
+
+.subtotalProducto {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+.btnEliminarCompacto {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    background: var(--danger-light);
+    color: var(--danger);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btnEliminarCompacto:hover {
+    background: var(--danger);
+    color: white;
+    transform: scale(1.05);
+}
+
+.btnEliminarCompacto ion-icon {
+    font-size: 18px;
+}
+
+/* ==========================================
+   OPCIONES ADICIONALES (DESPACHO, ITBIS)
+   ========================================== */
+.opcionesAdicionales {
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-secondary);
+}
+
+.summaryOpciones {
+    padding: 10px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+    user-select: none;
+}
+
+.summaryOpciones:hover {
+    color: var(--primary);
+    background: var(--bg-tertiary);
+}
+
+.summaryOpciones ion-icon {
+    font-size: 16px;
+    transition: var(--transition-fast);
+}
+
+.opcionesAdicionales[open] .summaryOpciones ion-icon {
+    transform: rotate(90deg);
+}
+
+.contenidoOpciones {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-tertiary);
+}
+
+.checkboxOpcion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.checkboxOpcion input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+.controlDespachoCompacto {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    border: 2px solid var(--primary);
+}
+
+.controlDespachoCompacto label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.inputGroupDespacho {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.inputGroupDespacho button {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.inputGroupDespacho button:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.inputGroupDespacho button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.inputGroupDespacho button ion-icon {
+    font-size: 14px;
+}
+
+.inputGroupDespacho input {
+    width: 50px;
+    padding: 4px 6px;
+    border: 2px solid var(--primary);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    color: var(--primary);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.inputGroupDespacho span {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.textoPendiente {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+    background: var(--warning-light);
+    color: var(--warning);
+    display: inline-block;
+}
+
+/* ==========================================
+   SECCIÓN EXTRAS
+   ========================================== */
+.seccionExtras {
+    margin-top: var(--spacing-md);
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.summaryExtras {
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    user-select: none;
+    list-style: none;
+}
+
+.summaryExtras::-webkit-details-marker {
+    display: none;
+}
+
+.summaryExtras:hover {
+    background: var(--bg-tertiary);
+}
+
+.summaryLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.summaryLeft > ion-icon:first-child {
+    font-size: 18px;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.seccionExtras[open] .summaryLeft > ion-icon:first-child {
+    transform: rotate(90deg);
+}
+
+.summaryLeft > ion-icon:nth-child(2) {
+    font-size: 20px;
+    color: var(--success);
+}
+
+.badgeExtras {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background: var(--success);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.btnAgregarExtraCompacto {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--border-radius-sm);
+    border: 2px solid var(--success);
+    background: transparent;
+    color: var(--success);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btnAgregarExtraCompacto:hover {
+    background: var(--success);
+    color: white;
+}
+
+.btnAgregarExtraCompacto ion-icon {
+    font-size: 16px;
+}
+
+.contenidoExtras {
+    padding: 16px;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-secondary);
+}
+
+.textoSinExtras {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.listaExtrasCompacta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.itemExtraCompacto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+}
+
+.infoExtraCompacto {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.nombreExtraCompacto {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.detalleExtraCompacto {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.totalExtraCompacto {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.btnEliminarExtraCompacto {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition-fast);
+}
+
+.btnEliminarExtraCompacto ion-icon {
+    font-size: 20px;
+    color: var(--danger);
+}
+
+.btnEliminarExtraCompacto:hover {
+    background: var(--danger-light);
+    transform: scale(1.15);
+}
+
+/* ==========================================
+   RESUMEN DE VENTA (COLUMNA DERECHA)
+   ========================================== */
+.camposVenta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.campoCompacto {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campoCompacto label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.inputConIcono {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.iconoMoneda {
+    position: absolute;
+    left: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--success);
+    pointer-events: none;
+}
+
+.inputMoneda {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.inputMoneda:focus {
+    outline: none;
+    border-color: var(--success);
+    box-shadow: 0 0 0 3px var(--success-light);
+}
+
+.cambioInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: var(--border-radius-md);
+    background: var(--warning-light);
+    border: 2px solid var(--warning);
+    color: var(--warning);
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.cambioInfo strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.desgloseTotales {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--border-light);
+}
+
+.lineaTotalCompacta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.lineaTotalCompacta span:first-child {
+    color: var(--text-secondary);
+}
+
+.lineaTotalCompacta span:last-child {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.lineaTotalCompacta.descuento span:last-child {
+    color: var(--danger);
+}
+
+.separadorTotal {
+    height: 2px;
+    background: var(--border-light);
+    margin: 8px 0;
+}
+
+.totalFinal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    border-radius: var(--border-radius-md);
+    background: var(--success-light);
+    border: 2px solid var(--success);
+}
+
+.totalFinal span:first-child {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.totalFinal span:last-child {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--success);
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================
+   MODALES
+   ========================================== */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.modal,
+.modalExtra {
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--border-radius-lg);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow-xl);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modalHeader {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.modalHeader h2,
+.modalHeader h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.btnCerrarModal {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-fast);
+}
+
+.btnCerrarModal ion-icon {
+    font-size: 26px;
+    color: var(--text-secondary);
+}
+
+.btnCerrarModal:hover:not(:disabled) {
+    background: var(--bg-tertiary);
+}
+
+.modalBody,
+.formularioExtra {
+    padding: 24px;
+}
+
+.infoModal {
+    font-size: 14px;
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.grupoInput,
+.grupoExtra {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.grupoInput:last-child,
+.grupoExtra:last-child {
+    margin-bottom: 0;
+}
+
+.grupoInput label,
+.etiquetaExtra {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.input,
+.inputExtra,
+.selectExtra,
+.textareaExtra {
+    padding: 10px 14px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: var(--transition-fast);
+    font-family: inherit;
+}
+
+.input:focus,
+.inputExtra:focus,
+.selectExtra:focus,
+.textareaExtra:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.textareaExtra {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.modalFooter,
+.accionesExtra {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 2px solid var(--border-light);
+}
+
+.btnCancelarModal,
+.btnGuardarModal,
+.botonCancelarExtra,
+.botonAgregarExtraModal {
+    padding: 10px 24px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btnCancelarModal,
+.botonCancelarExtra {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 2px solid var(--border-medium);
+}
+
+.btnCancelarModal:hover:not(:disabled),
+.botonCancelarExtra:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.btnGuardarModal,
+.botonAgregarExtraModal {
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btnGuardarModal:hover:not(:disabled),
+.botonAgregarExtraModal:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btnGuardarModal:disabled,
+.btnCancelarModal:disabled,
+.botonAgregarExtraModal:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.botonAgregarExtraModal ion-icon {
+    font-size: 18px;
+}
+
+.filaExtra {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.inputWrapperExtra {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.prefijoExtra {
+    position: absolute;
+    left: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--success);
+    z-index: 1;
+}
+
+.inputExtraPrecio {
+    width: 100%;
+    padding: 10px 14px 10px 44px;
+    font-size: 14px;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: var(--transition-fast);
+    font-family: inherit;
+}
+
+.inputExtraPrecio:focus {
+    outline: none;
+    border-color: var(--success);
+    box-shadow: 0 0 0 3px var(--success-light);
+}
+
+.checkboxLabelExtra {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.checkboxExtra {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+.resumenExtra {
+    padding: 16px;
+    border-radius: var(--border-radius-sm);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-light);
+}
+
+.lineaResumenExtra {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.lineaResumenTotalExtra {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 700;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 2px solid var(--border-light);
+    color: var(--text-primary);
+}
+
+.requeridoExtra {
+    color: var(--danger);
+}
+
+/* ==========================================
+   ESTADO DE CARGA
+   ========================================== */
+.contenedor {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 400px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.iconoCargando {
+    font-size: 48px;
+    animation: rotate 1s linear infinite;
+}
+
+/* ==========================================
+   RESPONSIVE - TABLET
+   ========================================== */
+@media (max-width: 1024px) {
+    .layoutPrincipal {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .colProductos {
+        min-height: 60vh;
+    }
+
+    .colResumen {
+        border-left: none;
+        border-top: 2px solid var(--border-light);
+    }
+
+    .resumenSticky {
+        position: relative;
+    }
+
+    .metodosPagoGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .barraConfig {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .infoCreditoGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE - MÓVIL
+   ========================================== */
+@media (max-width: 768px) {
+    .headerSticky {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .headerLeft {
+        align-items: center;
+        text-align: center;
+    }
+
+    .pageTitle h1 {
+        font-size: 20px;
+    }
+
+    .infoHeader {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .montoTotal {
+        font-size: 24px;
+    }
+
+    .headerActions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btnCancelarHeader,
+    .btnProcesarHeader {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .barraConfig {
+        padding: 12px 16px;
+    }
+
+    .metodosPagoGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .colProductos {
+        padding: 16px;
+    }
+
+    .tablaHeader {
+        display: none;
+    }
+
+    .filaProducto {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .controlCantidadCompacto,
+    .controlPrecioCompacto {
+        justify-content: center;
+    }
+
+    .subtotalProducto {
+        text-align: center;
+        font-size: 16px;
+        padding: 8px 0;
+        border-top: 1px solid var(--border-light);
+    }
+
+    .btnEliminarCompacto {
+        width: 100%;
+    }
+
+    .modal,
+    .modalExtra {
+        max-width: calc(100% - 32px);
+        margin: 16px;
+    }
+
+    .modalFooter,
+    .accionesExtra {
+        flex-direction: column;
+    }
+
+    .btnCancelarModal,
+    .btnGuardarModal,
+    .botonCancelarExtra,
+    .botonAgregarExtraModal {
+        width: 100%;
+    }
+
+    .filaExtra {
+        grid-template-columns: 1fr;
+    }
+
+    .infoCreditoGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .pageTitle h1 {
+        font-size: 18px;
+    }
+
+    .montoTotal {
+        font-size: 20px;
+    }
+
+    .colProductos {
+        padding: 12px;
+    }
+
+    .resumenSticky {
+        padding: 16px;
+    }
+
+    .totalFinal span:last-child {
+        font-size: 20px;
+    }
+
+    .metodosPagoGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .metodoPagoBtn {
+        padding: 10px 6px;
+        font-size: 11px;
+    }
+
+    .metodoPagoBtn ion-icon {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,360 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid;
+}
+
+.light .tabs {
+    border-color: #e2e8f0;
+}
+
+.dark .tabs {
+    border-color: #334155;
+}
+
+.tabBtn {
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    color: #94a3b8;
+}
+
+.tabBtn.activo {
+    color: #eab308;
+}
+
+.tabBtn.activo.inconsistencias {
+    color: #ef4444;
+}
+
+.tabBtn.activo::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: currentColor;
+}
+
+/* Lista */
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cardCaja {
+    padding: 24px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.2s;
+    border: 1px solid;
+}
+
+.cardCaja.light {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-color: #e5e7eb;
+}
+
+.cardCaja.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    border-color: #334155;
+}
+
+.cardCaja:hover {
+    transform: translateY(-2px);
+}
+
+.cajaPrincipal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.infoCaja h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.metaInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+}
+
+.iconMeta {
+    color: #94a3b8;
+}
+
+.badgeEmpresa {
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.badgeAlerta {
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #fee2e2;
+    color: #ef4444;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btnForzar {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+}
+
+.btnForzar:hover {
+    background: #dc2626;
+}
+
+/* Inconsistencias */
+.diferenciaPanel {
+    text-align: right;
+}
+
+.difLabel {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.difValor {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.difValor.negativo {
+    color: #ef4444;
+}
+
+.difValor.positivo {
+    color: #10b981;
+}
+
+.gridDetalles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.light .gridDetalles {
+    background: #f8fafc;
+}
+
+.dark .gridDetalles {
+    background: #0f172a;
+}
+
+.detalleItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detLabel {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.detVal {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal.light {
+    background: #ffffff;
+}
+
+.dark .modal {
+    background: #1e293b;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btnCerrar {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+.textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid;
+    border-radius: 10px;
+    resize: none;
+    font-family: inherit;
+}
+
+.light .textarea {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.dark .textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: white;
+}
+
+.modalFooter {
+    display: flex;
+    gap: 15px;
+}
+
+.btnCancelar {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    background: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnConfirmar {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #ef4444;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnConfirmar:disabled {
+    opacity: 0.5;
+}

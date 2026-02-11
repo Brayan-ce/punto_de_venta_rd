@@ -1,0 +1,6 @@
+@import '../compras-obra/compras-obra.module.css';
+
+.emitido { background: #dbeafe; color: #1e40af; }
+.entregado { background: #d1fae5; color: #065f46; }
+.anulado { background: #fee2e2; color: #991b1b; }
+
