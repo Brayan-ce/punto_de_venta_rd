@@ -30,6 +30,7 @@ export default function CajaPageAdmin() {
     const [mostrarModalAbrir, setMostrarModalAbrir] = useState(false)
     const [mostrarModalGasto, setMostrarModalGasto] = useState(false)
     const [mostrarModalCerrar, setMostrarModalCerrar] = useState(false)
+        const [mostrarAlertaCajaVieja, setMostrarAlertaCajaVieja] = useState(false)
 
     const [formAbrir, setFormAbrir] = useState({
         numero_caja: '',
@@ -113,6 +114,27 @@ export default function CajaPageAdmin() {
             setCargando(false)
         }
     }
+useEffect(() => {
+    if (cajaActiva && cajaActiva.fecha_caja) {
+        // Convertir ambas fechas a formato YYYY-MM-DD para comparar solo el día
+        const fechaCaja = new Date(cajaActiva.fecha_caja).toISOString().split('T')[0]
+        const fechaHoy = new Date().toISOString().split('T')[0]
+        
+        if (fechaCaja !== fechaHoy) {
+            setMostrarAlertaCajaVieja(true)
+        }
+    }
+}, [cajaActiva])
+useEffect(() => {
+    console.log('🔍 DEBUG ALERTA:', {
+        tieneCajaActiva: !!cajaActiva,
+        fechaCaja: cajaActiva?.fecha_caja,
+        fechaCajaISO: cajaActiva?.fecha_caja ? new Date(cajaActiva.fecha_caja).toISOString().split('T')[0] : null,
+        fechaHoyISO: new Date().toISOString().split('T')[0],
+        sonIguales: cajaActiva?.fecha_caja ? (new Date(cajaActiva.fecha_caja).toISOString().split('T')[0] === new Date().toISOString().split('T')[0]) : null,
+        mostrarAlerta: mostrarAlertaCajaVieja
+    })
+}, [cajaActiva, mostrarAlertaCajaVieja])
 
     const abrirModalAbrir = () => {
         setFormAbrir({
@@ -882,6 +904,44 @@ export default function CajaPageAdmin() {
                     </div>
                 </div>
             )}
+
+            
+{mostrarAlertaCajaVieja && cajaActiva && (
+    <div className={estilos.modalAlerta}>
+        <div className={estilos.alertaContenido}>
+            <div className={estilos.alertaBarra} />
+            
+            <div className={estilos.alertaTexto}>
+                <div className={estilos.alertaIcono}>
+    <ion-icon name="warning-outline"></ion-icon>
+</div>
+                
+                <h2 className={estilos.alertaTitulo}>Caja de Día Anterior</h2>
+                
+                <p className={estilos.alertaDescripcion}>
+                    Tu Caja {cajaActiva.numero_caja} fue abierta el
+                    <strong className={estilos.alertaFecha}>
+                        {formatearFecha(cajaActiva.fecha_caja)}
+                    </strong>
+                </p>
+                
+                <div className={estilos.alertaCuadro}>
+                    <p>
+                        Para registrar gastos y ventas correctamente, debes cerrar esta caja 
+                        y abrir una nueva para el día de hoy.
+                    </p>
+                </div>
+                
+                <button
+                    onClick={() => setMostrarAlertaCajaVieja(false)}
+                    className={estilos.btnAlertaCerrar}
+                >
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+)}
         </div>
     )
 }

@@ -842,8 +842,11 @@ export default function NuevoContrato() {
                                                     </div>
                                                     <div className={estilos.plazoDetalleItem}>
                                                         <span>Tasa anual:</span>
-                                                        <strong>{plazo.tasa_anual_calculada?.toFixed(2) || 'N/A'}%</strong>
-                                                    </div>
+<strong>
+  {plazo.tasa_mensual_calculada 
+    ? (plazo.tasa_mensual_calculada * 12 * 100).toFixed(2)
+    : plazo.tasa_anual_calculada?.toFixed(2) || 'N/A'}%
+</strong>                                                  </div>
                                                 </div>
                                             )}
                                             {plazoSeleccionado?.id === plazo.id && (
@@ -1120,11 +1123,13 @@ export default function NuevoContrato() {
                                                 <div className={estilos.montoDetalle}>
                                                     <span className={estilos.montoLabel}>Total Intereses</span>
                                                     <strong className={estilos.montoValor}>{formatearMoneda(vistaPrevia.totalIntereses)}</strong>
-                                                    <span className={estilos.montoSubtexto}>
-                                                        {plazoSeleccionado 
-                                                            ? `${plazoSeleccionado.tasa_anual_calculada?.toFixed(2) || 'N/A'}% anual`
-                                                            : `${planSeleccionado?.tasa_interes_anual || 'N/A'}% anual`}
-                                                    </span>
+<span className={estilos.montoSubtexto}>
+  {plazoSeleccionado 
+    ? (plazoSeleccionado.tasa_mensual_calculada 
+        ? `${(plazoSeleccionado.tasa_mensual_calculada * 12 * 100).toFixed(2)}% anual`
+        : `${plazoSeleccionado.tasa_anual_calculada?.toFixed(2) || 'N/A'}% anual`)
+    : `${planSeleccionado?.tasa_interes_anual || 'N/A'}% anual`}
+</span>
                                                 </div>
                                             </div>
                                             <div className={`${estilos.montoItemMejorado} ${estilos.totalPagar}`}>
@@ -1248,11 +1253,13 @@ export default function NuevoContrato() {
                                     </div>
                                     <div className={estilos.resumenItem}>
                                         <span>Tasa anual:</span>
-                                        <strong>
-                                            {plazoSeleccionado 
-                                                ? `${plazoSeleccionado.tasa_anual_calculada?.toFixed(2) || 'N/A'}%`
-                                                : `${planSeleccionado?.tasa_interes_anual || 'N/A'}%`}
-                                        </strong>
+<strong>
+  {plazoSeleccionado 
+    ? (plazoSeleccionado.tasa_mensual_calculada 
+        ? `${(plazoSeleccionado.tasa_mensual_calculada * 12 * 100).toFixed(2)}%`
+        : `${plazoSeleccionado.tasa_anual_calculada?.toFixed(2) || 'N/A'}%`)
+    : `${planSeleccionado?.tasa_interes_anual || 'N/A'}%`}
+</strong>
                                     </div>
                                 </div>
                             </div>
