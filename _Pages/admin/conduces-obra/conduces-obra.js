@@ -9,6 +9,7 @@ export default function ConducesObraAdmin() {
     const searchParams = useSearchParams()
     const obraIdParam = searchParams.get('obra')
     
+    const [tema, setTema] = useState('light')
     const [conduces, setConduces] = useState([])
     const [obras, setObras] = useState([])
     const [filtros, setFiltros] = useState({
@@ -16,6 +17,24 @@ export default function ConducesObraAdmin() {
         estado: ''
     })
     const [cargando, setCargando] = useState(true)
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarObras()
@@ -41,23 +60,36 @@ export default function ConducesObraAdmin() {
         setCargando(false)
     }
 
+    const formatearFecha = (fecha) => {
+        if (!fecha) return 'N/A'
+        return new Date(fecha).toLocaleDateString('es-DO', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        })
+    }
+
     return (
-        <div className={estilos.contenedor}>
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
-                <div>
-                    <h1 className={estilos.titulo}>Conduces de Obra</h1>
-                    <p className={estilos.subtitulo}>Despachos de materiales a obras</p>
+                <div className={estilos.tituloArea}>
+                    <h1 className={estilos.titulo}>
+                        <ion-icon name="document-text-outline"></ion-icon>
+                        Conduces de Obra
+                    </h1>
+                    <p className={estilos.subtitulo}>
+                        Despachos de materiales a obras
+                    </p>
                 </div>
                 <button 
                     className={estilos.btnNuevo} 
                     onClick={() => router.push('/admin/conduces-obra/nuevo')}
                 >
-                    <ion-icon name="add-outline"></ion-icon>
+                    <ion-icon name="add-circle-outline"></ion-icon>
                     <span>Nuevo Conduce</span>
                 </button>
             </div>
 
-            {/* Filtros */}
             <div className={estilos.filtros}>
                 <select
                     value={filtros.obra_id}
@@ -81,15 +113,31 @@ export default function ConducesObraAdmin() {
                 </select>
             </div>
 
-            {/* Lista */}
             {cargando ? (
-                <div className={estilos.cargando}>Cargando conduces...</div>
+                <div className={estilos.cargando}>
+                    <ion-icon name="hourglass-outline"></ion-icon>
+                    <p>Cargando conduces...</p>
+                </div>
             ) : conduces.length === 0 ? (
-                <div className={estilos.vacio}>No se encontraron conduces</div>
+                <div className={estilos.vacio}>
+                    <div className={estilos.ilustracionWrapper}>
+                        <img 
+                            src="/illustrations3D/_0001.svg" 
+                            alt="Ilustración" 
+                            className={estilos.ilustracion3D}
+                        />
+                    </div>
+                    <p>No se encontraron conduces</p>
+                    <small>Intenta ajustar los filtros o crea un nuevo conduce</small>
+                </div>
             ) : (
                 <div className={estilos.lista}>
                     {conduces.map(conduce => (
-                        <div key={conduce.id} className={estilos.tarjeta}>
+                        <div 
+                            key={conduce.id} 
+                            className={estilos.tarjeta}
+                            onClick={() => router.push(`/admin/conduces-obra/ver/${conduce.id}`)}
+                        >
                             <div className={estilos.tarjetaHeader}>
                                 <div>
                                     <h3>{conduce.numero_conduce}</h3>
@@ -108,21 +156,21 @@ export default function ConducesObraAdmin() {
                                     {conduce.receptor && (
                                         <div className={estilos.itemInfo}>
                                             <ion-icon name="person-outline"></ion-icon>
-                                            <span>Receptor: {conduce.receptor}</span>
+                                            <span>{conduce.receptor}</span>
                                         </div>
                                     )}
                                     <div className={estilos.itemInfo}>
                                         <ion-icon name="calendar-outline"></ion-icon>
-                                        <span>{new Date(conduce.fecha_conduce || conduce.fecha_despacho).toLocaleDateString()}</span>
+                                        <span>{formatearFecha(conduce.fecha_conduce || conduce.fecha_despacho)}</span>
                                     </div>
                                     <div className={estilos.itemInfo}>
                                         <ion-icon name="cube-outline"></ion-icon>
-                                        <span>{conduce.cantidad_items || 0} materiales</span>
+                                        <span>{conduce.cantidad_items || 0} {conduce.cantidad_items === 1 ? 'material' : 'materiales'}</span>
                                     </div>
                                     {conduce.chofer && (
                                         <div className={estilos.itemInfo}>
                                             <ion-icon name="car-outline"></ion-icon>
-                                            <span>Chofer: {conduce.chofer}</span>
+                                            <span>{conduce.chofer}</span>
                                         </div>
                                     )}
                                 </div>
@@ -130,9 +178,12 @@ export default function ConducesObraAdmin() {
                             <div className={estilos.tarjetaFooter}>
                                 <button 
                                     className={estilos.btnVer}
-                                    onClick={() => router.push(`/admin/conduces-obra/ver/${conduce.id}`)}
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        router.push(`/admin/conduces-obra/ver/${conduce.id}`)
+                                    }}
                                 >
-                                    Ver Detalle
+                                    Ver Detalles
                                 </button>
                             </div>
                         </div>
@@ -142,4 +193,3 @@ export default function ConducesObraAdmin() {
         </div>
     )
 }
-
