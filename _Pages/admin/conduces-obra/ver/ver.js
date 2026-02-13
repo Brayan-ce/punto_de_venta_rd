@@ -2,13 +2,32 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { obtenerConduceObraPorId } from '../servidor'
-import estilos from '../conduces-obra.module.css'
+import estilos from './conduces-obra-ver.module.css'
 
 export default function VerConduceObra() {
     const router = useRouter()
     const params = useParams()
+    const [tema, setTema] = useState('light')
     const [conduce, setConduce] = useState(null)
     const [cargando, setCargando] = useState(true)
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarConduce()
@@ -25,16 +44,33 @@ export default function VerConduceObra() {
         setCargando(false)
     }
 
+    const formatearFecha = (fecha) => {
+        if (!fecha) return 'N/A'
+        return new Date(fecha).toLocaleDateString('es-DO', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })
+    }
+
     if (cargando) {
-        return <div className={estilos.cargando}>Cargando...</div>
+        return (
+            <div className={`${estilos.contenedor} ${estilos[tema]}`}>
+                <div className={estilos.cargando}>Cargando...</div>
+            </div>
+        )
     }
 
     if (!conduce) {
-        return <div className={estilos.vacio}>Conduce no encontrado</div>
+        return (
+            <div className={`${estilos.contenedor} ${estilos[tema]}`}>
+                <div className={estilos.vacio}>Conduce no encontrado</div>
+            </div>
+        )
     }
 
     return (
-        <div className={estilos.contenedor}>
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <div>
                     <h1 className={estilos.titulo}>{conduce.numero_conduce}</h1>
@@ -79,7 +115,7 @@ export default function VerConduceObra() {
                         )}
                         <div>
                             <label>Fecha de Despacho</label>
-                            <span>{new Date(conduce.fecha_conduce || conduce.fecha_despacho).toLocaleDateString()}</span>
+                            <span>{formatearFecha(conduce.fecha_conduce || conduce.fecha_despacho)}</span>
                         </div>
                         <div>
                             <label>Estado</label>
@@ -126,4 +162,3 @@ export default function VerConduceObra() {
         </div>
     )
 }
-

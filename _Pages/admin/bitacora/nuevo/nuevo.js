@@ -14,15 +14,12 @@ import estilos from './nuevo.module.css'
 
 export default function NuevaBitacora() {
     const router = useRouter()
-    
-    // Listas de destinos
+    const [tema, setTema] = useState('light')
     const [obras, setObras] = useState([])
     const [servicios, setServicios] = useState([])
     const [trabajadores, setTrabajadores] = useState([])
-    
-    // Datos del formulario
     const [formData, setFormData] = useState({
-        tipo_destino: '', // 'obra' o 'servicio'
+        tipo_destino: '',
         destino_id: '',
         fecha_bitacora: new Date().toISOString().split('T')[0],
         zona_sitio: '',
@@ -30,16 +27,30 @@ export default function NuevaBitacora() {
         observaciones: '',
         condiciones_clima: ''
     })
-    
-    // Estados de selección
     const [trabajadoresPresentes, setTrabajadoresPresentes] = useState([])
     const [fotos, setFotos] = useState([])
-    
-    // Estados de UI
     const [errors, setErrors] = useState({})
     const [cargando, setCargando] = useState(true)
     const [procesando, setProcesando] = useState(false)
-    const [paso, setPaso] = useState(1) // 1: Tipo y Destino, 2: Detalles, 3: Trabajadores, 4: Revisión
+    const [paso, setPaso] = useState(1)
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarObrasYServicios()
@@ -75,7 +86,6 @@ export default function NuevaBitacora() {
         
         if (res.success) {
             setTrabajadores(res.trabajadores)
-            // Preseleccionar todos los trabajadores
             setTrabajadoresPresentes(res.trabajadores.map(t => t.id))
         }
     }
@@ -92,7 +102,7 @@ export default function NuevaBitacora() {
         setFormData(prev => ({ 
             ...prev, 
             tipo_destino: tipo,
-            destino_id: '' // Reset destino al cambiar tipo
+            destino_id: ''
         }))
         setErrors({})
     }
@@ -123,21 +133,17 @@ export default function NuevaBitacora() {
     const handleFotosChange = (e) => {
         const archivos = Array.from(e.target.files)
         
-        // Validar cantidad
         if (fotos.length + archivos.length > CONFIG_FOTOS.MAX_FOTOS) {
             alert(`Solo puedes subir un máximo de ${CONFIG_FOTOS.MAX_FOTOS} fotos`)
             return
         }
         
-        // Validar cada archivo
         const fotosValidas = archivos.filter(archivo => {
-            // Validar tamaño
             if (archivo.size > CONFIG_FOTOS.MAX_SIZE_MB * 1024 * 1024) {
                 alert(`La foto "${archivo.name}" excede el tamaño máximo de ${CONFIG_FOTOS.MAX_SIZE_MB}MB`)
                 return false
             }
             
-            // Validar formato
             if (!CONFIG_FOTOS.FORMATOS_PERMITIDOS.includes(archivo.type)) {
                 alert(`La foto "${archivo.name}" no tiene un formato permitido`)
                 return false
@@ -146,7 +152,6 @@ export default function NuevaBitacora() {
             return true
         })
         
-        // Agregar fotos con preview
         const nuevasFotos = fotosValidas.map(archivo => ({
             id: Math.random().toString(36).substr(2, 9),
             archivo,
@@ -213,15 +218,13 @@ export default function NuevaBitacora() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        // Validar todos los pasos
         if (!validarPaso(1) || !validarPaso(2) || !validarPaso(3)) {
-            setPaso(1) // Volver al primer paso con error
+            setPaso(1)
             return
         }
 
         setProcesando(true)
 
-        // Preparar datos
         const datos = {
             tipo_destino: formData.tipo_destino,
             destino_id: formData.destino_id,
@@ -231,7 +234,7 @@ export default function NuevaBitacora() {
             observaciones: formData.observaciones,
             condiciones_clima: formData.condiciones_clima,
             trabajadores_presentes: trabajadoresPresentes,
-            fotos: [] // TODO: Implementar upload de fotos al servidor
+            fotos: []
         }
 
         const res = await crearBitacora(datos)
@@ -245,11 +248,10 @@ export default function NuevaBitacora() {
             } else {
                 alert(res.mensaje || 'Error al crear la bitácora')
             }
-            setPaso(1) // Volver al primer paso para corregir
+            setPaso(1)
         }
     }
 
-    // Obtener lista de destinos según tipo seleccionado
     const destinosDisponibles = formData.tipo_destino === TIPOS_DESTINO.OBRA 
         ? obras 
         : formData.tipo_destino === TIPOS_DESTINO.SERVICIO
@@ -257,8 +259,7 @@ export default function NuevaBitacora() {
         : []
 
     return (
-        <div className={estilos.contenedor}>
-            {/* Header */}
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <div>
                     <h1 className={estilos.titulo}>Nueva Bitácora Diaria</h1>
@@ -276,7 +277,6 @@ export default function NuevaBitacora() {
                 </button>
             </div>
 
-            {/* Indicador de pasos */}
             <div className={estilos.pasos}>
                 {[1, 2, 3, 4].map(numeroPaso => (
                     <div 
@@ -301,7 +301,6 @@ export default function NuevaBitacora() {
             </div>
 
             <form onSubmit={handleSubmit} className={estilos.form}>
-                {/* PASO 1: Tipo y Destino */}
                 {paso === 1 && (
                     <div className={estilos.contenidoPaso}>
                         <section className={estilos.seccion}>
@@ -310,7 +309,6 @@ export default function NuevaBitacora() {
                                 <span>Seleccionar Destino</span>
                             </h3>
 
-                            {/* Selector de tipo de destino */}
                             <div className={estilos.grupoTipos}>
                                 <button
                                     type="button"
@@ -335,7 +333,6 @@ export default function NuevaBitacora() {
                                 <span className={estilos.errorMsg}>{errors.tipo_destino}</span>
                             )}
 
-                            {/* Selector de destino específico */}
                             {formData.tipo_destino && (
                                 <div className={estilos.grupo}>
                                     <label>
@@ -363,7 +360,6 @@ export default function NuevaBitacora() {
                                 </div>
                             )}
 
-                            {/* Fecha */}
                             <div className={estilos.fila}>
                                 <div className={estilos.grupo}>
                                     <label>Fecha *</label>
@@ -395,7 +391,6 @@ export default function NuevaBitacora() {
                     </div>
                 )}
 
-                {/* PASO 2: Trabajo Realizado */}
                 {paso === 2 && (
                     <div className={estilos.contenidoPaso}>
                         <section className={estilos.seccion}>
@@ -404,7 +399,6 @@ export default function NuevaBitacora() {
                                 <span>Trabajo Realizado</span>
                             </h3>
 
-                            {/* Botones de actividades comunes */}
                             <div className={estilos.grupo}>
                                 <label>Agregar actividades comunes:</label>
                                 <div className={estilos.trabajosComunes}>
@@ -422,7 +416,6 @@ export default function NuevaBitacora() {
                                 </div>
                             </div>
 
-                            {/* Descripción del trabajo */}
                             <div className={estilos.grupo}>
                                 <label>Descripción del Trabajo *</label>
                                 <textarea
@@ -442,7 +435,6 @@ export default function NuevaBitacora() {
                                 )}
                             </div>
 
-                            {/* Observaciones */}
                             <div className={estilos.grupo}>
                                 <label>Observaciones</label>
                                 <textarea
@@ -458,7 +450,6 @@ export default function NuevaBitacora() {
                                 </div>
                             </div>
 
-                            {/* Condiciones climáticas */}
                             <div className={estilos.grupo}>
                                 <label>Condiciones Climáticas</label>
                                 <div className={estilos.gridClima}>
@@ -482,7 +473,6 @@ export default function NuevaBitacora() {
                     </div>
                 )}
 
-                {/* PASO 3: Trabajadores */}
                 {paso === 3 && (
                     <div className={estilos.contenidoPaso}>
                         <section className={estilos.seccion}>
@@ -550,7 +540,6 @@ export default function NuevaBitacora() {
                             )}
                         </section>
 
-                        {/* Fotos (opcional) */}
                         <section className={estilos.seccion}>
                             <h3 className={estilos.seccionTitulo}>
                                 <ion-icon name="camera-outline"></ion-icon>
@@ -598,7 +587,6 @@ export default function NuevaBitacora() {
                     </div>
                 )}
 
-                {/* PASO 4: Revisión */}
                 {paso === 4 && (
                     <div className={estilos.contenidoPaso}>
                         <section className={estilos.seccion}>
@@ -669,7 +657,6 @@ export default function NuevaBitacora() {
                     </div>
                 )}
 
-                {/* Footer con botones de navegación */}
                 <div className={estilos.formFooter}>
                     <div className={estilos.footerBotones}>
                         {paso > 1 && (

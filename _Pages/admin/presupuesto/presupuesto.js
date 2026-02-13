@@ -9,12 +9,31 @@ import estilos from './presupuesto.module.css'
 
 export default function PresupuestoAdmin() {
     const router = useRouter()
+    const [tema, setTema] = useState('light')
     const [obras, setObras] = useState([])
     const [obraSeleccionada, setObraSeleccionada] = useState('')
     const [control, setControl] = useState(null)
     const [alertas, setAlertas] = useState([])
     const [costosSemanales, setCostosSemanales] = useState([])
     const [cargando, setCargando] = useState(true)
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+        
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+        
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+        
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarObras()
@@ -100,7 +119,7 @@ export default function PresupuestoAdmin() {
 
     if (cargando && !control) {
         return (
-            <div className={estilos.contenedor}>
+            <div className={`${estilos.contenedor} ${estilos[tema]}`}>
                 <div className={estilos.cargando}>Cargando...</div>
             </div>
         )
@@ -108,7 +127,7 @@ export default function PresupuestoAdmin() {
 
     if (!control) {
         return (
-            <div className={estilos.contenedor}>
+            <div className={`${estilos.contenedor} ${estilos[tema]}`}>
                 <div className={estilos.vacio}>Seleccione una obra para ver el control presupuestario</div>
             </div>
         )
@@ -147,7 +166,7 @@ export default function PresupuestoAdmin() {
     ].filter(item => item.valor > 0)
 
     return (
-        <div className={estilos.contenedor}>
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <div className={estilos.tituloArea}>
                     <h1 className={estilos.titulo}>
@@ -158,7 +177,6 @@ export default function PresupuestoAdmin() {
                 </div>
             </div>
 
-            {/* Selector de Obra */}
             <div className={estilos.selectorObra}>
                 <label>
                     <ion-icon name="business-outline" style={{ marginRight: '8px', fontSize: '18px' }}></ion-icon>
@@ -176,7 +194,6 @@ export default function PresupuestoAdmin() {
                 </select>
             </div>
 
-            {/* Alertas */}
             {alertas.length > 0 && (
                 <div className={estilos.alertas}>
                     <h3>
@@ -200,7 +217,6 @@ export default function PresupuestoAdmin() {
                 </div>
             )}
 
-            {/* Tarjeta de Estado General */}
             <div className={`${estilos.estadoGeneral} ${estilos[estado.bgLight]}`}>
                 <div className={estilos.estadoHeader}>
                     <div>
@@ -211,7 +227,6 @@ export default function PresupuestoAdmin() {
                     </div>
                 </div>
 
-                {/* Barra de Progreso */}
                 <div className={estilos.progreso}>
                     <div className={estilos.progresoHeader}>
                         <span>Ejecución Presupuestaria</span>
@@ -229,7 +244,6 @@ export default function PresupuestoAdmin() {
                     </div>
                 </div>
 
-                {/* Alerta de Sobrecosto */}
                 {control.proyeccion.tiene_sobrecosto && (
                     <div className={estilos.alertaSobrecosto}>
                         <strong>
@@ -244,7 +258,6 @@ export default function PresupuestoAdmin() {
                 )}
             </div>
 
-            {/* Cards de Resumen */}
             <div className={estilos.cardsResumen}>
                 <div className={estilos.card}>
                     <div className={`${estilos.cardIcon} ${estilos.primary}`}>
@@ -284,7 +297,6 @@ export default function PresupuestoAdmin() {
             </div>
 
             <div className={estilos.grid}>
-                {/* Distribución de Costos */}
                 <div className={estilos.seccion}>
                     <h3>
                         <ion-icon name="pie-chart-outline"></ion-icon>
@@ -314,7 +326,6 @@ export default function PresupuestoAdmin() {
                     </div>
                 </div>
 
-                {/* Costos Semanales */}
                 {costosSemanales.length > 0 && (
                     <div className={estilos.seccion}>
                         <h3>
@@ -351,9 +362,7 @@ export default function PresupuestoAdmin() {
                     </div>
                 )}
 
-                {/* Sidebar de Indicadores */}
                 <div className={estilos.sidebar}>
-                    {/* Índice CPI */}
                     <div className={estilos.cardCPI}>
                         <h3>
                             <ion-icon name="analytics-outline"></ion-icon>
@@ -387,7 +396,6 @@ export default function PresupuestoAdmin() {
                         </div>
                     </div>
 
-                    {/* Proyección */}
                     <div className={estilos.cardProyeccion}>
                         <h3>
                             <ion-icon name="trending-up-outline"></ion-icon>
@@ -417,7 +425,6 @@ export default function PresupuestoAdmin() {
                         </div>
                     </div>
 
-                    {/* Acciones */}
                     <div className={estilos.cardAcciones}>
                         <h3>
                             <ion-icon name="flash-outline"></ion-icon>
@@ -437,4 +444,3 @@ export default function PresupuestoAdmin() {
         </div>
     )
 }
-

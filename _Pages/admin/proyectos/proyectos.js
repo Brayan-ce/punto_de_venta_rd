@@ -7,12 +7,31 @@ import estilos from './proyectos.module.css'
 
 export default function ProyectosAdmin() {
     const router = useRouter()
+    const [tema, setTema] = useState('light')
     const [proyectos, setProyectos] = useState([])
     const [cargando, setCargando] = useState(true)
     const [filtros, setFiltros] = useState({
         busqueda: '',
         estado: ''
     })
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+        
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+        
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+        
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarProyectos()
@@ -28,7 +47,7 @@ export default function ProyectosAdmin() {
     }
 
     return (
-        <div className={estilos.contenedor}>
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <div>
                     <h1 className={estilos.titulo}>Proyectos</h1>
@@ -53,7 +72,6 @@ export default function ProyectosAdmin() {
                 </div>
             </div>
 
-            {/* Filtros */}
             <div className={estilos.filtros}>
                 <div className={estilos.busqueda}>
                     <ion-icon name="search-outline"></ion-icon>
@@ -77,7 +95,6 @@ export default function ProyectosAdmin() {
                 </select>
             </div>
 
-            {/* Lista */}
             {cargando ? (
                 <div className={estilos.cargando}>Cargando proyectos...</div>
             ) : proyectos.length === 0 ? (
@@ -148,4 +165,3 @@ export default function ProyectosAdmin() {
         </div>
     )
 }
-

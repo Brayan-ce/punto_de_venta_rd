@@ -24,12 +24,10 @@ export default function HeaderAdmin() {
     const [cargando, setCargando] = useState(true)
     const [seccionesAbiertas, setSeccionesAbiertas] = useState({})
     const [sidebarColapsado, setSidebarColapsado] = useState(false)
-    const [hoverSubmenu, setHoverSubmenu] = useState(null) // Para popovers en modo colapsado
+    const [hoverSubmenu, setHoverSubmenu] = useState(null)
 
-    // Hook para módulos habilitados
     const {tieneModulo} = useModulos()
 
-    // Cargar estado de secciones y sidebar desde localStorage (solo una vez al montar)
     useEffect(() => {
         const estadoGuardado = localStorage.getItem('sidebarSeccionesAbiertas')
         if (estadoGuardado) {
@@ -40,26 +38,22 @@ export default function HeaderAdmin() {
             }
         }
         
-        // Cargar estado colapsado del sidebar
         const sidebarColapsadoGuardado = localStorage.getItem('sidebarColapsado')
         if (sidebarColapsadoGuardado !== null) {
             setSidebarColapsado(sidebarColapsadoGuardado === 'true')
         }
     }, [])
 
-    // Guardar estado de secciones en localStorage
     useEffect(() => {
         if (Object.keys(seccionesAbiertas).length > 0) {
             localStorage.setItem('sidebarSeccionesAbiertas', JSON.stringify(seccionesAbiertas))
         }
     }, [seccionesAbiertas])
 
-    // Guardar estado colapsado del sidebar
     useEffect(() => {
         localStorage.setItem('sidebarColapsado', sidebarColapsado.toString())
     }, [sidebarColapsado])
 
-    // Actualizar clase del body y variable CSS cuando el sidebar cambia
     useEffect(() => {
         if (sidebarColapsado) {
             document.body.classList.add('sidebar-colapsado')
@@ -75,27 +69,22 @@ export default function HeaderAdmin() {
         }
     }, [sidebarColapsado])
 
-    // Toggle sidebar colapsado
     const toggleSidebar = () => {
         setSidebarColapsado(!sidebarColapsado)
     }
 
-    // Obtener items TOP para header (máximo 5)
     const navegacionPrincipal = useMemo(() => {
         return obtenerItemsTop(tieneModulo, 5)
     }, [tieneModulo])
 
-    // Obtener categorías de navegación para sidebar
     const categoriasNavegacion = useMemo(() => {
         return obtenerCategoriasNavegacion(tieneModulo)
     }, [tieneModulo])
 
-    // Obtener acciones diarias para sidebar
     const accionesDiarias = useMemo(() => {
         return obtenerAccionesDiarias(tieneModulo)
     }, [tieneModulo])
 
-    // Toggle sección colapsable
     const toggleSeccion = (modulo) => {
         setSeccionesAbiertas(prev => ({
             ...prev,
@@ -103,7 +92,6 @@ export default function HeaderAdmin() {
         }))
     }
 
-    // Verificar si una ruta está activa
     const esRutaActiva = (href) => {
         return pathname === href || pathname.startsWith(href + '/')
     }
@@ -153,7 +141,6 @@ export default function HeaderAdmin() {
                 setMenuUsuarioAbierto(false)
             }
             
-            // Cerrar popover si se hace click fuera de él
             if (sidebarColapsado && hoverSubmenu && !e.target.closest(`.${estilos.sidebarPopover}`) && !e.target.closest(`.${estilos.sidebarItemCompacto}`)) {
                 setHoverSubmenu(null)
             }
@@ -247,7 +234,6 @@ export default function HeaderAdmin() {
                     </nav>
 
                     <div className={estilos.acciones}>
-                        {/* Botón Bluetooth Printer */}
                         <PrinterButton
                             className={estilos.botonTema}
                             compact={true}/>
@@ -291,7 +277,6 @@ export default function HeaderAdmin() {
 
                                     <div className={estilos.separadorMenu}></div>
 
-                                    {/* Mostrar solo items principales del menú usuario */}
                                     {navegacionPrincipal.slice(0, 6).map((item) => {
                                         const esActivo = esRutaActiva(item.href)
 
@@ -324,9 +309,7 @@ export default function HeaderAdmin() {
                 </div>
             </header>
 
-            {/* Sidebar Desktop - Solo visible en pantallas grandes - SIEMPRE RENDERIZADO */}
             <aside className={`${estilos.sidebarDesktop} ${estilos[tema]} ${sidebarColapsado ? estilos.sidebarColapsado : ''} ${cargando ? estilos.sidebarCargando : ''}`}>
-                    {/* Header del Sidebar */}
                     <div className={estilos.sidebarHeader}>
                         <Link href="/admin/dashboard" className={estilos.sidebarLogo}>
                             {logoPlataforma ? (
@@ -359,9 +342,7 @@ export default function HeaderAdmin() {
                         </button>
                     </div>
 
-                {/* Navegación del Sidebar */}
                 <nav className={estilos.sidebarNav}>
-                    {/* Acciones Diarias */}
                     {accionesDiarias.length > 0 && !sidebarColapsado && (
                         <div className={estilos.sidebarSeccion}>
                             <span className={estilos.sidebarSeccionTitulo}>
@@ -385,22 +366,20 @@ export default function HeaderAdmin() {
                         </div>
                     )}
 
-                    {/* Módulos */}
-                    {categoriasNavegacion.map((categoria) => {
+                    {categoriasNavegacion.map((categoria, index) => {
                         const estaAbierto = categoria.modulo === 'core' || seccionesAbiertas[categoria.modulo] !== false
                         const tieneSubmenu = categoria.items.length > 0
                         const esActivo = categoria.items.some(item => esRutaActiva(item.href))
 
                         return (
                             <div 
-                                key={categoria.modulo} 
+                                key={categoria.uniqueKey || `${categoria.modulo}-${index}`}
                                 className={estilos.sidebarSeccion}
-                                onMouseEnter={() => sidebarColapsado && tieneSubmenu && setHoverSubmenu(categoria.modulo)}
+                                onMouseEnter={() => sidebarColapsado && tieneSubmenu && setHoverSubmenu(categoria.uniqueKey || `${categoria.modulo}-${index}`)}
                                 onMouseLeave={() => {
-                                    // Delay para permitir mover el mouse al popover
                                     setTimeout(() => {
-                                        if (sidebarColapsado && hoverSubmenu === categoria.modulo) {
-                                            const popover = document.querySelector(`[data-popover-modulo="${categoria.modulo}"]`);
+                                        if (sidebarColapsado && hoverSubmenu === (categoria.uniqueKey || `${categoria.modulo}-${index}`)) {
+                                            const popover = document.querySelector(`[data-popover-modulo="${categoria.uniqueKey || `${categoria.modulo}-${index}`}"]`);
                                             if (!popover?.matches(':hover')) {
                                                 setHoverSubmenu(null);
                                             }
@@ -410,7 +389,6 @@ export default function HeaderAdmin() {
                             >
                                 {sidebarColapsado ? (
                                     <>
-                                        {/* Item compacto - SIEMPRE VISIBLE */}
                                         <button
                                             className={`${estilos.sidebarItemCompacto} ${esActivo ? estilos.sidebarItemActivo : ''}`}
                                             title={categoria.label}
@@ -418,7 +396,7 @@ export default function HeaderAdmin() {
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 if (tieneSubmenu) {
-                                                    setHoverSubmenu(hoverSubmenu === categoria.modulo ? null : categoria.modulo);
+                                                    setHoverSubmenu(hoverSubmenu === (categoria.uniqueKey || `${categoria.modulo}-${index}`) ? null : (categoria.uniqueKey || `${categoria.modulo}-${index}`));
                                                 } else {
                                                     window.location.href = categoria.items[0]?.href || '/admin/dashboard';
                                                 }
@@ -427,12 +405,11 @@ export default function HeaderAdmin() {
                                             <ion-icon name={categoria.icon}></ion-icon>
                                         </button>
                                         
-                                        {/* Popover para submenú en modo colapsado */}
-                                        {hoverSubmenu === categoria.modulo && tieneSubmenu && (
+                                        {hoverSubmenu === (categoria.uniqueKey || `${categoria.modulo}-${index}`) && tieneSubmenu && (
                                             <div 
                                                 className={estilos.sidebarPopover}
-                                                data-popover-modulo={categoria.modulo}
-                                                onMouseEnter={() => setHoverSubmenu(categoria.modulo)}
+                                                data-popover-modulo={categoria.uniqueKey || `${categoria.modulo}-${index}`}
+                                                onMouseEnter={() => setHoverSubmenu(categoria.uniqueKey || `${categoria.modulo}-${index}`)}
                                                 onMouseLeave={() => setHoverSubmenu(null)}
                                             >
                                                 <div className={estilos.sidebarPopoverTitulo}>
@@ -498,9 +475,7 @@ export default function HeaderAdmin() {
                     })}
                 </nav>
 
-                    {/* Footer del Sidebar */}
                     <div className={estilos.sidebarFooter}>
-                        {/* Botón de cambio de tema - SIEMPRE VISIBLE */}
                         <button 
                             className={estilos.sidebarTemaBtn}
                             onClick={toggleTema}
@@ -515,7 +490,6 @@ export default function HeaderAdmin() {
                             )}
                         </button>
 
-                        {/* Usuario - Solo mostrar si hay datos */}
                         {datosUsuario && (
                             <Link 
                                 href="/admin/perfil" 
@@ -545,7 +519,6 @@ export default function HeaderAdmin() {
                     </div>
                 </aside>
 
-            {/* Menú móvil - Solo visible en pantallas pequeñas */}
             {menuAbierto && (
                 <>
                     <div
@@ -603,7 +576,6 @@ export default function HeaderAdmin() {
                             </div>
 
                             <nav className={estilos.menuNav}>
-                                {/* Acciones Diarias - Solo si hay items */}
                                 {accionesDiarias.length > 0 && (
                                     <div className={estilos.menuSeccion}>
                                         <span className={estilos.menuSeccionTitulo}>
@@ -627,13 +599,11 @@ export default function HeaderAdmin() {
                                     </div>
                                 )}
 
-                                {/* Módulos con secciones colapsables */}
-                                {categoriasNavegacion.map((categoria) => {
-                                    // Core siempre abierto, otros módulos colapsables (por defecto abiertos)
+                                {categoriasNavegacion.map((categoria, index) => {
                                     const estaAbierto = categoria.modulo === 'core' || seccionesAbiertas[categoria.modulo] !== false
 
                                     return (
-                                        <div key={categoria.modulo} className={estilos.menuSeccion}>
+                                        <div key={categoria.uniqueKey || `${categoria.modulo}-${index}`} className={estilos.menuSeccion}>
                                             <button
                                                 className={estilos.menuSeccionTituloBtn}
                                                 onClick={() => categoria.modulo !== 'core' && toggleSeccion(categoria.modulo)}

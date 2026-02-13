@@ -8,26 +8,41 @@ import estilos from './bitacora.module.css'
 
 export default function BitacoraAdmin() {
     const router = useRouter()
-    
-    // Estados
+    const [tema, setTema] = useState('light')
     const [obras, setObras] = useState([])
     const [servicios, setServicios] = useState([])
     const [bitacoras, setBitacoras] = useState([])
     const [cargando, setCargando] = useState(true)
     const [filtros, setFiltros] = useState({
-        tipo_destino: '', // '', 'obra', 'servicio'
+        tipo_destino: '',
         destino_id: '',
         fecha_desde: '',
         fecha_hasta: '',
         busqueda: ''
     })
 
-    // Cargar obras y servicios al montar
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
+
     useEffect(() => {
         cargarObrasYServicios()
     }, [])
 
-    // Cargar bitácoras cuando cambien los filtros
     useEffect(() => {
         cargarBitacoras()
     }, [filtros])
@@ -55,7 +70,7 @@ export default function BitacoraAdmin() {
         setFiltros({
             ...filtros,
             tipo_destino: tipo,
-            destino_id: '' // Reset destino al cambiar tipo
+            destino_id: ''
         })
     }
 
@@ -69,7 +84,6 @@ export default function BitacoraAdmin() {
         })
     }
 
-    // Obtener lista de destinos según tipo seleccionado
     const destinosDisponibles = filtros.tipo_destino === 'obra' 
         ? obras 
         : filtros.tipo_destino === 'servicio' 
@@ -81,8 +95,7 @@ export default function BitacoraAdmin() {
                               filtros.busqueda
 
     return (
-        <div className={estilos.contenedor}>
-            {/* Header */}
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <div>
                     <h1 className={estilos.titulo}>Bitácoras Diarias</h1>
@@ -99,9 +112,7 @@ export default function BitacoraAdmin() {
                 </button>
             </div>
 
-            {/* Filtros Avanzados */}
             <div className={estilos.seccionFiltros}>
-                {/* Botones de tipo de destino */}
                 <div className={estilos.grupoTipos}>
                     <button
                         className={`${estilos.btnTipo} ${!filtros.tipo_destino ? estilos.activo : ''}`}
@@ -126,9 +137,7 @@ export default function BitacoraAdmin() {
                     </button>
                 </div>
 
-                {/* Filtros de búsqueda */}
                 <div className={estilos.filtrosGrid}>
-                    {/* Selector de destino específico */}
                     {filtros.tipo_destino && (
                         <div className={estilos.grupo}>
                             <label>
@@ -151,7 +160,6 @@ export default function BitacoraAdmin() {
                         </div>
                     )}
 
-                    {/* Fecha desde */}
                     <div className={estilos.grupo}>
                         <label>Fecha Desde</label>
                         <input
@@ -161,7 +169,6 @@ export default function BitacoraAdmin() {
                         />
                     </div>
 
-                    {/* Fecha hasta */}
                     <div className={estilos.grupo}>
                         <label>Fecha Hasta</label>
                         <input
@@ -171,7 +178,6 @@ export default function BitacoraAdmin() {
                         />
                     </div>
 
-                    {/* Búsqueda por texto */}
                     <div className={estilos.grupo}>
                         <label>Buscar</label>
                         <div className={estilos.inputBusqueda}>
@@ -186,7 +192,6 @@ export default function BitacoraAdmin() {
                     </div>
                 </div>
 
-                {/* Botón limpiar filtros */}
                 {hayFiltrosActivos && (
                     <button 
                         className={estilos.btnLimpiar}
@@ -198,7 +203,6 @@ export default function BitacoraAdmin() {
                 )}
             </div>
 
-            {/* Estadísticas rápidas */}
             {bitacoras.length > 0 && (
                 <div className={estilos.estadisticas}>
                     <div className={estilos.stat}>
@@ -220,7 +224,6 @@ export default function BitacoraAdmin() {
                 </div>
             )}
 
-            {/* Lista de bitácoras */}
             {cargando ? (
                 <div className={estilos.cargando}>
                     <ion-icon name="hourglass-outline"></ion-icon>
@@ -278,7 +281,6 @@ export default function BitacoraAdmin() {
                                 </div>
 
                                 <div className={estilos.tarjetaBody}>
-                                    {/* Destino */}
                                     <div className={estilos.itemDestino}>
                                         <ion-icon name="business-outline"></ion-icon>
                                         <div>
@@ -287,7 +289,6 @@ export default function BitacoraAdmin() {
                                         </div>
                                     </div>
 
-                                    {/* Zona */}
                                     {bitacora.zona_sitio && (
                                         <div className={estilos.itemInfo}>
                                             <ion-icon name="location-outline"></ion-icon>
@@ -295,7 +296,6 @@ export default function BitacoraAdmin() {
                                         </div>
                                     )}
 
-                                    {/* Trabajadores */}
                                     {bitacora.num_trabajadores > 0 && (
                                         <div className={estilos.itemInfo}>
                                             <ion-icon name="people-outline"></ion-icon>
@@ -305,7 +305,6 @@ export default function BitacoraAdmin() {
                                         </div>
                                     )}
 
-                                    {/* Fotos */}
                                     {bitacora.num_fotos > 0 && (
                                         <div className={estilos.itemInfo}>
                                             <ion-icon name="camera-outline"></ion-icon>
@@ -313,7 +312,6 @@ export default function BitacoraAdmin() {
                                         </div>
                                     )}
 
-                                    {/* Clima */}
                                     {bitacora.condiciones_clima && (
                                         <div className={estilos.itemInfo}>
                                             <ion-icon name="partly-sunny-outline"></ion-icon>
@@ -321,14 +319,12 @@ export default function BitacoraAdmin() {
                                         </div>
                                     )}
 
-                                    {/* Resumen del trabajo */}
                                     {bitacora.trabajo_realizado && (
                                         <div className={estilos.resumen}>
                                             <p>{generarResumenTrabajo(bitacora.trabajo_realizado, 200)}</p>
                                         </div>
                                     )}
 
-                                    {/* Usuario que registró */}
                                     {bitacora.usuario_nombre && (
                                         <div className={estilos.itemFooter}>
                                             <ion-icon name="person-outline"></ion-icon>

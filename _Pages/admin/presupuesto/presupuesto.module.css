@@ -1,49 +1,34 @@
-/* ============================================
-   VARIABLES DE DISEÑO PROFESIONAL
-   ============================================ */
-
 :root {
     --color-primary: #3b82f6;
     --color-primary-dark: #2563eb;
     --color-primary-light: #60a5fa;
     --color-primary-ultra-light: #dbeafe;
-
     --color-success: #10b981;
     --color-success-dark: #059669;
     --color-success-light: #34d399;
     --color-success-ultra-light: #d1fae5;
-
     --color-warning: #f59e0b;
     --color-warning-dark: #d97706;
     --color-warning-light: #fbbf24;
     --color-warning-ultra-light: #fef3c7;
-
     --color-danger: #ef4444;
     --color-danger-dark: #dc2626;
     --color-danger-light: #f87171;
     --color-danger-ultra-light: #fee2e2;
-
     --color-info: #0ea5e9;
     --color-info-dark: #0284c7;
     --color-info-light: #38bdf8;
-
     --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.12);
     --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.15);
     --shadow-xl: 0 20px 30px -5px rgba(0, 0, 0, 0.18);
-
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-full: 9999px;
-
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s ease;
 }
-
-/* ============================================
-   CONTENEDOR PRINCIPAL
-   ============================================ */
 
 .contenedor {
     padding: 32px;
@@ -60,10 +45,6 @@
 .contenedor.dark {
     background: linear-gradient(135deg, #0c1426 0%, #111827 100%);
 }
-
-/* ============================================
-   HEADER
-   ============================================ */
 
 .header {
     margin-bottom: 32px;
@@ -124,10 +105,6 @@
 .dark .subtitulo {
     color: #cbd5e1;
 }
-
-/* ============================================
-   SELECTOR DE OBRA
-   ============================================ */
 
 .selectorObra {
     margin-bottom: 32px;
@@ -197,10 +174,6 @@
 .dark .selectorObra select:focus {
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
 }
-
-/* ============================================
-   ALERTAS
-   ============================================ */
 
 .alertas {
     margin-bottom: 32px;
@@ -363,10 +336,6 @@
     box-shadow: var(--shadow-md);
 }
 
-/* ============================================
-   ESTADO GENERAL
-   ============================================ */
-
 .estadoGeneral {
     padding: 32px;
     border-radius: var(--radius-lg);
@@ -463,7 +432,6 @@
     color: #94a3b8;
 }
 
-/* Barra de Progreso */
 .progreso {
     margin-top: 24px;
 }
@@ -570,10 +538,6 @@
 .alertaSobrecosto strong {
     color: inherit;
 }
-
-/* ============================================
-   CARDS DE RESUMEN
-   ============================================ */
 
 .cardsResumen {
     display: grid;
@@ -722,10 +686,6 @@
     color: var(--color-primary-light);
 }
 
-/* ============================================
-   GRID PRINCIPAL
-   ============================================ */
-
 .grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -758,10 +718,6 @@
     font-size: 24px;
     color: var(--color-primary);
 }
-
-/* ============================================
-   DISTRIBUCIÓN DE COSTOS
-   ============================================ */
 
 .distribucion {
     display: flex;
@@ -872,10 +828,6 @@
     transition: width 0.5s ease;
 }
 
-/* ============================================
-   COSTOS SEMANALES
-   ============================================ */
-
 .costosSemanales {
     margin-top: 32px;
 }
@@ -984,10 +936,6 @@
 .barraNormal {
     background: linear-gradient(90deg, var(--color-success) 0%, var(--color-success-dark) 100%);
 }
-
-/* ============================================
-   SIDEBAR
-   ============================================ */
 
 .sidebar {
     display: flex;
@@ -1235,10 +1183,6 @@
     font-size: 18px;
 }
 
-/* ============================================
-   ESTADOS ESPECIALES
-   ============================================ */
-
 .cargando,
 .vacio {
     display: flex;
@@ -1295,10 +1239,6 @@
     font-size: 16px;
     margin: 8px 0 0 0;
 }
-
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
 
 @media (max-width: 1024px) {
     .grid {
@@ -1374,4 +1314,3 @@
         text-align: center;
     }
 }
-

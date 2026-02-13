@@ -1,11 +1,13 @@
 import ClienteWrapper from "@/_EXTRAS/LadoCliente/ClienteWraper";
 import VerBitacora from "@/_Pages/admin/bitacora/ver/ver";
 
-export default function Page({ params }) {
+
+export default async function Page({ params }) {
+  const { id } = await params
+  
   return (
     <ClienteWrapper>
-      <VerBitacora id={params.id} />
+      <VerBitacora id={id} />
     </ClienteWrapper>
-  );
+  )
 }
-

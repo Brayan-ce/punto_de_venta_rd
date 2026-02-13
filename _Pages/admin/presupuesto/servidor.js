@@ -47,16 +47,16 @@ export async function obtenerControlPresupuestario(obraId) {
             [obraId, empresaId]
         )
         
-        // Costo de mano de obra (asignaciones)
-        const [manoObra] = await connection.query(
-            `SELECT COALESCE(SUM(a.costo_calculado), 0) as total_mano_obra
-             FROM asignaciones_trabajadores a
-             WHERE a.tipo_destino = 'obra'
-               AND a.destino_id = ?
-               AND a.estado = 'activo'
-               AND a.empresa_id = ?`,
-            [obraId, empresaId]
-        )
+const [manoObra] = await connection.query(
+    `SELECT COALESCE(SUM(a.horas_trabajadas * t.tarifa_por_hora), 0) as total_mano_obra
+     FROM asignaciones_trabajadores a
+     INNER JOIN trabajadores_obra t ON a.trabajador_id = t.id
+     WHERE a.tipo_destino = 'obra'
+       AND a.destino_id = ?
+       AND a.estado = 'activo'
+       AND a.empresa_id = ?`,
+    [obraId, empresaId]
+)
         
         // Costo de servicios (si hay tabla de servicios)
         const costoServicios = 0 // TODO: Implementar cuando se cree módulo de servicios

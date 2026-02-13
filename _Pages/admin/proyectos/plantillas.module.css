@@ -1,16 +1,16 @@
-/* ============================================
-   CONTENEDOR PRINCIPAL
-   ============================================ */
-
 .contenedor {
     padding: 30px;
     min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
-/* ============================================
-   HEADER
-   ============================================ */
+.contenedor.dark {
+    background: linear-gradient(135deg, #0c1426 0%, #111827 100%);
+}
 
 .header {
     display: flex;
@@ -35,7 +35,17 @@
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.light .titulo {
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -47,10 +57,22 @@
     -webkit-text-fill-color: #3b82f6;
 }
 
+.dark .titulo ion-icon {
+    color: #60a5fa;
+    -webkit-text-fill-color: #60a5fa;
+}
+
 .subtitulo {
-    color: #64748b;
     margin: 8px 0 0;
     font-size: 0.95rem;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
 }
 
 .btnNuevo {
@@ -82,30 +104,44 @@
     align-items: center;
     gap: 10px;
     padding: 14px 24px;
-    background: white;
-    color: #64748b;
-    border: 2px solid #e2e8f0;
+    border: 2px solid;
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.light .btnProyectos {
+    background: white;
+    border-color: #e2e8f0;
+    color: #64748b;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .btnProyectos {
+    background: #1e293b;
+    border-color: #334155;
+    color: #94a3b8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .btnProyectos:hover {
     border-color: #3b82f6;
     color: #3b82f6;
     transform: translateY(-2px);
+}
+
+.light .btnProyectos:hover {
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.dark .btnProyectos:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .btnProyectos ion-icon {
     font-size: 20px;
 }
-
-/* ============================================
-   FILTROS
-   ============================================ */
 
 .filtros {
     display: flex;
@@ -133,11 +169,22 @@
 .busqueda input {
     width: 100%;
     padding: 12px 15px 12px 45px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid;
     border-radius: 12px;
     font-size: 0.95rem;
-    background: white;
     transition: all 0.3s ease;
+}
+
+.light .busqueda input {
+    background: white;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .busqueda input {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
 }
 
 .busqueda input:focus {
@@ -148,13 +195,24 @@
 
 .select {
     padding: 12px 15px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid;
     border-radius: 12px;
     font-size: 0.95rem;
     min-width: 200px;
-    background: white;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.light .select {
+    background: white;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .select {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
 }
 
 .select:focus {
@@ -163,18 +221,21 @@
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-/* ============================================
-   ESTADOS
-   ============================================ */
-
 .cargando {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     padding: 60px 20px;
-    color: #64748b;
     font-size: 1.1rem;
+}
+
+.light .cargando {
+    color: #64748b;
+}
+
+.dark .cargando {
+    color: #94a3b8;
 }
 
 .iconoCargando {
@@ -190,26 +251,55 @@
 .vacio {
     text-align: center;
     padding: 80px 20px;
-    background: white;
     border-radius: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
+.light .vacio {
+    background: white;
+}
+
+.dark .vacio {
+    background: #1e293b;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
 .vacio ion-icon {
     font-size: 64px;
-    color: #cbd5e1;
     margin-bottom: 20px;
+}
+
+.light .vacio ion-icon {
+    color: #cbd5e1;
+}
+
+.dark .vacio ion-icon {
+    color: #475569;
 }
 
 .vacio h3 {
     font-size: 1.5rem;
-    color: #334155;
     margin: 0 0 10px;
 }
 
+.light .vacio h3 {
+    color: #334155;
+}
+
+.dark .vacio h3 {
+    color: #f1f5f9;
+}
+
 .vacio p {
-    color: #64748b;
     margin: 0 0 30px;
+}
+
+.light .vacio p {
+    color: #64748b;
+}
+
+.dark .vacio p {
+    color: #94a3b8;
 }
 
 .btnNuevoVacio {
@@ -232,10 +322,6 @@
     box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
 }
 
-/* ============================================
-   LISTA DE PLANTILLAS
-   ============================================ */
-
 .lista {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -245,7 +331,6 @@
 .tarjeta {
     padding: 25px;
     border-radius: 24px;
-    background: white;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
@@ -254,10 +339,26 @@
     border: 2px solid transparent;
 }
 
+.light .tarjeta {
+    background: white;
+}
+
+.dark .tarjeta {
+    background: #1e293b;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
 .tarjeta:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     border-color: #3b82f6;
+}
+
+.light .tarjeta:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.dark .tarjeta:hover {
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
 }
 
 .tarjetaHeader {
@@ -292,7 +393,14 @@
     margin: 0 0 6px;
     font-size: 1.25rem;
     font-weight: 700;
+}
+
+.light .tarjetaTitulo h3 {
     color: #0f172a;
+}
+
+.dark .tarjetaTitulo h3 {
+    color: #f1f5f9;
 }
 
 .tipoBadge {
@@ -351,23 +459,33 @@
 }
 
 .descripcion {
-    color: #64748b;
     font-size: 0.9rem;
     line-height: 1.6;
     margin: 0;
 }
 
-/* ============================================
-   ESTADÍSTICAS
-   ============================================ */
+.light .descripcion {
+    color: #64748b;
+}
+
+.dark .descripcion {
+    color: #94a3b8;
+}
 
 .estadisticas {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 16px;
-    background: #f8fafc;
     border-radius: 12px;
+}
+
+.light .estadisticas {
+    background: #f8fafc;
+}
+
+.dark .estadisticas {
+    background: #0f172a;
 }
 
 .statItem {
@@ -375,8 +493,15 @@
     align-items: center;
     gap: 8px;
     font-size: 0.85rem;
-    color: #475569;
     font-weight: 500;
+}
+
+.light .statItem {
+    color: #475569;
+}
+
+.dark .statItem {
+    color: #cbd5e1;
 }
 
 .statItem ion-icon {
@@ -384,16 +509,20 @@
     color: #3b82f6;
 }
 
-/* ============================================
-   FOOTER DE TARJETA
-   ============================================ */
-
 .tarjetaFooter {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 15px;
-    border-top: 2px solid #f1f5f9;
+    border-top: 2px solid;
+}
+
+.light .tarjetaFooter {
+    border-color: #f1f5f9;
+}
+
+.dark .tarjetaFooter {
+    border-color: #334155;
 }
 
 .fecha {
@@ -401,7 +530,14 @@
     align-items: center;
     gap: 6px;
     font-size: 0.8rem;
+}
+
+.light .fecha {
     color: #94a3b8;
+}
+
+.dark .fecha {
+    color: #64748b;
 }
 
 .fecha ion-icon {
@@ -432,10 +568,6 @@
 .btnUsar ion-icon {
     font-size: 18px;
 }
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 
 @media (max-width: 768px) {
     .contenedor {
@@ -484,4 +616,3 @@
         justify-content: center;
     }
 }
-

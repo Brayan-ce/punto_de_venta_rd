@@ -14,12 +14,31 @@ const TIPOS_PLANTILLA = {
 
 export default function PlantillasAdmin() {
     const router = useRouter()
+    const [tema, setTema] = useState('light')
     const [plantillas, setPlantillas] = useState([])
     const [cargando, setCargando] = useState(true)
     const [filtros, setFiltros] = useState({
         busqueda: '',
         tipo: ''
     })
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+        
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+        
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+        
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarPlantillas()
@@ -31,7 +50,6 @@ export default function PlantillasAdmin() {
         if (res.success) {
             let plantillasFiltradas = res.plantillas || []
             
-            // Aplicar filtros
             if (filtros.busqueda) {
                 const busqueda = filtros.busqueda.toLowerCase()
                 plantillasFiltradas = plantillasFiltradas.filter(p => 
@@ -90,7 +108,7 @@ export default function PlantillasAdmin() {
     }
 
     return (
-        <div className={estilos.contenedor}>
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <div>
                     <h1 className={estilos.titulo}>
@@ -120,7 +138,6 @@ export default function PlantillasAdmin() {
                 </div>
             </div>
 
-            {/* Filtros */}
             <div className={estilos.filtros}>
                 <div className={estilos.busqueda}>
                     <ion-icon name="search-outline"></ion-icon>
@@ -145,7 +162,6 @@ export default function PlantillasAdmin() {
                 </select>
             </div>
 
-            {/* Lista */}
             {cargando ? (
                 <div className={estilos.cargando}>
                     <ion-icon name="refresh-outline" className={estilos.iconoCargando}></ion-icon>
@@ -251,4 +267,3 @@ export default function PlantillasAdmin() {
         </div>
     )
 }
-

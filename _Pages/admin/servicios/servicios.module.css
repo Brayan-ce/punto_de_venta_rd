@@ -1,13 +1,8 @@
-/* ==========================================
-   DESIGN SYSTEM - SERVICIOS PROFESIONAL
-   ========================================== */
-
-:root {
-    /* Colores Semánticos */
-    --color-primary: #3b82f6;
-    --color-primary-dark: #2563eb;
-    --color-primary-light: #60a5fa;
-    --color-primary-ultra-light: #dbeafe;
+.contenedor {
+    --color-primary: #f97316;
+    --color-primary-dark: #ea580c;
+    --color-primary-light: #fb923c;
+    --color-primary-ultra-light: #fff7ed;
 
     --color-success: #10b981;
     --color-success-dark: #059669;
@@ -29,59 +24,31 @@
     --color-info-light: #38bdf8;
     --color-info-ultra-light: #e0f2fe;
 
-    --color-secondary: #64748b;
-    --color-secondary-light: #94a3b8;
-    --color-secondary-ultra-light: #f1f5f9;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 30px -5px rgba(0, 0, 0, 0.18);
 
-    /* Sombras Profesionales */
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-
-    /* Radios */
-    --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --radius-xl: 20px;
     --radius-full: 9999px;
 
-    /* Transiciones */
-    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-/* ============================================
-   CONTENEDOR PRINCIPAL
-   ============================================ */
-
-.contenedor {
-    padding: 24px;
+    padding: 32px;
     max-width: 1600px;
     margin: 0 auto;
-    min-height: 100vh;
-}
-
-/* Estilos de Tema (Globales dentro del modulo) */
-.light {
-    background: transparent;
-}
-
-.dark {
-    background: transparent;
+    min-height: calc(100vh - 70px);
+    transition: var(--transition);
 }
 
 .contenedor.light {
-    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 .contenedor.dark {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
-
-/* ============================================
-   HEADER
-   ============================================ */
 
 .header {
     margin-bottom: 32px;
@@ -98,7 +65,7 @@
 }
 
 .titulo {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 800;
     margin: 0 0 8px 0;
     letter-spacing: -0.02em;
@@ -108,20 +75,26 @@
 }
 
 .light .titulo {
-    color: #0f172a;
+    background: linear-gradient(135deg, #1e293b 0%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .dark .titulo {
-    color: #f8fafc;
+    background: linear-gradient(135deg, #ffffff 0%, #fb923c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .titulo ion-icon {
-    font-size: 36px;
+    font-size: 40px;
     color: var(--color-primary);
 }
 
 .subtitulo {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     margin: 0;
 }
@@ -137,6 +110,7 @@
 .headerButtons {
     display: flex;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .btnPrimario,
@@ -144,7 +118,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 24px;
+    padding: 14px 24px;
     border-radius: var(--radius-md);
     font-size: 15px;
     font-weight: 600;
@@ -154,46 +128,55 @@
 }
 
 .btnPrimario {
-    background: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
 }
 
 .btnPrimario:hover {
-    background: var(--color-primary-dark);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
 }
 
 .btnSecundario {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    color: #475569;
+    border: 2px solid;
+    background: transparent;
+}
+
+.light .btnSecundario {
+    border-color: #e2e8f0;
+    color: #64748b;
 }
 
 .dark .btnSecundario {
-    background: #1e293b;
     border-color: #334155;
-    color: #cbd5e1;
+    color: #94a3b8;
 }
 
-.btnSecundario:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+.light .btnSecundario:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+.dark .btnSecundario:hover {
+    background: #334155;
+    color: #ffffff;
+    border-color: #475569;
 }
 
 .btnSecundario.activo {
-    background: var(--color-primary-ultra-light);
     border-color: var(--color-primary);
     color: var(--color-primary);
 }
 
-.dark .btnSecundario.activo {
-    background: rgba(59, 130, 246, 0.1);
+.light .btnSecundario.activo {
+    background: var(--color-primary-ultra-light);
 }
 
-/* ============================================
-   KPIs GRID
-   ============================================ */
+.dark .btnSecundario.activo {
+    background: rgba(249, 115, 22, 0.1);
+}
 
 .kpisGrid {
     display: grid;
@@ -203,24 +186,39 @@
 }
 
 .kpiCard {
-    background: #ffffff;
     padding: 24px;
     border-radius: var(--radius-lg);
-    border: 1px solid #e2e8f0;
+    border: 2px solid;
     display: flex;
     align-items: flex-start;
     gap: 16px;
     transition: var(--transition);
 }
 
+.light .kpiCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: var(--shadow-md);
+}
+
 .dark .kpiCard {
     background: #1e293b;
     border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .kpiCard:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+}
+
+.light .kpiCard:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-xl);
+}
+
+.dark .kpiCard:hover {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 20px 35px rgba(249, 115, 22, 0.15);
 }
 
 .kpiIcono {
@@ -266,7 +264,7 @@
 }
 
 .dark .kpiValor {
-    color: #f8fafc;
+    color: #f1f5f9;
 }
 
 .kpiLabel {
@@ -284,10 +282,6 @@
     gap: 4px;
 }
 
-/* ============================================
-   GRID PRINCIPAL (Alertas y Agenda)
-   ============================================ */
-
 .gridPrincipal {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -297,16 +291,23 @@
 
 .alertasSeccion,
 .agendaSeccion {
-    background: #ffffff;
     border-radius: var(--radius-lg);
     padding: 24px;
-    border: 1px solid #e2e8f0;
+    border: 2px solid;
+}
+
+.light .alertasSeccion,
+.light .agendaSeccion {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: var(--shadow-md);
 }
 
 .dark .alertasSeccion,
 .dark .agendaSeccion {
     background: #1e293b;
     border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .seccionHeader {
@@ -333,7 +334,7 @@
 }
 
 .dark .seccionTitulo h2 {
-    color: #f8fafc;
+    color: #f1f5f9;
 }
 
 .badge {
@@ -345,7 +346,6 @@
     font-weight: 700;
 }
 
-/* Agenda Cards */
 .agendaLista {
     display: flex;
     flex-direction: column;
@@ -358,10 +358,14 @@
     gap: 12px;
     padding: 16px;
     border-radius: var(--radius-md);
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    border: 1px solid;
     cursor: pointer;
     transition: var(--transition);
+}
+
+.light .agendaCard {
+    background: #f8fafc;
+    border-color: #e2e8f0;
 }
 
 .dark .agendaCard {
@@ -393,7 +397,7 @@
 }
 
 .dark .agendaNombre {
-    color: #f8fafc;
+    color: #f1f5f9;
 }
 
 .agendaMeta {
@@ -409,10 +413,6 @@
     border-radius: 6px;
 }
 
-/* ============================================
-   RESUMEN DE ESTADOS
-   ============================================ */
-
 .estadosResumen {
     display: flex;
     gap: 12px;
@@ -424,13 +424,17 @@
 .estadoCard {
     flex: 1;
     min-width: 140px;
-    background: #ffffff;
     padding: 20px;
     border-radius: var(--radius-lg);
-    border: 2px solid #e2e8f0;
+    border: 2px solid;
     text-align: center;
     cursor: pointer;
     transition: var(--transition);
+}
+
+.light .estadoCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
 }
 
 .dark .estadoCard {
@@ -445,11 +449,14 @@
 
 .estadoCard.estadoActivo {
     border-color: var(--color-primary);
+}
+
+.light .estadoCard.estadoActivo {
     background: var(--color-primary-ultra-light);
 }
 
 .dark .estadoCard.estadoActivo {
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(249, 115, 22, 0.1);
 }
 
 .estadoValor {
@@ -476,7 +483,7 @@
 }
 
 .estadoValor.finalizado {
-    color: var(--color-secondary);
+    color: #64748b;
 }
 
 .estadoLabel {
@@ -485,10 +492,6 @@
     color: #64748b;
     text-transform: uppercase;
 }
-
-/* ============================================
-   CONTROLES Y FILTROS
-   ============================================ */
 
 .controlesSeccion {
     margin-bottom: 32px;
@@ -518,40 +521,69 @@
 
 .inputBusqueda {
     width: 100%;
-    padding: 12px 16px 12px 48px;
+    padding: 14px 16px 14px 48px;
     border-radius: var(--radius-md);
-    border: 2px solid #e2e8f0;
-    background: white;
-    font-size: 14px;
+    border: 2px solid;
+    font-size: 15px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.light .inputBusqueda {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #0f172a;
 }
 
 .dark .inputBusqueda {
     background: #1e293b;
     border-color: #334155;
-    color: white;
+    color: #f1f5f9;
+}
+
+.inputBusqueda:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
 }
 
 .selectFiltro {
-    padding: 12px 16px;
+    padding: 14px 16px;
     border-radius: var(--radius-md);
-    border: 2px solid #e2e8f0;
-    background: white;
+    border: 2px solid;
     font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.light .selectFiltro {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #0f172a;
 }
 
 .dark .selectFiltro {
     background: #1e293b;
     border-color: #334155;
-    color: white;
+    color: #f1f5f9;
+}
+
+.selectFiltro:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
 }
 
 .vistaToggle {
     display: flex;
-    background: #f1f5f9;
     padding: 4px;
     border-radius: 10px;
     gap: 4px;
+}
+
+.light .vistaToggle {
+    background: #f1f5f9;
 }
 
 .dark .vistaToggle {
@@ -574,19 +606,18 @@
 }
 
 .btnVista.vistaActiva {
-    background: white;
     color: var(--color-primary);
     box-shadow: var(--shadow-sm);
 }
 
-.dark .btnVista.vistaActiva {
-    background: #334155;
-    color: skyblue;
+.light .btnVista.vistaActiva {
+    background: #ffffff;
 }
 
-/* ============================================
-   LISTADO GRID Y LISTA
-   ============================================ */
+.dark .btnVista.vistaActiva {
+    background: #334155;
+    color: #fb923c;
+}
 
 .serviciosGrid {
     display: grid;
@@ -601,21 +632,36 @@
 }
 
 .servicioCard {
-    background: white;
     border-radius: var(--radius-lg);
-    border: 1px solid #e2e8f0;
+    border: 2px solid;
     overflow: hidden;
     transition: var(--transition);
+}
+
+.light .servicioCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: var(--shadow-md);
 }
 
 .dark .servicioCard {
     background: #1e293b;
     border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .servicioCard:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+}
+
+.light .servicioCard:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-xl);
+}
+
+.dark .servicioCard:hover {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 20px 35px rgba(249, 115, 22, 0.15);
 }
 
 .cardHeader {
@@ -623,7 +669,11 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid;
+}
+
+.light .cardHeader {
+    border-color: #f1f5f9;
 }
 
 .dark .cardHeader {
@@ -651,6 +701,14 @@
     font-size: 16px;
     font-weight: 700;
     margin: 0;
+}
+
+.light .cardTitulo {
+    color: #0f172a;
+}
+
+.dark .cardTitulo {
+    color: #f1f5f9;
 }
 
 .cardEstado {
@@ -689,7 +747,11 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 16px;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid;
+}
+
+.light .cardMeta {
+    border-color: #f1f5f9;
 }
 
 .dark .cardMeta {
@@ -705,6 +767,9 @@
 
 .cardFooter {
     padding: 16px 20px;
+}
+
+.light .cardFooter {
     background: #f8fafc;
 }
 
@@ -725,20 +790,32 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    transition: var(--transition);
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+.btnVerCard:hover {
+    background: var(--color-primary-dark);
+    transform: scale(1.02);
+}
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .gridPrincipal {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px 16px;
     }
 
     .header {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .titulo {
+        font-size: 28px;
     }
 
     .headerButtons {
@@ -750,5 +827,9 @@
     .btnSecundario {
         width: 100%;
         justify-content: center;
+    }
+
+    .serviciosGrid {
+        grid-template-columns: 1fr;
     }
 }

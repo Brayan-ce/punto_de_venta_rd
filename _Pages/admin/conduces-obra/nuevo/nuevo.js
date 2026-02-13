@@ -2,10 +2,11 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { crearConduceObra, obtenerObrasParaConduce } from '../servidor'
-import estilos from '../conduces-obra.module.css'
+import estilos from './conduces-obra-nuevo.module.css'
 
 export default function NuevoConduceObra() {
     const router = useRouter()
+    const [tema, setTema] = useState('light')
     const [formData, setFormData] = useState({
         obra_id: '',
         receptor: '',
@@ -25,6 +26,24 @@ export default function NuevoConduceObra() {
         cantidad_despachada: '',
         unidad_medida: ''
     })
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarObras()
@@ -105,11 +124,15 @@ export default function NuevoConduceObra() {
     }
 
     if (cargando) {
-        return <div className={estilos.cargando}>Cargando...</div>
+        return (
+            <div className={`${estilos.contenedor} ${estilos[tema]}`}>
+                <div className={estilos.cargando}>Cargando...</div>
+            </div>
+        )
     }
 
     return (
-        <div className={estilos.contenedor}>
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <h1 className={estilos.titulo}>Nuevo Conduce de Obra</h1>
                 <button onClick={() => router.back()} className={estilos.btnVolver}>
@@ -189,7 +212,6 @@ export default function NuevoConduceObra() {
                     </div>
                 </div>
 
-                {/* Detalle de Materiales */}
                 <div className={estilos.seccion}>
                     <h2>Materiales a Despachar</h2>
                     
@@ -276,4 +298,3 @@ export default function NuevoConduceObra() {
         </div>
     )
 }
-

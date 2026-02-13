@@ -8,11 +8,30 @@ import estilos from './ver.module.css'
 
 export default function VerBitacora({ id }) {
     const router = useRouter()
+    const [tema, setTema] = useState('light')
     const [bitacora, setBitacora] = useState(null)
     const [trabajadores, setTrabajadores] = useState([])
     const [fotos, setFotos] = useState([])
     const [cargando, setCargando] = useState(true)
     const [fotoExpandida, setFotoExpandida] = useState(null)
+
+    useEffect(() => {
+        const temaLocal = localStorage.getItem('tema') || 'light'
+        setTema(temaLocal)
+
+        const manejarCambioTema = () => {
+            const nuevoTema = localStorage.getItem('tema') || 'light'
+            setTema(nuevoTema)
+        }
+
+        window.addEventListener('temaChange', manejarCambioTema)
+        window.addEventListener('storage', manejarCambioTema)
+
+        return () => {
+            window.removeEventListener('temaChange', manejarCambioTema)
+            window.removeEventListener('storage', manejarCambioTema)
+        }
+    }, [])
 
     useEffect(() => {
         cargarBitacora()
@@ -35,7 +54,7 @@ export default function VerBitacora({ id }) {
 
     if (cargando) {
         return (
-            <div className={estilos.contenedor}>
+            <div className={`${estilos.contenedor} ${estilos[tema]}`}>
                 <div className={estilos.cargando}>
                     <ion-icon name="hourglass-outline"></ion-icon>
                     <span>Cargando bitácora...</span>
@@ -46,7 +65,7 @@ export default function VerBitacora({ id }) {
 
     if (!bitacora) {
         return (
-            <div className={estilos.contenedor}>
+            <div className={`${estilos.contenedor} ${estilos[tema]}`}>
                 <div className={estilos.vacio}>
                     <ion-icon name="alert-circle-outline"></ion-icon>
                     <span>Bitácora no encontrada</span>
@@ -66,8 +85,7 @@ export default function VerBitacora({ id }) {
     })
 
     return (
-        <div className={estilos.contenedor}>
-            {/* Header */}
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
                 <div className={estilos.headerInfo}>
                     <div className={estilos.badges}>
@@ -97,7 +115,6 @@ export default function VerBitacora({ id }) {
                 </button>
             </div>
 
-            {/* Información del destino */}
             <section className={estilos.seccionDestino}>
                 <div className={estilos.destinoHeader}>
                     <ion-icon name="business-outline"></ion-icon>
@@ -114,7 +131,6 @@ export default function VerBitacora({ id }) {
                 </div>
             </section>
 
-            {/* Información general */}
             <section className={estilos.seccion}>
                 <h3 className={estilos.seccionTitulo}>
                     <ion-icon name="information-circle-outline"></ion-icon>
@@ -155,7 +171,6 @@ export default function VerBitacora({ id }) {
                 </div>
             </section>
 
-            {/* Trabajadores presentes */}
             {trabajadores.length > 0 && (
                 <section className={estilos.seccion}>
                     <h3 className={estilos.seccionTitulo}>
@@ -184,7 +199,6 @@ export default function VerBitacora({ id }) {
                 </section>
             )}
 
-            {/* Trabajo realizado */}
             <section className={estilos.seccion}>
                 <h3 className={estilos.seccionTitulo}>
                     <ion-icon name="document-text-outline"></ion-icon>
@@ -195,7 +209,6 @@ export default function VerBitacora({ id }) {
                 </div>
             </section>
 
-            {/* Observaciones */}
             {bitacora.observaciones && (
                 <section className={estilos.seccion}>
                     <h3 className={estilos.seccionTitulo}>
@@ -208,7 +221,6 @@ export default function VerBitacora({ id }) {
                 </section>
             )}
 
-            {/* Fotos */}
             {fotos.length > 0 && (
                 <section className={estilos.seccion}>
                     <h3 className={estilos.seccionTitulo}>
@@ -237,7 +249,6 @@ export default function VerBitacora({ id }) {
                 </section>
             )}
 
-            {/* Modal de foto expandida */}
             {fotoExpandida && (
                 <div 
                     className={estilos.modalFoto}
@@ -263,7 +274,6 @@ export default function VerBitacora({ id }) {
                 </div>
             )}
 
-            {/* Footer con metadata */}
             <div className={estilos.footer}>
                 <div className={estilos.footerItem}>
                     <ion-icon name="calendar-outline"></ion-icon>
