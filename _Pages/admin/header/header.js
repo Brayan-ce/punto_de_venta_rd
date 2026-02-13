@@ -367,19 +367,20 @@ export default function HeaderAdmin() {
                     )}
 
                     {categoriasNavegacion.map((categoria, index) => {
-                        const estaAbierto = categoria.modulo === 'core' || seccionesAbiertas[categoria.modulo] !== false
+                        const keySeccion = categoria.uniqueKey || `${categoria.modulo}-${index}`
+                        const estaAbierto = categoria.modulo === 'core' || seccionesAbiertas[keySeccion] !== false
                         const tieneSubmenu = categoria.items.length > 0
                         const esActivo = categoria.items.some(item => esRutaActiva(item.href))
 
                         return (
                             <div 
-                                key={categoria.uniqueKey || `${categoria.modulo}-${index}`}
+                                key={keySeccion}
                                 className={estilos.sidebarSeccion}
-                                onMouseEnter={() => sidebarColapsado && tieneSubmenu && setHoverSubmenu(categoria.uniqueKey || `${categoria.modulo}-${index}`)}
+                                onMouseEnter={() => sidebarColapsado && tieneSubmenu && setHoverSubmenu(keySeccion)}
                                 onMouseLeave={() => {
                                     setTimeout(() => {
-                                        if (sidebarColapsado && hoverSubmenu === (categoria.uniqueKey || `${categoria.modulo}-${index}`)) {
-                                            const popover = document.querySelector(`[data-popover-modulo="${categoria.uniqueKey || `${categoria.modulo}-${index}`}"]`);
+                                        if (sidebarColapsado && hoverSubmenu === keySeccion) {
+                                            const popover = document.querySelector(`[data-popover-modulo="${keySeccion}"]`);
                                             if (!popover?.matches(':hover')) {
                                                 setHoverSubmenu(null);
                                             }
@@ -396,7 +397,7 @@ export default function HeaderAdmin() {
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 if (tieneSubmenu) {
-                                                    setHoverSubmenu(hoverSubmenu === (categoria.uniqueKey || `${categoria.modulo}-${index}`) ? null : (categoria.uniqueKey || `${categoria.modulo}-${index}`));
+                                                    setHoverSubmenu(hoverSubmenu === keySeccion ? null : keySeccion);
                                                 } else {
                                                     window.location.href = categoria.items[0]?.href || '/admin/dashboard';
                                                 }
@@ -405,11 +406,11 @@ export default function HeaderAdmin() {
                                             <ion-icon name={categoria.icon}></ion-icon>
                                         </button>
                                         
-                                        {hoverSubmenu === (categoria.uniqueKey || `${categoria.modulo}-${index}`) && tieneSubmenu && (
+                                        {hoverSubmenu === keySeccion && tieneSubmenu && (
                                             <div 
                                                 className={estilos.sidebarPopover}
-                                                data-popover-modulo={categoria.uniqueKey || `${categoria.modulo}-${index}`}
-                                                onMouseEnter={() => setHoverSubmenu(categoria.uniqueKey || `${categoria.modulo}-${index}`)}
+                                                data-popover-modulo={keySeccion}
+                                                onMouseEnter={() => setHoverSubmenu(keySeccion)}
                                                 onMouseLeave={() => setHoverSubmenu(null)}
                                             >
                                                 <div className={estilos.sidebarPopoverTitulo}>
@@ -438,7 +439,7 @@ export default function HeaderAdmin() {
                                     <>
                                         <button
                                             className={`${estilos.sidebarItemPrincipal} ${esActivo ? estilos.sidebarItemActivo : ''}`}
-                                            onClick={() => categoria.modulo !== 'core' && toggleSeccion(categoria.modulo)}
+                                            onClick={() => categoria.modulo !== 'core' && toggleSeccion(keySeccion)}
                                             disabled={categoria.modulo === 'core'}
                                             title={categoria.label}
                                         >
@@ -600,13 +601,14 @@ export default function HeaderAdmin() {
                                 )}
 
                                 {categoriasNavegacion.map((categoria, index) => {
-                                    const estaAbierto = categoria.modulo === 'core' || seccionesAbiertas[categoria.modulo] !== false
+                                    const keySeccion = categoria.uniqueKey || `${categoria.modulo}-${index}`
+                                    const estaAbierto = categoria.modulo === 'core' || seccionesAbiertas[keySeccion] !== false
 
                                     return (
-                                        <div key={categoria.uniqueKey || `${categoria.modulo}-${index}`} className={estilos.menuSeccion}>
+                                        <div key={keySeccion} className={estilos.menuSeccion}>
                                             <button
                                                 className={estilos.menuSeccionTituloBtn}
-                                                onClick={() => categoria.modulo !== 'core' && toggleSeccion(categoria.modulo)}
+                                                onClick={() => categoria.modulo !== 'core' && toggleSeccion(keySeccion)}
                                                 disabled={categoria.modulo === 'core'}
                                             >
                                                 <ion-icon name={categoria.icon}></ion-icon>
