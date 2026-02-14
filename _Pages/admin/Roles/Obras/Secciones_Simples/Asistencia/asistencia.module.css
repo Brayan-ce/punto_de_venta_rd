@@ -1,0 +1,586 @@
+.contenedor {
+    padding: 30px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0c1426 0%, #111827 100%);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.headerInfo {
+    flex: 1;
+}
+
+.titulo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.light .titulo {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.titulo ion-icon {
+    font-size: 2.5rem;
+    color: #0284c7;
+}
+
+.dark .titulo ion-icon {
+    color: #38bdf8;
+}
+
+.subtitulo {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.controles {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding: 24px;
+    border-radius: 16px;
+    border: 2px solid;
+}
+
+.light .controles {
+    background: white;
+    border-color: #e0f2fe;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .controles {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.light .campo label {
+    color: #475569;
+}
+
+.dark .campo label {
+    color: #cbd5e1;
+}
+
+.select,
+.input {
+    padding: 12px 16px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.light .select,
+.light .input {
+    background: white;
+    border-color: #e0f2fe;
+    color: #0f172a;
+}
+
+.dark .select,
+.dark .input {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.select:focus,
+.input:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+}
+
+.botonesRapidos {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.btnTodos,
+.btnNinguno {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btnTodos {
+    background: #10b981;
+    color: white;
+}
+
+.btnTodos:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.btnNinguno {
+    background: #ef4444;
+    color: white;
+}
+
+.btnNinguno:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+.resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid;
+}
+
+.light .stat {
+    background: white;
+    border-color: #e0f2fe;
+}
+
+.dark .stat {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.stat ion-icon {
+    font-size: 2rem;
+    color: #0284c7;
+}
+
+.stat > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statValor {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.light .statValor {
+    color: #0f172a;
+}
+
+.dark .statValor {
+    color: #f1f5f9;
+}
+
+.statLabel {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.light .statLabel {
+    color: #64748b;
+}
+
+.dark .statLabel {
+    color: #94a3b8;
+}
+
+.listaTrabajadores {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.trabajadorCard {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 2px solid;
+}
+
+.light .trabajadorCard {
+    background: white;
+    border-color: #e0f2fe;
+}
+
+.dark .trabajadorCard {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.trabajadorCard.presente {
+    border-color: #10b981;
+}
+
+.light .trabajadorCard.presente {
+    background: #f0fdf4;
+}
+
+.dark .trabajadorCard.presente {
+    background: #022c22;
+}
+
+.trabajadorCard.ausente {
+    border-color: #ef4444;
+}
+
+.light .trabajadorCard.ausente {
+    background: #fef2f2;
+}
+
+.dark .trabajadorCard.ausente {
+    background: #2d0a0a;
+}
+
+.trabajadorHeader {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.checkContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.checkbox {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 3px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.light .checkbox {
+    border-color: #cbd5e1;
+}
+
+.dark .checkbox {
+    border-color: #475569;
+}
+
+.presente .checkbox {
+    border-color: #10b981;
+    background: #10b981;
+}
+
+.checkbox ion-icon {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.trabajadorInfo {
+    flex: 1;
+}
+
+.trabajadorInfo h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.light .trabajadorInfo h3 {
+    color: #0f172a;
+}
+
+.dark .trabajadorInfo h3 {
+    color: #f1f5f9;
+}
+
+.especialidad {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.light .especialidad {
+    color: #64748b;
+}
+
+.dark .especialidad {
+    color: #94a3b8;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.presente .badge {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.dark .presente .badge {
+    background: #064e3b;
+    color: #6ee7b7;
+}
+
+.ausente .badge {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.dark .ausente .badge {
+    background: #7f1d1d;
+    color: #fca5a5;
+}
+
+.badge ion-icon {
+    font-size: 1rem;
+}
+
+.trabajadorBody {
+    padding: 0 20px 20px 20px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+}
+
+.inputHoras,
+.inputObs {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.light .inputHoras,
+.light .inputObs {
+    background: white;
+    border-color: #e0f2fe;
+    color: #0f172a;
+}
+
+.dark .inputHoras,
+.dark .inputObs {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.inputHoras:focus,
+.inputObs:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+}
+
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 0;
+}
+
+.btnGuardar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.btnGuardar:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.4);
+}
+
+.btnGuardar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cargando,
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 80px 20px;
+    border-radius: 20px;
+    border: 2px dashed;
+    text-align: center;
+}
+
+.light .cargando {
+    background: white;
+    border-color: #cbd5e1;
+    color: #64748b;
+}
+
+.dark .cargando {
+    background: #1e293b;
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.light .vacio {
+    background: white;
+    border-color: #cbd5e1;
+    color: #64748b;
+}
+
+.dark .vacio {
+    background: #1e293b;
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.iconoCargando {
+    font-size: 48px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.vacio ion-icon {
+    font-size: 80px;
+}
+
+.light .vacio ion-icon {
+    color: #cbd5e1;
+}
+
+.dark .vacio ion-icon {
+    color: #475569;
+}
+
+.vacio h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.light .vacio h3 {
+    color: #0f172a;
+}
+
+.dark .vacio h3 {
+    color: #f1f5f9;
+}
+
+.vacio p {
+    font-size: 1rem;
+    margin: 8px 0 0;
+}
+
+@media (max-width: 1024px) {
+    .controles {
+        grid-template-columns: 1fr;
+    }
+
+    .botonesRapidos {
+        width: 100%;
+    }
+
+    .btnTodos,
+    .btnNinguno {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .trabajadorBody {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px;
+    }
+
+    .titulo {
+        font-size: 2rem;
+    }
+
+    .resumen {
+        grid-template-columns: 1fr 1fr;
+    }
+}

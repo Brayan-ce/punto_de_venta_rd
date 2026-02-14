@@ -1,11 +1,11 @@
 // app/page.js
 import ClienteWrapper from "@/_EXTRAS/LadoCliente/ClienteWraper";
-import ManejoSimple from "@/_Pages/admin/Roles/Obras/Secciones_Simples/dashboard/dashboard";
+import Trabajadores from "@/_Pages/admin/Roles/Obras/Secciones_Simples/trabajadores/trabajadores";
 export default function page() {
   return (
     <div>
       <ClienteWrapper>
-        <ManejoSimple></ManejoSimple>
+        <Trabajadores></Trabajadores>
       </ClienteWrapper>
     </div>
   );
