@@ -68,7 +68,7 @@ export default function Asistencia() {
             resAsistencias.asistencias.forEach(a => {
                 asistenciasMap[a.trabajador_id] = {
                     presente: a.presente,
-                    horas: a.horas_trabajadas || 8,
+                    horas: parseFloat(a.horas_trabajadas) || 8,
                     observaciones: a.observaciones || ''
                 }
             })
@@ -140,7 +140,7 @@ export default function Asistencia() {
         const listaAsistencias = trabajadores.map(t => ({
             trabajador_id: t.id,
             presente: asistencias[t.id]?.presente !== false,
-            horas: asistencias[t.id]?.horas || 8,
+            horas: parseFloat(asistencias[t.id]?.horas) || 8,
             observaciones: asistencias[t.id]?.observaciones || ''
         }))
 
@@ -158,7 +158,8 @@ export default function Asistencia() {
     const trabajadoresPresentes = trabajadores.filter(t => asistencias[t.id]?.presente !== false).length
     const trabajadoresAusentes = trabajadores.length - trabajadoresPresentes
     const totalHoras = trabajadores.reduce((sum, t) => {
-        return sum + (asistencias[t.id]?.presente !== false ? (asistencias[t.id]?.horas || 8) : 0)
+        const horas = asistencias[t.id]?.presente !== false ? (parseFloat(asistencias[t.id]?.horas) || 8) : 0
+        return sum + horas
     }, 0)
 
     return (
@@ -276,7 +277,7 @@ export default function Asistencia() {
                 <div className={estilos.listaTrabajadores}>
                     {trabajadores.map(trabajador => {
                         const presente = asistencias[trabajador.id]?.presente !== false
-                        const horas = asistencias[trabajador.id]?.horas || 8
+                        const horas = parseFloat(asistencias[trabajador.id]?.horas) || 8
                         const observaciones = asistencias[trabajador.id]?.observaciones || ''
 
                         return (
