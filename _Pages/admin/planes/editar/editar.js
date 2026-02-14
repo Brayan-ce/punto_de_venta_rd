@@ -31,6 +31,8 @@ import {
     eliminarPlazoPlan
 } from './servidor'
 import { calcularPlanInverso, calcularAmortizacionFrancesa } from '../../core/finance/calculos'
+import { PlanService } from '../../core/finance/PlanService'
+import { configurarVisualizacion } from '../../core/finance/calculosComerciales'
 import estilos from './editar.module.css'
 
 export default function EditarPlan({ planId }) {
@@ -42,12 +44,10 @@ export default function EditarPlan({ planId }) {
     const [procesando, setProcesando] = useState(false)
     const [error, setError] = useState(null)
     
-    // ⚠️ SEPARACIÓN DE ESTADO: Formulario del plan (separado del modal)
     const [planForm, setPlanForm] = useState({
         codigo: '',
         nombre: '',
         descripcion: '',
-        // Reglas generales (no dependen de plazos)
         monto_minimo: 0,
         monto_maximo: null,
         penalidad_mora_pct: 5.00,
@@ -59,13 +59,11 @@ export default function EditarPlan({ planId }) {
         requiere_fiador: false
     })
 
-    // Estado de plazos (array) - cargados desde el servidor
     const [plazos, setPlazos] = useState([])
-    const [plazosOriginales, setPlazosOriginales] = useState([]) // Para tracking de cambios
+    const [plazosOriginales, setPlazosOriginales] = useState([])
 
-    // Estado del modal (temporal, no se guarda hasta confirmar)
     const [modalPlazoAbierto, setModalPlazoAbierto] = useState(false)
-    const [modalPlazoEditando, setModalPlazoEditando] = useState(null) // null = crear, plazoId = editar
+    const [modalPlazoEditando, setModalPlazoEditando] = useState(null)
     const [modalPlazoDraft, setModalPlazoDraft] = useState({
         plazo_meses: 12,
         tipo_pago_inicial: 'PORCENTAJE',
@@ -74,11 +72,9 @@ export default function EditarPlan({ planId }) {
         es_sugerido: false
     })
 
-    // Resultados calculados del modal (temporal)
     const [resultadoCalculoModal, setResultadoCalculoModal] = useState(null)
     const [calculandoModal, setCalculandoModal] = useState(false)
 
-    // Plazos predefinidos para presets rápidos
     const plazosComunes = [6, 12, 18, 24, 36]
 
     useEffect(() => {
@@ -99,7 +95,6 @@ export default function EditarPlan({ planId }) {
         }
     }, [])
 
-    // Cargar plan existente con plazos
     useEffect(() => {
         const cargarPlan = async () => {
             if (!id) return
@@ -112,7 +107,6 @@ export default function EditarPlan({ planId }) {
                 if (resultado.success && resultado.plan) {
                     const plan = resultado.plan
                     
-                    // Cargar información general del plan
                     setPlanForm({
                         codigo: plan.codigo,
                         nombre: plan.nombre,
@@ -128,7 +122,6 @@ export default function EditarPlan({ planId }) {
                         requiere_fiador: plan.requiere_fiador === 1
                     })
 
-                    // Cargar plazos (si tiene plazos)
                     if (plan.plazos && Array.isArray(plan.plazos) && plan.plazos.length > 0) {
                         const plazosCargados = plan.plazos.map(p => ({
                             id: p.id,
@@ -136,8 +129,13 @@ export default function EditarPlan({ planId }) {
                             tipo_pago_inicial: p.tipo_pago_inicial,
                             pago_inicial_valor: p.pago_inicial_valor,
                             cuota_mensual: p.cuota_mensual,
+                            tipo_plan: p.tipo_plan || PlanService.determinarTipoPlan(p.plazo_meses),
                             tasa_anual_calculada: p.tasa_anual_calculada,
                             tasa_mensual_calculada: p.tasa_mensual_calculada,
+                            recargo_tipo: p.recargo_tipo,
+                            recargo_valor: p.recargo_valor,
+                            mostrar_tasa: p.mostrar_tasa !== false,
+                            mostrar_tea: p.mostrar_tea !== false,
                             es_sugerido: p.es_sugerido === 1 || p.es_sugerido === true,
                             activo: p.activo === 1 || p.activo === true
                         }))
@@ -161,7 +159,6 @@ export default function EditarPlan({ planId }) {
         cargarPlan()
     }, [id])
 
-    // Calcular tasa en el modal cuando cambian los datos (con debounce)
     useEffect(() => {
         if (!modalPlazoAbierto) return
 
@@ -177,67 +174,68 @@ export default function EditarPlan({ planId }) {
             
             const timeoutId = setTimeout(() => {
                 try {
-                    let pagoInicialReal = 0
-                    let precioTotal = 0
+                    const tipoPlan = PlanService.determinarTipoPlan(plazoMeses)
                     
-                    if (draft.tipo_pago_inicial === 'PORCENTAJE') {
-                        const precioEstimadoInicial = cuotaMensual * plazoMeses * 1.3
-                        pagoInicialReal = precioEstimadoInicial * (pagoInicialValor / 100)
-                    } else {
-                        pagoInicialReal = pagoInicialValor
+                    const datosPlazo = {
+                        plazo_meses: plazoMeses,
+                        tipo_pago_inicial: draft.tipo_pago_inicial,
+                        pago_inicial_valor: pagoInicialValor,
+                        cuota_mensual: cuotaMensual,
+                        recargo_tipo: draft.recargo_tipo || null,
+                        recargo_valor: draft.recargo_valor || null
                     }
 
-                    const resultado = calcularPlanInverso(
-                        pagoInicialReal,
-                        cuotaMensual,
-                        plazoMeses
-                    )
+                    const resultado = PlanService.calcularPlazo(datosPlazo)
 
                     if (resultado.valido) {
-                        const tasaMensual = resultado.tasaMensual
-                        const factor = Math.pow(1 + tasaMensual, plazoMeses)
-                        const valorPresente = cuotaMensual * ((factor - 1) / (tasaMensual * factor))
-                        const montoFinanciado = valorPresente
+                        const visualizacion = configurarVisualizacion(tipoPlan, plazoMeses)
                         
-                        if (draft.tipo_pago_inicial === 'PORCENTAJE') {
-                            precioTotal = montoFinanciado / (1 - (pagoInicialValor / 100))
-                            pagoInicialReal = precioTotal * (pagoInicialValor / 100)
+                        const resultadoModal = {
+                            valido: true,
+                            tipo_plan: tipoPlan,
+                            precio_total: resultado.precio_financiado || resultado.precioTotal || null,
+                            monto_financiado: resultado.monto_financiado || resultado.montoFinanciado || null,
+                            porcentaje_inicial: resultado.porcentaje_inicial || resultado.porcentajeInicial || 0,
+                            mostrar_tasa: visualizacion.mostrarTasa,
+                            mostrar_tea: visualizacion.mostrarTEA,
+                            mostrar_intereses: visualizacion.mostrarIntereses,
+                            mostrar_recargo: visualizacion.mostrarRecargo
+                        }
+
+                        if (tipoPlan === 'COMERCIAL') {
+                            resultadoModal.recargo = resultado.recargo || null
+                            resultadoModal.recargo_tipo = resultado.recargo_tipo || 'FIJO'
+                            resultadoModal.recargo_valor = resultado.recargo_valor !== null && resultado.recargo_valor !== undefined 
+                                ? resultado.recargo_valor 
+                                : (resultado.recargo_tipo === 'PORCENTAJE' ? 5 : 1000)
+                            resultadoModal.tasa_anual_calculada = null
+                            resultadoModal.tasa_mensual_calculada = null
+                            resultadoModal.total_intereses = null
+                            resultadoModal.mensaje_tipo = 'Este plan corresponde a una venta cash diferida.'
                         } else {
-                            precioTotal = pagoInicialReal + montoFinanciado
+                            resultadoModal.tasa_anual_calculada = resultado.tasa_anual_calculada
+                            resultadoModal.tasa_mensual_calculada = resultado.tasa_mensual_calculada
+                            resultadoModal.total_intereses = resultado.totalIntereses || null
+                            
+                            if (plazoMeses <= 8) {
+                                resultadoModal.mensaje_tipo = `Este plan tiene un plazo corto (${plazoMeses} meses).`
+                            } else {
+                                const tasaAnual = resultado.tasa_anual_calculada
+                                const tasaEnRango = tasaAnual >= 20 && tasaAnual <= 50
+                                resultadoModal.tasa_en_rango = tasaEnRango
+                                resultadoModal.mensaje_rango = tasaEnRango 
+                                    ? `Tasa dentro del rango esperado (${tasaAnual.toFixed(2)}%).`
+                                    : `Advertencia: Tasa fuera del rango típico (${tasaAnual.toFixed(2)}%).`
+                            }
                         }
                         
-                        const amortizacion = calcularAmortizacionFrancesa(
-                            montoFinanciado,
-                            tasaMensual,
-                            plazoMeses
-                        )
-                        
-                        const porcentajeInicial = precioTotal > 0 
-                            ? (pagoInicialReal / precioTotal) * 100 
-                            : 0
-                        
-                        const tasaAnual = resultado.tasaAnualEfectiva
-                        const tasaEnRango = tasaAnual >= 20 && tasaAnual <= 50
-                        
-                        setResultadoCalculoModal({
-                            valido: true,
-                            tasa_anual_calculada: resultado.tasaAnualEfectiva,
-                            tasa_mensual_calculada: resultado.tasaMensual,
-                            precio_total: precioTotal,
-                            monto_financiado: montoFinanciado,
-                            total_intereses: amortizacion.totalIntereses,
-                            porcentaje_inicial: porcentajeInicial,
-                            tasa_en_rango: tasaEnRango,
-                            mensaje_rango: tasaEnRango 
-                                ? `Este plan tiene una tasa dentro del rango esperado (${tasaAnual.toFixed(2)}%).`
-                                : `Advertencia: La tasa calculada (${tasaAnual.toFixed(2)}%) está fuera del rango típico (20-50%).`
-                        })
+                        setResultadoCalculoModal(resultadoModal)
                     } else {
                         setResultadoCalculoModal({ valido: false, error: resultado.error })
                     }
                 } catch (error) {
                     console.error('Error al calcular:', error)
-                    setResultadoCalculoModal({ valido: false, error: 'Error al calcular la tasa' })
+                    setResultadoCalculoModal({ valido: false, error: 'Error al calcular el plan' })
                 } finally {
                     setCalculandoModal(false)
                 }
@@ -276,10 +274,6 @@ export default function EditarPlan({ planId }) {
             minimumFractionDigits: 2
         }).format(monto || 0)
     }
-
-    // ============================================
-    // FUNCIONES DEL MODAL DE PLAZOS
-    // ============================================
 
     const abrirModalNuevoPlazo = () => {
         setModalPlazoEditando(null)
@@ -332,7 +326,7 @@ export default function EditarPlan({ planId }) {
     }
 
     const abrirModalEditarPlazo = (plazo) => {
-        setModalPlazoEditando(plazo.id) // Guardar ID del plazo para actualizar
+        setModalPlazoEditando(plazo.id)
         setModalPlazoDraft({
             plazo_meses: plazo.plazo_meses || '',
             tipo_pago_inicial: plazo.tipo_pago_inicial || 'PORCENTAJE',
@@ -341,19 +335,16 @@ export default function EditarPlan({ planId }) {
             es_sugerido: plazo.es_sugerido || false
         })
         
-        // Calcular todos los valores cuando se carga un plazo existente
         if (plazo.tasa_anual_calculada && plazo.tasa_mensual_calculada && plazo.cuota_mensual && plazo.plazo_meses) {
             try {
                 const tasaMensual = plazo.tasa_mensual_calculada
                 const plazoMeses = plazo.plazo_meses
                 const cuotaMensual = plazo.cuota_mensual
                 
-                // Calcular monto financiado usando valor presente de las cuotas
                 const factor = Math.pow(1 + tasaMensual, plazoMeses)
                 const valorPresente = cuotaMensual * ((factor - 1) / (tasaMensual * factor))
                 const montoFinanciado = valorPresente
                 
-                // Calcular precio total y pago inicial
                 let precioTotal = 0
                 let pagoInicialReal = 0
                 
@@ -365,32 +356,40 @@ export default function EditarPlan({ planId }) {
                     precioTotal = pagoInicialReal + montoFinanciado
                 }
                 
-                // Calcular total de intereses
                 const amortizacion = calcularAmortizacionFrancesa(
                     montoFinanciado,
                     tasaMensual,
                     plazoMeses
                 )
                 
-                // Calcular % inicial
                 const porcentajeInicial = precioTotal > 0 
                     ? (pagoInicialReal / precioTotal) * 100 
                     : 0
                 
+                const tipoPlan = plazo.tipo_plan || PlanService.determinarTipoPlan(plazoMeses)
+                
                 setResultadoCalculoModal({
                     valido: true,
+                    tipo_plan: tipoPlan,
                     tasa_anual_calculada: plazo.tasa_anual_calculada,
                     tasa_mensual_calculada: plazo.tasa_mensual_calculada,
                     precio_total: precioTotal,
                     monto_financiado: montoFinanciado,
                     total_intereses: amortizacion.totalIntereses,
-                    porcentaje_inicial: porcentajeInicial
+                    porcentaje_inicial: porcentajeInicial,
+                    recargo_tipo: plazo.recargo_tipo || null,
+                    recargo_valor: plazo.recargo_valor || null,
+                    recargo: plazo.recargo_valor || null,
+                    mostrar_tasa: plazo.mostrar_tasa !== false,
+                    mostrar_tea: plazo.mostrar_tea !== false,
+                    mostrar_intereses: tipoPlan === 'FINANCIERO',
+                    mostrar_recargo: tipoPlan === 'COMERCIAL'
                 })
             } catch (error) {
                 console.error('Error al calcular valores del plazo:', error)
-                // Si hay error, al menos mostrar las tasas
                 setResultadoCalculoModal({
                     valido: true,
+                    tipo_plan: plazo.tipo_plan || 'FINANCIERO',
                     tasa_anual_calculada: plazo.tasa_anual_calculada,
                     tasa_mensual_calculada: plazo.tasa_mensual_calculada
                 })
@@ -421,7 +420,6 @@ export default function EditarPlan({ planId }) {
             errores.push('La cuota mensual debe ser mayor a 0')
         }
 
-        // Validar duplicados (excepto si está editando el mismo plazo)
         if (!isNaN(plazoMeses)) {
             const existeDuplicado = plazos.some(p => 
                 p.id !== modalPlazoEditando && 
@@ -446,27 +444,32 @@ export default function EditarPlan({ planId }) {
         }
 
         if (!resultadoCalculoModal?.valido) {
-            alert('Debe calcular la tasa antes de guardar. Verifique que todos los campos estén completos.')
+            alert('Debe calcular la tasa antes de guardar.')
             return
         }
 
         setProcesando(true)
         try {
+            const tipoPlan = resultadoCalculoModal.tipo_plan || PlanService.determinarTipoPlan(Number(modalPlazoDraft.plazo_meses))
+            
             const datosPlazo = {
                 plazo_meses: Number(modalPlazoDraft.plazo_meses),
                 tipo_pago_inicial: modalPlazoDraft.tipo_pago_inicial,
                 pago_inicial_valor: Number(modalPlazoDraft.pago_inicial_valor),
                 cuota_mensual: Number(modalPlazoDraft.cuota_mensual),
                 es_sugerido: modalPlazoDraft.es_sugerido,
+                tipo_plan: tipoPlan,
                 tasa_anual_calculada: resultadoCalculoModal.tasa_anual_calculada,
-                tasa_mensual_calculada: resultadoCalculoModal.tasa_mensual_calculada
+                tasa_mensual_calculada: resultadoCalculoModal.tasa_mensual_calculada,
+                recargo_tipo: tipoPlan === 'COMERCIAL' ? resultadoCalculoModal.recargo_tipo : null,
+                recargo_valor: tipoPlan === 'COMERCIAL' ? resultadoCalculoModal.recargo_valor : null,
+                mostrar_tasa: resultadoCalculoModal.mostrar_tasa !== false,
+                mostrar_tea: resultadoCalculoModal.mostrar_tea !== false
             }
 
             if (modalPlazoEditando !== null) {
-                // Actualizar plazo existente
                 const resultado = await actualizarPlazoPlan(modalPlazoEditando, datosPlazo)
                 if (resultado.success) {
-                    // Actualizar en el estado local
                     setPlazos(prev => prev.map(p => 
                         p.id === modalPlazoEditando 
                             ? { ...p, ...datosPlazo, id: modalPlazoEditando }
@@ -478,10 +481,8 @@ export default function EditarPlan({ planId }) {
                     alert(resultado.mensaje || 'Error al actualizar plazo')
                 }
             } else {
-                // Agregar nuevo plazo
                 const resultado = await agregarPlazoPlan(id, datosPlazo)
                 if (resultado.success) {
-                    // Agregar al estado local con el ID retornado
                     setPlazos(prev => [...prev, { ...datosPlazo, id: resultado.plazo_id }])
                     alert('Plazo agregado exitosamente')
                     cerrarModalPlazo()
@@ -532,10 +533,6 @@ export default function EditarPlan({ planId }) {
         setResultadoCalculoModal(null)
     }
 
-    // ============================================
-    // FUNCIÓN PARA GUARDAR EL PLAN
-    // ============================================
-
     const guardarPlan = async () => {
         if (!planForm.nombre) {
             alert('El nombre del plan es obligatorio')
@@ -544,7 +541,6 @@ export default function EditarPlan({ planId }) {
 
         setProcesando(true)
         try {
-            // Actualizar información general del plan
             const datosPlan = {
                 nombre: planForm.nombre,
                 descripcion: planForm.descripcion,
@@ -615,9 +611,7 @@ export default function EditarPlan({ planId }) {
             </div>
 
             <div className={estilos.contenedorPrincipal}>
-                {/* Columna Izquierda - Formulario */}
                 <div className={estilos.columnaFormulario}>
-                    {/* Sección 1: Información Básica */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <FileText className={estilos.seccionIcono} />
@@ -672,7 +666,6 @@ export default function EditarPlan({ planId }) {
                         </div>
                     </div>
 
-                    {/* Sección 2: Opciones de Plazo */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <Calculator className={estilos.seccionIcono} />
@@ -683,7 +676,6 @@ export default function EditarPlan({ planId }) {
                             </div>
                         </div>
                         
-                        {/* Lista de plazos agregados */}
                         {plazos.length === 0 ? (
                             <div className={estilos.sinPlazos}>
                                 <Calculator size={48} />
@@ -720,10 +712,22 @@ export default function EditarPlan({ planId }) {
                                                     <CreditCard size={14} />
                                                     <span>Cuota: {formatearMoneda(plazo.cuota_mensual)}</span>
                                                 </div>
-                                                <div className={estilos.plazoDetalleItem}>
-                                                    <TrendingUp size={14} />
-                                                    <span>Tasa: {plazo.tasa_anual_calculada?.toFixed(2) || 'N/A'}% anual</span>
-                                                </div>
+                                                {plazo.tipo_plan === 'FINANCIERO' && plazo.mostrar_tasa && (
+                                                    <div className={estilos.plazoDetalleItem}>
+                                                        <TrendingUp size={14} />
+                                                        <span>Tasa: {plazo.tasa_anual_calculada?.toFixed(2) || 'N/A'}% anual</span>
+                                                    </div>
+                                                )}
+                                                {plazo.tipo_plan === 'COMERCIAL' && (
+                                                    <div className={estilos.plazoDetalleItem}>
+                                                        <Sparkles size={14} />
+                                                        <span>
+                                                            {plazo.recargo_tipo === 'FIJO' 
+                                                                ? `Recargo: ${formatearMoneda(plazo.recargo_valor)}`
+                                                                : `Recargo: ${plazo.recargo_valor}%`}
+                                                        </span>
+                                                    </div>
+                                                )}
                                             </div>
                                             <div className={estilos.plazoAcciones}>
                                                 <button
@@ -748,7 +752,6 @@ export default function EditarPlan({ planId }) {
                             </div>
                         )}
 
-                        {/* Presets rápidos */}
                         <div className={estilos.presetsRapidos}>
                             <span className={estilos.presetsLabel}>Plazos sugeridos:</span>
                             <div className={estilos.presetsButtons}>
@@ -766,7 +769,6 @@ export default function EditarPlan({ planId }) {
                             <span className={estilos.presetsLabel}>o ingrese uno personalizado</span>
                         </div>
 
-                        {/* Botón principal */}
                         <button
                             type="button"
                             onClick={abrirModalNuevoPlazo}
@@ -777,7 +779,6 @@ export default function EditarPlan({ planId }) {
                         </button>
                     </div>
 
-                    {/* Sección 3: Penalidades y Descuentos */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <AlertCircle className={estilos.seccionIcono} />
@@ -861,7 +862,6 @@ export default function EditarPlan({ planId }) {
                         </div>
                     </div>
 
-                    {/* Sección 4: Configuración Adicional */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <Shield className={estilos.seccionIcono} />
@@ -886,7 +886,7 @@ export default function EditarPlan({ planId }) {
                                     />
                                 </div>
                                 <small className={estilos.helperText}>
-                                    Monto mínimo requerido para aplicar este plan. Dejar en 0 para sin límite mínimo.
+                                    Monto mínimo requerido para aplicar este plan.
                                 </small>
                             </div>
 
@@ -916,7 +916,7 @@ export default function EditarPlan({ planId }) {
                                     <CheckCircle2 size={20} />
                                     <div>
                                         <strong>Plan Activo</strong>
-                                        <span>El plan estará disponible para usar inmediatamente</span>
+                                        <span>El plan estará disponible para usar</span>
                                     </div>
                                 </div>
                                 <label className={estilos.toggle}>
@@ -935,7 +935,7 @@ export default function EditarPlan({ planId }) {
                                     <Sparkles size={20} />
                                     <div>
                                         <strong>Permite Pago Anticipado</strong>
-                                        <span>Los clientes pueden pagar cuotas por adelantado</span>
+                                        <span>Los clientes pueden pagar por adelantado</span>
                                     </div>
                                 </div>
                                 <label className={estilos.toggle}>
@@ -954,7 +954,7 @@ export default function EditarPlan({ planId }) {
                                     <User size={20} />
                                     <div>
                                         <strong>Requiere Fiador</strong>
-                                        <span>Se necesitará un fiador para aprobar el financiamiento</span>
+                                        <span>Se necesitará fiador para aprobar</span>
                                     </div>
                                 </div>
                                 <label className={estilos.toggle}>
@@ -970,7 +970,6 @@ export default function EditarPlan({ planId }) {
                         </div>
                     </div>
 
-                    {/* Botones de acción */}
                     <div className={estilos.footer}>
                         <button 
                             className={estilos.btnCancelar} 
@@ -990,7 +989,6 @@ export default function EditarPlan({ planId }) {
                     </div>
                 </div>
 
-                {/* Columna Derecha - Vista Previa */}
                 <div className={estilos.columnaVista}>
                     <div className={estilos.vistaPrevia}>
                         <div className={estilos.vistaPreviaHeader}>
@@ -1030,16 +1028,27 @@ export default function EditarPlan({ planId }) {
                                                         <CreditCard size={14} />
                                                         <span>{formatearMoneda(plazo.cuota_mensual)}</span>
                                                     </div>
-                                                    <div>
-                                                        <TrendingUp size={14} />
-                                                        <span>{plazo.tasa_anual_calculada?.toFixed(2) || 'N/A'}%</span>
-                                                    </div>
+                                                    {plazo.tipo_plan === 'FINANCIERO' && plazo.mostrar_tasa && (
+                                                        <div>
+                                                            <TrendingUp size={14} />
+                                                            <span>{plazo.tasa_anual_calculada?.toFixed(2) || 'N/A'}%</span>
+                                                        </div>
+                                                    )}
+                                                    {plazo.tipo_plan === 'COMERCIAL' && (
+                                                        <div>
+                                                            <Sparkles size={14} />
+                                                            <span>
+                                                                {plazo.recargo_tipo === 'FIJO' 
+                                                                    ? formatearMoneda(plazo.recargo_valor)
+                                                                    : `${plazo.recargo_valor}%`}
+                                                            </span>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
                                 </div>
 
-                                {/* Información Adicional */}
                                 <div className={estilos.infoAdicional}>
                                     <div className={estilos.infoItem}>
                                         <Clock size={16} />
@@ -1073,7 +1082,6 @@ export default function EditarPlan({ planId }) {
                 </div>
             </div>
 
-            {/* Modal de Plazo */}
             {modalPlazoAbierto && (
                 <div className={estilos.modalOverlay} onClick={cerrarModalPlazo}>
                     <div className={estilos.modalPlazo} onClick={(e) => e.stopPropagation()}>
@@ -1091,7 +1099,6 @@ export default function EditarPlan({ planId }) {
                         </div>
 
                         <div className={estilos.modalBody}>
-                            {/* Plazo en meses */}
                             <div className={estilos.formGroup}>
                                 <label>Plazo en meses *</label>
                                 <input
@@ -1108,7 +1115,6 @@ export default function EditarPlan({ planId }) {
                                 />
                             </div>
 
-                            {/* Tipo de pago inicial */}
                             <div className={estilos.formGroup}>
                                 <label>Tipo de pago inicial *</label>
                                 <div className={estilos.radioGroup}>
@@ -1137,7 +1143,6 @@ export default function EditarPlan({ planId }) {
                                 </div>
                             </div>
 
-                            {/* Valor del pago inicial */}
                             <div className={estilos.formGroup}>
                                 <label>
                                     Valor del pago inicial * 
@@ -1157,7 +1162,6 @@ export default function EditarPlan({ planId }) {
                                 />
                             </div>
 
-                            {/* Cuota mensual */}
                             <div className={estilos.formGroup}>
                                 <label>Cuota mensual (RD$) *</label>
                                 <input
@@ -1174,7 +1178,6 @@ export default function EditarPlan({ planId }) {
                                 />
                             </div>
 
-                            {/* Resultado calculado */}
                             {calculandoModal && (
                                 <div className={estilos.calculandoModal}>
                                     <Loader2 className={estilos.iconoCargando} size={20} />
@@ -1182,7 +1185,6 @@ export default function EditarPlan({ planId }) {
                                 </div>
                             )}
 
-                            {/* Resultados Calculados */}
                             {resultadoCalculoModal && resultadoCalculoModal.valido && (
                                 <div className={estilos.resultadosCalculadosModal}>
                                     <div className={estilos.resultadosHeader}>
@@ -1226,29 +1228,33 @@ export default function EditarPlan({ planId }) {
                                             </div>
                                         )}
                                         
-                                        <div className={estilos.metricaCard}>
-                                            <div className={estilos.metricaIcono}>
-                                                <TrendingUp size={18} />
-                                            </div>
-                                            <div className={estilos.metricaContent}>
-                                                <span className={estilos.metricaLabel}>Tasa Anual</span>
-                                                <strong className={`${estilos.metricaValor} ${estilos.tasaAnual}`}>
-                                                    {resultadoCalculoModal.tasa_anual_calculada.toFixed(2)}%
-                                                </strong>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className={estilos.metricaCard}>
-                                            <div className={estilos.metricaIcono}>
-                                                <Percent size={18} />
-                                            </div>
-                                            <div className={estilos.metricaContent}>
-                                                <span className={estilos.metricaLabel}>Tasa Mensual</span>
-                                                <strong className={estilos.metricaValor}>
-                                                    {(resultadoCalculoModal.tasa_mensual_calculada * 100).toFixed(4)}%
-                                                </strong>
-                                            </div>
-                                        </div>
+                                        {resultadoCalculoModal.tipo_plan === 'FINANCIERO' && (
+                                            <>
+                                                <div className={estilos.metricaCard}>
+                                                    <div className={estilos.metricaIcono}>
+                                                        <TrendingUp size={18} />
+                                                    </div>
+                                                    <div className={estilos.metricaContent}>
+                                                        <span className={estilos.metricaLabel}>Tasa Anual</span>
+                                                        <strong className={`${estilos.metricaValor} ${estilos.tasaAnual}`}>
+                                                            {resultadoCalculoModal.tasa_anual_calculada?.toFixed(2)}%
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className={estilos.metricaCard}>
+                                                    <div className={estilos.metricaIcono}>
+                                                        <Percent size={18} />
+                                                    </div>
+                                                    <div className={estilos.metricaContent}>
+                                                        <span className={estilos.metricaLabel}>Tasa Mensual</span>
+                                                        <strong className={estilos.metricaValor}>
+                                                            {(resultadoCalculoModal.tasa_mensual_calculada * 100).toFixed(4)}%
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
                                         
                                         {resultadoCalculoModal.porcentaje_inicial !== undefined && (
                                             <div className={estilos.metricaCard}>
@@ -1288,7 +1294,6 @@ export default function EditarPlan({ planId }) {
                                 </div>
                             )}
 
-                            {/* Marcar como sugerido */}
                             <div className={estilos.formGroup}>
                                 <label>
                                     <input
@@ -1304,7 +1309,6 @@ export default function EditarPlan({ planId }) {
                                 </label>
                             </div>
 
-                            {/* Validaciones */}
                             {validarPlazoModal().errores.length > 0 && (
                                 <div className={estilos.erroresModal}>
                                     {validarPlazoModal().errores.map((error, i) => (

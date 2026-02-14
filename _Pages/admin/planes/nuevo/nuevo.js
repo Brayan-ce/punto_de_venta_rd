@@ -32,19 +32,14 @@ import { configurarVisualizacion } from '../../core/finance/calculosComerciales'
 import estilos from './nuevo.module.css'
 
 export default function NuevoPlan() {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:NuevoPlan',message:'Component initialized',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
     const router = useRouter()
     const [tema, setTema] = useState('light')
     const [procesando, setProcesando] = useState(false)
     
-    // ⚠️ SEPARACIÓN DE ESTADO: Formulario del plan (separado del modal)
     const [planForm, setPlanForm] = useState({
         codigo: '',
         nombre: '',
         descripcion: '',
-        // Reglas generales (no dependen de plazos) - valores por defecto visibles pero editables
         monto_minimo: 0,
         monto_maximo: null,
         penalidad_mora_pct: 5.00,
@@ -56,30 +51,24 @@ export default function NuevoPlan() {
         requiere_fiador: false
     })
 
-    // Estado de plazos (array)
     const [plazos, setPlazos] = useState([])
 
-    // Estado del modal (temporal, no se guarda hasta confirmar)
     const [modalPlazoAbierto, setModalPlazoAbierto] = useState(false)
-    const [modalPlazoEditando, setModalPlazoEditando] = useState(null) // null = crear, index = editar
+    const [modalPlazoEditando, setModalPlazoEditando] = useState(null)
     const [modalPlazoDraft, setModalPlazoDraft] = useState({
-        plazo_meses: 12, // Valor por defecto
+        plazo_meses: 12,
         tipo_pago_inicial: 'PORCENTAJE',
-        pago_inicial_valor: 15.00, // Valor por defecto
-        cuota_mensual: '', // Vacío inicialmente
+        pago_inicial_valor: 15.00,
+        cuota_mensual: '',
         es_sugerido: false
     })
 
-    // Resultados calculados del modal (temporal)
     const [resultadoCalculoModal, setResultadoCalculoModal] = useState(null)
     const [calculandoModal, setCalculandoModal] = useState(false)
 
-    // Control de edición manual del código
     const [codigoEditadoManualmente, setCodigoEditadoManualmente] = useState(false)
     const [codigoEditable, setCodigoEditable] = useState(false)
 
-    // Plazos predefinidos para presets rápidos
-    // Comerciales (cash): 3 meses | Financieros: 6+ meses
     const plazosComunes = [3, 6, 12, 18, 24, 36]
 
     useEffect(() => {
@@ -100,12 +89,10 @@ export default function NuevoPlan() {
         }
     }, [])
 
-    // Calcular plan en el modal cuando cambian los datos (con debounce)
     useEffect(() => {
         if (!modalPlazoAbierto) return
 
         const draft = modalPlazoDraft
-        // Convertir valores a número para validación
         const plazoMeses = Number(draft.plazo_meses)
         const cuotaMensual = Number(draft.cuota_mensual)
         const pagoInicialValor = Number(draft.pago_inicial_valor)
@@ -117,10 +104,8 @@ export default function NuevoPlan() {
             
             const timeoutId = setTimeout(() => {
                 try {
-                    // Determinar tipo de plan según el plazo
                     const tipoPlan = PlanService.determinarTipoPlan(plazoMeses)
                     
-                    // Preparar datos para PlanService
                     const datosPlazo = {
                         plazo_meses: plazoMeses,
                         tipo_pago_inicial: draft.tipo_pago_inicial,
@@ -130,14 +115,11 @@ export default function NuevoPlan() {
                         recargo_valor: draft.recargo_valor || null
                     }
 
-                    // Calcular usando PlanService (dispatcher automático)
                     const resultado = PlanService.calcularPlazo(datosPlazo)
 
                     if (resultado.valido) {
-                        // Configurar visualización según tipo y plazo
                         const visualizacion = configurarVisualizacion(tipoPlan, plazoMeses)
                         
-                        // Preparar resultado para el modal
                         const resultadoModal = {
                             valido: true,
                             tipo_plan: tipoPlan,
@@ -150,10 +132,7 @@ export default function NuevoPlan() {
                             mostrar_recargo: visualizacion.mostrarRecargo
                         }
 
-                        // Agregar métricas según el tipo de plan
                         if (tipoPlan === 'COMERCIAL') {
-                            // Plan comercial: mostrar recargo, NO tasa
-                            // Asegurar que siempre haya recargo válido
                             resultadoModal.recargo = resultado.recargo || null
                             resultadoModal.recargo_tipo = resultado.recargo_tipo || 'FIJO'
                             resultadoModal.recargo_valor = resultado.recargo_valor !== null && resultado.recargo_valor !== undefined 
@@ -164,17 +143,13 @@ export default function NuevoPlan() {
                             resultadoModal.total_intereses = null
                             resultadoModal.mensaje_tipo = 'Este plan corresponde a una venta cash diferida, donde el margen comercial está incorporado en el precio total. No se aplican intereses financieros.'
                         } else {
-                            // Plan financiero: mostrar tasa, intereses
                             resultadoModal.tasa_anual_calculada = resultado.tasa_anual_calculada
                             resultadoModal.tasa_mensual_calculada = resultado.tasa_mensual_calculada
                             resultadoModal.total_intereses = resultado.totalIntereses || null
                             
-                            // Mensajes según plazo
                             if (plazoMeses <= 8) {
-                                // Plazo corto: no mostrar TEA, explicar
                                 resultadoModal.mensaje_tipo = `Este plan tiene un plazo corto (${plazoMeses} meses). La tasa anual es solo informativa. El costo real del crédito se muestra en intereses totales.`
                             } else {
-                                // Plazo largo: validar rango de tasa
                                 const tasaAnual = resultado.tasa_anual_calculada
                                 const tasaEnRango = tasaAnual >= 20 && tasaAnual <= 50
                                 resultadoModal.tasa_en_rango = tasaEnRango
@@ -194,7 +169,7 @@ export default function NuevoPlan() {
                 } finally {
                     setCalculandoModal(false)
                 }
-            }, 400) // Debounce de 400ms
+            }, 400)
 
             return () => clearTimeout(timeoutId)
         } else {
@@ -203,8 +178,6 @@ export default function NuevoPlan() {
         }
     }, [modalPlazoDraft, modalPlazoAbierto])
 
-
-    // Autogenerar código cuando cambia el nombre (solo si no fue editado manualmente)
     useEffect(() => {
         if (!codigoEditadoManualmente && planForm.nombre) {
             const nombreNormalizado = planForm.nombre
@@ -227,13 +200,10 @@ export default function NuevoPlan() {
     const manejarCambio = (e) => {
         const { name, value, type, checked } = e.target
         
-        // El código se genera automáticamente, no se permite edición manual
-        // (el campo está oculto en el formulario)
         if (name === 'codigo') {
-            return // Ignorar cambios al código
+            return
         }
         
-        // Campos numéricos: permitir valores vacíos
         const camposNumericos = ['monto_minimo', 'monto_maximo', 'penalidad_mora_pct', 'dias_gracia', 
                                  'descuento_pago_anticipado_pct', 'cuotas_minimas_anticipadas']
         
@@ -250,15 +220,10 @@ export default function NuevoPlan() {
         }
     }
 
-    // Funciones de edición de código removidas - el código se genera automáticamente
-    // (mantenidas para compatibilidad pero no se usan en la UI)
-
-    // Obtener fecha mínima (hoy)
     const fechaMinima = useMemo(() => {
         const hoy = new Date()
         return hoy.toISOString().split('T')[0]
     }, [])
-
 
     const formatearMoneda = (monto) => {
         return new Intl.NumberFormat('es-DO', {
@@ -277,7 +242,6 @@ export default function NuevoPlan() {
         })
     }
 
-    // Determinar color de advertencia según tasa
     const obtenerColorTasa = (tasa) => {
         if (!tasa) return 'normal'
         if (tasa > 150) return 'critico'
@@ -286,7 +250,6 @@ export default function NuevoPlan() {
         return 'normal'
     }
 
-    // Validar porcentaje inicial (advertencia si es muy bajo)
     const validarPorcentajeInicial = (porcentaje) => {
         if (!porcentaje) return { valido: true, advertencia: null }
         if (porcentaje < 5) {
@@ -298,70 +261,45 @@ export default function NuevoPlan() {
         return { valido: true, advertencia: null }
     }
 
-    // ============================================
-    // FUNCIONES DEL MODAL DE PLAZOS
-    // ============================================
-
-    // Abrir modal para nuevo plazo
     const abrirModalNuevoPlazo = () => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:abrirModalNuevoPlazo',message:'Function called',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
         setModalPlazoEditando(null)
         setModalPlazoDraft({
-            plazo_meses: 12, // Valor por defecto
+            plazo_meses: 12,
             tipo_pago_inicial: 'PORCENTAJE',
-            pago_inicial_valor: 15.00, // Valor por defecto
-            cuota_mensual: '', // Vacío para que el usuario lo complete
+            pago_inicial_valor: 15.00,
+            cuota_mensual: '',
             es_sugerido: false
         })
         setResultadoCalculoModal(null)
         setModalPlazoAbierto(true)
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:abrirModalNuevoPlazo',message:'Modal state set',data:{modalAbierto:true},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
     }
 
-    // Abrir modal con preset
     const abrirModalConPreset = (meses) => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:abrirModalConPreset',message:'Function called',data:{meses},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
         setModalPlazoEditando(null)
         
-        // Calcular valores sugeridos basados en el plazo
         let pagoInicialPct = 15.00
         let cuotaMensualSugerida = ''
         
-        // Plan comercial (cash) - 3 meses
         if (meses === 3) {
             pagoInicialPct = 35.00
-            // Para 3 meses: ejemplo de producto de 50,000, inicial 35% = 17,500, financiado 32,500, cuota ~11,000
             cuotaMensualSugerida = 11000
         } else if (meses === 6) {
-            // Plan financiero - 6 meses
             pagoInicialPct = 25.00
-            // Para 6 meses: ejemplo de producto de 50,000, inicial 25% = 12,500, financiado 37,500, cuota ~6,500
             cuotaMensualSugerida = 6500
         } else if (meses <= 12) {
             pagoInicialPct = 20.00
-            // Para 12 meses: ejemplo de producto de 50,000, inicial 20% = 10,000, financiado 40,000, cuota ~3,800
             cuotaMensualSugerida = 3800
         } else if (meses <= 18) {
             pagoInicialPct = 18.00
-            // Para 18 meses: ejemplo de producto de 50,000, inicial 18% = 9,000, financiado 41,000, cuota ~2,600
             cuotaMensualSugerida = 2600
         } else if (meses <= 24) {
             pagoInicialPct = 15.00
-            // Para 24 meses: ejemplo de producto de 50,000, inicial 15% = 7,500, financiado 42,500, cuota ~2,000
             cuotaMensualSugerida = 2000
         } else if (meses <= 36) {
             pagoInicialPct = 12.00
-            // Para 36 meses: ejemplo de producto de 50,000, inicial 12% = 6,000, financiado 44,000, cuota ~1,500
             cuotaMensualSugerida = 1500
         } else {
             pagoInicialPct = 10.00
-            // Para plazos mayores: ejemplo de producto de 50,000, inicial 10% = 5,000, financiado 45,000, cuota ~1,200
             cuotaMensualSugerida = 1200
         }
         
@@ -369,18 +307,14 @@ export default function NuevoPlan() {
             plazo_meses: meses,
             tipo_pago_inicial: 'PORCENTAJE',
             pago_inicial_valor: pagoInicialPct,
-            cuota_mensual: cuotaMensualSugerida, // Valor sugerido pre-calculado
+            cuota_mensual: cuotaMensualSugerida,
             es_sugerido: false
         })
         setResultadoCalculoModal(null)
         setModalPlazoAbierto(true)
     }
 
-    // Abrir modal para editar
     const abrirModalEditarPlazo = (plazo, index) => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:abrirModalEditarPlazo',message:'Function called',data:{index,plazoMeses:plazo.plazo_meses},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
         setModalPlazoEditando(index)
         setModalPlazoDraft({
             plazo_meses: plazo.plazo_meses || '',
@@ -389,25 +323,73 @@ export default function NuevoPlan() {
             cuota_mensual: plazo.cuota_mensual || '',
             es_sugerido: plazo.es_sugerido || false
         })
-        // Calcular tasa para el plazo existente
-        if (plazo.tasa_anual_calculada && plazo.tasa_mensual_calculada) {
-            setResultadoCalculoModal({
-                valido: true,
-                tasa_anual_calculada: plazo.tasa_anual_calculada,
-                tasa_mensual_calculada: plazo.tasa_mensual_calculada
-            })
+        
+        if (plazo.tasa_anual_calculada && plazo.tasa_mensual_calculada && plazo.cuota_mensual && plazo.plazo_meses) {
+            try {
+                const tasaMensual = plazo.tasa_mensual_calculada
+                const plazoMeses = plazo.plazo_meses
+                const cuotaMensual = plazo.cuota_mensual
+                
+                const factor = Math.pow(1 + tasaMensual, plazoMeses)
+                const valorPresente = cuotaMensual * ((factor - 1) / (tasaMensual * factor))
+                const montoFinanciado = valorPresente
+                
+                let precioTotal = 0
+                let pagoInicialReal = 0
+                
+                if (plazo.tipo_pago_inicial === 'PORCENTAJE') {
+                    precioTotal = montoFinanciado / (1 - (plazo.pago_inicial_valor / 100))
+                    pagoInicialReal = precioTotal * (plazo.pago_inicial_valor / 100)
+                } else {
+                    pagoInicialReal = plazo.pago_inicial_valor
+                    precioTotal = pagoInicialReal + montoFinanciado
+                }
+                
+                const amortizacion = calcularAmortizacionFrancesa(
+                    montoFinanciado,
+                    tasaMensual,
+                    plazoMeses
+                )
+                
+                const porcentajeInicial = precioTotal > 0 
+                    ? (pagoInicialReal / precioTotal) * 100 
+                    : 0
+                
+                const tipoPlan = plazo.tipo_plan || PlanService.determinarTipoPlan(plazoMeses)
+                
+                setResultadoCalculoModal({
+                    valido: true,
+                    tipo_plan: tipoPlan,
+                    tasa_anual_calculada: plazo.tasa_anual_calculada,
+                    tasa_mensual_calculada: plazo.tasa_mensual_calculada,
+                    precio_total: precioTotal,
+                    monto_financiado: montoFinanciado,
+                    total_intereses: amortizacion.totalIntereses,
+                    porcentaje_inicial: porcentajeInicial,
+                    recargo_tipo: plazo.recargo_tipo || null,
+                    recargo_valor: plazo.recargo_valor || null,
+                    recargo: plazo.recargo_valor || null,
+                    mostrar_tasa: plazo.mostrar_tasa !== false,
+                    mostrar_tea: plazo.mostrar_tea !== false,
+                    mostrar_intereses: tipoPlan === 'FINANCIERO',
+                    mostrar_recargo: tipoPlan === 'COMERCIAL'
+                })
+            } catch (error) {
+                console.error('Error al calcular valores del plazo:', error)
+                setResultadoCalculoModal({
+                    valido: true,
+                    tipo_plan: plazo.tipo_plan || 'FINANCIERO',
+                    tasa_anual_calculada: plazo.tasa_anual_calculada,
+                    tasa_mensual_calculada: plazo.tasa_mensual_calculada
+                })
+            }
         }
         setModalPlazoAbierto(true)
     }
 
-    // Validar plazo en el modal
     const validarPlazoModal = () => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:validarPlazoModal',message:'Function called',data:{draft:modalPlazoDraft,editando:modalPlazoEditando},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-        // #endregion
         const errores = []
 
-        // Convertir valores a número para validación
         const plazoMeses = Number(modalPlazoDraft.plazo_meses)
         const pagoInicialValor = Number(modalPlazoDraft.pago_inicial_valor)
         const cuotaMensual = Number(modalPlazoDraft.cuota_mensual)
@@ -428,7 +410,6 @@ export default function NuevoPlan() {
             errores.push('La cuota mensual debe ser mayor a 0')
         }
 
-        // Validar duplicados (excepto si está editando)
         if (!isNaN(plazoMeses)) {
             const existeDuplicado = plazos.some((p, i) => 
                 i !== modalPlazoEditando && 
@@ -438,10 +419,6 @@ export default function NuevoPlan() {
                 errores.push(`Ya existe un plazo de ${plazoMeses} meses`)
             }
         }
-
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:validarPlazoModal',message:'Validation result',data:{valido:errores.length===0,erroresCount:errores.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-        // #endregion
         
         return { 
             valido: errores.length === 0,
@@ -449,11 +426,7 @@ export default function NuevoPlan() {
         }
     }
 
-    // Guardar plazo desde el modal
     const guardarPlazoModal = () => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:guardarPlazoModal',message:'Function called',data:{editando:modalPlazoEditando,resultadoCalculo:!!resultadoCalculoModal},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-        // #endregion
         const validacion = validarPlazoModal()
         if (!validacion.valido) {
             alert(validacion.errores.join('\n'))
@@ -465,10 +438,8 @@ export default function NuevoPlan() {
             return
         }
         
-        // Convertir valores a números antes de guardar
         const tipoPlan = resultadoCalculoModal.tipo_plan || PlanService.determinarTipoPlan(Number(modalPlazoDraft.plazo_meses))
         
-        // Validar según tipo de plan
         if (tipoPlan === 'FINANCIERO' && !resultadoCalculoModal.tasa_anual_calculada) {
             alert('Debe calcular la tasa antes de guardar un plan financiero.')
             return
@@ -481,7 +452,6 @@ export default function NuevoPlan() {
             cuota_mensual: Number(modalPlazoDraft.cuota_mensual),
             es_sugerido: modalPlazoDraft.es_sugerido,
             tipo_plan: tipoPlan,
-            // Campos para planes comerciales - Asegurar valores válidos
             recargo_tipo: tipoPlan === 'COMERCIAL' 
                 ? (resultadoCalculoModal.recargo_tipo || 'FIJO')
                 : null,
@@ -491,69 +461,45 @@ export default function NuevoPlan() {
                     : (resultadoCalculoModal.recargo_tipo === 'PORCENTAJE' ? 5 : 1000))
                 : null,
             precio_financiado: resultadoCalculoModal.precio_total || null,
-            // Campos para planes financieros (pueden ser null para comerciales)
             tasa_anual_calculada: resultadoCalculoModal.tasa_anual_calculada || null,
             tasa_mensual_calculada: resultadoCalculoModal.tasa_mensual_calculada || null,
-            // Configuración de visualización
             mostrar_tasa: resultadoCalculoModal.mostrar_tasa !== false,
             mostrar_tea: resultadoCalculoModal.mostrar_tea !== false
         }
 
         if (modalPlazoEditando !== null) {
-            // Editar plazo existente
             setPlazos(prev => {
                 const nuevo = [...prev]
                 nuevo[modalPlazoEditando] = nuevoPlazo
                 return nuevo
             })
         } else {
-            // Agregar nuevo plazo
             setPlazos(prev => [...prev, nuevoPlazo])
         }
-
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:guardarPlazoModal',message:'Plazo saved',data:{editando:modalPlazoEditando,plazosCount:plazos.length+1},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-        // #endregion
 
         cerrarModalPlazo()
     }
 
-    // Eliminar plazo
     const eliminarPlazo = (index) => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:eliminarPlazo',message:'Function called',data:{index},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-        // #endregion
         if (confirm('¿Está seguro de eliminar esta opción de plazo?')) {
             setPlazos(prev => prev.filter((_, i) => i !== index))
         }
     }
 
-    // Cerrar modal
     const cerrarModalPlazo = () => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:cerrarModalPlazo',message:'Function called',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-        // #endregion
         setModalPlazoAbierto(false)
         setModalPlazoEditando(null)
         setModalPlazoDraft({
-            plazo_meses: 12, // Valor por defecto
+            plazo_meses: 12,
             tipo_pago_inicial: 'PORCENTAJE',
-            pago_inicial_valor: 15.00, // Valor por defecto
-            cuota_mensual: '', // Vacío para nuevo plazo
+            pago_inicial_valor: 15.00,
+            cuota_mensual: '',
             es_sugerido: false
         })
         setResultadoCalculoModal(null)
     }
 
-    // ============================================
-    // FUNCIÓN PARA GUARDAR EL PLAN
-    // ============================================
-
     const guardarPlan = async () => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:guardarPlan',message:'Function called',data:{nombre:planForm.nombre,plazosCount:plazos.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-        // #endregion
-        // Validaciones básicas
         if (!planForm.nombre) {
             alert('El nombre del plan es obligatorio')
             return
@@ -564,7 +510,6 @@ export default function NuevoPlan() {
             return
         }
 
-        // Si no hay código, generarlo automáticamente
         if (!planForm.codigo && planForm.nombre) {
             const nombreNormalizado = planForm.nombre
                 .toUpperCase()
@@ -585,7 +530,6 @@ export default function NuevoPlan() {
 
         setProcesando(true)
         try {
-            // Convertir valores vacíos a números con valores por defecto
             const datosParaEnviar = {
                 ...planForm,
                 penalidad_mora_pct: planForm.penalidad_mora_pct === '' ? 5.00 : Number(planForm.penalidad_mora_pct) || 5.00,
@@ -599,12 +543,7 @@ export default function NuevoPlan() {
 
             const resultado = await crearPlanFinanciamiento(datosParaEnviar)
 
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:guardarPlan',message:'Server response',data:{success:resultado.success},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-            // #endregion
-
             if (resultado.success) {
-                // Si el backend ajustó el código, informar al usuario
                 if (resultado.codigo && resultado.codigo !== planForm.codigo) {
                     alert(`Plan creado exitosamente con ${resultado.plazos_creados?.length || plazos.length} opciones de plazo.\n\nEl código fue ajustado automáticamente a:\n${resultado.codigo}\n\n(El código original ya existía en el sistema)`)
                 } else {
@@ -616,18 +555,11 @@ export default function NuevoPlan() {
             }
         } catch (error) {
             console.error('Error:', error)
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:guardarPlan',message:'Error caught',data:{error:error.message},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-            // #endregion
             alert('Error al crear plan')
         } finally {
             setProcesando(false)
         }
     }
-
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:beforeReturn',message:'Functions check before return',data:{abrirModalNuevoPlazo:typeof abrirModalNuevoPlazo,abrirModalConPreset:typeof abrirModalConPreset,abrirModalEditarPlazo:typeof abrirModalEditarPlazo,cerrarModalPlazo:typeof cerrarModalPlazo,guardarPlazoModal:typeof guardarPlazoModal,eliminarPlazo:typeof eliminarPlazo},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
 
     return (
         <div className={`${estilos.contenedor} ${estilos[tema]}`}>
@@ -644,16 +576,13 @@ export default function NuevoPlan() {
             </div>
 
             <div className={estilos.contenedorPrincipal}>
-                {/* Columna Izquierda - Formulario */}
                 <div className={estilos.columnaFormulario}>
-                    {/* Sección 1: Información Básica */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <FileText className={estilos.seccionIcono} />
                             <h2 className={estilos.seccionTitulo}>Información Básica</h2>
                         </div>
                         <div className={estilos.formGrid}>
-                            {/* Campo de código oculto - se genera automáticamente */}
                                 <input
                                 type="hidden"
                                     name="codigo"
@@ -691,7 +620,6 @@ export default function NuevoPlan() {
                         </div>
                     </div>
 
-                    {/* Sección 2: Opciones de Plazo */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <Calculator className={estilos.seccionIcono} />
@@ -702,7 +630,6 @@ export default function NuevoPlan() {
                             </div>
                         </div>
                         
-                        {/* Banner informativo: Tipo de plan detectado automáticamente */}
                         <div className={estilos.bannerTipoPlan}>
                             <div className={estilos.bannerTipoPlanHeader}>
                                 <Info size={16} />
@@ -730,7 +657,6 @@ export default function NuevoPlan() {
                             </div>
                         </div>
                         
-                        {/* Lista de plazos agregados */}
                         {plazos.length === 0 ? (
                             <div className={estilos.sinPlazos}>
                                 <Calculator size={48} />
@@ -766,7 +692,7 @@ export default function NuevoPlan() {
                                                 <div className={estilos.plazoDetalleItem}>
                                                     <CreditCard size={14} />
                                                     <span>Cuota: {formatearMoneda(plazo.cuota_mensual)}</span>
-                                            </div>
+                            </div>
                                                 {plazo.tipo_plan === 'FINANCIERO' && plazo.mostrar_tasa && (
                                                     <div className={estilos.plazoDetalleItem}>
                                                         <TrendingUp size={14} />
@@ -790,16 +716,7 @@ export default function NuevoPlan() {
                                             <div className={estilos.plazoAcciones}>
                                                 <button
                                                     type="button"
-                                                    onClick={() => {
-                                                        // #region agent log
-                                                        fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:onClick:abrirModalEditarPlazo',message:'Button clicked',data:{functionExists:typeof abrirModalEditarPlazo === 'function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                                                        // #endregion
-                                                        if (typeof abrirModalEditarPlazo === 'function') {
-                                                            abrirModalEditarPlazo(plazo, index)
-                                                        } else {
-                                                            console.error('abrirModalEditarPlazo is not a function')
-                                                        }
-                                                    }}
+                                                    onClick={() => abrirModalEditarPlazo(plazo, index)}
                                                     className={estilos.btnEditar}
                                                 >
                                                     <Edit size={16} />
@@ -819,7 +736,6 @@ export default function NuevoPlan() {
                                     </div>
                                 )}
 
-                        {/* Presets rápidos */}
                         <div className={estilos.presetsRapidos}>
                             <span className={estilos.presetsLabel}>Plazos sugeridos:</span>
                             <div className={estilos.presetsButtons}>
@@ -830,16 +746,7 @@ export default function NuevoPlan() {
                                         <button
                                             key={meses}
                                             type="button"
-                                            onClick={() => {
-                                                // #region agent log
-                                                fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:onClick:abrirModalConPreset',message:'Button clicked',data:{meses,functionExists:typeof abrirModalConPreset === 'function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                                                // #endregion
-                                                if (typeof abrirModalConPreset === 'function') {
-                                                    abrirModalConPreset(meses)
-                                                } else {
-                                                    console.error('abrirModalConPreset is not a function')
-                                                }
-                                            }}
+                                            onClick={() => abrirModalConPreset(meses)}
                                             className={`${estilos.btnPreset} ${esComercial ? estilos.btnPresetComercial : estilos.btnPresetFinanciero}`}
                                             title={esComercial ? 'Plan Comercial (Cash)' : 'Plan Financiero'}
                                         >
@@ -856,21 +763,10 @@ export default function NuevoPlan() {
                             </small>
                         </div>
 
-                        {/* Botón principal con helper */}
                         <div className={estilos.agregarPlazoContainer}>
                             <button
                                 type="button"
-                                onClick={() => {
-                                    // #region agent log
-                                    fetch('http://127.0.0.1:7242/ingest/105a53c3-dc11-4849-aa2d-b5ff204596b0',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'nuevo.js:onClick:abrirModalNuevoPlazo',message:'Button clicked',data:{functionExists:typeof abrirModalNuevoPlazo === 'function'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                                    // #endregion
-                                    if (typeof abrirModalNuevoPlazo === 'function') {
-                                        abrirModalNuevoPlazo()
-                                    } else {
-                                        console.error('abrirModalNuevoPlazo is not a function:', typeof abrirModalNuevoPlazo)
-                                        alert('Error: La función no está disponible. Por favor, recarga la página.')
-                                    }
-                                }}
+                                onClick={abrirModalNuevoPlazo}
                                 className={estilos.btnAgregarPlazo}
                             >
                                 <Plus size={18} />
@@ -882,7 +778,6 @@ export default function NuevoPlan() {
                         </div>
                     </div>
 
-                    {/* Sección 4: Penalidades y Descuentos */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <AlertCircle className={estilos.seccionIcono} />
@@ -966,7 +861,6 @@ export default function NuevoPlan() {
                         </div>
                     </div>
 
-                    {/* Sección 5: Configuración Adicional */}
                     <div className={estilos.seccion}>
                         <div className={estilos.seccionHeader}>
                             <Shield className={estilos.seccionIcono} />
@@ -1075,7 +969,6 @@ export default function NuevoPlan() {
                         </div>
                     </div>
 
-                    {/* Botones de acción */}
                     <div className={estilos.footer}>
                         <button 
                             className={estilos.btnCancelar} 
@@ -1095,7 +988,6 @@ export default function NuevoPlan() {
                     </div>
                 </div>
 
-                {/* Columna Derecha - Vista Previa */}
                 <div className={estilos.columnaVista}>
                     <div className={estilos.vistaPrevia}>
                         <div className={estilos.vistaPreviaHeader}>
@@ -1156,7 +1048,6 @@ export default function NuevoPlan() {
                                         ))}
                                 </div>
 
-                                {/* Información Adicional */}
                                 <div className={estilos.infoAdicional}>
                                     <div className={estilos.infoItem}>
                                         <Clock size={16} />
@@ -1190,7 +1081,6 @@ export default function NuevoPlan() {
                 </div>
             </div>
 
-            {/* Modal de Plazo */}
             {modalPlazoAbierto && (
                 <div className={estilos.modalOverlay} onClick={cerrarModalPlazo}>
                     <div className={estilos.modalPlazo} onClick={(e) => e.stopPropagation()}>
@@ -1220,7 +1110,6 @@ export default function NuevoPlan() {
                         </div>
 
                         <div className={estilos.modalBody}>
-                            {/* Indicador de tipo de plan (dinámico según plazo) */}
                             {modalPlazoDraft.plazo_meses && (
                                 <div className={`${estilos.bannerTipoPlanModal} ${
                                     PlanService.determinarTipoPlan(Number(modalPlazoDraft.plazo_meses)) === 'COMERCIAL' 
@@ -1247,7 +1136,6 @@ export default function NuevoPlan() {
                                 </div>
                             )}
 
-                            {/* Sección 1: Configuración del Plazo */}
                             <div className={estilos.modalSeccion}>
                                 <h4 className={estilos.modalSeccionTitulo}>
                                     <CalendarDays size={16} />
@@ -1278,7 +1166,6 @@ export default function NuevoPlan() {
                                 </div>
                             </div>
 
-                            {/* Sección 2: Datos de Pago Inicial */}
                             <div className={estilos.modalSeccion}>
                                 <h4 className={estilos.modalSeccionTitulo}>
                                     <Wallet size={16} />
@@ -1332,7 +1219,6 @@ export default function NuevoPlan() {
                                 </div>
                             </div>
 
-                            {/* Sección 3: Cuota Mensual */}
                             <div className={estilos.modalSeccion}>
                                 <h4 className={estilos.modalSeccionTitulo}>
                                     <CreditCard size={16} />
@@ -1359,7 +1245,6 @@ export default function NuevoPlan() {
                                 </div>
                             </div>
 
-                            {/* Sección 4: Resultados Comerciales */}
                             {calculandoModal && (
                                 <div className={estilos.calculandoModal}>
                                     <Loader2 className={estilos.iconoCargando} size={20} />
@@ -1367,7 +1252,6 @@ export default function NuevoPlan() {
                                 </div>
                             )}
 
-                            {/* Resultados Calculados - Sección Mejorada con soporte para planes comerciales y financieros */}
                             {resultadoCalculoModal && resultadoCalculoModal.valido && (
                                 <div className={`${estilos.resultadosCalculadosModal} ${estilos.modalSeccion}`}>
                                     <div className={estilos.resultadosHeader}>
@@ -1379,7 +1263,6 @@ export default function NuevoPlan() {
                                         </h4>
                                     </div>
                                     
-                                    {/* Mensaje contextual - Compacto según tipo */}
                                     {resultadoCalculoModal.mensaje_tipo && resultadoCalculoModal.tipo_plan === 'COMERCIAL' && (
                                         <div className={`${estilos.mensajeRango} ${estilos.mensajeRangoExito}`}>
                                             <Info size={16} />
@@ -1387,7 +1270,6 @@ export default function NuevoPlan() {
                                         </div>
                                     )}
                                     
-                                    {/* Mensaje para planes financieros */}
                                     {resultadoCalculoModal.mensaje_rango && resultadoCalculoModal.tipo_plan === 'FINANCIERO' && (
                                         <div className={`${estilos.mensajeRango} ${resultadoCalculoModal.tasa_en_rango ? estilos.mensajeRangoExito : estilos.mensajeRangoAdvertencia}`}>
                                             <Info size={16} />
@@ -1399,9 +1281,7 @@ export default function NuevoPlan() {
                                         </div>
                                     )}
                                     
-                                    {/* Grid de métricas */}
                                     <div className={estilos.metricasGrid}>
-                                        {/* Monto Financiado - Siempre visible */}
                                         {resultadoCalculoModal.monto_financiado && (
                                             <div className={estilos.metricaCard}>
                                                 <div className={estilos.metricaIcono}>
@@ -1416,7 +1296,6 @@ export default function NuevoPlan() {
                                             </div>
                                         )}
                                         
-                                        {/* Precio Total - Siempre visible */}
                                         {resultadoCalculoModal.precio_total && (
                                             <div className={estilos.metricaCard}>
                                                 <div className={estilos.metricaIcono}>
@@ -1431,7 +1310,6 @@ export default function NuevoPlan() {
                                             </div>
                                         )}
                                         
-                                        {/* Recargo - Solo para planes comerciales */}
                                         {resultadoCalculoModal.mostrar_recargo && resultadoCalculoModal.recargo && (
                                             <div className={estilos.metricaCard}>
                                                 <div className={estilos.metricaIcono}>
@@ -1450,7 +1328,6 @@ export default function NuevoPlan() {
                                             </div>
                                         )}
                                         
-                                        {/* Tasa Anual - Solo para planes financieros con mostrar_tea */}
                                         {resultadoCalculoModal.mostrar_tea && resultadoCalculoModal.tasa_anual_calculada !== null && (
                                             <div className={estilos.metricaCard}>
                                                 <div className={estilos.metricaIcono}>
@@ -1465,7 +1342,6 @@ export default function NuevoPlan() {
                                             </div>
                                         )}
                                         
-                                        {/* Tasa Mensual - Solo para planes financieros */}
                                         {resultadoCalculoModal.mostrar_tasa && resultadoCalculoModal.tasa_mensual_calculada !== null && (
                                             <div className={estilos.metricaCard}>
                                                 <div className={estilos.metricaIcono}>
@@ -1480,7 +1356,6 @@ export default function NuevoPlan() {
                                             </div>
                                         )}
                                         
-                                        {/* % Inicial - Siempre visible */}
                                         {resultadoCalculoModal.porcentaje_inicial !== null && (
                                             <div className={estilos.metricaCard}>
                                                 <div className={estilos.metricaIcono}>
@@ -1495,7 +1370,6 @@ export default function NuevoPlan() {
                                             </div>
                                         )}
                                         
-                                        {/* Total Intereses - Solo para planes financieros */}
                                         {resultadoCalculoModal.mostrar_intereses && resultadoCalculoModal.total_intereses !== null && (
                                             <div className={estilos.metricaCard}>
                                                 <div className={estilos.metricaIcono}>
@@ -1520,7 +1394,6 @@ export default function NuevoPlan() {
                                 </div>
                             )}
 
-                            {/* Sección 5: Configuración Adicional */}
                             <div className={estilos.modalSeccion}>
                                 <h4 className={estilos.modalSeccionTitulo}>
                                     <Sparkles size={16} />
@@ -1545,7 +1418,6 @@ export default function NuevoPlan() {
                                 </div>
                             </div>
 
-                            {/* Validaciones */}
                             {validarPlazoModal().errores.length > 0 && (
                                 <div className={estilos.erroresModal}>
                                     {validarPlazoModal().errores.map((error, i) => (
