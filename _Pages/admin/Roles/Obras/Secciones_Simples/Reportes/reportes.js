@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { obtenerReporteObra, obtenerReporteAsistencias, obtenerReporteGastos, obtenerObrasActivas } from './servidor'
+import { obtenerReporteObra, obtenerReporteAsistencias, obtenerReporteGastos, obtenerObrasActivas, obtenerMonedaEmpresa } from './servidor'
 import * as XLSX from 'xlsx'
 import estilos from './reportes.module.css'
 
@@ -19,6 +19,7 @@ export default function Reportes() {
     const [fechaFin, setFechaFin] = useState('')
     const [datos, setDatos] = useState(null)
     const [cargando, setCargando] = useState(false)
+    const [moneda, setMoneda] = useState('DOP RD$')
 
     useEffect(() => {
         const temaLocal = localStorage.getItem('tema') || 'light'
@@ -39,8 +40,16 @@ export default function Reportes() {
     }, [])
 
     useEffect(() => {
+        cargarMoneda()
         cargarObras()
     }, [])
+
+    async function cargarMoneda() {
+        const res = await obtenerMonedaEmpresa()
+        if (res.success) {
+            setMoneda(`${res.codigo_moneda} ${res.simbolo_moneda}`)
+        }
+    }
 
     async function cargarObras() {
         const res = await obtenerObrasActivas()
@@ -290,14 +299,14 @@ export default function Reportes() {
                                 <ion-icon name="wallet-outline"></ion-icon>
                                 <div>
                                     <span className={estilos.statLabel}>Presupuesto</span>
-                                    <span className={estilos.statValor}>RD$ {parseFloat(datos.obra.presupuesto_total || 0).toLocaleString()}</span>
+                                    <span className={estilos.statValor}>{moneda} {parseFloat(datos.obra.presupuesto_total || 0).toLocaleString()}</span>
                                 </div>
                             </div>
                             <div className={estilos.stat}>
                                 <ion-icon name="cash-outline"></ion-icon>
                                 <div>
                                     <span className={estilos.statLabel}>Total Gastado</span>
-                                    <span className={estilos.statValor}>RD$ {parseFloat(datos.totales.total_gastos || 0).toLocaleString()}</span>
+                                    <span className={estilos.statValor}>{moneda} {parseFloat(datos.totales.total_gastos || 0).toLocaleString()}</span>
                                 </div>
                             </div>
                             <div className={estilos.stat}>
@@ -344,7 +353,7 @@ export default function Reportes() {
                                             <td>{t.especialidad || '-'}</td>
                                             <td>{t.dias_trabajados}</td>
                                             <td>{parseFloat(t.horas_trabajadas).toFixed(1)}</td>
-                                            <td>RD$ {parseFloat(t.monto_total).toLocaleString()}</td>
+                                            <td>{moneda} {parseFloat(t.monto_total).toLocaleString()}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -366,7 +375,7 @@ export default function Reportes() {
                                     {datos.gastos_tipo.map((g, i) => (
                                         <tr key={i}>
                                             <td>{g.tipo_gasto}</td>
-                                            <td>RD$ {parseFloat(g.total).toLocaleString()}</td>
+                                            <td>{moneda} {parseFloat(g.total).toLocaleString()}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -405,7 +414,7 @@ export default function Reportes() {
                                                 </span>
                                             </td>
                                             <td>{parseFloat(a.horas_trabajadas).toFixed(1)}</td>
-                                            <td>RD$ {parseFloat(a.monto_pagar).toLocaleString()}</td>
+                                            <td>{moneda} {parseFloat(a.monto_pagar).toLocaleString()}</td>
                                             <td>{a.observaciones || '-'}</td>
                                         </tr>
                                     ))}
@@ -419,7 +428,7 @@ export default function Reportes() {
             {datos && tipoReporte === 'gastos' && datos.gastos && (
                 <div className={estilos.resultados}>
                     <div className={estilos.resumenCard}>
-                        <h3>Total de Gastos: RD$ {parseFloat(datos.total || 0).toLocaleString()}</h3>
+                        <h3>Total de Gastos: {moneda} {parseFloat(datos.total || 0).toLocaleString()}</h3>
                     </div>
 
                     {datos.por_tipo && datos.por_tipo.length > 0 && (
@@ -436,7 +445,7 @@ export default function Reportes() {
                                     {datos.por_tipo.map((t, i) => (
                                         <tr key={i}>
                                             <td>{t.tipo_gasto}</td>
-                                            <td>RD$ {parseFloat(t.total).toLocaleString()}</td>
+                                            <td>{moneda} {parseFloat(t.total).toLocaleString()}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -466,7 +475,7 @@ export default function Reportes() {
                                             <td>{new Date(g.fecha).toLocaleDateString()}</td>
                                             <td>{g.tipo_gasto}</td>
                                             <td>{g.concepto}</td>
-                                            <td>RD$ {parseFloat(g.monto).toLocaleString()}</td>
+                                            <td>{moneda} {parseFloat(g.monto).toLocaleString()}</td>
                                             <td>{g.proveedor || '-'}</td>
                                             <td>{g.numero_factura || '-'}</td>
                                         </tr>

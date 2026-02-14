@@ -3,6 +3,43 @@
 import db from "@/_DB/db"
 import { cookies } from 'next/headers'
 
+export async function obtenerMonedaEmpresa() {
+    let connection
+    try {
+        const cookieStore = await cookies()
+        const empresaId = cookieStore.get('empresaId')?.value
+
+        if (!empresaId) {
+            return { success: false, mensaje: 'Sesión inválida' }
+        }
+
+        connection = await db.getConnection()
+
+        const [empresa] = await connection.query(
+            'SELECT simbolo_moneda, moneda FROM empresas WHERE id = ?',
+            [empresaId]
+        )
+
+        connection.release()
+
+        const simboloMoneda = empresa[0]?.simbolo_moneda || 'RD$'
+        const codigoMoneda = empresa[0]?.moneda || 'DOP'
+
+        return {
+            success: true,
+            simbolo_moneda: simboloMoneda,
+            codigo_moneda: codigoMoneda
+        }
+    } catch (error) {
+        console.error('Error al obtener moneda:', error)
+        if (connection) connection.release()
+        return {
+            success: false,
+            mensaje: 'Error al obtener moneda'
+        }
+    }
+}
+
 export async function obtenerTrabajadoresSimples(filtros = {}) {
     let connection
     try {

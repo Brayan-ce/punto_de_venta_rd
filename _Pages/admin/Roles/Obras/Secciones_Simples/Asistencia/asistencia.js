@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { obtenerObrasActivas, obtenerTrabajadoresObra, guardarAsistencia, obtenerAsistenciasDia } from './servidor'
+import { obtenerObrasActivas, obtenerTrabajadoresObra, guardarAsistencia, obtenerAsistenciasDia, obtenerMonedaEmpresa } from './servidor'
 import estilos from './asistencia.module.css'
 
 export default function Asistencia() {
@@ -12,6 +12,7 @@ export default function Asistencia() {
     const [fecha, setFecha] = useState(new Date().toISOString().split('T')[0])
     const [cargando, setCargando] = useState(false)
     const [guardando, setGuardando] = useState(false)
+    const [moneda, setMoneda] = useState('DOP RD$')
 
     useEffect(() => {
         const temaLocal = localStorage.getItem('tema') || 'light'
@@ -32,6 +33,7 @@ export default function Asistencia() {
     }, [])
 
     useEffect(() => {
+        cargarMoneda()
         cargarObras()
     }, [])
 
@@ -40,6 +42,13 @@ export default function Asistencia() {
             cargarDatos()
         }
     }, [obraSeleccionada, fecha])
+
+    async function cargarMoneda() {
+        const res = await obtenerMonedaEmpresa()
+        if (res.success) {
+            setMoneda(`${res.codigo_moneda} ${res.simbolo_moneda}`)
+        }
+    }
 
     async function cargarObras() {
         const res = await obtenerObrasActivas()

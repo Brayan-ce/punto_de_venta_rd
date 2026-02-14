@@ -15,6 +15,14 @@ export async function obtenerDashboardSimple(filtros = {}) {
         const { obra_id } = filtros
         connection = await db.getConnection()
 
+        const [empresa] = await connection.query(
+            'SELECT simbolo_moneda, moneda FROM empresas WHERE id = ?',
+            [empresaId]
+        )
+
+        const simboloMoneda = empresa[0]?.simbolo_moneda || 'RD$'
+        const codigoMoneda = empresa[0]?.moneda || 'DOP'
+
         const queryObras = `
             SELECT 
                 os.*,
@@ -94,6 +102,8 @@ export async function obtenerDashboardSimple(filtros = {}) {
             success: true,
             datos: {
                 obras_activas: obrasActivas,
+                simbolo_moneda: simboloMoneda,
+                codigo_moneda: codigoMoneda,
                 resumen: {
                     total_obras_activas: parseInt(resumen.total_obras_activas) || 0,
                     total_trabajadores: parseInt(resumen.total_trabajadores) || 0,

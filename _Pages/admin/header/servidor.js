@@ -11,7 +11,6 @@ export async function obtenerDatosAdmin() {
         const empresaId = cookieStore.get('empresaId')?.value
         const userTipo = cookieStore.get('userTipo')?.value
 
-        // Validación: Superadmins no tienen empresaId, solo admin y vendedor lo requieren
         if (!userId || !userTipo) {
             return {
                 success: false,
@@ -19,7 +18,6 @@ export async function obtenerDatosAdmin() {
             }
         }
 
-        // Si es superadmin, redirigir al área correcta
         if (userTipo === 'superadmin') {
             return {
                 success: false,
@@ -28,7 +26,6 @@ export async function obtenerDatosAdmin() {
             }
         }
 
-        // Admin y vendedor requieren empresaId
         if (userTipo !== 'admin' && userTipo !== 'vendedor') {
             return {
                 success: false,
@@ -50,7 +47,8 @@ export async function obtenerDatosAdmin() {
                     nombre,
                     email,
                     avatar_url,
-                    tipo
+                    tipo,
+                    system_mode
              FROM usuarios
              WHERE id = ?
                AND empresa_id = ?
@@ -92,7 +90,8 @@ export async function obtenerDatosAdmin() {
             success: true,
             usuario: usuarios[0],
             empresa: empresas.length > 0 ? empresas[0] : null,
-            logoPlataforma: logoPlataformaSistema
+            logoPlataforma: logoPlataformaSistema,
+            systemMode: usuarios[0].system_mode || 'POS'
         }
 
     } catch (error) {

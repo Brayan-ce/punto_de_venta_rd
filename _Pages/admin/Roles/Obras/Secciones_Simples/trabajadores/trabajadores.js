@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { obtenerTrabajadoresSimples, eliminarTrabajadorSimple } from './servidor'
+import { obtenerTrabajadoresSimples, eliminarTrabajadorSimple, obtenerMonedaEmpresa } from './servidor'
 import Nuevo from './nuevo/Nuevo'
 import Editar from './editar/Editar'
 import Ver from './ver/Ver'
@@ -12,6 +12,7 @@ export default function Trabajadores() {
     const [trabajadorSeleccionado, setTrabajadorSeleccionado] = useState(null)
     const [trabajadores, setTrabajadores] = useState([])
     const [cargando, setCargando] = useState(true)
+    const [moneda, setMoneda] = useState('DOP RD$')
     const [filtros, setFiltros] = useState({
         busqueda: '',
         especialidad: '',
@@ -37,10 +38,21 @@ export default function Trabajadores() {
     }, [])
 
     useEffect(() => {
+        cargarMoneda()
+    }, [])
+
+    useEffect(() => {
         if (vista === 'lista') {
             cargarTrabajadores()
         }
     }, [vista, filtros])
+
+    async function cargarMoneda() {
+        const res = await obtenerMonedaEmpresa()
+        if (res.success) {
+            setMoneda(`${res.codigo_moneda} ${res.simbolo_moneda}`)
+        }
+    }
 
     async function cargarTrabajadores() {
         setCargando(true)
@@ -71,15 +83,15 @@ export default function Trabajadores() {
     }
 
     if (vista === 'nuevo') {
-        return <Nuevo onVolver={volverALista} />
+        return <Nuevo onVolver={volverALista} moneda={moneda} />
     }
 
     if (vista === 'editar' && trabajadorSeleccionado) {
-        return <Editar trabajadorId={trabajadorSeleccionado} onVolver={volverALista} />
+        return <Editar trabajadorId={trabajadorSeleccionado} onVolver={volverALista} moneda={moneda} />
     }
 
     if (vista === 'ver' && trabajadorSeleccionado) {
-        return <Ver trabajadorId={trabajadorSeleccionado} onVolver={volverALista} />
+        return <Ver trabajadorId={trabajadorSeleccionado} onVolver={volverALista} moneda={moneda} />
     }
 
     return (
@@ -228,7 +240,7 @@ export default function Trabajadores() {
                                         <div className={estilos.stat}>
                                             <ion-icon name="wallet-outline"></ion-icon>
                                             <div>
-                                                <span className={estilos.statValor}>RD$ {(trabajador.salario_diario || 0).toLocaleString()}</span>
+                                                <span className={estilos.statValor}>{moneda} {(trabajador.salario_diario || 0).toLocaleString()}</span>
                                                 <span className={estilos.statLabel}>Salario Diario</span>
                                             </div>
                                         </div>

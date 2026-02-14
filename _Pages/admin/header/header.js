@@ -25,8 +25,32 @@ export default function HeaderAdmin() {
     const [seccionesAbiertas, setSeccionesAbiertas] = useState({})
     const [sidebarColapsado, setSidebarColapsado] = useState(false)
     const [hoverSubmenu, setHoverSubmenu] = useState(null)
+    const [userSystemMode, setUserSystemMode] = useState('POS')
 
-    const {tieneModulo} = useModulos()
+    const {tieneModulo, systemMode} = useModulos()
+
+    const obtenerDashboardPrincipal = useMemo(() => {
+        if (userSystemMode === 'OBRAS' && tieneModulo('constructora')) {
+            return '/admin/manejo-simple'
+        }
+
+        const esRutaConstructora = pathname.startsWith('/admin/manejo-simple') || 
+                                   pathname.startsWith('/admin/constructora') ||
+                                   pathname.startsWith('/admin/obras') ||
+                                   pathname.startsWith('/admin/proyectos') ||
+                                   pathname.startsWith('/admin/bitacora') ||
+                                   pathname.startsWith('/admin/presupuesto') ||
+                                   pathname.startsWith('/admin/servicios') ||
+                                   pathname.startsWith('/admin/personal') ||
+                                   pathname.startsWith('/admin/compras-obra') ||
+                                   pathname.startsWith('/admin/conduces-obra')
+
+        if (esRutaConstructora && tieneModulo('constructora')) {
+            return '/admin/manejo-simple'
+        }
+
+        return '/admin/dashboard'
+    }, [pathname, tieneModulo, userSystemMode])
 
     useEffect(() => {
         const estadoGuardado = localStorage.getItem('sidebarSeccionesAbiertas')
@@ -74,16 +98,16 @@ export default function HeaderAdmin() {
     }
 
     const navegacionPrincipal = useMemo(() => {
-        return obtenerItemsTop(tieneModulo, 5)
-    }, [tieneModulo])
+        return obtenerItemsTop(tieneModulo, systemMode, 5)
+    }, [tieneModulo, systemMode])
 
     const categoriasNavegacion = useMemo(() => {
-        return obtenerCategoriasNavegacion(tieneModulo)
-    }, [tieneModulo])
+        return obtenerCategoriasNavegacion(tieneModulo, systemMode)
+    }, [tieneModulo, systemMode])
 
     const accionesDiarias = useMemo(() => {
-        return obtenerAccionesDiarias(tieneModulo)
-    }, [tieneModulo])
+        return obtenerAccionesDiarias(tieneModulo, systemMode)
+    }, [tieneModulo, systemMode])
 
     const toggleSeccion = (modulo) => {
         setSeccionesAbiertas(prev => ({
@@ -122,6 +146,7 @@ export default function HeaderAdmin() {
                     setDatosUsuario(resultado.usuario)
                     setDatosEmpresa(resultado.empresa)
                     setLogoPlataforma(resultado.logoPlataforma)
+                    setUserSystemMode(resultado.systemMode || 'POS')
                 } else {
                     router.push('/login')
                 }
@@ -204,7 +229,7 @@ export default function HeaderAdmin() {
                         <ion-icon name="menu-outline"></ion-icon>
                     </button>
 
-                    <Link href="/admin" className={estilos.logo}>
+                    <Link href={obtenerDashboardPrincipal} className={estilos.logo}>
                         {logoPlataforma ? (
                             <img
                                 src={logoPlataforma}
@@ -311,7 +336,7 @@ export default function HeaderAdmin() {
 
             <aside className={`${estilos.sidebarDesktop} ${estilos[tema]} ${sidebarColapsado ? estilos.sidebarColapsado : ''} ${cargando ? estilos.sidebarCargando : ''}`}>
                     <div className={estilos.sidebarHeader}>
-                        <Link href="/admin/dashboard" className={estilos.sidebarLogo}>
+                        <Link href={obtenerDashboardPrincipal} className={estilos.sidebarLogo}>
                             {logoPlataforma ? (
                                 <img 
                                     src={logoPlataforma} 
@@ -399,7 +424,7 @@ export default function HeaderAdmin() {
                                                 if (tieneSubmenu) {
                                                     setHoverSubmenu(hoverSubmenu === keySeccion ? null : keySeccion);
                                                 } else {
-                                                    window.location.href = categoria.items[0]?.href || '/admin/dashboard';
+                                                    window.location.href = categoria.items[0]?.href || obtenerDashboardPrincipal;
                                                 }
                                             }}
                                         >

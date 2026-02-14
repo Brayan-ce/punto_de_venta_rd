@@ -17,6 +17,7 @@ export default function Nuevo({ onVolver }) {
     const [trabajadores, setTrabajadores] = useState([])
     const [trabajadoresSeleccionados, setTrabajadoresSeleccionados] = useState([])
     const [mostrarFormTrabajador, setMostrarFormTrabajador] = useState(false)
+    const [moneda, setMoneda] = useState({ simbolo: 'RD$', codigo: 'DOP' })
     const [formData, setFormData] = useState({
         codigo_obra: '',
         nombre: '',
@@ -67,6 +68,9 @@ export default function Nuevo({ onVolver }) {
         const res = await obtenerTrabajadoresDisponibles()
         if (res.success) {
             setTrabajadores(res.trabajadores)
+            if (res.moneda) {
+                setMoneda(res.moneda)
+            }
         }
     }
 
@@ -203,6 +207,8 @@ export default function Nuevo({ onVolver }) {
             alert(res.mensaje || 'Error al crear trabajador')
         }
     }
+
+    const monedaTexto = `${moneda.codigo} ${moneda.simbolo}`
 
     return (
         <div className={`${estilos.contenedor} ${estilos[tema]}`}>
@@ -367,7 +373,7 @@ export default function Nuevo({ onVolver }) {
                     <div className={estilos.campo}>
                         <label>Presupuesto Total</label>
                         <div className={estilos.inputGroup}>
-                            <span className={estilos.inputPrefix}>RD$</span>
+                            <span className={estilos.inputPrefix}>{monedaTexto}</span>
                             <input
                                 type="number"
                                 name="presupuesto_total"
@@ -549,7 +555,7 @@ export default function Nuevo({ onVolver }) {
                                 <div className={estilos.campo}>
                                     <label>Salario Diario</label>
                                     <div className={estilos.inputGroup}>
-                                        <span className={estilos.inputPrefix}>RD$</span>
+                                        <span className={estilos.inputPrefix}>{monedaTexto}</span>
                                         <input
                                             type="number"
                                             value={formTrabajador.salario_diario}

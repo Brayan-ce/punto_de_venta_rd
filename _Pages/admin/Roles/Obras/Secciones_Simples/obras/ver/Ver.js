@@ -14,6 +14,7 @@ export default function Ver({ obraId, onVolver }) {
     const [tema, setTema] = useState('light')
     const [cargando, setCargando] = useState(true)
     const [obra, setObra] = useState(null)
+    const [moneda, setMoneda] = useState('DOP RD$')
 
     useEffect(() => {
         const temaLocal = localStorage.getItem('tema') || 'light'
@@ -42,6 +43,9 @@ export default function Ver({ obraId, onVolver }) {
         const res = await obtenerObraSimple(obraId)
         if (res.success) {
             setObra(res.obra)
+            if (res.moneda) {
+                setMoneda(`${res.moneda.codigo} ${res.moneda.simbolo}`)
+            }
         } else {
             alert('Error al cargar la obra')
             onVolver()
@@ -181,7 +185,7 @@ export default function Ver({ obraId, onVolver }) {
                             <div className={estilos.statCard}>
                                 <ion-icon name="wallet-outline"></ion-icon>
                                 <div>
-                                    <span className={estilos.statValor}>RD$ {presupuestoEjecutado.toLocaleString()}</span>
+                                    <span className={estilos.statValor}>{moneda} {presupuestoEjecutado.toLocaleString()}</span>
                                     <span className={estilos.statLabel}>Gastado</span>
                                 </div>
                             </div>
@@ -252,17 +256,17 @@ export default function Ver({ obraId, onVolver }) {
                         <>
                             <div className={estilos.infoItem}>
                                 <span className={estilos.label}>Presupuesto Total</span>
-                                <span className={estilos.valor}>RD$ {obra.presupuesto_total.toLocaleString()}</span>
+                                <span className={estilos.valor}>{moneda} {obra.presupuesto_total.toLocaleString()}</span>
                             </div>
 
                             <div className={estilos.infoItem}>
                                 <span className={estilos.label}>Gastado</span>
-                                <span className={estilos.valor}>RD$ {presupuestoEjecutado.toLocaleString()}</span>
+                                <span className={estilos.valor}>{moneda} {presupuestoEjecutado.toLocaleString()}</span>
                             </div>
 
                             <div className={estilos.infoItem}>
                                 <span className={estilos.label}>Saldo Disponible</span>
-                                <span className={estilos.valor}>RD$ {(obra.presupuesto_total - presupuestoEjecutado).toLocaleString()}</span>
+                                <span className={estilos.valor}>{moneda} {(obra.presupuesto_total - presupuestoEjecutado).toLocaleString()}</span>
                             </div>
                         </>
                     )}

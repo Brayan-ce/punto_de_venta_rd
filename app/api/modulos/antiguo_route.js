@@ -1,27 +1,41 @@
+/**
+ * ============================================
+ * API ENDPOINTS PARA MÓDULOS
+ * ============================================
+ * 
+ * GET /api/modulos - Obtener módulos habilitados para la empresa del usuario
+ * GET /api/modulos/todos - Obtener todos los módulos (solo superadmin)
+ * POST /api/modulos/toggle - Habilitar/deshabilitar módulo (solo superadmin)
+ */
+
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import db from '@/_DB/db'
 import {
     obtenerModulosEmpresa,
     obtenerTodosModulos,
-    toggleModuloEmpresa
+    toggleModuloEmpresa,
+    verificarModuloHabilitado
 } from '@/lib/modulos/servidor'
 
+/**
+ * GET /api/modulos
+ * Obtener módulos habilitados para la empresa del usuario autenticado
+ */
 export async function GET(request) {
-    let connection
     try {
         const cookieStore = await cookies()
         const empresaId = cookieStore.get('empresaId')?.value
-        const userId = cookieStore.get('userId')?.value
         const userTipo = cookieStore.get('userTipo')?.value
 
-        if (!empresaId || !userId) {
+        // Verificar autenticación
+        if (!empresaId) {
             return NextResponse.json({
                 success: false,
                 mensaje: 'No autenticado'
             }, { status: 401 })
         }
 
+        // Si es superadmin, puede obtener todos los módulos
         const { searchParams } = new URL(request.url)
         const todos = searchParams.get('todos') === 'true'
 
@@ -33,48 +47,16 @@ export async function GET(request) {
             })
         }
 
-        connection = await db.getConnection()
-
-        const [usuario] = await connection.execute(
-            'SELECT email, system_mode FROM usuarios WHERE id = ? AND empresa_id = ?',
-            [userId, empresaId]
-        )
-
-        connection.release()
-
-        if (usuario.length === 0) {
-            return NextResponse.json({
-                success: false,
-                mensaje: 'Usuario no encontrado'
-            }, { status: 404 })
-        }
-
-        const userEmail = usuario[0].email
-        const systemMode = usuario[0].system_mode
-
-        let modulos = await obtenerModulosEmpresa(parseInt(empresaId))
-
-        if (systemMode === 'OBRAS') {
-            modulos = modulos.filter(m => {
-                if (m.codigo === 'core') return true
-                if (m.codigo === 'constructora') return true
-                return false
-            })
-        }
+        // Obtener módulos de la empresa del usuario
+        const modulos = await obtenerModulosEmpresa(parseInt(empresaId))
 
         return NextResponse.json({
             success: true,
-            modulos,
-            systemMode
+            modulos
         })
 
     } catch (error) {
         console.error('Error en GET /api/modulos:', error)
-
-        if (connection) {
-            connection.release()
-        }
-
         return NextResponse.json({
             success: false,
             mensaje: 'Error al obtener módulos'
@@ -82,11 +64,16 @@ export async function GET(request) {
     }
 }
 
+/**
+ * POST /api/modulos/toggle
+ * Habilitar/deshabilitar módulo para una empresa (solo superadmin)
+ */
 export async function POST(request) {
     try {
         const cookieStore = await cookies()
         const userTipo = cookieStore.get('userTipo')?.value
 
+        // Solo superadmin puede habilitar/deshabilitar módulos
         if (userTipo !== 'superadmin') {
             return NextResponse.json({
                 success: false,
@@ -124,3 +111,4 @@ export async function POST(request) {
         }, { status: 500 })
     }
 }
+

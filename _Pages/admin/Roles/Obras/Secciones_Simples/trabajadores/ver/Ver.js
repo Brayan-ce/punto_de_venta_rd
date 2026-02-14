@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { obtenerTrabajadorSimple } from '../servidor'
 import estilos from './ver.module.css'
 
-export default function Ver({ trabajadorId, onVolver }) {
+export default function Ver({ trabajadorId, onVolver, moneda }) {
     const [tema, setTema] = useState('light')
     const [cargando, setCargando] = useState(true)
     const [trabajador, setTrabajador] = useState(null)
@@ -113,7 +113,7 @@ export default function Ver({ trabajadorId, onVolver }) {
                     <div className={estilos.stat}>
                         <ion-icon name="wallet-outline"></ion-icon>
                         <div>
-                            <span className={estilos.statValor}>RD$ {(trabajador.salario_diario || 0).toLocaleString()}</span>
+                            <span className={estilos.statValor}>{moneda} {(trabajador.salario_diario || 0).toLocaleString()}</span>
                             <span className={estilos.statLabel}>Salario {trabajador.tipo_pago || 'Diario'}</span>
                         </div>
                     </div>
@@ -134,7 +134,7 @@ export default function Ver({ trabajadorId, onVolver }) {
                     <div className={estilos.stat}>
                         <ion-icon name="cash-outline"></ion-icon>
                         <div>
-                            <span className={estilos.statValor}>RD$ {(trabajador.total_pagado || 0).toLocaleString()}</span>
+                            <span className={estilos.statValor}>{moneda} {(trabajador.total_pagado || 0).toLocaleString()}</span>
                             <span className={estilos.statLabel}>Total Pagado</span>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { obtenerTrabajadorSimple, actualizarTrabajadorSimple } from '../servidor'
 import estilos from './editar.module.css'
 
-export default function Editar({ trabajadorId, onVolver }) {
+export default function Editar({ trabajadorId, onVolver, moneda }) {
     const [tema, setTema] = useState('light')
     const [cargando, setCargando] = useState(true)
     const [guardando, setGuardando] = useState(false)
@@ -263,7 +263,7 @@ export default function Editar({ trabajadorId, onVolver }) {
                         <div className={estilos.campo}>
                             <label>Salario Diario</label>
                             <div className={estilos.inputGroup}>
-                                <span className={estilos.inputPrefix}>RD$</span>
+                                <span className={estilos.inputPrefix}>{moneda}</span>
                                 <input
                                     type="number"
                                     name="salario_diario"

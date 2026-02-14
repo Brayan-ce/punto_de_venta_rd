@@ -61,6 +61,8 @@ export default function ManejoSimple() {
         )
     }
 
+    const moneda = `${datos.codigo_moneda} ${datos.simbolo_moneda}` || 'DOP RD$'
+
     return (
         <div className={`${estilos.contenedor} ${estilos[tema]}`}>
             <div className={estilos.header}>
@@ -148,7 +150,7 @@ export default function ManejoSimple() {
                     </div>
                     <div className={estilos.statInfo}>
                         <span className={estilos.statLabel}>Gastos del Mes</span>
-                        <span className={estilos.statValor}>RD$ {datos.resumen.gastos_mes.toLocaleString()}</span>
+                        <span className={estilos.statValor}>{moneda} {datos.resumen.gastos_mes.toLocaleString()}</span>
                     </div>
                 </div>
             </div>
@@ -198,7 +200,7 @@ export default function ManejoSimple() {
                                             </div>
                                             <div className={estilos.obraStat}>
                                                 <ion-icon name="cash-outline"></ion-icon>
-                                                <span>RD$ {(obra.presupuesto_total || 0).toLocaleString()}</span>
+                                                <span>{moneda} {(obra.presupuesto_total || 0).toLocaleString()}</span>
                                             </div>
                                         </div>
                                         {obra.fecha_fin_estimada && (
@@ -278,11 +280,11 @@ export default function ManejoSimple() {
                             </div>
                             <div className={estilos.resumenItem}>
                                 <span className={estilos.resumenLabel}>Gastos semana</span>
-                                <span className={estilos.resumenValor}>RD$ {datos.resumen.gastos_semana.toLocaleString()}</span>
+                                <span className={estilos.resumenValor}>{moneda} {datos.resumen.gastos_semana.toLocaleString()}</span>
                             </div>
                             <div className={estilos.resumenItem}>
                                 <span className={estilos.resumenLabel}>Pagos pendientes</span>
-                                <span className={estilos.resumenValor}>RD$ {datos.resumen.pagos_pendientes.toLocaleString()}</span>
+                                <span className={estilos.resumenValor}>{moneda} {datos.resumen.pagos_pendientes.toLocaleString()}</span>
                             </div>
                         </div>
                     </div>
@@ -325,7 +327,7 @@ export default function ManejoSimple() {
                                                 {gasto.tipo_gasto}
                                             </span>
                                         </td>
-                                        <td className={estilos.monto}>RD$ {gasto.monto.toLocaleString()}</td>
+                                        <td className={estilos.monto}>{moneda} {gasto.monto.toLocaleString()}</td>
                                     </tr>
                                 ))}
                             </tbody>

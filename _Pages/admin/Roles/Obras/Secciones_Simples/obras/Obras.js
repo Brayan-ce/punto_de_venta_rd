@@ -18,6 +18,7 @@ export default function Obras() {
     const [vista, setVista] = useState('lista')
     const [obraSeleccionada, setObraSeleccionada] = useState(null)
     const [obras, setObras] = useState([])
+    const [moneda, setMoneda] = useState('DOP RD$')
     const [cargando, setCargando] = useState(true)
     const [filtros, setFiltros] = useState({
         busqueda: '',
@@ -53,6 +54,9 @@ export default function Obras() {
         const res = await obtenerObrasSimples(filtros)
         if (res.success) {
             setObras(res.obras)
+            if (res.moneda) {
+                setMoneda(`${res.moneda.codigo} ${res.moneda.simbolo}`)
+            }
         }
         setCargando(false)
     }
@@ -247,7 +251,7 @@ export default function Obras() {
                                         <div className={estilos.stat}>
                                             <ion-icon name="wallet-outline"></ion-icon>
                                             <div>
-                                                <span className={estilos.statValor}>RD$ {presupuestoEjecutado.toLocaleString()}</span>
+                                                <span className={estilos.statValor}>{moneda} {presupuestoEjecutado.toLocaleString()}</span>
                                                 <span className={estilos.statLabel}>Gastado</span>
                                             </div>
                                         </div>
@@ -268,8 +272,8 @@ export default function Obras() {
                                                 ></div>
                                             </div>
                                             <div className={estilos.presupuestoFooter}>
-                                                <span>RD$ {presupuestoEjecutado.toLocaleString()}</span>
-                                                <span>RD$ {obra.presupuesto_total.toLocaleString()}</span>
+                                                <span>{moneda} {presupuestoEjecutado.toLocaleString()}</span>
+                                                <span>{moneda} {obra.presupuesto_total.toLocaleString()}</span>
                                             </div>
                                         </div>
                                     )}

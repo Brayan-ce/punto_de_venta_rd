@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { crearTrabajadorSimple } from '../servidor'
 import estilos from './nuevo.module.css'
 
-export default function Nuevo({ onVolver }) {
+export default function Nuevo({ onVolver, moneda }) {
     const [tema, setTema] = useState('light')
     const [cargando, setCargando] = useState(false)
     const [formData, setFormData] = useState({
@@ -252,7 +252,7 @@ export default function Nuevo({ onVolver }) {
                         <div className={estilos.campo}>
                             <label>Salario Diario</label>
                             <div className={estilos.inputGroup}>
-                                <span className={estilos.inputPrefix}>RD$</span>
+                                <span className={estilos.inputPrefix}>{moneda}</span>
                                 <input
                                     type="number"
                                     name="salario_diario"

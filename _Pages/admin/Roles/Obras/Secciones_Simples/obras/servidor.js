@@ -3,6 +3,17 @@
 import db from "@/_DB/db"
 import { cookies } from 'next/headers'
 
+async function obtenerMonedaEmpresa(connection, empresaId) {
+    const [empresa] = await connection.query(
+        'SELECT simbolo_moneda, moneda FROM empresas WHERE id = ?',
+        [empresaId]
+    )
+    return {
+        simbolo: empresa[0]?.simbolo_moneda || 'RD$',
+        codigo: empresa[0]?.moneda || 'DOP'
+    }
+}
+
 export async function obtenerObrasSimples(filtros = {}) {
     let connection
     try {
@@ -21,6 +32,8 @@ export async function obtenerObrasSimples(filtros = {}) {
         const { estado, busqueda } = filtros
 
         connection = await db.getConnection()
+
+        const moneda = await obtenerMonedaEmpresa(connection, empresaId)
 
         let sql = `
             SELECT 
@@ -54,7 +67,8 @@ export async function obtenerObrasSimples(filtros = {}) {
 
         return {
             success: true,
-            obras
+            obras,
+            moneda
         }
     } catch (error) {
         console.error('Error al obtener obras simples:', error)
@@ -87,6 +101,8 @@ export async function obtenerObraSimple(id) {
 
         connection = await db.getConnection()
 
+        const moneda = await obtenerMonedaEmpresa(connection, empresaId)
+
         const sql = `
             SELECT 
                 os.*,
@@ -115,7 +131,8 @@ export async function obtenerObraSimple(id) {
 
         return {
             success: true,
-            obra: obra[0]
+            obra: obra[0],
+            moneda
         }
     } catch (error) {
         console.error('Error al obtener obra simple:', error)
@@ -416,6 +433,8 @@ export async function obtenerTrabajadoresDisponibles() {
 
         connection = await db.getConnection()
 
+        const moneda = await obtenerMonedaEmpresa(connection, empresaId)
+
         const [trabajadores] = await connection.execute(
             `SELECT id, codigo_trabajador, nombre, apellido, especialidad, salario_diario
              FROM trabajadores_simples
@@ -428,7 +447,8 @@ export async function obtenerTrabajadoresDisponibles() {
 
         return {
             success: true,
-            trabajadores
+            trabajadores,
+            moneda
         }
     } catch (error) {
         console.error('Error al obtener trabajadores:', error)

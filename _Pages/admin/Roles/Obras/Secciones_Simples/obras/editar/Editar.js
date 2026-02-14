@@ -18,6 +18,7 @@ export default function Editar({ obraId, onVolver }) {
     const [trabajadores, setTrabajadores] = useState([])
     const [trabajadoresSeleccionados, setTrabajadoresSeleccionados] = useState([])
     const [mostrarFormTrabajador, setMostrarFormTrabajador] = useState(false)
+    const [moneda, setMoneda] = useState('DOP RD$')
     const [formData, setFormData] = useState({
         nombre: '',
         descripcion: '',
@@ -89,6 +90,10 @@ export default function Editar({ obraId, onVolver }) {
                 color_identificacion: obra.color_identificacion || '#0284c7',
                 notas: obra.notas || ''
             })
+            
+            if (resObra.moneda) {
+                setMoneda(`${resObra.moneda.codigo} ${resObra.moneda.simbolo}`)
+            }
         } else {
             alert('Error al cargar la obra')
             onVolver()
@@ -96,6 +101,9 @@ export default function Editar({ obraId, onVolver }) {
         
         if (resTrabajadores.success) {
             setTrabajadores(resTrabajadores.trabajadores)
+            if (resTrabajadores.moneda) {
+                setMoneda(`${resTrabajadores.moneda.codigo} ${resTrabajadores.moneda.simbolo}`)
+            }
         }
         
         if (resAsignados.success) {
@@ -109,6 +117,9 @@ export default function Editar({ obraId, onVolver }) {
         const res = await obtenerTrabajadoresDisponibles()
         if (res.success) {
             setTrabajadores(res.trabajadores)
+            if (res.moneda) {
+                setMoneda(`${res.moneda.codigo} ${res.moneda.simbolo}`)
+            }
         }
     }
 
@@ -367,7 +378,7 @@ export default function Editar({ obraId, onVolver }) {
                         <div className={estilos.campo}>
                             <label>Presupuesto Total</label>
                             <div className={estilos.inputGroup}>
-                                <span className={estilos.inputPrefix}>RD$</span>
+                                <span className={estilos.inputPrefix}>{moneda}</span>
                                 <input
                                     type="number"
                                     name="presupuesto_total"
@@ -564,7 +575,7 @@ export default function Editar({ obraId, onVolver }) {
                                 <div className={estilos.campo}>
                                     <label>Salario Diario</label>
                                     <div className={estilos.inputGroup}>
-                                        <span className={estilos.inputPrefix}>RD$</span>
+                                        <span className={estilos.inputPrefix}>{moneda}</span>
                                         <input
                                             type="number"
                                             value={formTrabajador.salario_diario}

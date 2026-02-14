@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { obtenerObrasActivas, obtenerGastosObra, crearGasto, eliminarGasto } from './servidor'
+import { obtenerObrasActivas, obtenerGastosObra, crearGasto, eliminarGasto, obtenerMonedaEmpresa } from './servidor'
 import estilos from './gastos.module.css'
 
 const TIPOS_GASTO = [
@@ -28,6 +28,7 @@ export default function Gastos() {
     const [cargando, setCargando] = useState(false)
     const [guardando, setGuardando] = useState(false)
     const [filtroTipo, setFiltroTipo] = useState('')
+    const [moneda, setMoneda] = useState('DOP RD$')
     const [formData, setFormData] = useState({
         fecha: new Date().toISOString().split('T')[0],
         tipo_gasto: 'materiales',
@@ -59,6 +60,7 @@ export default function Gastos() {
     }, [])
 
     useEffect(() => {
+        cargarMoneda()
         cargarObras()
     }, [])
 
@@ -67,6 +69,13 @@ export default function Gastos() {
             cargarGastos()
         }
     }, [obraSeleccionada])
+
+    async function cargarMoneda() {
+        const res = await obtenerMonedaEmpresa()
+        if (res.success) {
+            setMoneda(`${res.codigo_moneda} ${res.simbolo_moneda}`)
+        }
+    }
 
     async function cargarObras() {
         const res = await obtenerObrasActivas()
@@ -220,7 +229,7 @@ export default function Gastos() {
                                 <ion-icon name={tipo.icon}></ion-icon>
                                 <div>
                                     <span className={estilos.tipoLabel}>{tipo.label}</span>
-                                    <span className={estilos.tipoMonto}>RD$ {tipo.total.toLocaleString()}</span>
+                                    <span className={estilos.tipoMonto}>{moneda} {tipo.total.toLocaleString()}</span>
                                 </div>
                             </div>
                         ))}
@@ -228,7 +237,7 @@ export default function Gastos() {
 
                     <div className={estilos.totalGeneral}>
                         <span>Total General:</span>
-                        <span className={estilos.totalMonto}>RD$ {totalGastos.toLocaleString()}</span>
+                        <span className={estilos.totalMonto}>{moneda} {totalGastos.toLocaleString()}</span>
                     </div>
                 </>
             )}
@@ -273,7 +282,7 @@ export default function Gastos() {
                                         <span className={estilos.gastoTipo}>{tipoInfo?.label || gasto.tipo_gasto}</span>
                                     </div>
                                     <div className={estilos.gastoMonto}>
-                                        RD$ {parseFloat(gasto.monto).toLocaleString()}
+                                        {moneda} {parseFloat(gasto.monto).toLocaleString()}
                                     </div>
                                 </div>
 
@@ -355,12 +364,12 @@ export default function Gastos() {
 
                                 <div className={estilos.campo}>
                                     <label>Tipo de Gasto <span className={estilos.requerido}>*</span></label>
-<select
-    className={estilos.select}
-    value={formData.tipo_gasto}
-    onChange={(e) => setFormData(prev => ({...prev, tipo_gasto: e.target.value}))}
-    required
->
+                                    <select
+                                        className={estilos.select}
+                                        value={formData.tipo_gasto}
+                                        onChange={(e) => setFormData(prev => ({...prev, tipo_gasto: e.target.value}))}
+                                        required
+                                    >
                                         {TIPOS_GASTO.map(tipo => (
                                             <option key={tipo.value} value={tipo.value}>
                                                 {tipo.label}
@@ -394,7 +403,7 @@ export default function Gastos() {
                             <div className={estilos.campo}>
                                 <label>Monto <span className={estilos.requerido}>*</span></label>
                                 <div className={estilos.inputGroup}>
-                                    <span className={estilos.inputPrefix}>RD$</span>
+                                    <span className={estilos.inputPrefix}>{moneda}</span>
                                     <input
                                         type="number"
                                         value={formData.monto}
@@ -430,12 +439,12 @@ export default function Gastos() {
 
                             <div className={estilos.campo}>
                                 <label>Metodo de Pago <span className={estilos.requerido}>*</span></label>
-<select
-    className={estilos.select}
-    value={formData.metodo_pago}
-    onChange={(e) => setFormData(prev => ({...prev, metodo_pago: e.target.value}))}
-    required
->
+                                <select
+                                    className={estilos.select}
+                                    value={formData.metodo_pago}
+                                    onChange={(e) => setFormData(prev => ({...prev, metodo_pago: e.target.value}))}
+                                    required
+                                >
                                     {METODOS_PAGO.map(metodo => (
                                         <option key={metodo.value} value={metodo.value}>
                                             {metodo.label}
