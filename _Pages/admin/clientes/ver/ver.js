@@ -1,18 +1,20 @@
 "use client"
 import { useEffect, useState } from "react"
-import { useRouter, useParams } from "next/navigation"
+import { useRouter, useParams, useSearchParams } from "next/navigation"
 import { obtenerClientePorId } from "./servidor"
+import ModalPagos from "../Cobrar/ModalPagos"
 import estilos from "./ver.module.css"
 
 export default function VerClienteAdmin() {
     const router = useRouter()
     const params = useParams()
+    const searchParams = useSearchParams()
     const [tema, setTema] = useState("light")
     const [cargando, setCargando] = useState(true)
     const [cliente, setCliente] = useState(null)
     const [mostrarMenu, setMostrarMenu] = useState(false)
+    const [mostrarModalPagos, setMostrarModalPagos] = useState(false)
 
-    // Detectar tema
     useEffect(() => {
         const temaLocal = localStorage.getItem("tema") || "light"
         setTema(temaLocal)
@@ -30,12 +32,18 @@ export default function VerClienteAdmin() {
         }
     }, [])
 
-    // Cargar datos del cliente
     useEffect(() => {
         if (params.id) {
             cargarDatos()
         }
     }, [params.id])
+
+    useEffect(() => {
+        const tab = searchParams.get('tab')
+        if (tab === 'pagos' && cliente) {
+            setMostrarModalPagos(true)
+        }
+    }, [searchParams, cliente])
 
     const cargarDatos = async () => {
         setCargando(true)
@@ -53,6 +61,14 @@ export default function VerClienteAdmin() {
             router.push("/admin/clientes")
         } finally {
             setCargando(false)
+        }
+    }
+
+    const manejarCerrarModalPagos = (huboCambios) => {
+        setMostrarModalPagos(false)
+        router.replace(`/admin/clientes/ver/${params.id}`)
+        if (huboCambios) {
+            cargarDatos()
         }
     }
 
@@ -95,7 +111,6 @@ export default function VerClienteAdmin() {
     return (
         <div className={`${estilos.contenedor} ${estilos[tema]}`}>
 
-            {/* HEADER MEJORADO */}
             <div className={estilos.header}>
                 <button
                     className={estilos.btnVolver}
@@ -117,13 +132,10 @@ export default function VerClienteAdmin() {
                 </div>
             </div>
 
-            {/* LAYOUT PRINCIPAL */}
             <div className={estilos.layoutPrincipal}>
 
-                {/* COLUMNA IZQUIERDA - PERFIL */}
                 <div className={estilos.columnaIzquierda}>
 
-                    {/* CARD PERFIL */}
                     <div className={estilos.cardPerfil}>
                         <div className={estilos.perfilHeader}>
                             <div className={estilos.avatarContenedor}>
@@ -139,7 +151,7 @@ export default function VerClienteAdmin() {
                             <div className={estilos.perfilNombre}>
                                 <h2>{cliente.nombreCompleto}</h2>
                                 <p className={estilos.documento}>
-                                    {cliente.tipoDocumentoCodigo}: {cliente.numeroDocumento}
+                                    {cliente.documento.tipoCodigo}: {cliente.documento.numero}
                                 </p>
                                 <span className={`${estilos.badge} ${cliente.clienteActivo ? estilos.badgeActivo : estilos.badgeInactivo}`}>
                                     {cliente.clienteActivo ? 'Activo' : 'Inactivo'}
@@ -169,7 +181,6 @@ export default function VerClienteAdmin() {
                         </div>
                     </div>
 
-                    {/* CONTACTO */}
                     <div className={estilos.cardContacto}>
                         <h3 className={estilos.cardTitulo}>
                             <ion-icon name="call-outline"></ion-icon>
@@ -199,10 +210,8 @@ export default function VerClienteAdmin() {
 
                 </div>
 
-                {/* COLUMNA DERECHA - CRÉDITO Y ACCIONES */}
                 <div className={estilos.columnaDerecha}>
 
-                    {/* TARJETA DE CRÉDITO VISUAL */}
                     {cliente.credito?.tienePerfil ? (
                         <div className={estilos.tarjetaCreditoContenedor}>
                             <div className={estilos.tarjetaCredito} style={{
@@ -256,7 +265,6 @@ export default function VerClienteAdmin() {
                                 </div>
                             </div>
 
-                            {/* ACCIONES PRINCIPALES */}
                             <div className={estilos.accionesPrincipales}>
                                 <button
                                     className={`${estilos.btnAccion} ${estilos.btnVender}`}
@@ -277,7 +285,7 @@ export default function VerClienteAdmin() {
                                 <button
                                     className={`${estilos.btnAccion} ${estilos.btnCobrar}`}
                                     disabled={!tieneDeuda()}
-                                    onClick={() => router.push(`/admin/clientes/ver/${cliente.id}?tab=pagos`)}
+                                    onClick={() => setMostrarModalPagos(true)}
                                 >
                                     <div className={estilos.btnIcono}>
                                         <ion-icon name="wallet-outline"></ion-icon>
@@ -304,7 +312,6 @@ export default function VerClienteAdmin() {
                                 </button>
                             </div>
 
-                            {/* ESTADO DE CRÉDITO */}
                             <div className={`${estilos.alertaEstado} ${puedeVender() ? estilos.alertaOk : estilos.alertaError}`}>
                                 <ion-icon name={puedeVender() ? "checkmark-circle" : "alert-circle"}></ion-icon>
                                 <span>
@@ -329,7 +336,6 @@ export default function VerClienteAdmin() {
                         </div>
                     )}
 
-                    {/* INFORMACIÓN ADICIONAL */}
                     <div className={estilos.cardInfo}>
                         <h3 className={estilos.cardTitulo}>
                             <ion-icon name="information-circle-outline"></ion-icon>
@@ -339,25 +345,13 @@ export default function VerClienteAdmin() {
                             <div className={estilos.infoItem}>
                                 <span className={estilos.infoLabel}>Fecha de Nacimiento</span>
                                 <span className={estilos.infoValor}>
-                                    {cliente.fechaNacimiento || 'No registrado'}
+                                    {cliente.datosPersonales?.fechaNacimiento || 'No registrado'}
                                 </span>
                             </div>
                             <div className={estilos.infoItem}>
                                 <span className={estilos.infoLabel}>Género</span>
                                 <span className={estilos.infoValor}>
-                                    {cliente.genero || 'No especificado'}
-                                </span>
-                            </div>
-                            <div className={estilos.infoItem}>
-                                <span className={estilos.infoLabel}>Registro</span>
-                                <span className={estilos.infoValor}>
-                                    {new Date(cliente.createdAt).toLocaleDateString('es-DO')}
-                                </span>
-                            </div>
-                            <div className={estilos.infoItem}>
-                                <span className={estilos.infoLabel}>Última actualización</span>
-                                <span className={estilos.infoValor}>
-                                    {new Date(cliente.updatedAt).toLocaleDateString('es-DO')}
+                                    {cliente.datosPersonales?.genero || 'No especificado'}
                                 </span>
                             </div>
                         </div>
@@ -365,6 +359,14 @@ export default function VerClienteAdmin() {
 
                 </div>
             </div>
+
+            {mostrarModalPagos && (
+                <ModalPagos
+                    cliente={cliente}
+                    alCerrar={manejarCerrarModalPagos}
+                    tema={tema}
+                />
+            )}
         </div>
     )
 }
