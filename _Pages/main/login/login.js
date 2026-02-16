@@ -16,7 +16,7 @@ export default function Login() {
     const [cargando, setCargando] = useState(false)
     const [error, setError] = useState('')
     const [tema, setTema] = useState('light')
-    const [copyright, setCopyright] = useState('© 2025 IziWeek. Todos los derechos reservados.')
+    const [copyright, setCopyright] = useState('© 2026 isiweek. Todos los derechos reservados.')
     const [rememberMe, setRememberMe] = useState(false)
 
     const estaOffline = !isOnline
