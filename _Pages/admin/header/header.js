@@ -98,11 +98,13 @@ export default function HeaderAdmin() {
     }
 
     const navegacionPrincipal = useMemo(() => {
-        return obtenerItemsTop(tieneModulo, systemMode, 5)
+        const esManejoSimple = pathname.startsWith('/admin/manejo-simple')
+        return obtenerItemsTop(tieneModulo, systemMode, 5, esManejoSimple)
     }, [tieneModulo, systemMode])
 
     const categoriasNavegacion = useMemo(() => {
-        return obtenerCategoriasNavegacion(tieneModulo, systemMode)
+        const esManejoSimple = pathname.startsWith('/admin/manejo-simple')
+        return obtenerCategoriasNavegacion(tieneModulo, systemMode, esManejoSimple)
     }, [tieneModulo, systemMode])
 
     const accionesDiarias = useMemo(() => {
