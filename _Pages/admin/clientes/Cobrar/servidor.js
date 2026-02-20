@@ -23,11 +23,9 @@ export async function obtenerCuentasPorCobrar(filtros = {}) {
                 cxc.*,
                 c.nombre as cliente_nombre,
                 c.apellidos as cliente_apellidos,
-                c.numero_documento,
-                v.numero_factura
+                c.numero_documento
             FROM cuentas_por_cobrar cxc
             INNER JOIN clientes c ON cxc.cliente_id = c.id
-            LEFT JOIN ventas v ON cxc.venta_id = v.id
             WHERE cxc.empresa_id = ?
         `
         const params = [empresaId]
@@ -59,7 +57,7 @@ export async function obtenerCuentasPorCobrar(filtros = {}) {
             clienteNombre: `${cxc.cliente_nombre} ${cxc.cliente_apellidos || ''}`.trim(),
             numeroDocumento: cxc.numero_documento,
             ventaId: cxc.venta_id,
-            numeroFactura: cxc.numero_factura || cxc.numero_documento,
+            numeroFactura: cxc.numero_documento,
             origen: cxc.origen,
             montoTotal: Number(cxc.monto_total),
             montoPagado: Number(cxc.monto_pagado),

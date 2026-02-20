@@ -85,6 +85,93 @@
     color: #333;
 }
 
+.headerAcciones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btnWhatsApp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #25d366;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btnWhatsApp:hover {
+    background: #20bd5a;
+    color: white;
+}
+
+.btnWhatsApp ion-icon {
+    font-size: 1.2rem;
+}
+
+.btnImprimir {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #475569;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnImprimir:hover {
+    background: #334155;
+}
+
+.accionesRapidas {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.btnPagarTodo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnPagarTodo:hover:not(:disabled) {
+    background: #047857;
+}
+
+.btnPagarTodo:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.oAbonar {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
 .modalBody {
     padding: 24px 28px;
     overflow-y: auto;

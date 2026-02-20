@@ -570,18 +570,28 @@ export async function obtenerUnidadesMedida() {
     try {
         const cookieStore = await cookies()
         const userId = cookieStore.get('userId')?.value
+        const empresaId = cookieStore.get('empresaId')?.value
+        const userTipo = cookieStore.get('userTipo')?.value
 
-        if (!userId) {
+        if (!userId || !empresaId) {
             return {
                 success: false,
                 mensaje: 'Sesion invalida'
             }
         }
 
+        if (userTipo !== 'admin') {
+            return {
+                success: false,
+                mensaje: 'No tienes permisos para ver unidades'
+            }
+        }
+
         connection = await db.getConnection()
 
         const [unidades] = await connection.execute(
-            `SELECT * FROM unidades_medida ORDER BY activo DESC, nombre ASC`
+            `SELECT * FROM unidades_medida WHERE empresa_id = ? ORDER BY activo DESC, nombre ASC`,
+            [empresaId]
         )
 
         connection.release()
@@ -611,9 +621,10 @@ export async function crearUnidadMedida(datosUnidad) {
     try {
         const cookieStore = await cookies()
         const userId = cookieStore.get('userId')?.value
+        const empresaId = cookieStore.get('empresaId')?.value
         const userTipo = cookieStore.get('userTipo')?.value
 
-        if (!userId) {
+        if (!userId || !empresaId) {
             return {
                 success: false,
                 mensaje: 'Sesion invalida'
@@ -630,8 +641,8 @@ export async function crearUnidadMedida(datosUnidad) {
         connection = await db.getConnection()
 
         const [existe] = await connection.execute(
-            `SELECT id FROM unidades_medida WHERE codigo = ?`,
-            [datosUnidad.codigo.toUpperCase()]
+            `SELECT id FROM unidades_medida WHERE codigo = ? AND empresa_id = ?`,
+            [datosUnidad.codigo.toUpperCase(), empresaId]
         )
 
         if (existe.length > 0) {
@@ -643,8 +654,9 @@ export async function crearUnidadMedida(datosUnidad) {
         }
 
         await connection.execute(
-            `INSERT INTO unidades_medida (codigo, nombre, abreviatura, activo) VALUES (?, ?, ?, ?)`,
+            `INSERT INTO unidades_medida (empresa_id, codigo, nombre, abreviatura, activo) VALUES (?, ?, ?, ?, ?)`,
             [
+                empresaId,
                 datosUnidad.codigo.toUpperCase().trim(),
                 datosUnidad.nombre.trim(),
                 datosUnidad.abreviatura.trim(),
@@ -678,9 +690,10 @@ export async function actualizarUnidadMedida(id, datosUnidad) {
     try {
         const cookieStore = await cookies()
         const userId = cookieStore.get('userId')?.value
+        const empresaId = cookieStore.get('empresaId')?.value
         const userTipo = cookieStore.get('userTipo')?.value
 
-        if (!userId) {
+        if (!userId || !empresaId) {
             return {
                 success: false,
                 mensaje: 'Sesion invalida'
@@ -696,9 +709,22 @@ export async function actualizarUnidadMedida(id, datosUnidad) {
 
         connection = await db.getConnection()
 
+        const [pertenece] = await connection.execute(
+            `SELECT id FROM unidades_medida WHERE id = ? AND empresa_id = ?`,
+            [id, empresaId]
+        )
+
+        if (pertenece.length === 0) {
+            connection.release()
+            return {
+                success: false,
+                mensaje: 'Unidad no encontrada'
+            }
+        }
+
         const [existe] = await connection.execute(
-            `SELECT id FROM unidades_medida WHERE codigo = ? AND id != ?`,
-            [datosUnidad.codigo.toUpperCase(), id]
+            `SELECT id FROM unidades_medida WHERE codigo = ? AND id != ? AND empresa_id = ?`,
+            [datosUnidad.codigo.toUpperCase(), id, empresaId]
         )
 
         if (existe.length > 0) {
@@ -746,9 +772,10 @@ export async function eliminarUnidadMedida(id) {
     try {
         const cookieStore = await cookies()
         const userId = cookieStore.get('userId')?.value
+        const empresaId = cookieStore.get('empresaId')?.value
         const userTipo = cookieStore.get('userTipo')?.value
 
-        if (!userId) {
+        if (!userId || !empresaId) {
             return {
                 success: false,
                 mensaje: 'Sesion invalida'
@@ -764,9 +791,22 @@ export async function eliminarUnidadMedida(id) {
 
         connection = await db.getConnection()
 
+        const [pertenece] = await connection.execute(
+            `SELECT id FROM unidades_medida WHERE id = ? AND empresa_id = ?`,
+            [id, empresaId]
+        )
+
+        if (pertenece.length === 0) {
+            connection.release()
+            return {
+                success: false,
+                mensaje: 'Unidad no encontrada'
+            }
+        }
+
         const [enUso] = await connection.execute(
-            `SELECT id FROM productos WHERE unidad_medida_id = ?`,
-            [id]
+            `SELECT id FROM productos WHERE unidad_medida_id = ? AND empresa_id = ?`,
+            [id, empresaId]
         )
 
         if (enUso.length > 0) {
@@ -778,8 +818,8 @@ export async function eliminarUnidadMedida(id) {
         }
 
         await connection.execute(
-            `DELETE FROM unidades_medida WHERE id = ?`,
-            [id]
+            `DELETE FROM unidades_medida WHERE id = ? AND empresa_id = ?`,
+            [id, empresaId]
         )
 
         connection.release()

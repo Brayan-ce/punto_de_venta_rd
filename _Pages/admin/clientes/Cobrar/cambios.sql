@@ -1,28 +1,5 @@
-CREATE TABLE pagos_credito (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    cxc_id BIGINT NOT NULL,
-    empresa_id INT NOT NULL,
-    cliente_id INT NOT NULL,
-    monto_pagado DECIMAL(12,2) NOT NULL,
-    metodo_pago ENUM('efectivo', 'transferencia', 'cheque', 'tarjeta', 'otro') NOT NULL DEFAULT 'efectivo',
-    referencia_pago VARCHAR(100) DEFAULT NULL,
-    notas TEXT DEFAULT NULL,
-    registrado_por INT NOT NULL,
-    fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    
-    CONSTRAINT fk_pago_cxc FOREIGN KEY (cxc_id) REFERENCES cuentas_por_cobrar(id) ON DELETE CASCADE,
-    CONSTRAINT fk_pago_empresa FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE,
-    CONSTRAINT fk_pago_cliente FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
-    CONSTRAINT fk_pago_usuario FOREIGN KEY (registrado_por) REFERENCES usuarios(id),
-    CONSTRAINT chk_monto_pago_positivo CHECK (monto_pagado > 0),
-    
-    INDEX idx_cxc (cxc_id),
-    INDEX idx_cliente (cliente_id),
-    INDEX idx_fecha (fecha_pago)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+DROP TRIGGER IF EXISTS after_pago_insert;
 DELIMITER $$
-
 CREATE TRIGGER after_pago_insert
 AFTER INSERT ON pagos_credito
 FOR EACH ROW
@@ -60,10 +37,8 @@ BEGIN
         numero_abonos = numero_abonos + 1
     WHERE id = NEW.cxc_id;
     
-    -- Actualizar saldo_utilizado en credito_clientes
-    -- (Recalcular sumando todas las cuentas activas)
-    -- Actualizar saldo_utilizado en credito_clientes.
-    -- No intentar escribir en la columna generada `saldo_disponible` (se calcula automáticamente).
+    -- Actualizar solo saldo_utilizado en credito_clientes.
+    -- NO escribir en la columna generada `saldo_disponible`.
     UPDATE credito_clientes cc
     SET cc.saldo_utilizado = (
         SELECT COALESCE(SUM(saldo_pendiente), 0)
@@ -92,5 +67,4 @@ BEGIN
         NEW.registrado_por
     );
 END$$
-
 DELIMITER ;

@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { obtenerObrasActivas, obtenerGastosObra, crearGasto, eliminarGasto, obtenerMonedaEmpresa } from './servidor'
+import { obtenerObrasActivas, obtenerGastosObra, crearGasto, eliminarGasto, actualizarGasto, obtenerGastoPorId, obtenerUsuariosEmpresa, obtenerMonedaEmpresa } from './servidor'
 import estilos from './gastos.module.css'
 
 const TIPOS_GASTO = [
@@ -29,6 +29,10 @@ export default function Gastos() {
     const [guardando, setGuardando] = useState(false)
     const [filtroTipo, setFiltroTipo] = useState('')
     const [moneda, setMoneda] = useState('DOP RD$')
+    const [usuarios, setUsuarios] = useState([])
+    const [gastoVer, setGastoVer] = useState(null)
+    const [gastoEditar, setGastoEditar] = useState(null)
+    const [modoEditar, setModoEditar] = useState(false)
     const [formData, setFormData] = useState({
         fecha: new Date().toISOString().split('T')[0],
         tipo_gasto: 'materiales',
@@ -38,7 +42,8 @@ export default function Gastos() {
         proveedor: '',
         numero_factura: '',
         metodo_pago: 'efectivo',
-        notas: ''
+        notas: '',
+        quien_compro_id: ''
     })
 
     useEffect(() => {
@@ -106,9 +111,18 @@ export default function Gastos() {
             proveedor: '',
             numero_factura: '',
             metodo_pago: 'efectivo',
-            notas: ''
+            notas: '',
+            quien_compro_id: ''
         })
         setMostrarFormulario(false)
+        setModoEditar(false)
+        setGastoEditar(null)
+        setGastoVer(null)
+    }
+
+    async function cargarUsuarios() {
+        const res = await obtenerUsuariosEmpresa()
+        if (res.success && res.usuarios) setUsuarios(res.usuarios)
     }
 
     async function handleSubmit(e) {
@@ -125,14 +139,16 @@ export default function Gastos() {
         }
 
         setGuardando(true)
-        const res = await crearGasto(obraSeleccionada, formData)
+        const res = modoEditar && gastoEditar
+            ? await actualizarGasto(gastoEditar.id, obraSeleccionada, formData)
+            : await crearGasto(obraSeleccionada, formData)
         setGuardando(false)
 
         if (res.success) {
             resetFormulario()
             cargarGastos()
         } else {
-            alert(res.mensaje || 'Error al crear el gasto')
+            alert(res.mensaje || (modoEditar ? 'Error al actualizar' : 'Error al crear el gasto'))
         }
     }
 
@@ -141,12 +157,31 @@ export default function Gastos() {
             return
         }
 
-        const res = await eliminarGasto(id)
+        const res = await eliminarGasto(id, obraSeleccionada)
         if (res.success) {
             cargarGastos()
         } else {
             alert(res.mensaje || 'Error al eliminar')
         }
+    }
+
+    function abrirEditar(gasto) {
+        setGastoEditar(gasto)
+        setModoEditar(true)
+        setFormData({
+            fecha: gasto.fecha ? new Date(gasto.fecha).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+            tipo_gasto: gasto.tipo_gasto || 'materiales',
+            concepto: gasto.concepto || '',
+            descripcion: gasto.descripcion || '',
+            monto: gasto.monto ?? '',
+            proveedor: gasto.proveedor || '',
+            numero_factura: gasto.numero_factura || '',
+            metodo_pago: gasto.metodo_pago || 'efectivo',
+            notas: gasto.notas || '',
+            quien_compro_id: gasto.quien_compro_id ? String(gasto.quien_compro_id) : ''
+        })
+        setMostrarFormulario(true)
+        cargarUsuarios()
     }
 
     const gastosFiltrados = filtroTipo 
@@ -176,7 +211,7 @@ export default function Gastos() {
                 </div>
                 <button 
                     className={estilos.btnNuevo}
-                    onClick={() => setMostrarFormulario(true)}
+                    onClick={() => { setModoEditar(false); setGastoEditar(null); setMostrarFormulario(true); cargarUsuarios(); }}
                 >
                     <ion-icon name="add-outline"></ion-icon>
                     Nuevo Gasto
@@ -260,7 +295,7 @@ export default function Gastos() {
                     <p>Registra el primer gasto de esta obra</p>
                     <button 
                         className={estilos.btnCrear}
-                        onClick={() => setMostrarFormulario(true)}
+                        onClick={() => { setModoEditar(false); setGastoEditar(null); setMostrarFormulario(true); cargarUsuarios(); }}
                     >
                         <ion-icon name="add-outline"></ion-icon>
                         Crear Primer Gasto
@@ -293,6 +328,10 @@ export default function Gastos() {
 
                                     <div className={estilos.gastoDetalles}>
                                         <div className={estilos.detalle}>
+                                            <ion-icon name="person-outline"></ion-icon>
+                                            <span>Quien compró: {gasto.quien_compro_nombre || gasto.registrado_por_nombre || '-'}</span>
+                                        </div>
+                                        <div className={estilos.detalle}>
                                             <ion-icon name="calendar-outline"></ion-icon>
                                             <span>{new Date(gasto.fecha).toLocaleDateString()}</span>
                                         </div>
@@ -324,6 +363,22 @@ export default function Gastos() {
 
                                 <div className={estilos.gastoFooter}>
                                     <button 
+                                        type="button"
+                                        className={estilos.btnVer}
+                                        onClick={() => setGastoVer(gasto)}
+                                    >
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                        Ver
+                                    </button>
+                                    <button 
+                                        type="button"
+                                        className={estilos.btnEditar}
+                                        onClick={() => abrirEditar(gasto)}
+                                    >
+                                        <ion-icon name="pencil-outline"></ion-icon>
+                                        Editar
+                                    </button>
+                                    <button 
                                         className={estilos.btnEliminar}
                                         onClick={() => handleEliminar(gasto.id, gasto.concepto)}
                                     >
@@ -337,11 +392,87 @@ export default function Gastos() {
                 </div>
             )}
 
+            {gastoVer && (
+                <div className={estilos.modal} onClick={() => setGastoVer(null)}>
+                    <div className={estilos.modalContenido} onClick={(e) => e.stopPropagation()}>
+                        <div className={estilos.modalHeader}>
+                            <h3>Detalle del Gasto</h3>
+                            <button 
+                                type="button"
+                                className={estilos.btnCerrar}
+                                onClick={() => setGastoVer(null)}
+                            >
+                                <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                        </div>
+                        <div className={estilos.formulario}>
+                            <div className={estilos.detalleFila}>
+                                <span className={estilos.detalleLabel}>Concepto</span>
+                                <span className={estilos.detalleValor}>{gastoVer.concepto}</span>
+                            </div>
+                            <div className={estilos.detalleFila}>
+                                <span className={estilos.detalleLabel}>Tipo</span>
+                                <span className={estilos.detalleValor}>{TIPOS_GASTO.find(t => t.value === gastoVer.tipo_gasto)?.label || gastoVer.tipo_gasto}</span>
+                            </div>
+                            <div className={estilos.detalleFila}>
+                                <span className={estilos.detalleLabel}>Monto</span>
+                                <span className={estilos.detalleValor}>{moneda} {parseFloat(gastoVer.monto).toLocaleString()}</span>
+                            </div>
+                            <div className={estilos.detalleFila}>
+                                <span className={estilos.detalleLabel}>Fecha</span>
+                                <span className={estilos.detalleValor}>{gastoVer.fecha ? new Date(gastoVer.fecha).toLocaleDateString() : '-'}</span>
+                            </div>
+                            <div className={estilos.detalleFila}>
+                                <span className={estilos.detalleLabel}>Quien compró</span>
+                                <span className={estilos.detalleValor}>{gastoVer.quien_compro_nombre || gastoVer.registrado_por_nombre || '-'}</span>
+                            </div>
+                            {gastoVer.descripcion && (
+                                <div className={estilos.detalleFila}>
+                                    <span className={estilos.detalleLabel}>Descripción</span>
+                                    <span className={estilos.detalleValor}>{gastoVer.descripcion}</span>
+                                </div>
+                            )}
+                            {gastoVer.proveedor && (
+                                <div className={estilos.detalleFila}>
+                                    <span className={estilos.detalleLabel}>Proveedor</span>
+                                    <span className={estilos.detalleValor}>{gastoVer.proveedor}</span>
+                                </div>
+                            )}
+                            {gastoVer.numero_factura && (
+                                <div className={estilos.detalleFila}>
+                                    <span className={estilos.detalleLabel}>Número factura</span>
+                                    <span className={estilos.detalleValor}>{gastoVer.numero_factura}</span>
+                                </div>
+                            )}
+                            <div className={estilos.detalleFila}>
+                                <span className={estilos.detalleLabel}>Método de pago</span>
+                                <span className={estilos.detalleValor}>{METODOS_PAGO.find(m => m.value === gastoVer.metodo_pago)?.label || gastoVer.metodo_pago}</span>
+                            </div>
+                            {gastoVer.notas && (
+                                <div className={estilos.detalleFila}>
+                                    <span className={estilos.detalleLabel}>Notas</span>
+                                    <span className={estilos.detalleValor}>{gastoVer.notas}</span>
+                                </div>
+                            )}
+                            <div className={estilos.modalAcciones}>
+                                <button type="button" className={estilos.btnEditar} onClick={() => { setGastoVer(null); abrirEditar(gastoVer); }}>
+                                    <ion-icon name="pencil-outline"></ion-icon>
+                                    Editar
+                                </button>
+                                <button type="button" className={estilos.btnCancelar} onClick={() => setGastoVer(null)}>
+                                    Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {mostrarFormulario && (
                 <div className={estilos.modal} onClick={() => resetFormulario()}>
                     <div className={estilos.modalContenido} onClick={(e) => e.stopPropagation()}>
                         <div className={estilos.modalHeader}>
-                            <h3>Nuevo Gasto</h3>
+                            <h3>{modoEditar ? 'Editar Gasto' : 'Nuevo Gasto'}</h3>
                             <button 
                                 className={estilos.btnCerrar}
                                 onClick={() => resetFormulario()}
@@ -435,6 +566,20 @@ export default function Gastos() {
                                         placeholder="Numero factura"
                                     />
                                 </div>
+                            </div>
+
+                            <div className={estilos.campo}>
+                                <label>Quien compró</label>
+                                <select
+                                    className={estilos.select}
+                                    value={formData.quien_compro_id}
+                                    onChange={(e) => setFormData(prev => ({...prev, quien_compro_id: e.target.value}))}
+                                >
+                                    <option value="">Quien registra</option>
+                                    {usuarios.map(u => (
+                                        <option key={u.id} value={u.id}>{u.nombre}</option>
+                                    ))}
+                                </select>
                             </div>
 
                             <div className={estilos.campo}>

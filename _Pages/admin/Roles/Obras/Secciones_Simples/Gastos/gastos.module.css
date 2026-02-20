@@ -504,6 +504,8 @@
     padding: 16px 20px;
     display: flex;
     justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
     border-top: 2px solid;
 }
 
@@ -515,6 +517,58 @@
 .dark .gastoFooter {
     background: #0f172a;
     border-color: #334155;
+}
+
+.btnVer,
+.btnEditar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnVer {
+    background: white;
+    border-color: #0284c7;
+    color: #0284c7;
+}
+
+.dark .btnVer {
+    background: #1e293b;
+    border-color: #0284c7;
+    color: #38bdf8;
+}
+
+.btnVer:hover {
+    background: #0284c7;
+    color: white;
+}
+
+.light .btnEditar {
+    background: white;
+    border-color: #0d9488;
+    color: #0d9488;
+}
+
+.dark .btnEditar {
+    background: #1e293b;
+    border-color: #2dd4bf;
+    color: #2dd4bf;
+}
+
+.btnEditar:hover {
+    background: #0d9488;
+    color: white;
+}
+
+.dark .btnEditar:hover {
+    background: #0d9488;
+    color: white;
 }
 
 .btnEliminar {
@@ -808,6 +862,50 @@
 .btnGuardar:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.detalleFila {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid;
+}
+
+.light .detalleFila {
+    border-color: #e2e8f0;
+}
+
+.dark .detalleFila {
+    border-color: #334155;
+}
+
+.detalleLabel {
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.light .detalleLabel {
+    color: #64748b;
+}
+
+.dark .detalleLabel {
+    color: #94a3b8;
+}
+
+.detalleValor {
+    font-size: 0.95rem;
+    text-align: right;
+}
+
+.light .detalleValor {
+    color: #0f172a;
+}
+
+.dark .detalleValor {
+    color: #f1f5f9;
 }
 
 @media (max-width: 768px) {

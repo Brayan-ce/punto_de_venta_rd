@@ -1,0 +1,63 @@
+INSTRUCCIONES DE ACTUALIZACIÓN - UNIDADES DE MEDIDA POR EMPRESA
+
+====================================================================
+
+ARCHIVOS MODIFICADOS EN LOCAL:
+
+1. _Pages/admin/configuracion/servidor.js
+   - obtenerUnidadesMedida(): Ahora filtra por empresa_id
+   - crearUnidadMedida(): Inserta empresa_id
+   - actualizarUnidadMedida(): Valida pertenencia a empresa
+   - eliminarUnidadMedida(): Solo elimina unidades de la empresa
+
+2. _Pages/superadmin/solicitudes/servidor.js
+   - aprobarSolicitud(): Inserta 53 unidades por defecto cuando se aprueba solicitud
+
+====================================================================
+
+PASOS PARA DEPLOYAR EN VPS:
+
+1. Copiar los archivos modificados:
+   - _Pages/admin/configuracion/servidor.js
+   - _Pages/superadmin/solicitudes/servidor.js
+
+2. Ejecutar en la base de datos (MariaDB):
+
+   mysql -u root -p punto_venta_rd < migracion_unidades_por_empresa_completa.sql
+
+   O ejecutar manualmente en MySQL:
+
+   -- Limpiar unidades existentes
+   UPDATE unidades_medida SET empresa_id = NULL WHERE empresa_id IS NOT NULL;
+
+   -- Ejecutar el procedimiento de migración (ver archivo: migracion_unidades_por_empresa_completa.sql)
+
+3. Hacer commit y push a producción:
+   git add .
+   git commit -m "feat: unidades de medida por empresa"
+   git push origin main
+
+4. Reiniciar servicios en VPS:
+   sudo systemctl restart puntoventard
+
+====================================================================
+
+VERIFICACIÓN:
+
+Después de ejecutar:
+
+SELECT empresa_id, COUNT(*) as total_unidades 
+FROM unidades_medida 
+WHERE empresa_id IS NOT NULL 
+GROUP BY empresa_id;
+
+Deberías ver todas tus empresas con 53 unidades cada una.
+
+====================================================================
+
+COMPORTAMIENTO NUEVO:
+
+✓ Cada empresa tiene sus propias unidades
+✓ Admin A elimina una unidad → no afecta Admin B
+✓ Nuevas empresas reciben 53 unidades automáticamente
+✓ No hay conflictos de roles entre administradores

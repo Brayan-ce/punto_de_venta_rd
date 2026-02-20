@@ -743,6 +743,22 @@ export default function UsuariosSuperAdmin() {
                                 )}
                             </div>
 
+                            {!modoEdicion && (
+                                <div className={estilos.grupoInput}>
+                                    <label className={estilos.checkboxLabel}>
+                                        <input
+                                            type="checkbox"
+                                            checked={aceptaTerminos}
+                                            onChange={(e) => setAceptaTerminos(e.target.checked)}
+                                        />
+                                        <span>Acepto los términos y condiciones *</span>
+                                    </label>
+                                    {erroresForm.terminos && (
+                                        <span className={estilos.mensajeError}>{erroresForm.terminos}</span>
+                                    )}
+                                </div>
+                            )}
+
                             <div className={estilos.modalFooter}>
                                 <button
                                     type="button"

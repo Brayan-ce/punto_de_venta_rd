@@ -125,6 +125,7 @@ CREATE TABLE gastos_obra_simple (
     metodo_pago ENUM('efectivo', 'transferencia', 'cheque', 'tarjeta') DEFAULT 'efectivo',
     comprobante_url VARCHAR(500),
     registrado_por INT NOT NULL,
+    quien_compro_id INT NULL,
     aprobado BOOLEAN DEFAULT FALSE,
     aprobado_por INT,
     fecha_aprobacion TIMESTAMP NULL,
@@ -137,6 +138,7 @@ CREATE TABLE gastos_obra_simple (
     INDEX idx_fecha (fecha),
     FOREIGN KEY (obra_id) REFERENCES obras_simples(id) ON DELETE CASCADE,
     FOREIGN KEY (registrado_por) REFERENCES usuarios(id),
+    FOREIGN KEY (quien_compro_id) REFERENCES usuarios(id) ON DELETE SET NULL,
     FOREIGN KEY (aprobado_por) REFERENCES usuarios(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

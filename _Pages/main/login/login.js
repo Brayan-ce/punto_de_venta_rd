@@ -86,15 +86,17 @@ export default function Login() {
                     localStorage.removeItem('rememberedUser')
                 }
 
-                // Redirigir según tipo de usuario (vuelve del servidor o de cache offline)
                 const tipo = resultado.tipo
+                const systemMode = resultado.systemMode || resultado.usuario?.system_mode
 
                 if (tipo === 'superadmin') {
                     router.push('/superadmin')
-                } else if (tipo === 'admin') {
-                    router.push('/admin')
-                } else if (tipo === 'vendedor') {
-                    router.push('/vendedor')
+                } else if (tipo === 'admin' || tipo === 'vendedor') {
+                    if (systemMode === 'OBRAS') {
+                        router.push('/admin/manejo-simple')
+                    } else {
+                        router.push(tipo === 'vendedor' ? '/vendedor' : '/admin')
+                    }
                 }
             } else {
                 setError(resultado.mensaje || resultado.message || 'Error al iniciar sesión')

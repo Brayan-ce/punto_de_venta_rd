@@ -19,6 +19,11 @@ export default function ModalPagos({ cliente, alCerrar, tema = 'light' }) {
     const [metodoPago, setMetodoPago] = useState('efectivo')
     const [referencia, setReferencia] = useState('')
     const [notas, setNotas] = useState('')
+    // Modales y confirmaciones
+    const [showConfirm, setShowConfirm] = useState(false)
+    const [confirmData, setConfirmData] = useState({ type: null, amount: 0 })
+    const [showWhatsAppModal, setShowWhatsAppModal] = useState(false)
+    const [waNumberInput, setWaNumberInput] = useState('')
 
     useEffect(() => {
         cargarDatos()
@@ -61,31 +66,24 @@ export default function ModalPagos({ cliente, alCerrar, tema = 'light' }) {
         setNotas('')
     }
 
-    const manejarRegistroPago = async (e) => {
-        e.preventDefault()
-        
-        if (!cuentaSeleccionada) {
-            alert('Debes seleccionar una cuenta por cobrar')
-            return
-        }
-
+    const ejecutarPago = async (montoAPagar) => {
+        if (!cuentaSeleccionada || montoAPagar <= 0) return
         setProcesando(true)
         try {
             const resultado = await registrarPago({
                 cxc_id: cuentaSeleccionada.id,
-                monto_pagado: parseFloat(monto),
+                monto_pagado: montoAPagar,
                 metodo_pago: metodoPago,
                 referencia_pago: referencia,
                 notas: notas
             })
-
             if (resultado.success) {
-                alert(`✅ ${resultado.mensaje}\n\nMonto pagado: $${resultado.montoPagado.toFixed(2)}\nNuevo saldo: $${resultado.nuevoSaldo.toFixed(2)}`)
+                alert(`${resultado.mensaje}\nMonto pagado: ${formatearMoneda(resultado.montoPagado)}\nNuevo saldo: ${formatearMoneda(resultado.nuevoSaldo)}`)
                 cancelarSeleccion()
                 await cargarDatos()
-                alCerrar(true) // Indica que hubo cambios
+                alCerrar(true)
             } else {
-                alert(`❌ ${resultado.mensaje}`)
+                alert(resultado.mensaje)
             }
         } catch (error) {
             console.error('Error al registrar pago:', error)
@@ -93,6 +91,56 @@ export default function ModalPagos({ cliente, alCerrar, tema = 'light' }) {
         } finally {
             setProcesando(false)
         }
+    }
+
+    const manejarRegistroPago = async (e) => {
+        e.preventDefault()
+        if (!cuentaSeleccionada) {
+            alert('Debes seleccionar una cuenta por cobrar')
+            return
+        }
+        const montoNum = parseFloat(monto)
+        if (isNaN(montoNum) || montoNum <= 0) {
+            alert('Ingresa un monto válido')
+            return
+        }
+        setConfirmData({ type: 'pagar', amount: montoNum })
+        setShowConfirm(true)
+    }
+
+    const handleConfirm = async (confirm) => {
+        // confirm = true => ejecutar acción; false => cerrar modal
+        if (!confirm) {
+            setShowConfirm(false)
+            return
+        }
+
+        setShowConfirm(false)
+        const { type, amount } = confirmData
+
+        if (type === 'pagar') {
+            await ejecutarPago(amount)
+        } else if (type === 'cancelar') {
+            cancelarSeleccion()
+        } else if (type === 'cancelar_todo') {
+            cancelarSeleccion()
+            alCerrar(false)
+        }
+    }
+
+    const sendWhatsApp = () => {
+        const num = (waNumberInput || '').replace(/\D/g, '')
+        if (!num) return alert('Ingresa un número válido')
+        const normalized = num.length >= 10 ? (num.startsWith('1') && num.length >= 11 ? num : '1' + num) : num
+        const url = `https://wa.me/${normalized}?text=${textoWhatsApp}`
+        window.open(url, '_blank')
+        setShowWhatsAppModal(false)
+    }
+
+    const manejarPagarTodo = async () => {
+        if (!cuentaSeleccionada) return
+        setConfirmData({ type: 'pagar', amount: cuentaSeleccionada.saldoPendiente })
+        setShowConfirm(true)
     }
 
     const formatearMoneda = (valor) => {
@@ -124,21 +172,68 @@ export default function ModalPagos({ cliente, alCerrar, tema = 'light' }) {
         return cuentas.reduce((sum, c) => sum + c.saldoPendiente, 0)
     }
 
+    const telefonoWhatsApp = (cliente.contacto?.telefono || cliente.telefono || '').replace(/\D/g, '')
+    const numeroWa = telefonoWhatsApp.length >= 10
+        ? (telefonoWhatsApp.startsWith('1') && telefonoWhatsApp.length >= 11 ? telefonoWhatsApp : '1' + telefonoWhatsApp)
+        : ''
+    const textoWhatsApp = encodeURIComponent(
+        `Hola ${(cliente.nombre || '')}. Su estado de cuenta: Total pendiente ${formatearMoneda(calcularTotalDeuda())}. ${cuentas.length ? 'Documentos: ' + cuentas.map(c => c.numeroFactura + ' - ' + formatearMoneda(c.saldoPendiente)).join(', ') : 'Sin deudas pendientes.'}`
+    )
+    const urlWhatsApp = numeroWa ? `https://wa.me/${numeroWa}?text=${textoWhatsApp}` : null
+
+    const imprimir = () => {
+        const ventana = window.open('', '_blank')
+        if (!ventana) return
+        const total = calcularTotalDeuda()
+        ventana.document.write(`
+            <!DOCTYPE html><html><head><title>Estado de cuenta - ${cliente.nombre} ${cliente.apellidos}</title><style>
+                body{ font-family: sans-serif; padding: 20px; }
+                h1{ font-size: 1.2rem; }
+                table{ width: 100%; border-collapse: collapse; margin-top: 12px; }
+                th,td{ border: 1px solid #ddd; padding: 8px; text-align: left; }
+                .total{ font-weight: bold; }
+            </style></head><body>
+            <h1>Estado de cuenta - ${cliente.nombre} ${cliente.apellidos}</h1>
+            <p><strong>Cuentas pendientes</strong></p>
+            <table>
+                <tr><th>Documento</th><th>Total</th><th>Pagado</th><th>Saldo</th><th>Vencimiento</th></tr>
+                ${cuentas.map(c => `<tr><td>${c.numeroFactura}</td><td>${formatearMoneda(c.montoTotal)}</td><td>${formatearMoneda(c.montoPagado)}</td><td>${formatearMoneda(c.saldoPendiente)}</td><td>${formatearFecha(c.fechaVencimiento)}</td></tr>`).join('')}
+            </table>
+            <p class="total">Total a cobrar: ${formatearMoneda(total)}</p>
+            <p><strong>Historial de pagos (últimos)</strong></p>
+            <table>
+                <tr><th>Fecha</th><th>Monto</th><th>Método</th><th>Registrado por</th></tr>
+                ${historial.slice(0, 20).map(p => `<tr><td>${new Date(p.fechaPago).toLocaleString('es-DO')}</td><td>${formatearMoneda(p.montoPagado)}</td><td>${p.metodoPago}</td><td>${p.registradoPor || '-'}</td></tr>`).join('')}
+            </table>
+            </body></html>`
+        )
+        ventana.document.close()
+        ventana.focus()
+        setTimeout(() => { ventana.print(); ventana.close() }, 300)
+    }
+
     return (
         <div className={estilos.modalOverlay} onClick={alCerrar}>
             <div className={`${estilos.modal} ${estilos[tema]}`} onClick={e => e.stopPropagation()}>
                 
-                {/* HEADER */}
                 <div className={`${estilos.modalHeader} ${estilos[tema]}`}>
                     <div>
-                        <h2>💰 Gestión de Pagos</h2>
+                        <h2>Gestión de Pagos</h2>
                         <p className={estilos.subtitulo}>
                             Cliente: {cliente.nombre} {cliente.apellidos}
                         </p>
                     </div>
-                    <button className={estilos.btnCerrar} onClick={alCerrar}>
-                        <ion-icon name="close-outline"></ion-icon>
-                    </button>
+                    <div className={estilos.headerAcciones}>
+                        {urlWhatsApp && (
+                            <button type="button" className={estilos.btnWhatsApp} onClick={() => { setWaNumberInput(numeroWa || ''); setShowWhatsAppModal(true) }}>
+                                <ion-icon name="logo-whatsapp"></ion-icon>
+                                Enviar por WhatsApp
+                            </button>
+                        )}
+                        <button className={estilos.btnCerrar} onClick={alCerrar}>
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
+                    </div>
                 </div>
 
                 {/* TABS */}
@@ -250,16 +345,38 @@ export default function ModalPagos({ cliente, alCerrar, tema = 'light' }) {
                                                 <div className={`${estilos.formularioPago} ${estilos[tema]}`}>
                                                     <div className={estilos.formHeader}>
                                                         <h3>Registrar Pago</h3>
-                                                        <button 
-                                                            onClick={cancelarSeleccion}
-                                                            className={estilos.btnCancelarSeleccion}
-                                                        >
-                                                            <ion-icon name="close-circle-outline"></ion-icon>
-                                                            Cancelar
-                                                        </button>
+                                                        <div>
+                                                            <button 
+                                                                onClick={() => { setConfirmData({ type: 'cancelar' }); setShowConfirm(true) }}
+                                                                className={estilos.btnCancelarSeleccion}
+                                                            >
+                                                                <ion-icon name="close-circle-outline"></ion-icon>
+                                                                Cancelar
+                                                            </button>
+                                                            <button
+                                                                onClick={() => { setConfirmData({ type: 'cancelar_todo' }); setShowConfirm(true) }}
+                                                                className={estilos.btnCancelarTodo}
+                                                                style={{ marginLeft: 8 }}
+                                                            >
+                                                                <ion-icon name="trash-bin-outline"></ion-icon>
+                                                                Cancelar todo
+                                                            </button>
+                                                        </div>
                                                     </div>
 
                                                     <form onSubmit={manejarRegistroPago}>
+                                                        <div className={estilos.accionesRapidas}>
+                                                            <button
+                                                                type="button"
+                                                                className={estilos.btnPagarTodo}
+                                                                onClick={manejarPagarTodo}
+                                                                disabled={procesando}
+                                                            >
+                                                                <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+                                                                Pagar monto total ({formatearMoneda(cuentaSeleccionada.saldoPendiente)})
+                                                            </button>
+                                                            <span className={estilos.oAbonar}>o abonar otro monto:</span>
+                                                        </div>
                                                         <div className={estilos.gridForm}>
                                                             <div className={estilos.grupoInput}>
                                                                 <label>Monto a Pagar *</label>
@@ -401,6 +518,53 @@ export default function ModalPagos({ cliente, alCerrar, tema = 'light' }) {
                         </>
                     )}
                 </div>
+                {/* Modales: confirmación y WhatsApp */}
+                {showConfirm && (
+                    <div className={estilos.modalOverlay} onClick={() => setShowConfirm(false)}>
+                        <div className={`${estilos.modal} ${estilos[tema]}`} onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
+                            <div className={estilos.modalHeader}>
+                                <h3>{confirmData.type === 'pagar' ? 'Confirmar Pago' : confirmData.type === 'cancelar_todo' ? 'Confirmar Cancelar Todo' : 'Cancelar'}</h3>
+                            </div>
+                            <div style={{ padding: 16 }}>
+                                {confirmData.type === 'pagar' ? (
+                                    <p>¿Registrar pago por {formatearMoneda(confirmData.amount)} a la cuenta seleccionada?</p>
+                                ) : confirmData.type === 'cancelar_todo' ? (
+                                    <p>¿Desea cerrar el panel y cancelar la operación actual?</p>
+                                ) : (
+                                    <p>¿Desea cancelar la selección actual?</p>
+                                )}
+                            </div>
+                            <div className={estilos.modalFooter} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                                            <button className={estilos.btnCancelarSeleccion} onClick={() => handleConfirm(false)} disabled={procesando}>Cancelar</button>
+                                <button className={estilos.btnRegistrar} onClick={() => handleConfirm(true)} disabled={procesando} style={{ marginLeft: 8 }}>Confirmar</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {showWhatsAppModal && (
+                    <div className={estilos.modalOverlay} onClick={() => setShowWhatsAppModal(false)}>
+                        <div className={`${estilos.modal} ${estilos[tema]}`} onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
+                            <div className={estilos.modalHeader}>
+                                <h3>Enviar por WhatsApp</h3>
+                            </div>
+                            <div style={{ padding: 16 }}>
+                                <label>Teléfono destino</label>
+                                <input
+                                    className={estilos.input}
+                                    value={waNumberInput}
+                                    onChange={e => setWaNumberInput(e.target.value)}
+                                    placeholder="Ej: 8091234567"
+                                />
+                                <p style={{ marginTop: 8 }}>Se enviará el estado de cuenta al número indicado.</p>
+                            </div>
+                            <div className={estilos.modalFooter} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <button className={estilos.btnCancelarSeleccion} onClick={() => setShowWhatsAppModal(false)}>Cerrar</button>
+                                <button className={estilos.btnRegistrar} onClick={sendWhatsApp} style={{ marginLeft: 8 }}>Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* FOOTER */}
                 <div className={`${estilos.modalFooter} ${estilos[tema]}`}>

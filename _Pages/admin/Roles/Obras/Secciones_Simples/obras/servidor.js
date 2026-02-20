@@ -615,3 +615,91 @@ export async function actualizarAsignacionesTrabajadores(obraId, nuevosIds) {
         return { success: false }
     }
 }
+
+export async function obtenerMaterialesObra(obraId) {
+    let connection
+    try {
+        const cookieStore = await cookies()
+        const userId = cookieStore.get('userId')?.value
+        const empresaId = cookieStore.get('empresaId')?.value
+        const userTipo = cookieStore.get('userTipo')?.value
+
+        if (!userId || !empresaId || (userTipo !== 'admin' && userTipo !== 'vendedor')) {
+            return { success: false, mensaje: 'Sesion invalida' }
+        }
+
+        connection = await db.getConnection()
+
+        const [obras] = await connection.execute(
+            'SELECT id FROM obras_simples WHERE id = ? AND empresa_id = ?',
+            [obraId, empresaId]
+        )
+        if (obras.length === 0) {
+            connection.release()
+            return { success: false, mensaje: 'Obra no encontrada' }
+        }
+
+        const [materiales] = await connection.execute(
+            `SELECT g.id, g.fecha, g.concepto, g.descripcion, g.monto, g.registrado_por,
+                    COALESCE(u.nombre, 'Usuario') as registrado_por_nombre
+             FROM gastos_obra_simple g
+             LEFT JOIN usuarios u ON g.registrado_por = u.id
+             WHERE g.obra_id = ? AND g.tipo_gasto = 'materiales'
+             ORDER BY g.fecha DESC, g.id DESC`,
+            [obraId]
+        )
+
+        connection.release()
+
+        return {
+            success: true,
+            materiales
+        }
+    } catch (error) {
+        console.error('Error al obtener materiales de obra:', error)
+        if (connection) connection.release()
+        return { success: false, mensaje: 'Error al cargar materiales' }
+    }
+}
+
+export async function eliminarGastoObraSimple(gastoId, obraId) {
+    let connection
+    try {
+        const cookieStore = await cookies()
+        const userId = cookieStore.get('userId')?.value
+        const empresaId = cookieStore.get('empresaId')?.value
+        const userTipo = cookieStore.get('userTipo')?.value
+
+        if (!userId || !empresaId || (userTipo !== 'admin' && userTipo !== 'vendedor')) {
+            return { success: false, mensaje: 'Sesion invalida' }
+        }
+
+        connection = await db.getConnection()
+
+        const [obras] = await connection.execute(
+            'SELECT id FROM obras_simples WHERE id = ? AND empresa_id = ?',
+            [obraId, empresaId]
+        )
+        if (obras.length === 0) {
+            connection.release()
+            return { success: false, mensaje: 'Obra no encontrada' }
+        }
+
+        const [result] = await connection.execute(
+            'DELETE FROM gastos_obra_simple WHERE id = ? AND obra_id = ?',
+            [gastoId, obraId]
+        )
+
+        connection.release()
+
+        if (result.affectedRows === 0) {
+            return { success: false, mensaje: 'Gasto no encontrado' }
+        }
+
+        return { success: true, mensaje: 'Gasto eliminado' }
+    } catch (error) {
+        console.error('Error al eliminar gasto:', error)
+        if (connection) connection.release()
+        return { success: false, mensaje: 'Error al eliminar' }
+    }
+}

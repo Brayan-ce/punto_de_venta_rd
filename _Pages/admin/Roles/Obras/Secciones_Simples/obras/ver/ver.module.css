@@ -443,6 +443,151 @@
     to { transform: rotate(360deg); }
 }
 
+.tablaMaterialesWrap {
+    overflow-x: auto;
+}
+
+.tablaMateriales {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tablaMateriales th {
+    text-align: left;
+    padding: 12px 14px;
+    font-weight: 700;
+    border-bottom: 2px solid;
+}
+
+.light .tablaMateriales th {
+    background: #f8fafc;
+    color: #475569;
+    border-color: #e2e8f0;
+}
+
+.dark .tablaMateriales th {
+    background: #0f172a;
+    color: #94a3b8;
+    border-color: #334155;
+}
+
+.tablaMateriales td {
+    padding: 12px 14px;
+    border-bottom: 1px solid;
+    vertical-align: top;
+}
+
+.light .tablaMateriales td {
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .tablaMateriales td {
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.tablaMateriales tbody tr:hover {
+    background: rgba(2, 132, 199, 0.06);
+}
+
+.conceptoCell {
+    display: block;
+    font-weight: 600;
+}
+
+.descripcionCell {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.light .descripcionCell {
+    color: #64748b;
+}
+
+.dark .descripcionCell {
+    color: #94a3b8;
+}
+
+.montoCell {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.btnEliminarGasto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 2px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnEliminarGasto {
+    background: white;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.dark .btnEliminarGasto {
+    background: #1e293b;
+    border-color: #7f1d1d;
+    color: #f87171;
+}
+
+.btnEliminarGasto:hover:not(:disabled) {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+}
+
+.btnEliminarGasto:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnEliminarGasto ion-icon {
+    font-size: 1.2rem;
+}
+
+.materialesVacio {
+    margin: 0;
+    padding: 24px;
+    text-align: center;
+}
+
+.light .materialesVacio {
+    color: #64748b;
+}
+
+.dark .materialesVacio {
+    color: #94a3b8;
+}
+
+.totalMateriales {
+    margin-top: 16px;
+    padding: 12px 14px;
+    font-weight: 700;
+    border-radius: 10px;
+    text-align: right;
+}
+
+.light .totalMateriales {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.dark .totalMateriales {
+    background: #0f172a;
+    color: #f1f5f9;
+}
+
 @media (max-width: 1024px) {
     .grid {
         grid-template-columns: 1fr;

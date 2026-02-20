@@ -55,6 +55,7 @@ export async function iniciarSesion(email, password) {
                 u.password,
                 u.tipo,
                 u.activo,
+                u.system_mode,
                 e.nombre_empresa
             FROM usuarios u
             LEFT JOIN empresas e ON u.empresa_id = e.id
@@ -133,13 +134,15 @@ export async function iniciarSesion(email, password) {
             success: true,
             mensaje: 'Inicio de sesion exitoso',
             tipo: usuario.tipo,
+            systemMode: usuario.system_mode || 'POS',
             usuario: {
                 id: usuario.id,
                 nombre: usuario.nombre,
                 email: usuario.email,
                 tipo: usuario.tipo,
                 empresa_id: usuario.empresa_id,
-                nombre_empresa: usuario.nombre_empresa
+                nombre_empresa: usuario.nombre_empresa,
+                system_mode: usuario.system_mode
             }
         }
 

@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { obtenerObraSimple, cambiarEstadoObra } from '../servidor'
+import { obtenerObraSimple, cambiarEstadoObra, obtenerMaterialesObra, eliminarGastoObraSimple } from '../servidor'
 import estilos from './ver.module.css'
 
 const ESTADOS_OBRA = {
@@ -15,6 +15,8 @@ export default function Ver({ obraId, onVolver }) {
     const [cargando, setCargando] = useState(true)
     const [obra, setObra] = useState(null)
     const [moneda, setMoneda] = useState('DOP RD$')
+    const [materiales, setMateriales] = useState([])
+    const [eliminandoId, setEliminandoId] = useState(null)
 
     useEffect(() => {
         const temaLocal = localStorage.getItem('tema') || 'light'
@@ -46,11 +48,26 @@ export default function Ver({ obraId, onVolver }) {
             if (res.moneda) {
                 setMoneda(`${res.moneda.codigo} ${res.moneda.simbolo}`)
             }
+            const resMat = await obtenerMaterialesObra(obraId)
+            if (resMat.success) setMateriales(resMat.materiales || [])
         } else {
             alert('Error al cargar la obra')
             onVolver()
         }
         setCargando(false)
+    }
+
+    async function handleEliminarMaterial(gastoId) {
+        if (!confirm('¿Eliminar este registro de material?')) return
+        setEliminandoId(gastoId)
+        const res = await eliminarGastoObraSimple(gastoId, obraId)
+        setEliminandoId(null)
+        if (res.success) {
+            setMateriales(prev => prev.filter(m => m.id !== gastoId))
+            cargarObra()
+        } else {
+            alert(res.mensaje || 'Error al eliminar')
+        }
     }
 
     async function handleCambiarEstado(nuevoEstado) {
@@ -303,6 +320,59 @@ export default function Ver({ obraId, onVolver }) {
                         </div>
                     </div>
                 )}
+            </div>
+
+            <div className={estilos.seccion}>
+                <h3 className={estilos.seccionTitulo}>
+                    <ion-icon name="cube-outline"></ion-icon>
+                    Costo de materiales
+                </h3>
+                <div className={estilos.tablaMaterialesWrap}>
+                    {materiales.length === 0 ? (
+                        <p className={estilos.materialesVacio}>No hay registros de materiales para esta obra.</p>
+                    ) : (
+                        <>
+                            <table className={estilos.tablaMateriales}>
+                                <thead>
+                                    <tr>
+                                        <th>Concepto</th>
+                                        <th>Monto</th>
+                                        <th>Fecha</th>
+                                        <th>Registrado por</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {materiales.map(m => (
+                                        <tr key={m.id}>
+                                            <td>
+                                                <span className={estilos.conceptoCell}>{m.concepto}</span>
+                                                {m.descripcion && <span className={estilos.descripcionCell}>{m.descripcion}</span>}
+                                            </td>
+                                            <td className={estilos.montoCell}>{moneda} {Number(m.monto).toLocaleString()}</td>
+                                            <td>{m.fecha ? new Date(m.fecha).toLocaleDateString() : '-'}</td>
+                                            <td>{m.registrado_por_nombre || '-'}</td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    className={estilos.btnEliminarGasto}
+                                                    onClick={() => handleEliminarMaterial(m.id)}
+                                                    disabled={eliminandoId === m.id}
+                                                    title="Eliminar"
+                                                >
+                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <div className={estilos.totalMateriales}>
+                                Total materiales: {moneda} {materiales.reduce((s, m) => s + Number(m.monto), 0).toLocaleString()}
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
 
             {obra.notas && (
