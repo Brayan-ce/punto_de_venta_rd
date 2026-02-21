@@ -4,7 +4,8 @@ import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-    obtenerContratoPorId
+    obtenerContratoPorId,
+    registrarPagoCuota
 } from '../../servidor'
 import {
     obtenerPlanesActivos,
@@ -203,8 +204,34 @@ export default function VerContratoFinanciamiento() {
     }
 
     const procesarPago = async () => {
-        alert('La funcionalidad de pagos se implementará en el módulo pagos')
-        cerrarModalPago()
+        if (!formPago.monto_pago || parseFloat(formPago.monto_pago) <= 0) {
+            alert('Ingresa un monto válido')
+            return
+        }
+
+        setProcesando(true)
+        try {
+            const resultado = await registrarPagoCuota(cuotaSeleccionada.id, {
+                monto_pago: parseFloat(formPago.monto_pago),
+                metodo_pago: formPago.metodo_pago,
+                fecha_pago: formPago.fecha_pago,
+                numero_referencia: formPago.numero_referencia,
+                notas: formPago.notas
+            })
+
+            if (resultado.success) {
+                alert(`✅ Pago registrado:\nRecibo: ${resultado.numero_recibo}\nMonto: RD$${resultado.montoPago.toFixed(2)}`)
+                cerrarModalPago()
+                cargarContrato()
+            } else {
+                alert(`❌ ${resultado.mensaje}`)
+            }
+        } catch (error) {
+            console.error('Error al registrar pago:', error)
+            alert('Error al registrar pago: ' + error.message)
+        } finally {
+            setProcesando(false)
+        }
     }
 
     // ===== FUNCIONES DE ACCIONES DEL CONTRATO =====

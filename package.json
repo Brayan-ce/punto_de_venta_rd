@@ -19,6 +19,7 @@
     "idb": "^8.0.3",
     "ionicons": "^8.0.13",
     "jsonwebtoken": "^9.0.3",
+    "jspdf": "^4.2.0",
     "lucide-react": "^0.562.0",
     "marked": "^17.0.1",
     "mysql2": "^3.16.0",

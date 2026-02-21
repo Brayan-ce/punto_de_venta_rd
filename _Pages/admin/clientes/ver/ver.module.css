@@ -591,6 +591,57 @@
     box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
 }
 
+.accionesAdicionales {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btnHistorial {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+}
+
+.btnHistorial:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(245, 158, 11, 0.4);
+}
+
+.btnPagos {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+    color: white;
+    box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+}
+
+.btnPagos:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+}
+
+.btnImpresora {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+}
+
+.btnImpresora:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(6, 182, 212, 0.4);
+}
+
+.btnWhatsApp {
+    background: linear-gradient(135deg, #25d366, #20ba5c);
+    color: white;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+
+.btnWhatsApp:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+}
+
 .btnAccion:disabled {
     opacity: 0.5;
     cursor: not-allowed;

@@ -467,3 +467,290 @@ export async function obtenerEstadisticasAlertas(filtros = {}) {
     }
 }
 
+/**
+ * Verifica y crea alertas automáticas para cuotas próximas a vencer
+ * @returns {Object} { success: boolean, alertas_creadas?: number, mensaje?: string }
+ */
+export async function verificarYCrearAlertasCuotas() {
+    let connection
+    try {
+        const cookieStore = await cookies()
+        const empresaId = cookieStore.get('empresaId')?.value
+
+        if (!empresaId) {
+            return { success: false, mensaje: 'Sesión inválida', alertas_creadas: 0 }
+        }
+
+        connection = await db.getConnection()
+        await connection.beginTransaction()
+
+        let alertasCreadas = 0
+
+        // ALERTAS POR VENCIMIENTO PRÓXIMO (10, 5, 3 días y hoy)
+        const cuotasVencimiento = [
+            { dias: 10, tipo: 'vence_10_dias', severidad: 'baja', titulo: 'Cuota vence en 10 días' },
+            { dias: 5, tipo: 'vence_5_dias', severidad: 'media', titulo: 'Cuota vence en 5 días' },
+            { dias: 3, tipo: 'vence_3_dias', severidad: 'alta', titulo: 'Cuota vence en 3 días' },
+            { dias: 0, tipo: 'vence_hoy', severidad: 'critica', titulo: 'Cuota vence hoy' }
+        ]
+
+        for (const config of cuotasVencimiento) {
+            const [cuotas] = await connection.execute(
+                `SELECT cf.id, cf.numero_cuota, cf.fecha_vencimiento, cf.monto_cuota,
+                        cf.monto_pagado, (cf.monto_cuota - cf.monto_pagado) as saldo_pendiente, 
+                        c.id as cliente_id, c.nombre, c.apellidos, cof.id as contrato_id,
+                        cof.numero_contrato
+                 FROM cuotas_financiamiento cf
+                 JOIN contratos_financiamiento cof ON cf.contrato_id = cof.id
+                 JOIN clientes c ON cof.cliente_id = c.id
+                 WHERE cf.empresa_id = ? AND cf.estado IN ('pendiente', 'parcial')
+                   AND DATE(cf.fecha_vencimiento) = DATE(DATE_ADD(NOW(), INTERVAL ? DAY))
+                   AND NOT EXISTS (
+                       SELECT 1 FROM alertas_financiamiento a
+                       WHERE a.cuota_id = cf.id AND a.tipo_alerta = ?
+                         AND a.estado IN ('activa', 'vista')
+                   )`,
+                [empresaId, config.dias, config.tipo]
+            )
+
+            // Crear alerta por cada cuota
+            for (const cuota of cuotas) {
+                const mensaje = `La cuota #${cuota.numero_cuota} de ${cuota.nombre} ${cuota.apellidos} vence el ${new Date(cuota.fecha_vencimiento).toLocaleDateString('es-DO')} con saldo de RD$${parseFloat(cuota.saldo_pendiente).toFixed(2)}`
+
+                await connection.execute(
+                    `INSERT INTO alertas_financiamiento (
+                        empresa_id, cliente_id, contrato_id, cuota_id,
+                        tipo_alerta, severidad, titulo, mensaje,
+                        estado, fecha_creacion
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
+                    [
+                        empresaId,
+                        cuota.cliente_id,
+                        cuota.contrato_id,
+                        cuota.id,
+                        config.tipo,
+                        config.severidad,
+                        config.titulo,
+                        mensaje,
+                        'activa'
+                    ]
+                )
+                alertasCreadas++
+            }
+        }
+
+        // ALERTAS POR CUOTAS VENCIDAS
+        const [cuotasVencidas] = await connection.execute(
+            `SELECT cf.id, cf.numero_cuota, cf.fecha_vencimiento, 
+                    (cf.monto_cuota - cf.monto_pagado) as saldo_pendiente,
+                    cf.monto_pagado, cf.monto_cuota,
+                    c.id as cliente_id, c.nombre, c.apellidos,
+                    cof.id as contrato_id, cof.numero_contrato
+             FROM cuotas_financiamiento cf
+             JOIN contratos_financiamiento cof ON cf.contrato_id = cof.id
+             JOIN clientes c ON cof.cliente_id = c.id
+             WHERE cf.empresa_id = ? AND cf.estado IN ('pendiente', 'parcial')
+               AND DATE(cf.fecha_vencimiento) < DATE(NOW())
+               AND NOT EXISTS (
+                   SELECT 1 FROM alertas_financiamiento a
+                   WHERE a.cuota_id = cf.id AND a.tipo_alerta = 'vencida'
+                     AND a.estado IN ('activa', 'vista')
+               )`,
+            [empresaId]
+        )
+
+        for (const cuota of cuotasVencidas) {
+            const diasVencimiento = Math.floor((new Date() - new Date(cuota.fecha_vencimiento)) / (1000 * 60 * 60 * 24))
+            const severidad = diasVencimiento > 30 ? 'critica' : diasVencimiento > 15 ? 'alta' : 'media'
+            const mensaje = `⚠️ CUOTA VENCIDA: #${cuota.numero_cuota} de ${cuota.nombre} ${cuota.apellidos}\n` +
+                          `Vencida hace ${diasVencimiento} días\n` +
+                          `Monto original: RD$${parseFloat(cuota.monto_cuota).toFixed(2)}\n` +
+                          `Pagado: RD$${parseFloat(cuota.monto_pagado || 0).toFixed(2)}\n` +
+                          `Saldo: RD$${parseFloat(cuota.saldo_pendiente).toFixed(2)}`
+
+            await connection.execute(
+                `INSERT INTO alertas_financiamiento (
+                    empresa_id, cliente_id, contrato_id, cuota_id,
+                    tipo_alerta, severidad, titulo, mensaje,
+                    estado, fecha_creacion
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
+                [
+                    empresaId,
+                    cuota.cliente_id,
+                    cuota.contrato_id,
+                    cuota.id,
+                    'vencida',
+                    severidad,
+                    'Cuota vencida',
+                    mensaje,
+                    'activa'
+                ]
+            )
+            alertasCreadas++
+        }
+
+        // ALERTAS POR CLIENTES DE ALTO RIESGO
+        const [clientesAltoRiesgo] = await connection.execute(
+            `SELECT DISTINCT c.id as cliente_id, c.nombre, c.apellidos,
+                    SUM(cf.monto_cuota - cf.monto_pagado) as saldo_total,
+                    COUNT(DISTINCT cof.id) as contratos_activos,
+                    COUNT(CASE WHEN cf.fecha_vencimiento < NOW() AND cf.estado IN ('pendiente', 'parcial') THEN 1 END) as cuotas_vencidas
+             FROM clientes c
+             JOIN contratos_financiamiento cof ON c.id = cof.cliente_id
+             JOIN cuotas_financiamiento cf ON cof.id = cf.contrato_id
+             WHERE c.empresa_id = ? AND cof.estado IN ('vigente', 'en_mora')
+               AND cf.estado IN ('pendiente', 'parcial')
+               AND cf.fecha_vencimiento < NOW()
+             GROUP BY c.id
+             HAVING cuotas_vencidas > 0
+               AND NOT EXISTS (
+                   SELECT 1 FROM alertas_financiamiento a
+                   WHERE a.cliente_id = c.id AND a.tipo_alerta = 'cliente_alto_riesgo'
+                     AND a.estado IN ('activa', 'vista')
+               )`,
+            [empresaId]
+        )
+
+        for (const cliente of clientesAltoRiesgo) {
+            const mensaje = `🚨 CLIENTE DE ALTO RIESGO:\n` +
+                          `${cliente.nombre} ${cliente.apellidos}\n` +
+                          `Cuotas vencidas: ${cliente.cuotas_vencidas}\n` +
+                          `Contratos activos: ${cliente.contratos_activos}\n` +
+                          `Saldo total vencido: RD$${parseFloat(cliente.saldo_total).toFixed(2)}`
+
+            await connection.execute(
+                `INSERT INTO alertas_financiamiento (
+                    empresa_id, cliente_id,
+                    tipo_alerta, severidad, titulo, mensaje,
+                    estado, fecha_creacion
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`,
+                [
+                    empresaId,
+                    cliente.cliente_id,
+                    'cliente_alto_riesgo',
+                    'critica',
+                    'Cliente de alto riesgo',
+                    mensaje,
+                    'activa'
+                ]
+            )
+            alertasCreadas++
+        }
+
+        // ALERTAS POR PAGOS REGISTRADOS RECIENTEMENTE (últimas 24h)
+        const [pagosRecientes] = await connection.execute(
+            `SELECT DISTINCT 
+                    pf.id as pago_id,
+                    pf.numero_recibo,
+                    pf.monto_pago,
+                    pf.fecha_pago,
+                    cf.id as cuota_id,
+                    cf.numero_cuota,
+                    c.id as cliente_id,
+                    c.nombre, c.apellidos,
+                    cof.id as contrato_id,
+                    cof.numero_contrato
+             FROM pagos_financiamiento pf
+             JOIN cuotas_financiamiento cf ON pf.cuota_id = cf.id
+             JOIN contratos_financiamiento cof ON pf.contrato_id = cof.id
+             JOIN clientes c ON cof.cliente_id = c.id
+             WHERE pf.empresa_id = ? 
+               AND pf.estado = 'confirmado'
+               AND pf.fecha_creacion >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+               AND NOT EXISTS (
+                   SELECT 1 FROM alertas_financiamiento a
+                   WHERE a.cuota_id = cf.id AND a.tipo_alerta = 'pago_registrado'
+                     AND a.estado = 'activa'
+                     AND DATE(a.fecha_creacion) = CURDATE()
+               )`,
+            [empresaId]
+        )
+
+        for (const pago of pagosRecientes) {
+            const mensaje = `✅ PAGO REGISTRADO:\n` +
+                          `Recibo: ${pago.numero_recibo}\n` +
+                          `Cliente: ${pago.nombre} ${pago.apellidos}\n` +
+                          `Cuota: #${pago.numero_cuota}\n` +
+                          `Monto: RD$${parseFloat(pago.monto_pago).toFixed(2)}\n` +
+                          `Fecha: ${new Date(pago.fecha_pago).toLocaleDateString('es-DO')}`
+
+            await connection.execute(
+                `INSERT INTO alertas_financiamiento (
+                    empresa_id, cliente_id, contrato_id, cuota_id,
+                    tipo_alerta, severidad, titulo, mensaje,
+                    estado, fecha_creacion
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
+                [
+                    empresaId,
+                    pago.cliente_id,
+                    pago.contrato_id,
+                    pago.cuota_id,
+                    'pago_registrado',
+                    'baja',
+                    'Pago registrado',
+                    mensaje,
+                    'activa'
+                ]
+            )
+            alertasCreadas++
+        }
+
+        await connection.commit()
+        connection.release()
+
+        return {
+            success: true,
+            alertas_creadas: alertasCreadas,
+            mensaje: alertasCreadas > 0 ? `${alertasCreadas} alerta(s) procesada(s)` : 'Sistema de alertas actualizado'
+        }
+
+    } catch (error) {
+        console.error('Error al verificar alertas:', error)
+        if (connection) {
+            try {
+                await connection.rollback()
+            } catch (rollbackError) {
+                console.error('Error en rollback:', rollbackError)
+            }
+            connection.release()
+        }
+        return { success: false, mensaje: 'Error al procesar alertas: ' + error.message, alertas_creadas: 0 }
+    }
+}
+
+/**
+ * Resuelve automáticamente alertas cuando se registra un pago
+ * @param {number} cuotaId - ID de la cuota pagada
+ * @param {number} usuarioId - ID del usuario que registró el pago
+ * @returns {Object} { success: boolean, alertas_resueltas?: number }
+ */
+export async function resolverAlertasPorPago(cuotaId, usuarioId) {
+    let connection
+    try {
+        connection = await db.getConnection()
+
+        const [result] = await connection.execute(
+            `UPDATE alertas_financiamiento
+             SET estado = 'resuelta',
+                 accion_realizada = 'Pago registrado - Alerta auto-resuelta',
+                 resuelta_por = ?,
+                 fecha_resolucion = NOW()
+             WHERE cuota_id = ? AND estado IN ('activa', 'vista')
+               AND tipo_alerta IN ('vence_10_dias', 'vence_5_dias', 'vence_3_dias', 'vence_hoy')`,
+            [usuarioId, cuotaId]
+        )
+
+        connection.release()
+
+        return {
+            success: true,
+            alertas_resueltas: result.affectedRows
+        }
+
+    } catch (error) {
+        console.error('Error al resolver alertas:', error)
+        if (connection) connection.release()
+        return { success: false, alertas_resueltas: 0 }
+    }
+}
+

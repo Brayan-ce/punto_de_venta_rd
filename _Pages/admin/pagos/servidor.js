@@ -40,8 +40,8 @@ export async function obtenerPagos(filtros = {}) {
                    cl.telefono as cliente_telefono,
                    u.nombre as registrado_por_nombre
             FROM pagos_financiamiento p
-            INNER JOIN cuotas_financiamiento c ON p.cuota_id = c.id
-            INNER JOIN contratos_financiamiento co ON p.contrato_id = co.id
+            LEFT JOIN cuotas_financiamiento c ON p.cuota_id = c.id
+            LEFT JOIN contratos_financiamiento co ON p.contrato_id = co.id
             LEFT JOIN clientes cl ON p.cliente_id = cl.id
             LEFT JOIN usuarios u ON p.registrado_por = u.id
             WHERE p.empresa_id = ?
@@ -94,8 +94,8 @@ export async function obtenerPagos(filtros = {}) {
         let countQuery = `
             SELECT COUNT(*) as total
             FROM pagos_financiamiento p
-            INNER JOIN cuotas_financiamiento c ON p.cuota_id = c.id
-            INNER JOIN contratos_financiamiento co ON p.contrato_id = co.id
+            LEFT JOIN cuotas_financiamiento c ON p.cuota_id = c.id
+            LEFT JOIN contratos_financiamiento co ON p.contrato_id = co.id
             LEFT JOIN clientes cl ON p.cliente_id = cl.id
             LEFT JOIN usuarios u ON p.registrado_por = u.id
             WHERE p.empresa_id = ?
@@ -200,8 +200,8 @@ export async function obtenerPagoPorId(id) {
                    u.nombre as registrado_por_nombre,
                    u2.nombre as revertido_por_nombre
             FROM pagos_financiamiento p
-            INNER JOIN cuotas_financiamiento c ON p.cuota_id = c.id
-            INNER JOIN contratos_financiamiento co ON p.contrato_id = co.id
+            LEFT JOIN cuotas_financiamiento c ON p.cuota_id = c.id
+            LEFT JOIN contratos_financiamiento co ON p.contrato_id = co.id
             LEFT JOIN clientes cl ON p.cliente_id = cl.id
             LEFT JOIN usuarios u ON p.registrado_por = u.id
             LEFT JOIN usuarios u2 ON p.revertido_por = u2.id

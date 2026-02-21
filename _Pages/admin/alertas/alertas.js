@@ -8,7 +8,8 @@ import {
     marcarAlertaResuelta,
     marcarAlertaVista,
     descartarAlerta,
-    asignarAlerta
+    asignarAlerta,
+    verificarYCrearAlertasCuotas
 } from './servidor'
 import { SEVERIDAD_ALERTA } from '../core/finance/estados'
 import estilos from './alertas.module.css'
@@ -57,6 +58,15 @@ export default function AlertasFinanciamiento() {
     const cargarDatos = async () => {
         setCargando(true)
         try {
+            // Primero verificar y crear alertas automáticas por vencimientos y pagos
+            const resAlertasAuto = await verificarYCrearAlertasCuotas()
+            
+            if (!resAlertasAuto.success) {
+                console.warn('⚠️ Advertencia al generar alertas automáticas:', resAlertasAuto.mensaje)
+                // Continuamos de todas formas, solo para obtener las alertas existentes
+            }
+            
+            // Luego cargar todas las alertas
             const [resultadoAlertas, resultadoEstadisticas] = await Promise.all([
                 obtenerAlertas({
                     estado: filtros.estado || undefined,
@@ -70,15 +80,16 @@ export default function AlertasFinanciamiento() {
             if (resultadoAlertas.success) {
                 setAlertas(resultadoAlertas.alertas)
             } else {
-                alert(resultadoAlertas.mensaje || 'Error al cargar alertas')
+                console.error('❌ Error al cargar alertas:', resultadoAlertas.mensaje)
+                setAlertas([])
             }
 
             if (resultadoEstadisticas.success) {
                 setEstadisticas(resultadoEstadisticas.estadisticas)
             }
         } catch (error) {
-            console.error('Error al cargar datos:', error)
-            alert('Error al cargar datos')
+            console.error('❌ Error al cargar datos:', error)
+            setAlertas([])
         } finally {
             setCargando(false)
         }
@@ -112,6 +123,7 @@ export default function AlertasFinanciamiento() {
             vence_hoy: 'Vence hoy',
             vencida: 'Vencida',
             cliente_alto_riesgo: 'Cliente de alto riesgo',
+            pago_registrado: '✅ Pago registrado',
             limite_excedido: 'Límite excedido',
             clasificacion_bajo: 'Clasificación bajó'
         }
@@ -317,6 +329,7 @@ export default function AlertasFinanciamiento() {
                     <option value="vence_hoy">Vence hoy</option>
                     <option value="vencida">Vencida</option>
                     <option value="cliente_alto_riesgo">Cliente alto riesgo</option>
+                    <option value="pago_registrado">✅ Pagos registrados</option>
                     <option value="limite_excedido">Límite excedido</option>
                 </select>
             </div>

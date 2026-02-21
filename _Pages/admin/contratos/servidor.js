@@ -1836,3 +1836,171 @@ export async function cancelarContratoFinanciamiento(id, razon) {
     }
 }
 
+/**
+ * Registra un pago de cuota de financiamiento
+ * @param {number} cuotaId - ID de la cuota
+ * @param {Object} datos - Datos del pago
+ * @returns {Object} { success: boolean, mensaje?: string }
+ */
+export async function registrarPagoCuota(cuotaId, datos) {
+    let connection
+    try {
+        const cookieStore = await cookies()
+        const empresaId = cookieStore.get('empresaId')?.value
+        const userId = cookieStore.get('userId')?.value
+
+        if (!empresaId || !userId) {
+            return { success: false, mensaje: 'Sesión inválida' }
+        }
+
+        const { monto_pago, metodo_pago, fecha_pago, numero_referencia, notas } = datos
+
+        // Validaciones
+        if (!monto_pago || parseFloat(monto_pago) <= 0) {
+            return { success: false, mensaje: 'El monto debe ser mayor a cero' }
+        }
+
+        connection = await db.getConnection()
+        await connection.beginTransaction()
+
+        try {
+            // Obtener cuota con información del contrato
+            const [cuotas] = await connection.execute(
+                `SELECT c.*, co.id as contrato_id, co.cliente_id, co.monto_pagado as contrato_monto_pagado,
+                        co.saldo_pendiente as contrato_saldo_pendiente
+                 FROM cuotas_financiamiento c
+                 INNER JOIN contratos_financiamiento co ON c.contrato_id = co.id
+                 WHERE c.id = ? AND c.empresa_id = ?`,
+                [cuotaId, empresaId]
+            )
+
+            if (cuotas.length === 0) {
+                throw new Error('Cuota no encontrada')
+            }
+
+            const cuota = cuotas[0]
+            const montoPago = parseFloat(monto_pago)
+            const montoPendiente = parseFloat(cuota.monto_cuota) - parseFloat(cuota.monto_pagado || 0)
+
+            if (montoPago > montoPendiente) {
+                throw new Error(`El monto no puede exceder ${montoPendiente.toFixed(2)}`)
+            }
+
+            // Generar número de recibo
+            const [ultimoRecibo] = await connection.execute(
+                `SELECT MAX(CAST(SUBSTRING(numero_recibo, -6) AS UNSIGNED)) as ultimo
+                 FROM pagos_financiamiento WHERE empresa_id = ?`,
+                [empresaId]
+            )
+            const numeroRecibo = `REC-${empresaId}-${(ultimoRecibo[0]?.ultimo || 0) + 1}`
+
+            // Crear pago
+            const [resultPago] = await connection.execute(
+                `INSERT INTO pagos_financiamiento (
+                    cuota_id, contrato_id, empresa_id, cliente_id,
+                    numero_recibo, monto_pago, aplicado_capital,
+                    metodo_pago, numero_referencia, fecha_pago,
+                    registrado_por, estado
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    cuotaId,
+                    cuota.contrato_id,
+                    empresaId,
+                    cuota.cliente_id,
+                    numeroRecibo,
+                    montoPago,
+                    montoPago,
+                    metodo_pago,
+                    numero_referencia || null,
+                    fecha_pago || new Date().toISOString().split('T')[0],
+                    userId,
+                    'confirmado'
+                ]
+            )
+
+            // Actualizar cuota
+            const nuevoMontoPagado = parseFloat(cuota.monto_pagado || 0) + montoPago
+            const totalCuota = parseFloat(cuota.monto_cuota)
+            let nuevoEstado = 'pendiente'
+
+            if (nuevoMontoPagado >= totalCuota) {
+                nuevoEstado = 'pagada'
+            } else if (nuevoMontoPagado > 0) {
+                nuevoEstado = 'parcial'
+            }
+
+            await connection.execute(
+                `UPDATE cuotas_financiamiento
+                 SET monto_pagado = ?,
+                     estado = ?,
+                     fecha_ultimo_pago = NOW()
+                 WHERE id = ?`,
+                [nuevoMontoPagado, nuevoEstado, cuotaId]
+            )
+
+            // Actualizar contrato
+            const nuevoMontoPagadoContrato = parseFloat(cuota.contrato_monto_pagado || 0) + montoPago
+            const nuevoSaldoContrato = parseFloat(cuota.contrato_saldo_pendiente || 0) - montoPago
+
+            // Contar cuotas pagadas
+            const [cuotasPagadas] = await connection.execute(
+                `SELECT COUNT(*) as total FROM cuotas_financiamiento
+                 WHERE contrato_id = ? AND estado = 'pagada'`,
+                [cuota.contrato_id]
+            )
+
+            await connection.execute(
+                `UPDATE contratos_financiamiento
+                 SET monto_pagado = ?,
+                     saldo_pendiente = ?,
+                     cuotas_pagadas = ?,
+                     fecha_ultimo_pago = NOW()
+                 WHERE id = ?`,
+                [
+                    nuevoMontoPagadoContrato,
+                    nuevoSaldoContrato,
+                    parseInt(cuotasPagadas[0].total),
+                    cuota.contrato_id
+                ]
+            )
+
+            // Marcar alertas relacionadas como resueltas
+            await connection.execute(
+                `UPDATE alertas_financiamiento
+                 SET estado = 'resuelta',
+                     accion_realizada = 'Pago registrado automáticamente',
+                     resuelta_por = ?,
+                     fecha_resolucion = NOW()
+                 WHERE cuota_id = ? AND empresa_id = ? AND estado IN ('activa', 'vista')`,
+                [userId, cuotaId, empresaId]
+            )
+
+            await connection.commit()
+            connection.release()
+
+            return {
+                success: true,
+                mensaje: 'Pago registrado exitosamente',
+                numero_recibo: numeroRecibo,
+                montoPago: montoPago
+            }
+
+        } catch (error) {
+            await connection.rollback()
+            throw error
+        }
+
+    } catch (error) {
+        console.error('Error al registrar pago:', error)
+        if (connection) {
+            try {
+                await connection.rollback()
+            } catch (rollbackError) {
+                console.error('Error en rollback:', rollbackError)
+            }
+            connection.release()
+        }
+        return { success: false, mensaje: 'Error al registrar pago: ' + error.message }
+    }
+}
+

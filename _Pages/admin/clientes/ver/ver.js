@@ -3,6 +3,10 @@ import { useEffect, useState } from "react"
 import { useRouter, useParams, useSearchParams } from "next/navigation"
 import { obtenerClientePorId } from "./servidor"
 import ModalPagos from "../Cobrar/ModalPagos"
+import ModalHistorial from "./ModalHistorial"
+import ModalImpresora from "./ModalImpresora"
+import ModalWhatsApp from "./ModalWhatsApp"
+import ModalHistorialPagos from "./ModalHistorialPagos"
 import estilos from "./ver.module.css"
 
 export default function VerClienteAdmin() {
@@ -14,6 +18,10 @@ export default function VerClienteAdmin() {
     const [cliente, setCliente] = useState(null)
     const [mostrarMenu, setMostrarMenu] = useState(false)
     const [mostrarModalPagos, setMostrarModalPagos] = useState(false)
+    const [mostrarHistorial, setMostrarHistorial] = useState(false)
+    const [mostrarImpresora, setMostrarImpresora] = useState(false)
+    const [mostrarWhatsApp, setMostrarWhatsApp] = useState(false)
+    const [mostrarHistorialPagos, setMostrarHistorialPagos] = useState(false)
 
     useEffect(() => {
         const temaLocal = localStorage.getItem("tema") || "light"
@@ -312,6 +320,64 @@ export default function VerClienteAdmin() {
                                 </button>
                             </div>
 
+                            <div className={estilos.accionesAdicionales}>
+                                <button
+                                    className={`${estilos.btnAccion} ${estilos.btnHistorial}`}
+                                    onClick={() => setMostrarHistorial(true)}
+                                    title="Ver historial del cliente"
+                                >
+                                    <div className={estilos.btnIcono}>
+                                        <ion-icon name="document-text-outline"></ion-icon>
+                                    </div>
+                                    <div className={estilos.btnTexto}>
+                                        <span className={estilos.btnLabel}>Historial</span>
+                                        <span className={estilos.btnSubLabel}>Ver movimientos</span>
+                                    </div>
+                                </button>
+
+                                <button
+                                    className={`${estilos.btnAccion} ${estilos.btnPagos}`}
+                                    onClick={() => setMostrarHistorialPagos(true)}
+                                    title="Ver historial de pagos"
+                                >
+                                    <div className={estilos.btnIcono}>
+                                        <ion-icon name="receipt-outline"></ion-icon>
+                                    </div>
+                                    <div className={estilos.btnTexto}>
+                                        <span className={estilos.btnLabel}>Pagos</span>
+                                        <span className={estilos.btnSubLabel}>Historial de pagos</span>
+                                    </div>
+                                </button>
+
+                                <button
+                                    className={`${estilos.btnAccion} ${estilos.btnImpresora}`}
+                                    onClick={() => setMostrarImpresora(true)}
+                                    title="Imprimir perfil en térmica"
+                                >
+                                    <div className={estilos.btnIcono}>
+                                        <ion-icon name="print-outline"></ion-icon>
+                                    </div>
+                                    <div className={estilos.btnTexto}>
+                                        <span className={estilos.btnLabel}>Imprimir</span>
+                                        <span className={estilos.btnSubLabel}>Impresora térmica</span>
+                                    </div>
+                                </button>
+
+                                <button
+                                    className={`${estilos.btnAccion} ${estilos.btnWhatsApp}`}
+                                    onClick={() => setMostrarWhatsApp(true)}
+                                    title="Enviar perfil a WhatsApp"
+                                >
+                                    <div className={estilos.btnIcono}>
+                                        <ion-icon name="logo-whatsapp"></ion-icon>
+                                    </div>
+                                    <div className={estilos.btnTexto}>
+                                        <span className={estilos.btnLabel}>WhatsApp</span>
+                                        <span className={estilos.btnSubLabel}>Enviar perfil</span>
+                                    </div>
+                                </button>
+                            </div>
+
                             <div className={`${estilos.alertaEstado} ${puedeVender() ? estilos.alertaOk : estilos.alertaError}`}>
                                 <ion-icon name={puedeVender() ? "checkmark-circle" : "alert-circle"}></ion-icon>
                                 <span>
@@ -364,6 +430,39 @@ export default function VerClienteAdmin() {
                 <ModalPagos
                     cliente={cliente}
                     alCerrar={manejarCerrarModalPagos}
+                    tema={tema}
+                />
+            )}
+
+            {mostrarHistorial && (
+                <ModalHistorial
+                    clienteId={cliente.id}
+                    alCerrar={() => setMostrarHistorial(false)}
+                    tema={tema}
+                />
+            )}
+
+            {mostrarImpresora && (
+                <ModalImpresora
+                    cliente={cliente}
+                    alCerrar={() => setMostrarImpresora(false)}
+                    tema={tema}
+                />
+            )}
+
+            {mostrarWhatsApp && (
+                <ModalWhatsApp
+                    cliente={cliente}
+                    alCerrar={() => setMostrarWhatsApp(false)}
+                    tema={tema}
+                />
+            )}
+
+            {mostrarHistorialPagos && (
+                <ModalHistorialPagos
+                    clienteId={cliente.id}
+                    cliente={cliente}
+                    alCerrar={() => setMostrarHistorialPagos(false)}
                     tema={tema}
                 />
             )}

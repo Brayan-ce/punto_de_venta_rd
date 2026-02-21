@@ -205,7 +205,15 @@ export default function PagosFinanciamiento() {
 
             {/* Estadísticas */}
             {estadisticas && (
-                <div className={estilos.estadisticas}>
+                <>
+                    <div className={estilos.infoAlertas}>
+                        <ion-icon name="shield-checkmark-outline"></ion-icon>
+                        <span>✅ Sistema de alertas automáticas activo - Los pagos resuelven alertas de vencimiento automáticamente</span>
+                        <Link href="/admin/alertas" className={estilos.linkAlertas}>
+                            Ver alertas →
+                        </Link>
+                    </div>
+                    <div className={estilos.estadisticas}>
                     <div className={estilos.estadisticaCard}>
                         <div className={estilos.estadisticaValor}>{estadisticas.total_pagos}</div>
                         <div className={estilos.estadisticaLabel}>Total Pagos</div>
@@ -240,7 +248,8 @@ export default function PagosFinanciamiento() {
                         </div>
                         <div className={estilos.estadisticaLabel}>Interés</div>
                     </div>
-                </div>
+                    </div>
+                </>
             )}
 
             {/* Filtros */}
