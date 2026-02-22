@@ -1022,7 +1022,7 @@ export default function NuevaVenta() {
             {/* HEADER STICKY */}
             <div className={`${estilos.headerSticky} ${estilos[tema]}`}>
                 <div className={estilos.headerLeft}>
-                    <div style={{fontSize: '16px', fontWeight: 600, color: 'var(--primary)', margin: 0, padding: 0}}>Punto de Venta</div>
+                    <div style={{fontSize: '16px', fontWeight: 600, color: '#fff', margin: 0, padding: 0}}>Punto de Venta</div>
                     <div className={estilos.infoHeader}>
                         <span className={estilos.labelTotal}>Total:</span>
                         <strong className={estilos.montoTotal}>{formatearMonto(totales.total)}</strong>
