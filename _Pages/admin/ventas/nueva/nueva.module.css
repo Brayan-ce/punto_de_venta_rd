@@ -189,7 +189,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-md) var(--spacing-lg);
+    padding: 8px var(--spacing-lg);
     background: var(--bg-elevated);
     border-bottom: 2px solid var(--border-light);
     box-shadow: var(--shadow-sm);
@@ -248,10 +248,10 @@
 }
 
 .montoTotal {
-    font-size: 32px;
-    font-weight: 800;
+    font-size: 22px;
+    font-weight: 700;
     color: var(--success);
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
 }
 
 .cantidadItems {
@@ -274,11 +274,11 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 24px;
+    padding: 8px 16px;
     border-radius: var(--border-radius-md);
     border: none;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
     transition: var(--transition-fast);
     white-space: nowrap;
@@ -334,12 +334,12 @@
    BARRA DE CONFIGURACIÓN - DISEÑO HORIZONTAL
    ========================================== */
 .barraConfig {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+    background: none;
+    border-bottom: none;
     transition: var(--transition-normal);
 }
 
@@ -887,16 +887,17 @@
     gap: 0;
     flex: 1;
     overflow: hidden;
-    height: calc(100vh - var(--header-height) - var(--config-bar-height));
+    height: calc(100vh - var(--header-height));
 }
 
 .colProductos {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--spacing-md);
+    height: 100%;
     overflow-y: auto;
     background: var(--bg-secondary);
-    padding: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-lg) 0 var(--spacing-lg);
 }
 
 .colProductos::-webkit-scrollbar {
@@ -917,9 +918,14 @@
 }
 
 .colResumen {
-    background: var(--bg-primary);
-    border-left: 2px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    height: 100%;
     overflow-y: auto;
+    background: var(--bg-elevated);
+    border-left: 2px solid var(--border-light);
+    box-shadow: var(--shadow-lg);
 }
 
 .colResumen::-webkit-scrollbar {

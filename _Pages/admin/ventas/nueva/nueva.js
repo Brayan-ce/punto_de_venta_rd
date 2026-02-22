@@ -1022,13 +1022,7 @@ export default function NuevaVenta() {
             {/* HEADER STICKY */}
             <div className={`${estilos.headerSticky} ${estilos[tema]}`}>
                 <div className={estilos.headerLeft}>
-                    <div className={estilos.pageHeader}>
-                        <div className={estilos.pageTitle}>
-                            <ion-icon name="cart-outline"></ion-icon>
-                            <h1>Punto de Venta</h1>
-                        </div>
-                        <span className={estilos.pageSubtitle}>Registro y emisión de comprobantes</span>
-                    </div>
+                    <div style={{fontSize: '16px', fontWeight: 600, color: 'var(--primary)', margin: 0, padding: 0}}>Punto de Venta</div>
                     <div className={estilos.infoHeader}>
                         <span className={estilos.labelTotal}>Total:</span>
                         <strong className={estilos.montoTotal}>{formatearMonto(totales.total)}</strong>
@@ -1070,91 +1064,121 @@ export default function NuevaVenta() {
                 </div>
             </div>
 
-            {/* BARRA DE CONFIGURACIÓN - COMPROBANTE Y MÉTODO DE PAGO + CLIENTE */}
-            <div className={`${estilos.barraConfig} ${estilos[tema]}`}>
-                {/* SECCIÓN IZQUIERDA: Comprobante y Método de Pago */}
-                <div className={estilos.seccionConfigIzq}>
-                    {/* Comprobante */}
-                    <div className={estilos.grupoConfig}>
-                        <label className={estilos.labelConfig}>
-                            <ion-icon name="document-text-outline"></ion-icon>
-                            <span>Comprobante</span>
-                        </label>
-                        <select
-                            value={tipoComprobanteId}
-                            onChange={(e) => setTipoComprobanteId(e.target.value)}
-                            className={estilos.selectConfig}
-                        >
-                            {tiposComprobante.map(tipo => (
-                                <option key={tipo.id} value={tipo.id}>
-                                    {tipo.codigo} - {tipo.nombre}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* Métodos de Pago */}
-                    <div className={estilos.grupoConfig}>
-                        <label className={estilos.labelConfig}>
-                            <ion-icon name="wallet-outline"></ion-icon>
-                            <span>Método de Pago</span>
-                        </label>
-                        <div className={estilos.metodosPagoGrid}>
-                            <button
-                                type="button"
-                                className={`${estilos.metodoPagoBtn} ${estilos.efectivo} ${metodoPago === 'efectivo' ? estilos.activo : ''}`}
-                                onClick={() => setMetodoPago('efectivo')}
-                                title="Efectivo"
+            <div className={estilos.layoutPrincipal}>
+                {/* COLUMNA IZQUIERDA */}
+                <div className={estilos.colProductos}>
+                    {/* Barra de configuración vertical */}
+                    <div className={`${estilos.barraConfig} ${estilos[tema]}`}>
+                        {/* Comprobante */}
+                        <div className={estilos.grupoConfig}>
+                            <label className={estilos.labelConfig}>
+                                <ion-icon name="document-text-outline"></ion-icon>
+                                <span>Comprobante</span>
+                            </label>
+                            <select
+                                value={tipoComprobanteId}
+                                onChange={(e) => setTipoComprobanteId(e.target.value)}
+                                className={estilos.selectConfig}
                             >
-                                <ion-icon name="cash-outline"></ion-icon>
-                                <span>Efectivo</span>
-                            </button>
-
-                            <button
-                                type="button"
-                                className={`${estilos.metodoPagoBtn} ${estilos.debito} ${metodoPago === 'tarjeta_debito' ? estilos.activo : ''}`}
-                                onClick={() => setMetodoPago('tarjeta_debito')}
-                                title="Tarjeta de Débito"
-                            >
-                                <ion-icon name="card-outline"></ion-icon>
-                                <span>Débito</span>
-                            </button>
-
-                            <button
-                                type="button"
-                                className={`${estilos.metodoPagoBtn} ${estilos.tarjetaCredito} ${metodoPago === 'tarjeta_credito' ? estilos.activo : ''}`}
-                                onClick={() => setMetodoPago('tarjeta_credito')}
-                                title="Tarjeta de Crédito"
-                            >
-                                <ion-icon name="card-outline"></ion-icon>
-                                <span>T. Crédito</span>
-                            </button>
-
-                            <button
-                                type="button"
-                                className={`${estilos.metodoPagoBtn} ${estilos.transferencia} ${metodoPago === 'transferencia' ? estilos.activo : ''}`}
-                                onClick={() => setMetodoPago('transferencia')}
-                                title="Transferencia"
-                            >
-                                <ion-icon name="swap-horizontal-outline"></ion-icon>
-                                <span>Transfer.</span>
-                            </button>
-
-                            <button
-                                type="button"
-                                className={`${estilos.metodoPagoBtn} ${estilos.cheque} ${metodoPago === 'cheque' ? estilos.activo : ''}`}
-                                onClick={() => setMetodoPago('cheque')}
-                                title="Cheque"
-                            >
-                                <ion-icon name="receipt-outline"></ion-icon>
-                                <span>Cheque</span>
-                            </button>
-
-                            {/* 🔹 NUEVO: Botón de Crédito */}
-                            <button
-                                type="button"
-                                className={`${estilos.metodoPagoBtn} ${estilos.credito} ${metodoPago === 'credito' ? estilos.activo : ''}`}
-                                onClick={() => {
+                                {tiposComprobante.map(tipo => (
+                                    <option key={tipo.id} value={tipo.id}>
+                                        {tipo.codigo} - {tipo.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        {/* Cliente */}
+                        <div className={estilos.grupoConfig}>
+                            <label className={estilos.labelConfig}>
+                                <ion-icon name="person-outline"></ion-icon>
+                                <span>Cliente</span>
+                            </label>
+                            <div className={estilos.clienteControles}>
+                                <div className={estilos.busquedaClienteContainer}>
+                                    <div className={estilos.busquedaCliente}>
+                                        <ion-icon name="search-outline" />
+                                        <input
+                                            type="text"
+                                            placeholder="Buscar cliente..."
+                                            value={busquedaCliente}
+                                            className={estilos.inputBusquedaCliente}
+                                            onFocus={() => setInputClienteFocused(true)}
+                                            onChange={(e) => {
+                                                if (clienteSeleccionado) return
+                                                setBusquedaCliente(e.target.value)
+                                            }}
+                                        />
+                                        {clienteSeleccionado && (
+                                            <button
+                                                type="button"
+                                                className={estilos.btnLimpiarCliente}
+                                                title="Cambiar cliente"
+                                                onClick={(e) => {
+                                                    e.preventDefault()
+                                                    e.stopPropagation()
+                                                    limpiarCliente()
+                                                }}
+                                            >
+                                                <ion-icon name="close-circle" />
+                                            </button>
+                                        )}
+                                    </div>
+                                    {mostrarDropdownClientes && clientes.length > 0 && !clienteSeleccionado && (
+                                        <div className={`${estilos.dropdownClientes} ${estilos[tema]}`}>
+                                            {clientes.map(cliente => (
+                                                <div
+                                                    key={cliente.id}
+                                                    className={estilos.dropdownItemCliente}
+                                                    onClick={() => seleccionarCliente(cliente)}
+                                                >
+                                                    <div className={estilos.clienteInfo}>
+                                                        <span className={estilos.clienteNombre}>{cliente.nombre_completo}</span>
+                                                        <span className={estilos.clienteDoc}>{cliente.tipo_documento}: {cliente.numero_documento}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                                <button
+                                    type="button"
+                                    className={estilos.btnClienteRapido}
+                                    onClick={abrirModalClienteRapido}
+                                >
+                                    <ion-icon name="person-add-outline" />
+                                    <span>Rápido</span>
+                                </button>
+                            </div>
+                        </div>
+                        {/* Métodos de Pago */}
+                        <div className={estilos.grupoConfig}>
+                            <label className={estilos.labelConfig}>
+                                <ion-icon name="wallet-outline"></ion-icon>
+                                <span>Método de Pago</span>
+                            </label>
+                            <div className={estilos.metodosPagoGrid}>
+                                {/* Botones de métodos de pago */}
+                                <button type="button" className={`${estilos.metodoPagoBtn} ${estilos.efectivo} ${metodoPago === 'efectivo' ? estilos.activo : ''}`} onClick={() => setMetodoPago('efectivo')} title="Efectivo">
+                                    <ion-icon name="cash-outline"></ion-icon>
+                                    <span>Efectivo</span>
+                                </button>
+                                <button type="button" className={`${estilos.metodoPagoBtn} ${estilos.debito} ${metodoPago === 'tarjeta_debito' ? estilos.activo : ''}`} onClick={() => setMetodoPago('tarjeta_debito')} title="Tarjeta de Débito">
+                                    <ion-icon name="card-outline"></ion-icon>
+                                    <span>Débito</span>
+                                </button>
+                                <button type="button" className={`${estilos.metodoPagoBtn} ${estilos.tarjetaCredito} ${metodoPago === 'tarjeta_credito' ? estilos.activo : ''}`} onClick={() => setMetodoPago('tarjeta_credito')} title="Tarjeta de Crédito">
+                                    <ion-icon name="card-outline"></ion-icon>
+                                    <span>T. Crédito</span>
+                                </button>
+                                <button type="button" className={`${estilos.metodoPagoBtn} ${estilos.transferencia} ${metodoPago === 'transferencia' ? estilos.activo : ''}`} onClick={() => setMetodoPago('transferencia')} title="Transferencia">
+                                    <ion-icon name="swap-horizontal-outline"></ion-icon>
+                                    <span>Transfer.</span>
+                                </button>
+                                <button type="button" className={`${estilos.metodoPagoBtn} ${estilos.cheque} ${metodoPago === 'cheque' ? estilos.activo : ''}`} onClick={() => setMetodoPago('cheque')} title="Cheque">
+                                    <ion-icon name="receipt-outline"></ion-icon>
+                                    <span>Cheque</span>
+                                </button>
+                                <button type="button" className={`${estilos.metodoPagoBtn} ${estilos.credito} ${metodoPago === 'credito' ? estilos.activo : ''}`} onClick={() => {
                                     if (!clienteSeleccionado) {
                                         alert('Debes seleccionar un cliente para realizar una venta a crédito')
                                         return
@@ -1164,146 +1188,58 @@ export default function NuevaVenta() {
                                         return
                                     }
                                     setMetodoPago('credito')
-                                }}
-                                disabled={!clienteSeleccionado || !clienteTieneCredito}
-                                title={!clienteSeleccionado 
+                                }} disabled={!clienteSeleccionado || !clienteTieneCredito} title={!clienteSeleccionado 
                                     ? "Selecciona un cliente primero" 
                                     : !clienteTieneCredito 
                                     ? "El cliente no tiene crédito disponible" 
-                                    : "Venta a Crédito"}
-                            >
-                                <ion-icon name="time-outline"></ion-icon>
-                                <span>Crédito</span>
-                            </button>
+                                    : "Venta a Crédito"}>
+                                    <ion-icon name="time-outline"></ion-icon>
+                                    <span>Crédito</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                {/* SECCIÓN DERECHA: Cliente */}
-                <div className={estilos.seccionConfigDer}>
-                    <div className={estilos.grupoConfig}>
-                        <label className={estilos.labelConfig}>
-                            <ion-icon name="person-outline"></ion-icon>
-                            <span>Cliente</span>
-                        </label>
-
-                        <div className={estilos.clienteControles}>
-                            <div className={estilos.busquedaClienteContainer}>
-                                <div className={estilos.busquedaCliente}>
-
-                                    {/* 🔍 Input de búsqueda */}
-                                    <ion-icon name="search-outline" />
-
-                                    <input
-                                        type="text"
-                                        placeholder="Buscar cliente..."
-                                        value={busquedaCliente}
-                                        className={estilos.inputBusquedaCliente}
-                                        onFocus={() => setInputClienteFocused(true)}
-                                        onChange={(e) => {
-                                            if (clienteSeleccionado) return
-                                            setBusquedaCliente(e.target.value)
-                                        }}
-                                    />
-
-                                    {/* ❌ Botón limpiar */}
-                                    {clienteSeleccionado && (
-                                        <button
-                                            type="button"
-                                            className={estilos.btnLimpiarCliente}
-                                            title="Cambiar cliente"
-                                            onClick={(e) => {
-                                                e.preventDefault()
-                                                e.stopPropagation()
-                                                limpiarCliente()
-                                            }}
-                                        >
-                                            <ion-icon name="close-circle" />
-                                        </button>
-                                    )}
+                    {/* Alerta de crédito */}
+                    {metodoPago === 'credito' && (
+                        <div className={`${estilos.alertaCredito} ${estilos[tema]}`}>
+                            {!clienteSeleccionado ? (
+                                <div className={estilos.alertaWarning}>
+                                    <ion-icon name="warning-outline"></ion-icon>
+                                    <span>Debes seleccionar un cliente para realizar una venta a crédito</span>
                                 </div>
-
-                                {/* 📋 Dropdown clientes */}
-                                {mostrarDropdownClientes && clientes.length > 0 && !clienteSeleccionado && (
-                                    <div className={`${estilos.dropdownClientes} ${estilos[tema]}`}>
-                                        {clientes.map(cliente => (
-                                            <div
-                                                key={cliente.id}
-                                                className={estilos.dropdownItemCliente}
-                                                onClick={() => seleccionarCliente(cliente)}
-                                            >
-                                                <div className={estilos.clienteInfo}>
-                  <span className={estilos.clienteNombre}>
-                    {cliente.nombre_completo}
-                  </span>
-                                                    <span className={estilos.clienteDoc}>
-                    {cliente.tipo_documento}: {cliente.numero_documento}
-                  </span>
-                                                </div>
-                                            </div>
-                                        ))}
+                            ) : cargandoCredito ? (
+                                <div className={estilos.alertaInfo}>
+                                    <ion-icon name="hourglass-outline" className={estilos.iconRotate}></ion-icon>
+                                    <span>Verificando crédito del cliente...</span>
+                                </div>
+                            ) : !infoCredito ? (
+                                <div className={estilos.alertaDanger}>
+                                    <ion-icon name="close-circle-outline"></ion-icon>
+                                    <span>El cliente no tiene configuración de crédito. No se puede procesar la venta.</span>
+                                </div>
+                            ) : infoCredito && parseFloat(infoCredito.saldo_disponible) <= 0 ? (
+                                <div className={estilos.alertaDanger}>
+                                    <ion-icon name="close-circle-outline"></ion-icon>
+                                    <span>El cliente no tiene saldo disponible de crédito. Saldo disponible: {formatearMonto(infoCredito.saldo_disponible)}</span>
+                                </div>
+                            ) : infoCredito && parseFloat(infoCredito.saldo_disponible) > 0 ? (
+                                <div className={estilos.alertaSuccess}>
+                                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+                                        <span><strong>Crédito disponible:</strong> {formatearMonto(infoCredito.saldo_disponible)}</span>
+                                        <span style={{ fontSize: '0.9em', opacity: 0.8 }}>
+                                            Límite: {formatearMonto(infoCredito.limite_credito || 0)} | 
+                                            Utilizado: {formatearMonto(infoCredito.saldo_utilizado || 0)} | 
+                                            Clasificación: {infoCredito.clasificacion || 'N/A'}
+                                        </span>
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            ) : null}
+                        </div>
+                    )}
 
-                            {/* ➕ Cliente rápido */}
-                            <button
-                                type="button"
-                                className={estilos.btnClienteRapido}
-                                onClick={abrirModalClienteRapido}
-                            >
-                                <ion-icon name="person-add-outline" />
-                                <span>Rápido</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* 🔹 NUEVO: Alerta de Crédito cuando el método es crédito */}
-            {metodoPago === 'credito' && (
-                <div className={`${estilos.alertaCredito} ${estilos[tema]}`}>
-                    {!clienteSeleccionado ? (
-                        <div className={estilos.alertaWarning}>
-                            <ion-icon name="warning-outline"></ion-icon>
-                            <span>Debes seleccionar un cliente para realizar una venta a crédito</span>
-                        </div>
-                    ) : cargandoCredito ? (
-                        <div className={estilos.alertaInfo}>
-                            <ion-icon name="hourglass-outline" className={estilos.iconRotate}></ion-icon>
-                            <span>Verificando crédito del cliente...</span>
-                        </div>
-                    ) : !infoCredito ? (
-                        <div className={estilos.alertaDanger}>
-                            <ion-icon name="close-circle-outline"></ion-icon>
-                            <span>El cliente no tiene configuración de crédito. No se puede procesar la venta.</span>
-                        </div>
-                    ) : infoCredito && parseFloat(infoCredito.saldo_disponible) <= 0 ? (
-                        <div className={estilos.alertaDanger}>
-                            <ion-icon name="close-circle-outline"></ion-icon>
-                            <span>El cliente no tiene saldo disponible de crédito. Saldo disponible: {formatearMonto(infoCredito.saldo_disponible)}</span>
-                        </div>
-                    ) : infoCredito && parseFloat(infoCredito.saldo_disponible) > 0 ? (
-                        <div className={estilos.alertaSuccess}>
-                            <ion-icon name="checkmark-circle-outline"></ion-icon>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
-                                <span><strong>Crédito disponible:</strong> {formatearMonto(infoCredito.saldo_disponible)}</span>
-                                <span style={{ fontSize: '0.9em', opacity: 0.8 }}>
-                                    Límite: {formatearMonto(infoCredito.limite_credito || 0)} | 
-                                    Utilizado: {formatearMonto(infoCredito.saldo_utilizado || 0)} | 
-                                    Clasificación: {infoCredito.clasificacion || 'N/A'}
-                                </span>
-                            </div>
-                        </div>
-                    ) : null}
-                </div>
-            )}
-
-            {/* LAYOUT PRINCIPAL */}
-            <div className={estilos.layoutPrincipal}>
-                {/* COLUMNA IZQUIERDA - PRODUCTOS */}
-                <div className={estilos.colProductos}>
-                    {/* Búsqueda de productos */}
+                    {/* Buscador de productos */}
                     <div className={`${estilos.seccionBusqueda} ${estilos[tema]}`}>
                         <div className={estilos.busquedaProductoContainer}>
                             <div className={estilos.busquedaProducto}>
@@ -1316,7 +1252,6 @@ export default function NuevaVenta() {
                                     className={estilos.inputBusquedaProducto}
                                 />
                             </div>
-
                             {mostrarDropdownProductos && productos.length > 0 && (
                                 <div className={`${estilos.dropdownProductos} ${estilos[tema]}`}>
                                     {productos.map(producto => (
@@ -1327,15 +1262,11 @@ export default function NuevaVenta() {
                                         >
                                             <div className={estilos.productoInfo}>
                                                 <span className={estilos.productoNombre}>{producto.nombre}</span>
-                                                <span className={estilos.productoCodigo}>
-                                                    {producto.codigo_barras || producto.sku}
-                                                </span>
+                                                <span className={estilos.productoCodigo}>{producto.codigo_barras || producto.sku}</span>
                                             </div>
                                             <div className={estilos.productoDatos}>
                                                 <span className={estilos.productoStock}>Stock: {producto.stock}</span>
-                                                <span className={estilos.productoPrecio}>
-                                                    {formatearMonto(producto.precio_venta)}
-                                                </span>
+                                                <span className={estilos.productoPrecio}>{formatearMonto(producto.precio_venta)}</span>
                                             </div>
                                         </div>
                                     ))}
@@ -1361,7 +1292,6 @@ export default function NuevaVenta() {
                                     <span>Subtotal</span>
                                     <span></span>
                                 </div>
-
                                 <div className={estilos.tablaBody}>
                                     {productosVenta.map(producto => (
                                         <div key={producto.id}>
@@ -1669,9 +1599,7 @@ export default function NuevaVenta() {
                                 <ion-icon name="add-circle-outline"></ion-icon>
                                 <span>Productos Extra</span>
                                 {productosExtra.length > 0 && (
-                                    <span className={estilos.badgeExtras}>
-                                        {productosExtra.length}
-                                    </span>
+                                    <span className={estilos.badgeExtras}>{productosExtra.length}</span>
                                 )}
                             </div>
                             <button
@@ -1692,50 +1620,38 @@ export default function NuevaVenta() {
                                 <p className={estilos.textoSinExtras}>No hay productos extra agregados</p>
                             ) : (
                                 <div className={estilos.listaExtrasCompacta}>
-                                    {productosExtra.map((extra) => {
-                                        const cantidad = parseFloat(extra.cantidad) || 1
-                                        const precio = parseFloat(extra.precio_unitario) || 0
-                                        const base = cantidad * precio
-                                        const impuesto = extra.aplica_itbis
-                                            ? (base * parseFloat(datosEmpresa?.impuesto_porcentaje || 18)) / 100
-                                            : 0
-                                        const total = base + impuesto
-
-                                        return (
-                                            <div key={extra.id} className={`${estilos.itemExtraCompacto} ${estilos[tema]}`}>
-                                                <div className={estilos.infoExtraCompacto}>
-                                                    <span className={estilos.nombreExtraCompacto}>{extra.nombre}</span>
-                                                    <span className={estilos.detalleExtraCompacto}>
-                                                        {cantidad} x {formatearMonto(precio)}
-                                                        {extra.aplica_itbis && ` + ${datosEmpresa?.impuesto_porcentaje || 18}%`}
-                                                    </span>
-                                                </div>
-                                                <span className={estilos.totalExtraCompacto}>{formatearMonto(total)}</span>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => eliminarProductoExtra(extra.id)}
-                                                    className={estilos.btnEliminarExtraCompacto}
-                                                >
-                                                    <ion-icon name="close-circle"></ion-icon>
-                                                </button>
+                                    {productosExtra.map((extra) => (
+                                        <div key={extra.id} className={`${estilos.itemExtraCompacto} ${estilos[tema]}`}>
+                                            <div className={estilos.infoExtraCompacto}>
+                                                <span className={estilos.nombreExtraCompacto}>{extra.nombre}</span>
+                                                <span className={estilos.detalleExtraCompacto}>
+                                                    {cantidad} x {formatearMonto(precio)}
+                                                    {extra.aplica_itbis && ` + ${datosEmpresa?.impuesto_porcentaje || 18}%`}
+                                                </span>
                                             </div>
-                                        )
-                                    })}
+                                            <span className={estilos.totalExtraCompacto}>{formatearMonto(total)}</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => eliminarProductoExtra(extra.id)}
+                                                className={estilos.btnEliminarExtraCompacto}
+                                            >
+                                                <ion-icon name="close-circle"></ion-icon>
+                                            </button>
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>
                     </details>
                 </div>
 
-                {/* COLUMNA DERECHA - RESUMEN */}
+                {/* COLUMNA DERECHA - RESUMEN DE VENTA */}
                 <aside className={`${estilos.colResumen} ${estilos[tema]}`}>
                     <div className={estilos.resumenSticky}>
                         <h3 className={estilos.tituloResumen}>
                             <ion-icon name="receipt-outline"></ion-icon>
                             Resumen de Venta
                         </h3>
-
-                        {/* 🔹 MODIFICADO: Solo mostrar efectivo recibido si NO es crédito */}
                         {metodoPago !== 'credito' && (
                             <div className={estilos.camposVenta}>
                                 <div className={estilos.campoCompacto}>
@@ -1753,7 +1669,6 @@ export default function NuevaVenta() {
                                         />
                                     </div>
                                 </div>
-
                                 {metodoPago === 'efectivo' && efectivoRecibido && parseFloat(cambio) >= 0 && (
                                     <div className={`${estilos.cambioInfo} ${estilos[tema]}`}>
                                         <span>Cambio:</span>
@@ -1762,7 +1677,6 @@ export default function NuevaVenta() {
                                 )}
                             </div>
                         )}
-
                         <div className={estilos.camposVenta}>
                             <div className={estilos.campoCompacto}>
                                 <label>Descuento Global</label>
@@ -1780,35 +1694,28 @@ export default function NuevaVenta() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Totales */}
                         <div className={estilos.desgloseTotales}>
                             <div className={estilos.lineaTotalCompacta}>
                                 <span>Subtotal:</span>
                                 <span>{formatearMonto(totales.subtotal)}</span>
                             </div>
-
                             {parseFloat(totales.subtotalExtras) > 0 && (
                                 <div className={estilos.lineaTotalCompacta}>
                                     <span>Extras:</span>
                                     <span>{formatearMonto(totales.subtotalExtras)}</span>
                                 </div>
                             )}
-
                             <div className={estilos.lineaTotalCompacta}>
                                 <span>{datosEmpresa?.impuesto_nombre || 'ITBIS'}:</span>
                                 <span>{formatearMonto(totales.itbis)}</span>
                             </div>
-
                             {parseFloat(totales.descuento) > 0 && (
                                 <div className={`${estilos.lineaTotalCompacta} ${estilos.descuento}`}>
                                     <span>Descuento:</span>
                                     <span>- {formatearMonto(totales.descuento)}</span>
                                 </div>
                             )}
-
                             <div className={estilos.separadorTotal}></div>
-
                             <div className={estilos.totalFinal}>
                                 <span>Total a Pagar:</span>
                                 <span>{formatearMonto(totales.total)}</span>
