@@ -28,9 +28,12 @@ export async function obtenerGastos() {
                 g.comprobante_numero,
                 g.notas,
                 g.fecha_gasto,
-                u.nombre as usuario_nombre
+                u.nombre as usuario_nombre,
+                g.caja_id,
+                c.numero_caja as caja_numero
             FROM gastos g
             INNER JOIN usuarios u ON g.usuario_id = u.id
+            LEFT JOIN cajas c ON g.caja_id = c.id
             WHERE g.empresa_id = ?
             ORDER BY g.fecha_gasto DESC`,
             [empresaId]

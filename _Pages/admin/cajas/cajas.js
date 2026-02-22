@@ -14,41 +14,35 @@ import {
 import estilos from './caja.module.css'
 
 export default function CajaPageAdmin() {
-    const router = useRouter()
-    const [tema, setTema] = useState('light')
-    const [cargando, setCargando] = useState(true)
-    const [procesando, setProcesando] = useState(false)
-    const [userTipo, setUserTipo] = useState('')
-
-    const [cajaActiva, setCajaActiva] = useState(null)
-    const [cajasDisponibles, setCajasDisponibles] = useState([])
-    const [ventasCaja, setVentasCaja] = useState([])
-    const [todasLasCajas, setTodasLasCajas] = useState([])
-    const [historial, setHistorial] = useState([])
-
-    const [vistaActual, setVistaActual] = useState('dashboard')
-    const [mostrarModalAbrir, setMostrarModalAbrir] = useState(false)
-    const [mostrarModalGasto, setMostrarModalGasto] = useState(false)
-    const [mostrarModalCerrar, setMostrarModalCerrar] = useState(false)
-        const [mostrarAlertaCajaVieja, setMostrarAlertaCajaVieja] = useState(false)
-
-    const [formAbrir, setFormAbrir] = useState({
-        numero_caja: '',
-        monto_inicial: ''
-    })
-
-    const [formGasto, setFormGasto] = useState({
-        concepto: '',
-        monto: '',
-        categoria: '',
-        comprobante_numero: '',
-        notas: ''
-    })
-
-    const [formCerrar, setFormCerrar] = useState({
-        monto_final: '',
-        notas: ''
-    })
+                // Estado para recordar si el usuario ocultó la alerta manualmente
+                const [alertaCajaViejaOculta, setAlertaCajaViejaOculta] = useState(false);
+            // Estado para debug visual
+            const [debugAntigua, setDebugAntigua] = useState(false);
+        // Utilidad para saber si la caja es antigua
+        function esCajaAntigua(fechaCaja) {
+            if (!fechaCaja) return false;
+            const fechaCajaISO = new Date(fechaCaja).toISOString().split('T')[0];
+            const fechaHoyISO = new Date().toISOString().split('T')[0];
+            return fechaCajaISO !== fechaHoyISO;
+        }
+    const router = useRouter();
+    const [tema, setTema] = useState('light');
+    const [cargando, setCargando] = useState(true);
+    const [procesando, setProcesando] = useState(false);
+    const [userTipo, setUserTipo] = useState('');
+    const [cajaActiva, setCajaActiva] = useState(null);
+    const [cajasDisponibles, setCajasDisponibles] = useState([]);
+    const [ventasCaja, setVentasCaja] = useState([]);
+    const [todasLasCajas, setTodasLasCajas] = useState([]);
+    const [historial, setHistorial] = useState([]);
+    const [vistaActual, setVistaActual] = useState('dashboard');
+    const [mostrarModalAbrir, setMostrarModalAbrir] = useState(false);
+    const [mostrarModalGasto, setMostrarModalGasto] = useState(false);
+    const [mostrarModalCerrar, setMostrarModalCerrar] = useState(false);
+    const [mostrarAlertaCajaVieja, setMostrarAlertaCajaVieja] = useState(false);
+    const [formAbrir, setFormAbrir] = useState({ numero_caja: '', monto_inicial: '' });
+    const [formGasto, setFormGasto] = useState({ concepto: '', monto: '', categoria: '', comprobante_numero: '', notas: '' });
+    const [formCerrar, setFormCerrar] = useState({ monto_final: '', notas: '' });
 
     useEffect(() => {
         const temaLocal = localStorage.getItem('tema') || 'light'
@@ -116,15 +110,16 @@ export default function CajaPageAdmin() {
     }
 useEffect(() => {
     if (cajaActiva && cajaActiva.fecha_caja) {
-        // Convertir ambas fechas a formato YYYY-MM-DD para comparar solo el día
-        const fechaCaja = new Date(cajaActiva.fecha_caja).toISOString().split('T')[0]
-        const fechaHoy = new Date().toISOString().split('T')[0]
-        
-        if (fechaCaja !== fechaHoy) {
-            setMostrarAlertaCajaVieja(true)
-        }
+        // Si cambia la caja activa, reiniciar el ocultamiento manual
+        setAlertaCajaViejaOculta(false);
+        const antigua = esCajaAntigua(cajaActiva.fecha_caja);
+        setMostrarAlertaCajaVieja(antigua);
+        setDebugAntigua(antigua);
+    } else {
+        setMostrarAlertaCajaVieja(false);
+        setDebugAntigua(false);
     }
-}, [cajaActiva])
+}, [cajaActiva]);
 useEffect(() => {
     console.log('🔍 DEBUG ALERTA:', {
         tieneCajaActiva: !!cajaActiva,
@@ -187,7 +182,18 @@ useEffect(() => {
             comprobante_numero: '',
             notas: ''
         })
-        setMostrarModalGasto(true)
+        if (mostrarAlertaCajaVieja) {
+            // Si la caja es antigua, forzar la alerta visible y hacer scroll a la alerta
+            setAlertaCajaViejaOculta(false); // Por si el usuario la ocultó antes
+            setMostrarAlertaCajaVieja(true);
+            // Intentar hacer scroll a la alerta si existe un ref
+            const alerta = document.getElementById('alerta-caja-vieja');
+            if (alerta) {
+                alerta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+        }
+        setMostrarModalGasto(true);
     }
 
     const manejarRegistrarGasto = async (e) => {
@@ -322,7 +328,25 @@ useEffect(() => {
     }
 
     return (
-        <div className={`${estilos.contenedor} ${estilos[tema]}`}>
+        <div className={`${estilos.contenedor} ${estilos[tema]}`}> 
+            {/* Alerta de caja antigua */}
+            {mostrarAlertaCajaVieja && !alertaCajaViejaOculta && (
+                <div id="alerta-caja-vieja" className={estilos.alertaCajaVieja}>
+                    <span className={estilos.alertaCajaViejaIcono}>
+                        <ion-icon name="alert-circle-outline"></ion-icon>
+                    </span>
+                    <div>
+                        <div className={estilos.alertaCajaViejaTitulo}>Caja antigua detectada</div>
+                        <div className={estilos.alertaCajaViejaTexto}>
+                            No puedes registrar gastos ni cerrar una caja de un día anterior.<br/>
+                            <span className={estilos.alertaCajaViejaResalta}>Por favor, cierra la caja y abre una nueva para continuar.</span>
+                        </div>
+                    </div>
+                    <button className={estilos.btnAlertaCerrar} onClick={() => setAlertaCajaViejaOculta(true)} title="Ocultar alerta">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+            )}
             <div className={estilos.header}>
                 <div>
                     <h1 className={estilos.titulo}>Caja</h1>
@@ -906,42 +930,37 @@ useEffect(() => {
             )}
 
             
-{mostrarAlertaCajaVieja && cajaActiva && (
-    <div className={estilos.modalAlerta}>
-        <div className={estilos.alertaContenido}>
-            <div className={estilos.alertaBarra} />
-            
-            <div className={estilos.alertaTexto}>
-                <div className={estilos.alertaIcono}>
-    <ion-icon name="warning-outline"></ion-icon>
-</div>
-                
-                <h2 className={estilos.alertaTitulo}>Caja de Día Anterior</h2>
-                
-                <p className={estilos.alertaDescripcion}>
-                    Tu Caja {cajaActiva.numero_caja} fue abierta el
-                    <strong className={estilos.alertaFecha}>
-                        {formatearFecha(cajaActiva.fecha_caja)}
-                    </strong>
-                </p>
-                
-                <div className={estilos.alertaCuadro}>
-                    <p>
-                        Para registrar gastos y ventas correctamente, debes cerrar esta caja 
-                        y abrir una nueva para el día de hoy.
-                    </p>
+            {(mostrarAlertaCajaVieja && !alertaCajaViejaOculta && cajaActiva) && (
+                <div className={estilos.modalAlerta}>
+                    <div className={estilos.alertaContenido}>
+                        <div className={estilos.alertaBarra} />
+                        <div className={estilos.alertaTexto}>
+                            <div className={estilos.alertaIcono}>
+                                <ion-icon name="warning-outline"></ion-icon>
+                            </div>
+                            <h2 className={estilos.alertaTitulo}>Caja de Día Anterior</h2>
+                            <p className={estilos.alertaDescripcion}>
+                                Tu Caja {cajaActiva.numero_caja} fue abierta el
+                                <strong className={estilos.alertaFecha}>
+                                    {formatearFecha(cajaActiva.fecha_caja)}
+                                </strong>
+                            </p>
+                            <div className={estilos.alertaCuadro}>
+                                <p>
+                                    Para registrar gastos y ventas correctamente, debes cerrar esta caja
+                                    y abrir una nueva para el día de hoy.
+                                </p>
+                            </div>
+                            <button
+                                onClick={() => setAlertaCajaViejaOculta(true)}
+                                className={estilos.btnAlertaCerrar}
+                            >
+                                Entendido
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
-                <button
-                    onClick={() => setMostrarAlertaCajaVieja(false)}
-                    className={estilos.btnAlertaCerrar}
-                >
-                    Entendido
-                </button>
-            </div>
-        </div>
-    </div>
-)}
+            )}
         </div>
     )
 }

@@ -1,3 +1,59 @@
+/* Alerta de caja vieja (bloqueo de acciones por caja de día anterior) */
+
+.alertaCajaVieja {
+    margin-bottom: 24px;
+    border: 2px solid #0f172a;
+    background: #e0f2fe;
+    color: #0f172a;
+    padding: 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 12px 0 rgba(15, 23, 42, 0.06);
+}
+.dark .alertaCajaVieja {
+    background: #0f172a;
+    border: 2px solid #60a5fa;
+    color: #60a5fa;
+}
+.alertaCajaViejaIcono {
+    font-size: 32px;
+    color: #0ea5e9;
+}
+.dark .alertaCajaViejaIcono {
+    color: #60a5fa;
+}
+.alertaCajaViejaTitulo {
+    font-weight: 700;
+    font-size: 18px;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+.dark .alertaCajaViejaTitulo {
+    color: #60a5fa;
+}
+.alertaCajaViejaTexto {
+    font-size: 15px;
+    color: #0f172a;
+}
+.dark .alertaCajaViejaTexto {
+    color: #f1f5f9;
+}
+.alertaCajaViejaResalta {
+    font-weight: 500;
+    color: #0ea5e9;
+}
+.dark .alertaCajaViejaResalta {
+    color: #60a5fa;
+}
+
+/* Botón de gasto deshabilitado visualmente */
+.btnGastoDeshabilitado {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
 .contenedor {
     padding: 30px;
     max-width: 1600px;

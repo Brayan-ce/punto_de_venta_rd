@@ -176,8 +176,9 @@ export async function abrirCaja(datos) {
 
         connection = await db.getConnection()
 
+        // Buscar caja abierta
         const [cajaActiva] = await connection.execute(
-            `SELECT id, numero_caja
+            `SELECT id, numero_caja, fecha_caja
              FROM cajas
              WHERE empresa_id = ?
                AND usuario_id = ?
@@ -187,16 +188,28 @@ export async function abrirCaja(datos) {
             [empresaId, userId]
         )
 
+        const hoy = new Date()
+        const fechaHoy = hoy.toISOString().split('T')[0]
+
         if (cajaActiva.length > 0) {
-            connection.release()
-            return {
-                success: false,
-                mensaje: `Ya tienes la Caja ${cajaActiva[0].numero_caja} abierta. Ciérrala antes de abrir otra.`
+            const fechaCaja = cajaActiva[0].fecha_caja
+            // Si la caja abierta es de un día anterior, forzar cierre automático
+            if (fechaCaja < fechaHoy) {
+                // Cerrar la caja automáticamente
+                await connection.execute(
+                    `UPDATE cajas SET estado = 'cerrada', fecha_cierre = NOW(), notas = CONCAT(COALESCE(notas, ''), '\n[Cierre automático por día vencido]') WHERE id = ?`,
+                    [cajaActiva[0].id]
+                )
+            } else {
+                connection.release()
+                return {
+                    success: false,
+                    mensaje: `Debes cerrar la Caja ${cajaActiva[0].numero_caja} antes de abrir una nueva.`
+                }
             }
         }
 
-        const fechaHoy = new Date().toISOString().split('T')[0]
-
+        // Ahora sí, abrir nueva caja
         const [ultimaCaja] = await connection.execute(
             `SELECT MAX(numero_caja) as ultimo_numero
              FROM cajas

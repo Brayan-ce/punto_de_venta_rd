@@ -624,6 +624,12 @@ export default function GastosAdmin() {
                                         <ion-icon name="person-outline"></ion-icon>
                                         <span>{gasto.usuario_nombre}</span>
                                     </div>
+                                    {gasto.caja_id && (
+                                        <div className={estilos.cardCaja}>
+                                            <ion-icon name="cash-outline"></ion-icon>
+                                            <span>Caja #{gasto.caja_numero ? gasto.caja_numero : gasto.caja_id}</span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
