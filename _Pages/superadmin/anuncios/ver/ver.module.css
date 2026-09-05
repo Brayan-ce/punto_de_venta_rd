@@ -1,0 +1,431 @@
+.pagina {
+    min-height: 100vh;
+    transition: background 0.3s ease;
+}
+.pagina.light { background: #f1f5f9; }
+.pagina.dark  { background: #0f172a; }
+
+.contenedor {
+    padding: 36px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 400px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.light .cargando { color: #0ea5e9; }
+.dark  .cargando { color: #38bdf8; }
+.cargando ion-icon { font-size: 44px; animation: rotate 1s linear infinite; }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.header {
+    margin-bottom: 28px;
+}
+
+.headerFila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.headerTexto {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.headerIcono {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.headerIcono ion-icon { font-size: 26px; color: #fff; }
+.headerIcono_info    { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.headerIcono_warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.headerIcono_pago    { background: linear-gradient(135deg, #10b981, #059669); }
+.headerIcono_alerta  { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+.titulo {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 3px;
+    line-height: 1.2;
+}
+.light .titulo { color: #0f172a; }
+.dark  .titulo { color: #f1f5f9; }
+
+.subtitulo {
+    font-size: 13px;
+    margin: 0;
+}
+.light .subtitulo { color: #64748b; }
+.dark  .subtitulo { color: #94a3b8; }
+
+.headerAcciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btnVolver {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+}
+.light .btnVolver { background: #e2e8f0; color: #475569; }
+.dark  .btnVolver { background: #1e293b; color: #94a3b8; }
+.light .btnVolver:hover { background: #cbd5e1; color: #0f172a; }
+.dark  .btnVolver:hover { background: #334155; color: #f1f5f9; }
+.btnVolver ion-icon { font-size: 15px; }
+
+.btnEditar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(14,165,233,.25);
+    transition: all 0.15s;
+}
+.btnEditar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(14,165,233,.35);
+}
+.btnEditar ion-icon { font-size: 15px; }
+
+.layoutPrincipal {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 16px;
+    align-items: start;
+}
+
+.columnaIzq {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.columnaDer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 20px;
+}
+
+.card {
+    border-radius: 14px;
+    overflow: hidden;
+}
+.card.light { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
+.card.dark  { background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+
+.cardHeader { padding: 15px 20px; }
+.light .cardHeader { border-bottom: 1px solid #f1f5f9; }
+.dark  .cardHeader { border-bottom: 1px solid #0f172a; }
+
+.cardHeaderTexto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardIcono {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.cardIcono ion-icon { font-size: 16px; color: #fff; }
+.cardIconoInfo    { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+.cardIconoLecturas { background: linear-gradient(135deg, #10b981, #059669); }
+
+.cardTitulo {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+.light .cardTitulo { color: #0f172a; }
+.dark  .cardTitulo { color: #f1f5f9; }
+
+.cardContenido {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.mensajeBox {
+    padding: 16px;
+    border-radius: 10px;
+}
+.light .mensajeBox { background: #f8fafc; border: 1.5px solid #e2e8f0; }
+.dark  .mensajeBox { background: #0f172a; border: 1.5px solid #334155; }
+
+.mensajeTexto {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+.light .mensajeTexto { color: #374151; }
+.dark  .mensajeTexto { color: #d1d5db; }
+
+.metaGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.metaItem {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 14px;
+    border-radius: 10px;
+}
+.light .metaItem { background: #f8fafc; border: 1.5px solid #e2e8f0; }
+.dark  .metaItem { background: #0f172a; border: 1.5px solid #334155; }
+
+.metaLabel {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.light .metaLabel { color: #94a3b8; }
+.dark  .metaLabel { color: #64748b; }
+
+.metaValor {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.light .metaValor { color: #0f172a; }
+.dark  .metaValor { color: #f1f5f9; }
+.metaValor ion-icon { font-size: 14px; flex-shrink: 0; }
+.light .metaValor ion-icon { color: #64748b; }
+.dark  .metaValor ion-icon { color: #94a3b8; }
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    width: fit-content;
+}
+.badge ion-icon { font-size: 13px; }
+.badge_info    { background: #dbeafe; color: #1d4ed8; }
+.badge_warning { background: #fef3c7; color: #d97706; }
+.badge_pago    { background: #dcfce7; color: #16a34a; }
+.badge_alerta  { background: #fee2e2; color: #dc2626; }
+
+.siTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #dcfce7;
+    color: #16a34a;
+    width: fit-content;
+}
+.noTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    width: fit-content;
+}
+.light .noTag { background: #f1f5f9; color: #64748b; }
+.dark  .noTag { background: #1e293b; color: #94a3b8; }
+.siTag ion-icon, .noTag ion-icon { font-size: 13px; }
+
+.targets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.targetsLabel {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+.light .targetsLabel { color: #94a3b8; }
+.dark  .targetsLabel { color: #64748b; }
+
+.tagsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.light .tag { background: #e0f2fe; color: #0369a1; }
+.dark  .tag { background: rgba(14,165,233,.15); color: #7dd3fc; }
+.tag ion-icon { font-size: 13px; }
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.listaItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: background 0.15s;
+}
+.listaItem.light { background: #f8fafc; }
+.listaItem.dark  { background: #0f172a; }
+.listaItem.light:hover { background: #e0f2fe; }
+.listaItem.dark:hover  { background: rgba(14,165,233,.07); }
+
+.listaItemIcono {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.light .listaItemIcono { background: #e0f2fe; }
+.dark  .listaItemIcono { background: rgba(14,165,233,.12); }
+.listaItemIcono ion-icon { font-size: 16px; }
+.light .listaItemIcono ion-icon { color: #0ea5e9; }
+.dark  .listaItemIcono ion-icon { color: #38bdf8; }
+
+.listaItemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.listaItemNombre {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.light .listaItemNombre { color: #0f172a; }
+.dark  .listaItemNombre { color: #f1f5f9; }
+
+.listaItemDetalle {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.light .listaItemDetalle { color: #64748b; }
+.dark  .listaItemDetalle { color: #94a3b8; }
+
+.fechaLeido {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+.light .fechaLeido { color: #16a34a; }
+.dark  .fechaLeido { color: #4ade80; }
+.fechaLeido ion-icon { font-size: 14px; }
+
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 40px 20px;
+    text-align: center;
+}
+.vacioIcono {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.light .vacioIcono { background: #f1f5f9; }
+.dark  .vacioIcono { background: #0f172a; }
+.vacioIcono ion-icon { font-size: 26px; }
+.light .vacioIcono ion-icon { color: #cbd5e1; }
+.dark  .vacioIcono ion-icon { color: #334155; }
+.vacio span { font-size: 13px; }
+.light .vacio span { color: #94a3b8; }
+.dark  .vacio span { color: #64748b; }
+
+@media (max-width: 900px) {
+    .layoutPrincipal { grid-template-columns: 1fr; }
+    .columnaDer { position: static; }
+}
+
+@media (max-width: 640px) {
+    .contenedor { padding: 20px 16px; }
+    .titulo { font-size: 20px; }
+    .subtitulo { display: none; }
+    .headerIcono { width: 44px; height: 44px; border-radius: 12px; }
+    .headerIcono ion-icon { font-size: 22px; }
+    .metaGrid { grid-template-columns: 1fr 1fr; }
+    .headerAcciones { width: 100%; justify-content: flex-end; }
+}

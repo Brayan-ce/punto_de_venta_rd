@@ -1,0 +1,1706 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.headerBotones {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.btnHistorial {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnHistorial {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.dark .btnHistorial {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+.btnHistorial:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.light .btnHistorial:hover:not(:disabled) {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+.dark .btnHistorial:hover:not(:disabled) {
+    background: #60a5fa;
+    color: #0f172a;
+}
+
+.btnHistorial:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnHistorial ion-icon {
+    font-size: 22px;
+}
+
+.btnCancelar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnCancelar {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.dark .btnCancelar {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.btnCancelar:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.light .btnCancelar:hover:not(:disabled) {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .btnCancelar:hover:not(:disabled) {
+    background: #475569;
+    color: #f1f5f9;
+}
+
+.btnCancelar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnCancelar ion-icon {
+    font-size: 22px;
+}
+
+.historialContainer {
+    margin-bottom: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.historialContainer.light {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.historialContainer.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.historialHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.historialTitulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .historialTitulo {
+    color: #0f172a;
+}
+
+.dark .historialTitulo {
+    color: #f1f5f9;
+}
+
+.historialTitulo ion-icon {
+    font-size: 24px;
+}
+
+.light .historialTitulo ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .historialTitulo ion-icon {
+    color: #38bdf8;
+}
+
+.btnCerrarHistorial {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnCerrarHistorial {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.dark .btnCerrarHistorial {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.btnCerrarHistorial:hover {
+    transform: scale(1.1);
+}
+
+.light .btnCerrarHistorial:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .btnCerrarHistorial:hover {
+    background: #475569;
+    color: #f1f5f9;
+}
+
+.btnCerrarHistorial ion-icon {
+    font-size: 24px;
+}
+
+.historialLista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.historialVacio {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 40px;
+    text-align: center;
+}
+
+.light .historialVacio {
+    color: #64748b;
+}
+
+.dark .historialVacio {
+    color: #94a3b8;
+}
+
+.historialVacio ion-icon {
+    font-size: 48px;
+}
+
+.light .historialVacio ion-icon {
+    color: #cbd5e1;
+}
+
+.dark .historialVacio ion-icon {
+    color: #475569;
+}
+
+.historialVacio p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.despachoCard {
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.despachoCard.light {
+    background: #f8fafc;
+    border: 2px solid #e5e7eb;
+}
+
+.despachoCard.dark {
+    background: #0f172a;
+    border: 2px solid #334155;
+}
+
+.despachoHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid;
+}
+
+.light .despachoHeader {
+    border-bottom-color: #e5e7eb;
+}
+
+.dark .despachoHeader {
+    border-bottom-color: #334155;
+}
+
+.despachoNumero {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.light .despachoNumero {
+    color: #0f172a;
+}
+
+.dark .despachoNumero {
+    color: #f1f5f9;
+}
+
+.despachoNumero ion-icon {
+    font-size: 20px;
+}
+
+.light .despachoNumero ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .despachoNumero ion-icon {
+    color: #38bdf8;
+}
+
+.despachoEstado {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.despachoEstado.activo {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.despachoEstado.cerrado {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.despachoEstado.anulado {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.despachoInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.infoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.infoLabel {
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.light .infoLabel {
+    color: #64748b;
+}
+
+.dark .infoLabel {
+    color: #94a3b8;
+}
+
+.infoValor {
+    font-weight: 500;
+    text-align: right;
+}
+
+.light .infoValor {
+    color: #0f172a;
+}
+
+.dark .infoValor {
+    color: #f1f5f9;
+}
+
+.despachoProductos {
+    padding-top: 15px;
+    border-top: 1px solid;
+}
+
+.light .despachoProductos {
+    border-top-color: #e5e7eb;
+}
+
+.dark .despachoProductos {
+    border-top-color: #334155;
+}
+
+.despachoProductos h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.light .despachoProductos h4 {
+    color: #0f172a;
+}
+
+.dark .despachoProductos h4 {
+    color: #f1f5f9;
+}
+
+.productoDespacho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+.productoNombreHistorial {
+    font-weight: 500;
+}
+
+.light .productoNombreHistorial {
+    color: #475569;
+}
+
+.dark .productoNombreHistorial {
+    color: #cbd5e1;
+}
+
+.productoCantidadHistorial {
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+.light .productoCantidadHistorial {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.dark .productoCantidadHistorial {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+.cargando,
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 500px;
+    text-align: center;
+}
+
+.iconoCargando {
+    font-size: 64px;
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.light .cargando,
+.light .iconoCargando {
+    color: #0ea5e9;
+}
+
+.dark .cargando,
+.dark .iconoCargando {
+    color: #38bdf8;
+}
+
+.error ion-icon {
+    font-size: 64px;
+}
+
+.light .error ion-icon {
+    color: #ef4444;
+}
+
+.dark .error ion-icon {
+    color: #f87171;
+}
+
+.error h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.light .error h2 {
+    color: #ef4444;
+}
+
+.dark .error h2 {
+    color: #f87171;
+}
+
+.btnVolver {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #0ea5e9;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.btnVolver:hover {
+    background: #0284c7;
+    transform: translateY(-2px);
+}
+
+.contenido {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 25px;
+}
+
+.columnaIzquierda,
+.columnaDerecha {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.seccion {
+    padding: 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.seccion.light {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.seccion.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.headerSeccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.tituloSeccion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .tituloSeccion {
+    color: #0f172a;
+}
+
+.dark .tituloSeccion {
+    color: #f1f5f9;
+}
+
+.tituloSeccion ion-icon {
+    font-size: 24px;
+}
+
+.light .tituloSeccion ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .tituloSeccion ion-icon {
+    color: #38bdf8;
+}
+
+.btnDespacharTodo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #10b981;
+    color: #ffffff;
+}
+
+.btnDespacharTodo:hover:not(:disabled) {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.btnDespacharTodo:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnDespacharTodo ion-icon {
+    font-size: 18px;
+}
+
+.infoVenta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.infoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.infoLabel {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.light .infoLabel {
+    color: #64748b;
+}
+
+.dark .infoLabel {
+    color: #94a3b8;
+}
+
+.infoValor {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.light .infoValor {
+    color: #0f172a;
+}
+
+.dark .infoValor {
+    color: #f1f5f9;
+}
+
+.listaProductos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.productoItem {
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: all 0.2s ease;
+}
+
+.productoItem.light {
+    background: #f8fafc;
+    border: 2px solid #e5e7eb;
+}
+
+.productoItem.dark {
+    background: #0f172a;
+    border: 2px solid #334155;
+}
+
+.productoInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.productoNombre {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.light .productoNombre {
+    color: #0f172a;
+}
+
+.dark .productoNombre {
+    color: #f1f5f9;
+}
+
+.productoDetalles {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.detalle {
+    font-size: 13px;
+}
+
+.light .detalle {
+    color: #64748b;
+}
+
+.dark .detalle {
+    color: #94a3b8;
+}
+
+.detalle strong {
+    font-weight: 700;
+}
+
+.light .detalle strong {
+    color: #0f172a;
+}
+
+.dark .detalle strong {
+    color: #f1f5f9;
+}
+
+.detalle.pendiente {
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.detalle.pendiente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.productoControles {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.controlCantidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnCantidad {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnCantidad {
+    background: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .btnCantidad {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.btnCantidad:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.light .btnCantidad:hover:not(:disabled) {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .btnCantidad:hover:not(:disabled) {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.btnCantidad:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.btnCantidad ion-icon {
+    font-size: 20px;
+}
+
+.inputCantidad {
+    width: 70px;
+    padding: 8px 10px;
+    border: 2px solid;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.light .inputCantidad {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .inputCantidad {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+
+.light .inputCantidad:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .inputCantidad:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.inputCantidad:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnDespacharProducto {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnDespacharProducto {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.dark .btnDespacharProducto {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+.btnDespacharProducto:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.light .btnDespacharProducto:hover:not(:disabled) {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+.dark .btnDespacharProducto:hover:not(:disabled) {
+    background: #60a5fa;
+    color: #0f172a;
+}
+
+.btnDespacharProducto:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnDespacharProducto ion-icon {
+    font-size: 18px;
+}
+
+.textarea {
+    padding: 12px 16px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.light .textarea {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .textarea:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .textarea:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.resumen {
+    padding: 25px;
+    border-radius: 12px;
+    position: sticky;
+    top: 90px;
+}
+
+.resumen.light {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.resumen.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.tituloResumen {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.light .tituloResumen {
+    color: #0f172a;
+}
+
+.dark .tituloResumen {
+    color: #f1f5f9;
+}
+
+.resumenItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.light .resumenItem {
+    color: #64748b;
+}
+
+.dark .resumenItem {
+    color: #94a3b8;
+}
+
+.resumenItem strong {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.light .resumenItem strong {
+    color: #0f172a;
+}
+
+.dark .resumenItem strong {
+    color: #f1f5f9;
+}
+
+.resumenItem.destacado {
+    padding: 12px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.resumenItem.destacado {
+    background: #dbeafe;
+}
+
+.resumenItem.destacado span {
+    font-weight: 700;
+}
+
+.light .resumenItem.destacado span {
+    color: #1e40af;
+}
+
+.resumenItem.destacado strong {
+    font-size: 20px;
+}
+
+.light .resumenItem.destacado strong {
+    color: #1e40af;
+}
+
+.separador {
+    height: 1px;
+    margin: 15px 0;
+}
+
+.light .separador {
+    background: #e5e7eb;
+}
+
+.dark .separador {
+    background: #334155;
+}
+
+.btnProcesar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #10b981;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.btnProcesar:hover:not(:disabled) {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnProcesar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnProcesar ion-icon {
+    font-size: 24px;
+}
+
+.infoBox {
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    gap: 12px;
+}
+
+.infoBox.light {
+    background: #eff6ff;
+    border: 2px solid #93c5fd;
+}
+
+.infoBox.dark {
+    background: #1e3a8a;
+    border: 2px solid #3b82f6;
+}
+
+.infoBox ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.light .infoBox ion-icon {
+    color: #1e40af;
+}
+
+.dark .infoBox ion-icon {
+    color: #93c5fd;
+}
+
+.infoBox p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.light .infoBox p {
+    color: #1e40af;
+}
+
+.dark .infoBox p {
+    color: #bfdbfe;
+}
+
+@media (max-width: 1200px) {
+    .contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen {
+        position: relative;
+        top: 0;
+    }
+
+    .infoVenta {
+        grid-template-columns: 1fr;
+    }
+
+    .historialLista {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px 15px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .headerBotones {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btnHistorial,
+    .btnCancelar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .seccion {
+        padding: 20px;
+    }
+
+    .headerSeccion {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btnDespacharTodo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .productoControles {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .controlCantidad {
+        justify-content: center;
+    }
+
+    .btnDespacharProducto {
+        width: 100%;
+        justify-content: center;
+    }
+}.contenedor *,
+.contenedor *::before,
+.contenedor *::after {
+    box-sizing: border-box;
+}
+
+.contenedor {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.textarea,
+.inputCantidad {
+    box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+    .contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen {
+        position: relative;
+        top: 0;
+    }
+
+    .infoVenta {
+        grid-template-columns: 1fr;
+    }
+
+    .historialLista {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 15px 10px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .subtitulo {
+        font-size: 14px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .headerBotones {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btnHistorial,
+    .btnCancelar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .historialContainer {
+        padding: 20px;
+    }
+
+    .historialHeader {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .historialTitulo {
+        font-size: 16px;
+    }
+
+    .historialTitulo ion-icon {
+        font-size: 22px;
+    }
+
+    .historialLista {
+        gap: 15px;
+    }
+
+    .despachoCard {
+        padding: 16px;
+    }
+
+    .despachoHeader {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .despachoNumero {
+        font-size: 15px;
+    }
+
+    .despachoInfo {
+        gap: 8px;
+    }
+
+    .infoRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .infoValor {
+        text-align: left;
+    }
+
+    .despachoProductos {
+        padding-top: 12px;
+    }
+
+    .productoDespacho {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .seccion {
+        padding: 16px;
+    }
+
+    .headerSeccion {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .tituloSeccion {
+        font-size: 16px;
+    }
+
+    .tituloSeccion ion-icon {
+        font-size: 22px;
+    }
+
+    .btnDespacharTodo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .infoVenta {
+        gap: 12px;
+    }
+
+    .infoItem {
+        gap: 3px;
+    }
+
+    .infoLabel {
+        font-size: 12px;
+    }
+
+    .infoValor {
+        font-size: 14px;
+    }
+
+    .listaProductos {
+        gap: 12px;
+    }
+
+    .productoItem {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .productoNombre {
+        font-size: 15px;
+    }
+
+    .productoDetalles {
+        gap: 12px;
+    }
+
+    .detalle {
+        font-size: 12px;
+    }
+
+    .productoControles {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .controlCantidad {
+        justify-content: center;
+    }
+
+    .btnCantidad {
+        width: 34px;
+        height: 34px;
+    }
+
+    .btnCantidad ion-icon {
+        font-size: 18px;
+    }
+
+    .inputCantidad {
+        width: 65px;
+        padding: 7px 8px;
+        font-size: 15px;
+    }
+
+    .btnDespacharProducto {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .textarea {
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+
+    .resumen {
+        padding: 20px;
+    }
+
+    .tituloResumen {
+        font-size: 16px;
+    }
+
+    .resumenItem {
+        font-size: 13px;
+    }
+
+    .resumenItem strong {
+        font-size: 15px;
+    }
+
+    .resumenItem.destacado {
+        padding: 10px;
+    }
+
+    .resumenItem.destacado strong {
+        font-size: 18px;
+    }
+
+    .btnProcesar {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .btnProcesar ion-icon {
+        font-size: 22px;
+    }
+
+    .infoBox {
+        padding: 16px;
+        gap: 10px;
+    }
+
+    .infoBox ion-icon {
+        font-size: 22px;
+    }
+
+    .infoBox p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 12px 8px;
+    }
+
+    .titulo {
+        font-size: 20px;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+    }
+
+    .btnHistorial,
+    .btnCancelar {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .btnHistorial ion-icon,
+    .btnCancelar ion-icon {
+        font-size: 20px;
+    }
+
+    .historialContainer {
+        padding: 16px;
+    }
+
+    .historialTitulo {
+        font-size: 15px;
+    }
+
+    .historialTitulo ion-icon {
+        font-size: 20px;
+    }
+
+    .btnCerrarHistorial {
+        width: 32px;
+        height: 32px;
+    }
+
+    .btnCerrarHistorial ion-icon {
+        font-size: 22px;
+    }
+
+    .historialLista {
+        gap: 12px;
+    }
+
+    .despachoCard {
+        padding: 14px;
+    }
+
+    .despachoHeader {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+
+    .despachoNumero {
+        font-size: 14px;
+    }
+
+    .despachoNumero ion-icon {
+        font-size: 18px;
+    }
+
+    .despachoEstado {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+
+    .infoRow {
+        font-size: 13px;
+    }
+
+    .despachoProductos {
+        padding-top: 10px;
+    }
+
+    .despachoProductos h4 {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .productoDespacho {
+        padding: 6px 0;
+        font-size: 12px;
+    }
+
+    .productoCantidadHistorial {
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+
+    .seccion {
+        padding: 14px;
+    }
+
+    .tituloSeccion {
+        font-size: 15px;
+    }
+
+    .tituloSeccion ion-icon {
+        font-size: 20px;
+    }
+
+    .btnDespacharTodo {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+
+    .btnDespacharTodo ion-icon {
+        font-size: 16px;
+    }
+
+    .infoLabel {
+        font-size: 11px;
+    }
+
+    .infoValor {
+        font-size: 13px;
+    }
+
+    .productoItem {
+        padding: 14px;
+    }
+
+    .productoNombre {
+        font-size: 14px;
+    }
+
+    .detalle {
+        font-size: 11px;
+    }
+
+    .detalle.pendiente {
+        padding: 3px 8px;
+    }
+
+    .btnCantidad {
+        width: 32px;
+        height: 32px;
+    }
+
+    .btnCantidad ion-icon {
+        font-size: 16px;
+    }
+
+    .inputCantidad {
+        width: 60px;
+        padding: 6px 7px;
+        font-size: 14px;
+    }
+
+    .btnDespacharProducto {
+        padding: 9px 18px;
+        font-size: 13px;
+    }
+
+    .btnDespacharProducto ion-icon {
+        font-size: 16px;
+    }
+
+    .textarea {
+        font-size: 12px;
+        padding: 9px 12px;
+        min-height: 90px;
+    }
+
+    .resumen {
+        padding: 16px;
+    }
+
+    .tituloResumen {
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+
+    .resumenItem {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .resumenItem strong {
+        font-size: 14px;
+    }
+
+    .resumenItem.destacado {
+        padding: 9px;
+        margin: 12px 0;
+    }
+
+    .resumenItem.destacado strong {
+        font-size: 16px;
+    }
+
+    .separador {
+        margin: 12px 0;
+    }
+
+    .btnProcesar {
+        padding: 13px 18px;
+        font-size: 14px;
+        margin-top: 16px;
+    }
+
+    .btnProcesar ion-icon {
+        font-size: 20px;
+    }
+
+    .infoBox {
+        padding: 14px;
+    }
+
+    .infoBox ion-icon {
+        font-size: 20px;
+    }
+
+    .infoBox p {
+        font-size: 11px;
+    }
+
+    .cargando,
+    .error {
+        min-height: 400px;
+        padding: 20px;
+    }
+
+    .iconoCargando {
+        font-size: 56px;
+    }
+
+    .error ion-icon {
+        font-size: 56px;
+    }
+
+    .error h2 {
+        font-size: 20px;
+    }
+
+    .btnVolver {
+        padding: 11px 22px;
+        font-size: 14px;
+    }
+}

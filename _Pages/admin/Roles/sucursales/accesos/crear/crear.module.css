@@ -1,0 +1,276 @@
+.contenedor {
+    padding: 32px 28px;
+    min-height: 100vh;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.contenedor.dark {
+    background: #0a0f1e;
+    color: #e2e8f0;
+}
+
+.encabezadoPrincipal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.titulo {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+}
+
+.subtitulo {
+    margin: 6px 0 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.light .subtitulo { color: #64748b; }
+.dark .subtitulo { color: #64748b; }
+
+.accionesTop {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #2563eb;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.btnGhost {
+    background: transparent;
+    font-weight: 500;
+}
+
+.light .btnGhost {
+    border: 1px solid #cbd5e1;
+    color: #475569;
+}
+
+.dark .btnGhost {
+    border: 1px solid #1e293b;
+    color: #94a3b8;
+}
+
+.estado {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 14px;
+    border: 1px solid;
+}
+
+.ok {
+    background: #f0fdf4;
+    color: #166534;
+    border-color: #bbf7d0;
+}
+
+.error {
+    background: #fef2f2;
+    color: #991b1b;
+    border-color: #fecaca;
+}
+
+.panelFormulario {
+    border-radius: 14px;
+    border: 1px solid;
+    overflow: hidden;
+}
+
+.light .panelFormulario {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.dark .panelFormulario {
+    background: #0f172a;
+    border-color: #1e293b;
+}
+
+.panelCabecera {
+    padding: 16px 20px;
+    border-bottom: 1px solid;
+}
+
+.light .panelCabecera { border-color: #f1f5f9; }
+.dark .panelCabecera { border-color: #1e293b; }
+
+.panelCabecera h3 {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.panelCabecera p {
+    margin: 4px 0 0;
+    font-size: 0.82rem;
+    color: #64748b;
+}
+
+.form {
+    display: grid;
+    gap: 12px;
+    padding: 16px 20px 20px;
+}
+
+.campo {
+    display: grid;
+    gap: 6px;
+}
+
+.campo label {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.select {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid;
+    padding: 9px 12px;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+}
+
+.input,
+.textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid;
+    padding: 9px 12px;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+}
+
+.light .select {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.light .input,
+.light .textarea {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .select {
+    background: #0f172a;
+    border-color: #1e293b;
+    color: #e2e8f0;
+}
+
+.dark .input,
+.dark .textarea {
+    background: #0f172a;
+    border-color: #1e293b;
+    color: #e2e8f0;
+}
+
+.select:focus,
+.input:focus,
+.textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 84px;
+}
+
+.row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+}
+
+.toggleWrap {
+    padding-bottom: 10px;
+}
+
+.toggleLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.86rem;
+}
+
+.accionesForm {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cargando {
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+@media (max-width: 640px) {
+    .contenedor {
+        padding: 20px 16px;
+    }
+
+    .encabezadoPrincipal {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .accionesTop {
+        width: 100%;
+    }
+
+    .accionesTop .btn {
+        flex: 1;
+    }
+
+    .row {
+        grid-template-columns: 1fr;
+    }
+
+    .row2 {
+        grid-template-columns: 1fr;
+    }
+
+    .form,
+    .panelCabecera {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

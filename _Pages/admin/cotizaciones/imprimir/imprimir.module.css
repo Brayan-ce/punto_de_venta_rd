@@ -1,0 +1,361 @@
+/* ============================================
+   ESTILOS DE IMPRESIÓN
+   ============================================ */
+
+.cargando {
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+}
+
+.printContainer {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 20mm;
+    background: white;
+    font-family: 'Arial', sans-serif;
+    color: #000;
+}
+
+.printHeader {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #000;
+    padding-bottom: 20px;
+}
+
+.printHeader h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.printNumero {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.printInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.printCol {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.printCol strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #374151;
+}
+
+.printCol p {
+    margin: 4px 0;
+    color: #111827;
+}
+
+.printTabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.printTabla thead {
+    background: #f3f4f6;
+    border-bottom: 2px solid #000;
+}
+
+.printTabla th {
+    padding: 12px 8px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-right: 1px solid #d1d5db;
+}
+
+.printTabla th:last-child {
+    border-right: none;
+}
+
+.printTabla td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 13px;
+}
+
+.printTabla tbody tr:last-child td {
+    border-bottom: 2px solid #000;
+}
+
+.printFooter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.printObservaciones {
+    font-size: 13px;
+}
+
+.printObservaciones strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #374151;
+}
+
+.printObservaciones p {
+    margin: 0;
+    line-height: 1.6;
+    color: #111827;
+}
+
+.printTotales {
+    text-align: right;
+    font-size: 14px;
+}
+
+.printLinTotal {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.printLinTotal span:first-child {
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.printLinTotal span:last-child {
+    font-weight: 600;
+    min-width: 120px;
+    text-align: right;
+}
+
+.printFinal {
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    padding: 12px 0;
+    margin-top: 8px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* ============================================
+   MEDIA QUERIES - RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablets pequeñas (640px - 768px) */
+@media (max-width: 768px) {
+    .printContainer {
+        padding: 15mm;
+    }
+
+    .printHeader h1 {
+        font-size: 28px;
+    }
+
+    .printNumero {
+        font-size: 16px;
+    }
+
+    .printInfo {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .printTabla {
+        font-size: 12px;
+    }
+
+    .printTabla th,
+    .printTabla td {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .printFooter {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Móviles grandes (480px - 640px) */
+@media (max-width: 640px) {
+    .printContainer {
+        padding: 10mm;
+    }
+
+    .printHeader h1 {
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+
+    .printNumero {
+        font-size: 14px;
+    }
+
+    .printCol {
+        font-size: 12px;
+    }
+
+    .printCol strong {
+        font-size: 11px;
+    }
+
+    .printTabla {
+        font-size: 11px;
+    }
+
+    .printTabla th,
+    .printTabla td {
+        padding: 6px 4px;
+        font-size: 10px;
+    }
+
+    .printObservaciones {
+        font-size: 11px;
+    }
+
+    .printTotales {
+        font-size: 12px;
+    }
+
+    .printLinTotal {
+        padding: 6px 0;
+        font-size: 12px;
+    }
+
+    .printFinal {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+}
+
+/* Móviles pequeños (< 480px) */
+@media (max-width: 480px) {
+    .printContainer {
+        padding: 8mm;
+    }
+
+    .printHeader {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+
+    .printHeader h1 {
+        font-size: 20px;
+        letter-spacing: 0.5px;
+    }
+
+    .printNumero {
+        font-size: 12px;
+    }
+
+    .printInfo {
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+
+    .printCol {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .printCol strong {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+
+    .printTabla {
+        margin-bottom: 20px;
+        font-size: 10px;
+    }
+
+    .printTabla th {
+        padding: 6px 3px;
+        font-size: 9px;
+    }
+
+    .printTabla td {
+        padding: 5px 3px;
+        font-size: 9px;
+    }
+
+    .printFooter {
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+
+    .printObservaciones {
+        font-size: 10px;
+    }
+
+    .printObservaciones strong {
+        font-size: 9px;
+        margin-bottom: 6px;
+    }
+
+    .printTotales {
+        font-size: 11px;
+    }
+
+    .printLinTotal {
+        padding: 5px 0;
+        font-size: 11px;
+    }
+
+    .printLinTotal span:first-child {
+        margin-right: 15px;
+    }
+
+    .printLinTotal span:last-child {
+        min-width: 100px;
+    }
+
+    .printFinal {
+        font-size: 14px;
+        padding: 8px 0;
+    }
+}
+
+/* Estilos para impresión */
+@media print {
+    .printContainer {
+        padding: 10mm;
+        margin: 0;
+        max-width: 100%;
+    }
+
+    .printHeader {
+        page-break-after: avoid;
+    }
+
+    .printTabla {
+        page-break-inside: avoid;
+    }
+
+    .printFooter {
+        page-break-inside: avoid;
+    }
+}
+

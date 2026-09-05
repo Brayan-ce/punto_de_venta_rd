@@ -1,0 +1,368 @@
+/* ============================================================
+   Financiamiento · Ver Cliente
+   ============================================================ */
+
+.contenedor {
+    padding: 28px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    box-sizing: border-box;
+}
+.contenedor.light { background: #f8fafc; color: #0f172a; }
+.contenedor.dark  { background: #0f172a; color: #f1f5f9; }
+
+/* ── TOPBAR ── */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btnVolver {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: 9px;
+    border: 1.5px solid;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s;
+}
+.light .btnVolver { border-color: #e2e8f0; color: #64748b; }
+.dark  .btnVolver { border-color: #334155; color: #94a3b8; }
+.light .btnVolver:hover { background: #f1f5f9; border-color: #94a3b8; color: #0f172a; }
+.dark  .btnVolver:hover { background: #1e293b; border-color: #64748b; color: #f1f5f9; }
+
+.topbarAcciones { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btnEditar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 9px;
+    border: 1.5px solid;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s;
+}
+.light .btnEditar { border-color: #e2e8f0; color: #64748b; }
+.dark  .btnEditar { border-color: #334155; color: #94a3b8; }
+.light .btnEditar:hover { background: #f1f5f9; border-color: #0ea5e9; color: #0ea5e9; }
+.dark  .btnEditar:hover { background: rgba(14,165,233,0.1); border-color: #0ea5e9; color: #0ea5e9; }
+
+.btnContrato {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 9px;
+    border: none;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: opacity 0.15s, transform 0.15s;
+    box-shadow: 0 3px 10px rgba(14,165,233,0.3);
+}
+.btnContrato:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ── PERFIL CARD ── */
+.perfilCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+.perfilCard::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0ea5e9, #6366f1, #10b981);
+}
+.light .perfilCard { background: #fff; border-color: #e2e8f0; box-shadow: 0 2px 12px rgba(14,165,233,0.06); }
+.dark  .perfilCard { background: #1e293b; border-color: #334155; }
+
+.avatarGrande {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 800;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(14,165,233,0.35);
+}
+
+.perfilInfo { flex: 1; min-width: 0; }
+
+.perfilNombre { font-size: 22px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.3px; }
+.light .perfilNombre { color: #0f172a; }
+.dark  .perfilNombre { color: #f1f5f9; }
+
+.perfilDoc { font-size: 14px; margin: 0 0 12px; }
+.light .perfilDoc { color: #64748b; }
+.dark  .perfilDoc { color: #94a3b8; }
+
+.perfilMeta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+}
+.perfilMeta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.light .perfilMeta span { color: #64748b; }
+.dark  .perfilMeta span { color: #94a3b8; }
+
+.clasificacionBadge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+.clasificacionLabel { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.light .clasificacionLabel { color: #94a3b8; }
+.dark  .clasificacionLabel { color: #64748b; }
+
+/* ── CLASIFICACIÓN ── */
+.claseA { font-size: 32px; font-weight: 900; color: #10b981; }
+.claseB { font-size: 32px; font-weight: 900; color: #3b82f6; }
+.claseC { font-size: 32px; font-weight: 900; color: #f59e0b; }
+.claseD { font-size: 32px; font-weight: 900; color: #ef4444; }
+
+/* ── STATS ── */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.statCard {
+    border-radius: 12px;
+    border: 1px solid;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.15s;
+}
+.statCard:hover { transform: translateY(-2px); }
+.light .statCard { background: #fff; border-color: #e2e8f0; }
+.dark  .statCard { background: #1e293b; border-color: #334155; }
+
+.statIcono {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+}
+.statIcono.blue   { background: rgba(59,130,246,0.12); color: #3b82f6; }
+.statIcono.green  { background: rgba(16,185,129,0.12); color: #10b981; }
+.statIcono.red    { background: rgba(239,68,68,0.12);  color: #ef4444; }
+.statIcono.orange { background: rgba(245,158,11,0.12); color: #f59e0b; }
+
+.statValor { display: block; font-size: 18px; font-weight: 800; line-height: 1.1; }
+.light .statValor { color: #0f172a; }
+.dark  .statValor { color: #f1f5f9; }
+
+.statLabel { display: block; font-size: 11px; font-weight: 500; margin-top: 2px; }
+.light .statLabel { color: #64748b; }
+.dark  .statLabel { color: #94a3b8; }
+
+/* ── SECCIÓN ── */
+.seccion { margin-bottom: 28px; }
+
+.seccionTitulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 16px;
+}
+.light .seccionTitulo { color: #0f172a; }
+.dark  .seccionTitulo { color: #f1f5f9; }
+
+/* ── CONTRATOS GRID ── */
+.contratosGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.contratoCard {
+    border-radius: 14px;
+    border: 1px solid;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+    overflow: hidden;
+}
+.contratoCard:hover { transform: translateY(-3px); }
+.light .contratoCard { background: #fff; border-color: #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.light .contratoCard:hover { box-shadow: 0 8px 24px rgba(14,165,233,0.12); border-color: #bae6fd; }
+.dark  .contratoCard { background: #1e293b; border-color: #334155; }
+.dark  .contratoCard:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); border-color: #0ea5e9; }
+
+.contratoHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.contratoNumero { font-size: 15px; font-weight: 700; }
+.light .contratoNumero { color: #0f172a; }
+.dark  .contratoNumero { color: #f1f5f9; }
+
+.contratoPlan { font-size: 12px; margin-top: 2px; }
+.light .contratoPlan { color: #64748b; }
+.dark  .contratoPlan { color: #94a3b8; }
+
+.contratoMontos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 10px;
+}
+.light .contratoMontos { background: #f8fafc; }
+.dark  .contratoMontos { background: rgba(255,255,255,0.03); }
+
+.montoLabel { display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+.light .montoLabel { color: #94a3b8; }
+.dark  .montoLabel { color: #64748b; }
+
+.montoValor { display: block; font-size: 13px; font-weight: 700; }
+.light .montoValor { color: #0f172a; }
+.dark  .montoValor { color: #f1f5f9; }
+.montoRed { color: #ef4444 !important; }
+
+/* ── PROGRESO ── */
+.progresoWrapper { margin-bottom: 12px; }
+
+.progresoLabel {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+.light .progresoLabel { color: #64748b; }
+.dark  .progresoLabel { color: #94a3b8; }
+
+.progresoBar {
+    height: 6px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.light .progresoBar { background: #e2e8f0; }
+.dark  .progresoBar { background: #334155; }
+
+.progresoFill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #0ea5e9, #10b981);
+    transition: width 0.4s ease;
+}
+
+/* ── ALERTA VENCIDAS ── */
+.alertaVencidas {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(239,68,68,0.1);
+    color: #ef4444;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.contratoFechas {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+}
+.light .contratoFechas { color: #94a3b8; }
+.dark  .contratoFechas { color: #64748b; }
+
+/* ── BADGES ── */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.badgeBlue   { background: rgba(59,130,246,0.12); color: #3b82f6; }
+.badgeGreen  { background: rgba(16,185,129,0.12); color: #10b981; }
+.badgeRed    { background: rgba(239,68,68,0.12);  color: #ef4444; }
+.badgeGray   { background: rgba(107,114,128,0.12); color: #6b7280; }
+
+/* ── VACÍO ── */
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 40px 20px;
+    border-radius: 14px;
+    border: 2px dashed;
+    font-size: 14px;
+}
+.light .vacio { color: #94a3b8; border-color: #e2e8f0; background: #f8fafc; }
+.dark  .vacio { color: #64748b; border-color: #334155; background: #1e293b; }
+
+/* ── CARGANDO ── */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 80px 20px;
+    font-size: 14px;
+}
+.light .cargando { color: #64748b; }
+.dark  .cargando { color: #94a3b8; }
+
+.spinner {
+    width: 36px; height: 36px;
+    border-width: 3px; border-style: solid;
+    border-radius: 50%; border-top-color: #0ea5e9;
+    animation: giro 0.8s linear infinite;
+}
+.light .spinner { border-color: #e2e8f0; border-top-color: #0ea5e9; }
+.dark  .spinner { border-color: #334155; border-top-color: #0ea5e9; }
+
+@keyframes giro { to { transform: rotate(360deg); } }
+
+@media (max-width: 700px) {
+    .contenedor { padding: 16px 14px; }
+    .contratosGrid { grid-template-columns: 1fr; }
+    .statsGrid { grid-template-columns: repeat(2, 1fr); }
+}

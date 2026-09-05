@@ -1,0 +1,157 @@
+/* ==========================================
+   MATERIALES RECIENTES
+   ========================================== */
+
+.contenedor {
+    margin-bottom: 24px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.header ion-icon {
+    font-size: 20px;
+    color: #0ea5e9;
+}
+
+.header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .header h3 {
+    color: #334155;
+}
+
+.dark .header h3 {
+    color: #cbd5e1;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 2px solid;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.chip.light {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+.chip.dark {
+    background: #0f172a;
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+}
+
+.light .chip:hover {
+    background: #e0f2fe;
+    border-color: #0ea5e9;
+    color: #0369a1;
+}
+
+.dark .chip:hover {
+    background: #1e293b;
+    border-color: #475569;
+    color: #e0f2fe;
+}
+
+.nombre {
+    font-weight: 600;
+}
+
+.unidad {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.light .unidad {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.dark .unidad {
+    background: #1e293b;
+    color: #7dd3fc;
+}
+
+.categoria {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.light .categoria {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.dark .categoria {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+.cargando {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.dark .cargando {
+    color: #94a3b8;
+}
+
+.cargando ion-icon {
+    font-size: 18px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .chips {
+        gap: 6px;
+    }
+
+    .chip {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+

@@ -1,0 +1,108 @@
+RESUMEN DE CAMBIOS - UNIDADES DE MEDIDA POR EMPRESA
+
+====================================================================
+ARCHIVOS MODIFICADOS
+====================================================================
+
+1. _Pages/admin/configuracion/servidor.js
+
+CAMBIOS:
+- obtenerUnidadesMedida(): Añadido empresaId al WHERE
+- crearUnidadMedida(): Ahora inserta empresa_id
+- actualizarUnidadMedida(): Valida que unidad pertenezca a empresa
+- eliminarUnidadMedida(): Solo elimina unidades de la empresa del admin
+
+2. _Pages/superadmin/solicitudes/servidor.js
+
+CAMBIOS:
+- aprobarSolicitud(): Después de crear empresa y usuario, inserta 53 unidades
+
+====================================================================
+ARCHIVOS SQL PARA EJECUTAR EN VPS
+====================================================================
+
+Archivo principal: _DB/migracion_unidades_vps.sql
+
+Este archivo:
+1. Limpia empresa_id de unidades antiguas
+2. Inserta 53 unidades para CADA empresa activa
+3. Muestra verificación de resultados
+
+Comando para ejecutar:
+
+mysql -u root -p punto_venta_rd < _DB/migracion_unidades_vps.sql
+
+Si ejecutas desde otro directorio:
+
+mysql -u root -p punto_venta_rd < /ruta/completa/_DB/migracion_unidades_vps.sql
+
+====================================================================
+VERIFICACIÓN RÁPIDA EN MySQL
+====================================================================
+
+Después de ejecutar el SQL, verifica:
+
+USE punto_venta_rd;
+
+SELECT empresa_id, COUNT(*) as cantidad_unidades
+FROM unidades_medida
+WHERE empresa_id IS NOT NULL
+GROUP BY empresa_id
+ORDER BY empresa_id;
+
+Resultado esperado: Cada empresa con 53 unidades
+
+SELECT COUNT(*) FROM unidades_medida WHERE empresa_id IS NOT NULL;
+
+Resultado esperado: (número_de_empresas × 53)
+
+====================================================================
+DEPLOY EN VPS - PASOS COMPLETOS
+====================================================================
+
+1. Copiar archivos modificados a VPS:
+
+   scp _Pages/admin/configuracion/servidor.js usuario@vps:/ruta/app/_Pages/admin/configuracion/
+   scp _Pages/superadmin/solicitudes/servidor.js usuario@vps:/ruta/app/_Pages/superadmin/solicitudes/
+
+2. Ejecutar migración SQL:
+
+   ssh usuario@vps
+   cd /ruta/app
+   mysql -u root -p punto_venta_rd < _DB/migracion_unidades_vps.sql
+
+3. Hacer commit:
+
+   git add _Pages/admin/configuracion/servidor.js
+   git add _Pages/superadmin/solicitudes/servidor.js
+   git commit -m "feat: unidades de medida por empresa"
+   git push origin main
+
+4. Reiniciar aplicación (según tu configuración):
+
+   pm2 restart puntoventard
+   # o
+   systemctl restart puntoventard
+   # o según tu setup
+
+====================================================================
+COMPORTAMIENTO DESPUÉS DE APLICAR CAMBIOS
+====================================================================
+
+✓ Cada empresa tiene sus propias 53 unidades
+✓ Admin A NO ve ni puede eliminar unidades de Admin B
+✓ Nuevas empresas reciben 53 unidades automáticamente
+✓ No hay conflicto de roles entre administradores
+✓ Conversiones siguen siendo por empresa (empresa_id)
+
+====================================================================
+ROLLBACK (Si algo falla)
+====================================================================
+
+Si necesitas revertir:
+
+1. DELETE FROM unidades_medida WHERE empresa_id IS NOT NULL;
+2. Revertir archivos .js a versión anterior
+3. git revert <commit>
+
+====================================================================

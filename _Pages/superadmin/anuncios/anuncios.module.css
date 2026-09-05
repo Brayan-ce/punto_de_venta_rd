@@ -1,0 +1,424 @@
+﻿.pagina {
+    min-height: 100vh;
+    transition: background 0.3s ease;
+}
+.pagina.light { background: #f1f5f9; }
+.pagina.dark  { background: #0f172a; }
+
+.contenedor {
+    padding: 36px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 400px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.light .cargando { color: #0ea5e9; }
+.dark  .cargando { color: #38bdf8; }
+.cargando ion-icon {
+    font-size: 44px;
+    animation: rotate 1s linear infinite;
+}
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.headerTexto {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.headerIcono {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+.headerIcono ion-icon {
+    font-size: 26px;
+    color: #fff;
+}
+
+.titulo {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 3px;
+    line-height: 1.2;
+}
+.light .titulo { color: #0f172a; }
+.dark  .titulo { color: #f1f5f9; }
+
+.subtitulo {
+    font-size: 13px;
+    margin: 0;
+    font-weight: 400;
+}
+.light .subtitulo { color: #64748b; }
+.dark  .subtitulo { color: #94a3b8; }
+
+.btnNuevo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: #fff;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.25);
+}
+.btnNuevo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35);
+}
+.btnNuevo ion-icon { font-size: 20px; }
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.statCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+}
+.statCard.light {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.07);
+}
+.statCard.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+.statCard.light:hover { box-shadow: 0 4px 14px rgba(0,0,0,.09); transform: translateY(-2px); }
+.statCard.dark:hover  { box-shadow: 0 4px 14px rgba(0,0,0,.35); transform: translateY(-2px); }
+
+.statIcono {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.statIcono ion-icon { font-size: 22px; color: #fff; }
+.statIconoTotal      { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+.statIconoRecurrente { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.statIconoLecturas   { background: linear-gradient(135deg, #10b981, #059669); }
+
+.statCard > div { display: flex; flex-direction: column; }
+
+.statNum {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+}
+.light .statNum { color: #0f172a; }
+.dark  .statNum { color: #f1f5f9; }
+
+.statLabel {
+    font-size: 11px;
+    margin-top: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.light .statLabel { color: #64748b; }
+.dark  .statLabel { color: #94a3b8; }
+
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 80px 20px;
+    border-radius: 16px;
+    text-align: center;
+}
+.vacio.light { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
+.vacio.dark  { background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+
+.vacioIcono {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+.light .vacioIcono { background: #f1f5f9; }
+.dark  .vacioIcono { background: #0f172a; }
+.vacioIcono ion-icon { font-size: 34px; }
+.light .vacioIcono ion-icon { color: #cbd5e1; }
+.dark  .vacioIcono ion-icon { color: #334155; }
+
+.vacioTitulo {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+.light .vacioTitulo { color: #475569; }
+.dark  .vacioTitulo { color: #94a3b8; }
+
+.vacioSub {
+    margin: 0;
+    font-size: 13px;
+}
+.light .vacioSub { color: #94a3b8; }
+.dark  .vacioSub { color: #475569; }
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+}
+.item.light {
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,.07);
+}
+.item.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+.item.light:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+    transform: translateY(-1px);
+}
+.item.dark:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,.38);
+    transform: translateY(-1px);
+}
+
+.itemIcono {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.itemIcono ion-icon { font-size: 22px; color: #fff; }
+.icono_info    { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.icono_warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.icono_pago    { background: linear-gradient(135deg, #10b981, #059669); }
+.icono_alerta  { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+.itemInfo { flex: 1; min-width: 0; }
+
+.itemFila1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 7px;
+}
+
+.itemTitulo {
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 2px;
+}
+.light .itemTitulo { color: #0f172a; }
+.dark  .itemTitulo { color: #f1f5f9; }
+
+.itemTags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.itemMensaje {
+    font-size: 13px;
+    margin: 0 0 10px;
+    line-height: 1.6;
+}
+.light .itemMensaje { color: #64748b; }
+.dark  .itemMensaje { color: #94a3b8; }
+
+.itemMeta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.itemMeta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.light .itemMeta span { color: #94a3b8; }
+.dark  .itemMeta span { color: #64748b; }
+.itemMeta ion-icon { font-size: 13px; }
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+.badge_info    { background: #dbeafe; color: #1d4ed8; }
+.badge_warning { background: #fef3c7; color: #b45309; }
+.badge_pago    { background: #dcfce7; color: #166534; }
+.badge_alerta  { background: #fee2e2; color: #991b1b; }
+
+.tagObligatorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #fef3c7;
+    color: #92400e;
+}
+.tagObligatorio ion-icon { font-size: 11px; }
+
+.tagRecurrente {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #ede9fe;
+    color: #4c1d95;
+}
+.tagRecurrente ion-icon { font-size: 11px; }
+
+.itemAcciones {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+.btnVer,
+.btnEditar,
+.btnEliminar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.btnVer ion-icon,
+.btnEditar ion-icon,
+.btnEliminar ion-icon { font-size: 17px; }
+
+.light .btnVer    { background: #e0f2fe; color: #0284c7; }
+.dark  .btnVer    { background: rgba(14,165,233,.15); color: #7dd3fc; }
+.light .btnVer:hover    { background: #bae6fd; transform: translateY(-1px); }
+.dark  .btnVer:hover    { background: rgba(14,165,233,.25); transform: translateY(-1px); }
+
+.light .btnEditar { background: #f0fdf4; color: #16a34a; }
+.dark  .btnEditar { background: rgba(16,185,129,.12); color: #86efac; }
+.light .btnEditar:hover { background: #dcfce7; transform: translateY(-1px); }
+.dark  .btnEditar:hover { background: rgba(16,185,129,.22); transform: translateY(-1px); }
+
+.light .btnEliminar { background: #fff1f2; color: #e11d48; }
+.dark  .btnEliminar { background: rgba(239,68,68,.12); color: #fda4af; }
+.light .btnEliminar:hover { background: #ffe4e6; transform: translateY(-1px); }
+.dark  .btnEliminar:hover { background: rgba(239,68,68,.22); transform: translateY(-1px); }
+
+@media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .contenedor { padding: 20px 16px; }
+
+    .header { flex-direction: column; align-items: flex-start; }
+    .btnNuevo { width: 100%; justify-content: center; }
+
+    .stats { grid-template-columns: 1fr; gap: 10px; }
+
+    .item { flex-wrap: wrap; gap: 14px; }
+
+    .itemIcono { width: 40px; height: 40px; border-radius: 10px; }
+    .itemIcono ion-icon { font-size: 20px; }
+
+    .itemInfo { min-width: 0; width: calc(100% - 56px); }
+
+    .itemFila1 { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+    .itemAcciones {
+        width: 100%;
+        justify-content: flex-end;
+        border-top: 1px solid transparent;
+        padding-top: 10px;
+        margin-top: 2px;
+    }
+    .light .itemAcciones { border-color: #f1f5f9; }
+    .dark  .itemAcciones { border-color: #0f172a; }
+
+    .btnVer, .btnEditar, .btnEliminar {
+        flex: 1;
+        width: auto;
+        height: 38px;
+        border-radius: 9px;
+    }
+
+    .titulo { font-size: 22px; }
+    .headerIcono { width: 44px; height: 44px; border-radius: 12px; }
+    .headerIcono ion-icon { font-size: 22px; }
+}

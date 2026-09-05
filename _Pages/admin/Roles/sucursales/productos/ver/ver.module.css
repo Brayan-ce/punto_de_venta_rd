@@ -1,0 +1,203 @@
+.contenedor {
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #0f172a;
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0c1426 0%, #111827 100%);
+    color: #e2e8f0;
+}
+
+.estado {
+    padding: 32px;
+    text-align: center;
+    border-radius: 14px;
+    border: 1px solid;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.light .estado {
+    background: #fff;
+    border-color: rgba(2, 132, 199, 0.12);
+}
+
+.dark .estado {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto 16px auto;
+    flex-wrap: wrap;
+    max-width: 980px;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.light .topbar h1 {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .topbar h1 {
+    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.accionesTop {
+    display: flex;
+    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.btnSecundario,
+.btnPrimario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 9px 13px;
+    text-decoration: none;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.btnSecundario {
+    border: 1px solid;
+    background: transparent;
+}
+
+.light .btnSecundario {
+    border-color: rgba(2, 132, 199, 0.3);
+    color: #075985;
+}
+
+.dark .btnSecundario {
+    border-color: rgba(56, 189, 248, 0.35);
+    color: #bae6fd;
+}
+
+.btnPrimario {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #fff;
+}
+
+.card {
+    border-radius: 14px;
+    border: 1px solid;
+    overflow: hidden;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.light .card {
+    border-color: rgba(2, 132, 199, 0.12);
+    background: #fff;
+}
+
+.dark .card {
+    border-color: rgba(56, 189, 248, 0.2);
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.fila {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px;
+    border-top: 1px solid;
+}
+
+.fila:first-child {
+    border-top: 0;
+}
+
+.light .fila {
+    border-top-color: rgba(2, 132, 199, 0.09);
+}
+
+.dark .fila {
+    border-top-color: rgba(56, 189, 248, 0.11);
+}
+
+.fila span {
+    font-size: 0.85rem;
+}
+
+.light .fila span {
+    color: #64748b;
+}
+
+.dark .fila span {
+    color: #94a3b8;
+}
+
+.fila strong {
+    text-align: right;
+}
+
+.light .fila strong {
+    color: #0f172a;
+}
+
+.dark .fila strong {
+    color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .topbar {
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .topbar h1 {
+        width: 100%;
+        font-size: 1.5rem;
+    }
+
+    .accionesTop {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .btnSecundario,
+    .btnPrimario {
+        flex: 1;
+        text-align: center;
+        min-width: 0;
+    }
+
+    .fila {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .fila strong {
+        text-align: left;
+    }
+}

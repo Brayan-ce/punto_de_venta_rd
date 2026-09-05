@@ -1,0 +1,162 @@
+.contenedor {
+    padding: 20px;
+    background: #f8fafc;
+    min-height: 100vh;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.subtitulo {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.seccion {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.seccion h3 {
+    font-size: 1.1rem;
+    margin: 0 0 20px;
+    color: #1e293b;
+    border-left: 4px solid #0ea5e9;
+    padding-left: 12px;
+}
+
+.fila {
+    display: flex;
+    gap: 15px;
+}
+
+.grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.grupo label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.grupo input,
+.grupo textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    font-size: 1rem;
+}
+
+.listaTrabajadores {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.trabajadorRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.presente {
+    background: #f0fdf4;
+    border-color: #4ade80;
+}
+
+.ausente {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    opacity: 0.7;
+}
+
+.trabajadorInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.trabajadorInfo span {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.checkAsistencia {
+    font-size: 1.5rem;
+}
+
+.presente .checkAsistencia {
+    color: #22c55e;
+}
+
+.ausente .checkAsistencia {
+    color: #ef4444;
+}
+
+.btnEnviar {
+    padding: 18px;
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+}
+
+.dark.contenedor {
+    background: #0f172a;
+}
+
+.dark .seccion {
+    background: #1e293b;
+}
+
+.dark .seccion h3 {
+    color: #f1f5f9;
+}
+
+.dark .grupo input,
+.dark .grupo textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: white;
+}
+
+.dark .presente {
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.dark .ausente {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+@media (max-width: 600px) {
+    .fila {
+        flex-direction: column;
+        gap: 0;
+    }
+}

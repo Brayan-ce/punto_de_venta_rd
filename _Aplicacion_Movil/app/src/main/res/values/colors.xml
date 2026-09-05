@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="azul_primario">#FF3B82F6</color>
+    <color name="azul_primario_oscuro">#FF2563EB</color>
+    <color name="azul_primario_claro">#FFDBEAFE</color>
+    <color name="fondo_claro">#FFF1F5F9</color>
+    <color name="superficie_claro">#FFFFFFFF</color>
+    <color name="fondo_oscuro">#FF1E293B</color>
+    <color name="superficie_oscuro">#FF334155</color>
+    <color name="texto_oscuro">#FF0F172A</color>
+    <color name="texto_claro">#FFF1F5F9</color>
+    <color name="blanco">#FFFFFFFF</color>
+    <color name="negro">#FF000000</color>
+</resources>

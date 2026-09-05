@@ -1,0 +1,55 @@
+meta {
+  name: SendINI
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://mpserver:8000/api-eecf/testecf
+  body: text
+  auth: inherit
+}
+
+body:text {
+  [DATA]
+  Comprobante = E310000000006
+  Vencimiento = 2028-12-31
+  RazonSocialEmisor = SS FLEX DEVELOPMENT, SRL
+  DireccionEmisor = C / Euclides Morillo No. 84, Apto A-103, Arroyo Hondo, Santo Domingo
+  RNC = 131977383
+  FechaEmision = 2026-03-19
+  Cliente = AUVIFINGER, EIRL
+  RNCCliente = 131739385
+  Direccion = GALVAN
+  Correo = 
+  Moneda = DOP
+  Tasa = 1.00
+  ITBISIncluido = N
+  TipoIngresos = OPERACIONES   
+  TipoPago = CREDITO
+  FechaLimite = 2026-03-20
+  OrdenCompra = 
+  [DETALLE]
+  _1 = 00000004|S|RENOVACION ACTUALIZACION SOLUFLEX BIOCAFCAO|10.00|500.0000|18|0.00|0.00
+  _2 = 00000004|S|RENOVACION ACTUALIZACION SOLUFLEX|5.00|100.0000|18|0.00|0.00
+  _3 = 00000004|S|RENOVACION ACTUALIZACION SOLUFLEX|1.00|200.0000|18|0.00|0.00
+  [GENERAL]
+  Descuentos = 0
+  Recargos = 0
+  Total = 6690.00
+  [PAGOS]
+  Efectivo = 0.00
+  Banco = 0.00
+  Tarjeta = 0.00
+  Credito = 6690.00
+  Bonos = 0
+  Permuta = 0
+  NotaCredito = 0
+  Otra = 0
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
