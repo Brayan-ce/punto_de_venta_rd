@@ -1,0 +1,474 @@
+.contenedor {
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #0f172a;
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0c1426 0%, #111827 100%);
+    color: #e2e8f0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.headerTexto {
+    flex: 1;
+}
+
+.headerAcciones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.titulo {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.light .titulo {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitulo {
+    margin: 8px 0 0 0;
+    font-size: 0.95rem;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.btnNuevo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-weight: 700;
+    border: none;
+    text-decoration: none;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: white;
+}
+
+.estadoOperacion {
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+}
+
+.ok {
+    background: rgba(16, 185, 129, 0.14);
+    color: #065f46;
+}
+
+.error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #991b1b;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.statCard {
+    border-radius: 12px;
+    padding: 18px;
+    border: 2px solid;
+}
+
+.light .statCard {
+    background: #fff;
+    border-color: rgba(2, 132, 199, 0.12);
+}
+
+.dark .statCard {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.statCard h4 {
+    margin: 0;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.statCard p {
+    margin: 10px 0 0 0;
+    font-size: 1.45rem;
+    font-weight: 800;
+}
+
+.descripcionProducto {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    opacity: 0.72;
+}
+
+.valorPrecio,
+.valorStock {
+    font-weight: 700;
+}
+
+.filtros {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.filtro {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    border: 1px solid;
+    padding: 10px 12px;
+}
+
+.filtro ion-icon {
+    font-size: 18px;
+    opacity: 0.55;
+}
+
+.input,
+.select {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+}
+
+.light .input,
+.light .select {
+    background: #fff;
+    border-color: rgba(2, 132, 199, 0.18);
+    color: #0f172a;
+}
+
+.light .filtro {
+    background: #fff;
+    border-color: rgba(2, 132, 199, 0.18);
+}
+
+.dark .input,
+.dark .select {
+    background: #0f172a;
+    border-color: rgba(56, 189, 248, 0.24);
+    color: #e2e8f0;
+}
+
+.dark .filtro {
+    background: #0f172a;
+    border-color: rgba(56, 189, 248, 0.24);
+}
+
+.filtro .input {
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+.filtro .input:focus {
+    outline: none;
+}
+
+.tabla {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid;
+}
+
+.light .tabla {
+    background: #fff;
+    border-color: rgba(2, 132, 199, 0.12);
+}
+
+.dark .tabla {
+    background: #0f172a;
+    border-color: rgba(56, 189, 248, 0.18);
+}
+
+.tabla table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+    padding: 11px 12px;
+    text-align: left;
+    font-size: 0.86rem;
+}
+
+.tabla th {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.light .tabla th {
+    background: #e2e8f0;
+    color: #0c4a6e;
+}
+
+.dark .tabla th {
+    background: #1e293b;
+    color: #7dd3fc;
+}
+
+.light .tabla td {
+    border-top: 1px solid rgba(2, 132, 199, 0.08);
+}
+
+.dark .tabla td {
+    border-top: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+.badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.activo {
+    background: #bbf7d0;
+    color: #14532d;
+}
+
+.inactivo {
+    background: #fecaca;
+    color: #7f1d1d;
+}
+
+.dark .activo {
+    background: #14532d;
+    color: #86efac;
+}
+
+.dark .inactivo {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+.acciones {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.accionesCelda {
+    justify-content: flex-start;
+}
+
+.btnAccion {
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 6px 10px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.light .btnAccion {
+    border-color: rgba(2, 132, 199, 0.3);
+    color: #075985;
+}
+
+.dark .btnAccion {
+    border-color: rgba(56, 189, 248, 0.35);
+    color: #bae6fd;
+}
+
+.light .btnAccion:hover {
+    background: rgba(2, 132, 199, 0.08);
+}
+
+.dark .btnAccion:hover {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.cargando,
+.vacio {
+    text-align: center;
+    padding: 48px 16px;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 3px solid rgba(2, 132, 199, 0.2);
+    border-top-color: #0284c7;
+    animation: giro 0.9s linear infinite;
+}
+
+@keyframes giro {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .titulo {
+        font-size: 1.8rem;
+    }
+
+    .headerAcciones {
+        width: 100%;
+    }
+
+    .filtros {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .btnNuevo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tabla {
+        background: transparent;
+        border: none;
+        overflow: visible;
+    }
+
+    .tabla table,
+    .tabla thead,
+    .tabla tbody,
+    .tabla tr,
+    .tabla td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla thead {
+        display: none;
+    }
+
+    .tabla tr {
+        border-radius: 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+    }
+
+    .light .tabla tr {
+        background: #ffffff;
+        border: 2px solid rgba(2, 132, 199, 0.12);
+        box-shadow: 0 2px 8px rgba(2, 132, 199, 0.08);
+    }
+
+    .dark .tabla tr {
+        background: #0f172a;
+        border: 2px solid rgba(56, 189, 248, 0.2);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.26);
+    }
+
+    .tabla td {
+        border-top: 1px solid;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 0.84rem;
+    }
+
+    .light .tabla td {
+        border-top-color: rgba(2, 132, 199, 0.1);
+    }
+
+    .dark .tabla td {
+        border-top-color: rgba(56, 189, 248, 0.12);
+    }
+
+    .tabla tr td:first-child {
+        border-top: none;
+        align-items: flex-start;
+    }
+
+    .tabla td::before {
+        content: attr(data-label);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-weight: 700;
+        opacity: 0.75;
+        flex-shrink: 0;
+    }
+
+    .accionesCelda {
+        width: 100%;
+    }
+
+    .accionesCelda .btnAccion {
+        flex: 1 1 calc(33.33% - 6px);
+        min-width: 92px;
+        text-align: center;
+    }
+
+    .descripcionProducto {
+        margin-top: 2px;
+        font-size: 0.78rem;
+        line-height: 1.35;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+    .filtros {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .select {
+        min-width: 0;
+    }
+}

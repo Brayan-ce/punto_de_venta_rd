@@ -1,0 +1,1206 @@
+/* ==========================================
+   NUEVA COMPRA DE OBRA - DISEÑO PROFESIONAL
+   Formulario moderno con temas claro/oscuro
+   ========================================== */
+
+/* ===========================
+   CONTENEDOR PRINCIPAL
+   =========================== */
+.contenedor {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-bottom: 100px;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* ===========================
+   HEADER
+   =========================== */
+.header {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dark .titulo {
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.titulo ion-icon {
+    font-size: 32px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.btnVolver {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.light .btnVolver {
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+.dark .btnVolver {
+    border-color: #0284c7;
+    color: #cbd5e1;
+}
+
+.btnVolver:hover {
+    transform: translateY(-2px);
+    border-color: #0ea5e9;
+    color: #0ea5e9;
+}
+
+.btnVolver ion-icon {
+    font-size: 20px;
+}
+
+/* ===========================
+   FORMULARIO
+   =========================== */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   SECCIONES
+   =========================== */
+.seccion {
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid;
+    transition: all 0.3s ease;
+}
+
+.light .seccion {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .seccion {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.seccion h2 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.light .seccion h2 {
+    color: #0f172a;
+}
+
+.dark .seccion h2 {
+    color: #f1f5f9;
+}
+
+.seccion h2 ion-icon {
+    font-size: 24px;
+    color: #0ea5e9;
+}
+
+/* ===========================
+   GRID DE CAMPOS
+   =========================== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid;
+}
+
+.light .grid {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dark .grid {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   GRUPOS DE CAMPOS
+   =========================== */
+.grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.light .label {
+    color: #334155;
+}
+
+.dark .label {
+    color: #cbd5e1;
+}
+
+.requerido {
+    color: #ef4444;
+    font-weight: 700;
+}
+
+/* ===========================
+   INPUTS Y SELECTS
+   =========================== */
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 2px solid;
+    font-size: 15px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.light .input,
+.light .select,
+.light .textarea {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+.dark .input,
+.dark .select,
+.dark .textarea {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+    border-color: #0ea5e9;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* ===========================
+   SECCIÓN AGREGAR ITEM
+   =========================== */
+.agregarItem {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 12px;
+    margin-bottom: 24px;
+    align-items: end;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.light .agregarItem {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+}
+
+.dark .agregarItem {
+    background: #0f172a;
+    border: 2px dashed #475569;
+}
+
+.btnAgregar {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnAgregar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btnAgregar:active {
+    transform: translateY(0);
+}
+
+.btnAgregar ion-icon {
+    font-size: 20px;
+}
+
+/* ===========================
+   TABLA DE DETALLE
+   =========================== */
+.tablaDetalle {
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 12px;
+    animation: fadeIn 0.5s ease;
+}
+
+.tablaDetalle table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.tablaDetalle th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid;
+}
+
+.light .tablaDetalle th {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    color: #475569;
+    border-color: #cbd5e1;
+}
+
+.dark .tablaDetalle th {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #cbd5e1;
+    border-color: #334155;
+}
+
+.tablaDetalle td {
+    padding: 16px;
+    border-bottom: 1px solid;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.light .tablaDetalle td {
+    border-color: #e5e7eb;
+    color: #334155;
+}
+
+.dark .tablaDetalle td {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+.tablaDetalle tr {
+    transition: all 0.2s ease;
+}
+
+.light .tablaDetalle tbody tr:hover {
+    background: #f8fafc;
+}
+
+.dark .tablaDetalle tbody tr:hover {
+    background: #0f172a;
+}
+
+.btnEliminar {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.light .btnEliminar {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.dark .btnEliminar {
+    background: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+}
+
+.btnEliminar:hover {
+    transform: scale(1.05);
+}
+
+.btnEliminar ion-icon {
+    font-size: 16px;
+}
+
+/* ===========================
+   TOTALES
+   =========================== */
+.totales {
+    margin-top: 30px;
+    padding: 28px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-end;
+    border: 2px solid;
+}
+
+.light .totales {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-color: #0ea5e9;
+}
+
+.dark .totales {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-color: #475569;
+}
+
+.totales>div {
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+    font-size: 16px;
+    padding: 10px 0;
+}
+
+.totales label {
+    font-weight: 600;
+}
+
+.light .totales label {
+    color: #64748b;
+}
+
+.dark .totales label {
+    color: #94a3b8;
+}
+
+.totales span {
+    font-weight: 700;
+}
+
+.light .totales span {
+    color: #0f172a;
+}
+
+.dark .totales span {
+    color: #f1f5f9;
+}
+
+.total {
+    padding-top: 16px;
+    border-top: 3px solid;
+    font-size: 22px !important;
+}
+
+.light .total {
+    border-color: #0ea5e9;
+}
+
+.dark .total {
+    border-color: #38bdf8;
+}
+
+.total label,
+.total span {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===========================
+   ACCIONES
+   =========================== */
+.acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid;
+    margin-top: 24px;
+    position: sticky;
+    bottom: 20px;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.light .acciones {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #e2e8f0;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark .acciones {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: #334155;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btnCancelar,
+.btnGuardar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btnCancelar {
+    border: 2px solid;
+}
+
+.light .btnCancelar {
+    background: transparent;
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+.dark .btnCancelar {
+    background: transparent;
+    border-color: #475569;
+    color: #cbd5e1;
+}
+
+.btnCancelar:hover {
+    transform: translateY(-2px);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.btnGuardar {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btnGuardar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+}
+
+.btnGuardar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btnCancelar ion-icon,
+.btnGuardar ion-icon {
+    font-size: 20px;
+}
+
+/* ===========================
+   ESTADO CARGANDO
+   =========================== */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 400px;
+    text-align: center;
+}
+
+.cargando ion-icon {
+    font-size: 80px;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.light .cargando ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .cargando ion-icon {
+    color: #38bdf8;
+}
+
+.cargando p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.light .cargando p {
+    color: #64748b;
+}
+
+.dark .cargando p {
+    color: #94a3b8;
+}
+
+/* ===========================
+   ESTADO VACÍO
+   =========================== */
+.vacio {
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 12px;
+    border: 2px dashed;
+}
+
+.light .vacio {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.dark .vacio {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.vacio ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.light .vacio ion-icon {
+    color: #cbd5e1;
+}
+
+.dark .vacio ion-icon {
+    color: #475569;
+}
+
+.vacio p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.light .vacio p {
+    color: #64748b;
+}
+
+.dark .vacio p {
+    color: #94a3b8;
+}
+
+/* ===========================
+   ALERTAS
+   =========================== */
+.alerta {
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    border: 2px solid;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alerta.error {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.alerta.success {
+    background: #d1fae5;
+    border-color: #10b981;
+    color: #065f46;
+}
+
+.alerta.warning {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.alerta ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 1024px) {
+    .totales>div {
+        width: 100%;
+    }
+
+    .agregarItem {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .inputMaterial {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px 15px;
+        padding-bottom: 120px;
+    }
+
+    .titulo {
+        font-size: 26px;
+    }
+
+    .titulo ion-icon {
+        font-size: 26px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .btnVolver {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px;
+    }
+
+    .seccion {
+        padding: 20px;
+    }
+
+    .seccion h2 {
+        font-size: 18px;
+    }
+
+    .agregarItem {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .inputMaterial {
+        grid-column: 1;
+    }
+
+    .btnAgregar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tablaDetalle {
+        font-size: 12px;
+        overflow-x: auto;
+    }
+
+    .tablaDetalle table {
+        min-width: 600px;
+    }
+
+    .tablaDetalle th,
+    .tablaDetalle td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .totales {
+        padding: 20px;
+    }
+
+    .totales>div {
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .acciones {
+        flex-direction: column;
+        position: relative;
+        bottom: 0;
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .btnCancelar,
+    .btnGuardar {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 24px;
+    }
+
+    .radioGroup {
+        flex-direction: column;
+    }
+
+    .radioLabel {
+        width: 100%;
+    }
+
+    .seccionHeader {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btnPlantilla {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 15px 10px;
+        padding-bottom: 100px;
+    }
+
+    .titulo {
+        font-size: 22px;
+    }
+
+    .titulo ion-icon {
+        font-size: 22px;
+    }
+
+    .seccion {
+        padding: 16px;
+    }
+
+    .seccion h2 {
+        font-size: 16px;
+    }
+
+    .seccion h2 ion-icon {
+        font-size: 20px;
+    }
+
+    .grid {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .agregarItem {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .input,
+    .select,
+    .textarea {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .tablaDetalle {
+        font-size: 11px;
+    }
+
+    .tablaDetalle th,
+    .tablaDetalle td {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .totales {
+        padding: 16px;
+    }
+
+    .totales>div {
+        font-size: 14px;
+    }
+
+    .total {
+        font-size: 18px !important;
+    }
+
+    .acciones {
+        padding: 16px;
+    }
+
+    .btnCancelar,
+    .btnGuardar {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+/* ===========================
+   ACCESIBILIDAD
+   =========================== */
+@media (prefers-reduced-motion: reduce) {
+    .contenedor :global(*) {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.contenedor :global(*:focus-visible) {
+    outline: 3px solid #0ea5e9;
+    outline-offset: 2px;
+}
+
+/* ===========================
+   RADIO BUTTONS TIPO DESTINO
+   =========================== */
+.radioGroup {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 2px solid;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.radioLabel input[type="radio"] {
+    display: none;
+}
+
+.radioLabel.light {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+.radioLabel.dark {
+    background: #064663;
+    border-color: #0284c7;
+    color: #cbd5e1;
+}
+
+.radioLabel:hover {
+    border-color: #0ea5e9;
+    transform: translateY(-2px);
+}
+
+.radioLabel.radioActivo {
+    border-color: #0ea5e9;
+    background: #e0f2fe;
+    color: #0369a1;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+}
+
+.dark .radioLabel.radioActivo {
+    background: #1e293b;
+    border-color: #475569;
+    color: #e0f2fe;
+}
+
+.radioLabel ion-icon {
+    font-size: 20px;
+}
+
+/* ===========================
+   SECCIÓN HEADER
+   =========================== */
+.seccionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.btnPlantilla {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnPlantilla {
+    border-color: #0ea5e9;
+    color: #0ea5e9;
+}
+
+.dark .btnPlantilla {
+    border-color: #475569;
+    color: #7dd3fc;
+}
+
+.btnPlantilla:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+}
+
+.light .btnPlantilla:hover {
+    background: #e0f2fe;
+}
+
+.dark .btnPlantilla:hover {
+    background: #1e293b;
+}
+
+.btnPlantilla ion-icon {
+    font-size: 18px;
+}
+
+/* ===========================
+   INPUT MATERIAL (AUTOCOMPLETADO)
+   =========================== */
+.inputMaterial {
+    grid-column: 1 / -1;
+}
+
+/* ===========================
+   ERRORES Y VALIDACIONES
+   =========================== */
+.inputError {
+    border-color: #ef4444 !important;
+}
+
+.inputError:focus {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1) !important;
+}
+
+.errorMsg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #ef4444;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.errorMsg ion-icon {
+    font-size: 16px;
+}
+
+.alertaError {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: #fee2e2;
+    border: 2px solid #ef4444;
+    color: #991b1b;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.dark .alertaError {
+    background: rgba(220, 38, 38, 0.2);
+    border-color: #f87171;
+    color: #fca5a5;
+}
+
+.alertaError ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.alertaError > div {
+    flex: 1;
+}
+
+.alertaError strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.alertaError p {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.btnCrearProveedor {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btnCrearProveedor:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.btnCrearProveedor ion-icon {
+    font-size: 18px;
+}
+
+/* ===========================
+   RESPONSIVE ADICIONAL
+   =========================== */
+@media (max-width: 768px) {
+    .radioGroup {
+        flex-direction: column;
+    }
+
+    .radioLabel {
+        width: 100%;
+    }
+
+    .seccionHeader {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btnPlantilla {
+        width: 100%;
+        justify-content: center;
+    }
+}

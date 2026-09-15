@@ -1,0 +1,339 @@
+.contenedor {
+    padding: 32px 28px;
+    min-height: 100vh;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.contenedor.dark {
+    background: #0a0f1e;
+    color: #e2e8f0;
+}
+
+.encabezadoPrincipal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.titulo {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+}
+
+.subtitulo {
+    margin: 6px 0 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #64748b;
+}
+
+.accionesTop {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #2563eb;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.btnGhost {
+    background: transparent;
+    font-weight: 500;
+}
+
+.btnDanger {
+    background: #dc2626;
+}
+
+.light .btnGhost {
+    border: 1px solid #cbd5e1;
+    color: #475569;
+}
+
+.dark .btnGhost {
+    border: 1px solid #1e293b;
+    color: #94a3b8;
+}
+
+.panelDetalle {
+    border-radius: 14px;
+    border: 1px solid;
+    overflow: hidden;
+}
+
+.light .panelDetalle {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+.dark .panelDetalle {
+    background: #0f172a;
+    border-color: #1e293b;
+}
+
+.panelCabecera {
+    padding: 16px 20px;
+    border-bottom: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.light .panelCabecera { border-color: #f1f5f9; }
+.dark .panelCabecera { border-color: #1e293b; }
+
+.panelCabecera h3 {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.gridDetalle {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 16px 20px 20px;
+}
+
+.campo {
+    border-radius: 10px;
+    border: 1px solid;
+    padding: 12px;
+}
+
+.light .campo {
+    border-color: #e2e8f0;
+    background: #f8fafc;
+}
+
+.dark .campo {
+    border-color: #1e293b;
+    background: #0b1324;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.campo p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.activo {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.inactivo {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.dark .activo {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+}
+
+.dark .inactivo {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+}
+
+.cargando {
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.subPanel {
+    border-top: 1px solid;
+    padding: 16px 20px 20px;
+}
+
+.light .subPanel { border-color: #f1f5f9; }
+.dark .subPanel { border-color: #1e293b; }
+
+.subPanel h4 {
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+}
+
+.listaAccesos {
+    display: grid;
+    gap: 8px;
+}
+
+.itemAcceso {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.light .itemAcceso {
+    border-color: #e2e8f0;
+    background: #f8fafc;
+}
+
+.dark .itemAcceso {
+    border-color: #1e293b;
+    background: #0b1324;
+}
+
+.itemAcceso p {
+    margin: 4px 0 0;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.rolBadge {
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: #dbeafe;
+    color: #1e3a8a;
+}
+
+.dark .rolBadge {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+}
+
+.vacio {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #64748b;
+}
+
+.credencialesBox {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+}
+
+.light .credencialesBox {
+    border-color: #e2e8f0;
+    background: #f8fafc;
+}
+
+.dark .credencialesBox {
+    border-color: #1e293b;
+    background: #0b1324;
+}
+
+.credencialesBox span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.credencialesBox strong {
+    font-size: 0.92rem;
+    line-height: 1.3;
+}
+
+.credBtns {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btnCred {
+    border: 1px solid;
+    border-radius: 8px;
+    background: transparent;
+    padding: 7px 10px;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.light .btnCred {
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+.dark .btnCred {
+    border-color: #334155;
+    color: #cbd5e1;
+}
+
+@media (max-width: 800px) {
+    .gridDetalle {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .contenedor {
+        padding: 20px 16px;
+    }
+
+    .encabezadoPrincipal {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .accionesTop {
+        width: 100%;
+    }
+
+    .accionesTop .btn {
+        flex: 1;
+    }
+
+    .panelCabecera,
+    .gridDetalle,
+    .subPanel {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

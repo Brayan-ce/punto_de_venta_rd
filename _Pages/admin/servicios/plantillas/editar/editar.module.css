@@ -1,0 +1,515 @@
+/* ==========================================
+   EDITAR PLANTILLA DE SERVICIO
+   ========================================== */
+
+.contenedor {
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+}
+
+/* Header */
+.header {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.light .titulo {
+    color: #6b21a8;
+}
+
+.dark .titulo {
+    color: #e9d5ff;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #6b7280;
+}
+
+.dark .subtitulo {
+    color: #d1d5db;
+}
+
+.btnVolver {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.light .btnVolver {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.dark .btnVolver {
+    background: #4c1d95;
+    color: #d1d5db;
+}
+
+.btnVolver:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Formulario */
+.formularioContainer {
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 16px;
+    border: 2px solid;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.light .formularioContainer {
+    background: #ffffff;
+    border-color: #8b5cf6;
+}
+
+.dark .formularioContainer {
+    background: #312e81;
+    border-color: #a78bfa;
+}
+
+.formulario h2 {
+    margin: 0 0 24px 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.light .formulario h2 {
+    color: #111827;
+}
+
+.dark .formulario h2 {
+    color: #f9fafb;
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.grid3 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+
+.grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label,
+.labelSmall {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.dark .label,
+.dark .labelSmall {
+    color: #e5e7eb;
+}
+
+.labelSmall {
+    font-size: 12px;
+}
+
+.labelCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.dark .labelCheckbox {
+    color: #e5e7eb;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.input,
+.textarea,
+.inputSmall {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.inputSmall {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.light .input,
+.light .textarea,
+.light .inputSmall {
+    background: #ffffff;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+.dark .input,
+.dark .textarea,
+.dark .inputSmall {
+    background: #4c1d95;
+    border-color: #6b21a8;
+    color: #f9fafb;
+}
+
+.input:focus,
+.textarea:focus,
+.inputSmall:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* Recursos */
+.seccionRecursos {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid;
+}
+
+.light .seccionRecursos {
+    border-color: #e5e7eb;
+}
+
+.dark .seccionRecursos {
+    border-color: #4c1d95;
+}
+
+.seccionRecursos h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .seccionRecursos h3 {
+    color: #111827;
+}
+
+.dark .seccionRecursos h3 {
+    color: #f9fafb;
+}
+
+.listaRecursos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.recursoItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.light .recursoItem {
+    background: #f9fafb;
+    border-color: #e5e7eb;
+}
+
+.dark .recursoItem {
+    background: #4c1d95;
+    border-color: #6b21a8;
+}
+
+.recursoInfo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.recursoTipo {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.light .recursoTipo {
+    background: #f3e8ff;
+    color: #6b21a8;
+}
+
+.dark .recursoTipo {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c4b5fd;
+}
+
+.recursoInfo strong {
+    font-weight: 600;
+}
+
+.light .recursoInfo strong {
+    color: #111827;
+}
+
+.dark .recursoInfo strong {
+    color: #f9fafb;
+}
+
+.recursoInfo span {
+    font-size: 14px;
+}
+
+.light .recursoInfo span {
+    color: #6b7280;
+}
+
+.dark .recursoInfo span {
+    color: #d1d5db;
+}
+
+.btnEliminarRecurso {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnEliminarRecurso {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.dark .btnEliminarRecurso {
+    background: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+}
+
+.btnEliminarRecurso:hover {
+    transform: scale(1.05);
+}
+
+.nuevoRecurso {
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px dashed;
+}
+
+.light .nuevoRecurso {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+.dark .nuevoRecurso {
+    background: #4c1d95;
+    border-color: #6b21a8;
+}
+
+.btnAgregarRecurso {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.light .btnAgregarRecurso {
+    background: #8b5cf6;
+    color: #ffffff;
+}
+
+.dark .btnAgregarRecurso {
+    background: #a78bfa;
+    color: #1e1b4b;
+}
+
+.btnAgregarRecurso:hover {
+    transform: translateY(-2px);
+}
+
+/* Form Actions */
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid;
+}
+
+.light .formActions {
+    border-color: #e5e7eb;
+}
+
+.dark .formActions {
+    border-color: #4c1d95;
+}
+
+.btnCancelar,
+.btnGuardar {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btnCancelar {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.dark .btnCancelar {
+    background: #4c1d95;
+    color: #d1d5db;
+}
+
+.btnGuardar {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+}
+
+.btnCancelar:hover,
+.btnGuardar:hover {
+    transform: translateY(-2px);
+}
+
+.iconoCargando {
+    font-size: 16px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Cargando */
+.cargando {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.light .cargando {
+    color: #6b7280;
+}
+
+.dark .cargando {
+    color: #9ca3af;
+}
+
+.cargando p {
+    margin-top: 16px;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btnVolver {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .grid2 {
+        grid-template-columns: 1fr;
+    }
+
+    .grid3 {
+        grid-template-columns: 1fr;
+    }
+
+    .formActions {
+        flex-direction: column;
+    }
+
+    .btnCancelar,
+    .btnGuardar {
+        width: 100%;
+        justify-content: center;
+    }
+}
+

@@ -1,0 +1,375 @@
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+.contenedor.light { background: #f1f5f9; }
+.contenedor.dark  { background: #0f172a; }
+
+/* CARGANDO / ERROR */
+.cargando {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 16px; min-height: 400px;
+    font-size: 15px; font-weight: 500;
+}
+.light .cargando { color: #0ea5e9; }
+.dark  .cargando { color: #38bdf8; }
+
+.spinner {
+    width: 44px; height: 44px; border: 4px solid;
+    border-top-color: transparent; border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+.light .spinner { border-color: #e2e8f0; border-top-color: #0ea5e9; }
+.dark  .spinner { border-color: #334155; border-top-color: #38bdf8; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.errorBloque {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 14px; padding: 60px; text-align: center;
+}
+.light .errorBloque h2 { color: #0f172a; }
+.dark  .errorBloque h2 { color: #f1f5f9; }
+.light .errorBloque p  { color: #64748b; }
+.dark  .errorBloque p  { color: #94a3b8; }
+
+/* ===== CONTROLES (top bar) ===== */
+.controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;        /* centrado vertical */
+    gap: 12px;
+    padding: 10px 16px;         /* menos padding vertical */
+    border-bottom: 1px solid;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.light .controles { background: #fff; border-color: #e2e8f0; }
+.dark  .controles { background: #1e293b; border-color: #334155; }
+
+/* grupo tamaño de papel inline */
+.selectores {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.selectores h3 {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; margin: 0;  /* quitamos margin-bottom */
+    white-space: nowrap;
+}
+.light .selectores h3 { color: #64748b; }
+.dark  .selectores h3 { color: #94a3b8; }
+
+.botonesTamaño { display: flex; gap: 6px; }
+
+.btnTamaño {
+    padding: 5px 12px; border-radius: 7px; border: 1px solid;
+    font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.light .btnTamaño { background: #f8fafc; border-color: #e2e8f0; color: #475569; }
+.dark  .btnTamaño { background: #0f172a; border-color: #334155; color: #94a3b8; }
+.btnTamaño.activo { background: #0ea5e9 !important; border-color: #0ea5e9 !important; color: #fff !important; }
+
+/* separador visual entre selectores y botones */
+.separador {
+    width: 1px; height: 28px; background: currentColor; opacity: 0.15;
+    flex-shrink: 0;
+}
+
+.selectImpresora {
+    padding: 5px 8px; border-radius: 7px; border: 1px solid;
+    font-size: 12px; outline: none; cursor: pointer; height: 30px;
+}
+.light .selectImpresora { background: #f8fafc; border-color: #e2e8f0; color: #0f172a; }
+.dark  .selectImpresora { background: #0f172a; border-color: #334155; color: #f1f5f9; }
+
+.botonesAccion {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    margin-left: auto; /* empuja al lado derecho */
+}
+
+/* botones más compactos */
+.btnImprimir,
+.btnCompartir,
+.btnImprimirNav,
+.btnWhatsApp,
+.btnCerrar {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btnImprimir {
+    border: none;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff;
+}
+.btnImprimir:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(99,102,241,0.35); }
+.btnImprimir:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btnCompartir {
+    border: none;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+}
+.btnCompartir:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(245,158,11,0.35); }
+
+.btnImprimirNav {
+    border: 1px solid;
+    background: transparent;
+}
+.light .btnImprimirNav { border-color: #e2e8f0; color: #475569; }
+.dark  .btnImprimirNav { border-color: #334155; color: #94a3b8; }
+.btnImprimirNav:hover  { border-color: #0ea5e9; color: #0ea5e9; }
+
+.btnWhatsApp {
+    border: none;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff;
+}
+.btnWhatsApp:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(37,211,102,0.35); }
+.btnWhatsApp ion-icon { font-size: 14px; }
+
+.btnCerrar {
+    border: 1px solid #ef4444;
+    background: transparent;
+    color: #ef4444;
+}
+.btnCerrar:hover { background: #ef4444; color: #fff; }
+
+/* ===== VISTA PREVIA ===== */
+.vistaPrevia {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 16px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* ===== PANEL OPCIONES ===== */
+.panelOpciones {
+    width: 200px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    border: 1px solid;
+    padding: 14px;
+    height: fit-content;
+    position: sticky;
+    top: 60px;  /* ajustado al nuevo alto del top bar */
+}
+.light .panelOpciones { background: #fff; border-color: #e2e8f0; }
+.dark  .panelOpciones { background: #1e293b; border-color: #334155; }
+
+.panelOpciones h3 {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.4px; margin: 0 0 10px;
+}
+.light .panelOpciones h3 { color: #64748b; }
+.dark  .panelOpciones h3 { color: #94a3b8; }
+
+.listaOpciones { display: flex; flex-direction: column; gap: 8px; }
+
+.opcionLabel {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    font-size: 12px; font-weight: 500;
+    cursor: pointer; gap: 8px;
+}
+.light .opcionLabel { color: #475569; }
+.dark  .opcionLabel { color: #94a3b8; }
+
+.switch {
+    position: relative;
+    width: 34px; height: 18px;
+    border-radius: 18px; border: none;
+    background: #e2e8f0; cursor: pointer;
+    transition: background 0.25s; padding: 0; flex-shrink: 0;
+}
+.dark .switch { background: #334155; }
+.switch.activo { background: #0ea5e9; }
+
+.switchSlider {
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 14px; height: 14px;
+    border-radius: 50%; background: #fff;
+    transition: transform 0.25s;
+    display: block;
+    pointer-events: none;
+}
+.switch.activo .switchSlider { transform: translateX(16px); }
+
+/* ===== BOUCHER ===== */
+.boucherWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.boucher {
+    background: #fff;
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 14px 10px;
+    border-radius: 2px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    font-size: 12px;
+    line-height: 1.55;
+    box-sizing: border-box;
+}
+.boucher[data-size="80mm"] { width: 302px; }
+.boucher[data-size="58mm"] { width: 218px; font-size: 11px; }
+
+/* secciones del ticket */
+.encabezado { text-align: center; margin-bottom: 6px; }
+.encabezado h1 {
+    font-size: 13px; font-weight: 700;
+    margin: 0 0 3px; text-transform: uppercase; letter-spacing: 0.3px;
+}
+.encabezado p { font-size: 11px; margin: 1px 0; }
+
+.linea { border: none; border-top: 1px dashed #555; margin: 6px 0; }
+
+.comprobante { text-align: center; margin: 4px 0; }
+.tipoDoc {
+    font-size: 13px; font-weight: 700; text-align: center; margin: 0;
+    letter-spacing: 0.5px; text-transform: uppercase;
+}
+
+.info { margin: 4px 0; }
+.info p { margin: 2px 0; font-size: 12px; }
+
+.nombreCliente {
+    text-align: center; font-size: 14px; font-weight: 900;
+    margin: 8px 0 4px; letter-spacing: 0.4px;
+    word-break: break-word; line-height: 1.3;
+}
+
+.tablaCuota { width: 100%; border-collapse: collapse; font-size: 12px; margin: 4px 0; }
+.tablaCuota th {
+    font-weight: 700; text-align: left; padding: 3px 2px;
+    border-bottom: 1px dashed #555; font-size: 11px;
+}
+.tablaCuota td { padding: 3px 2px; }
+.derecha { text-align: right; }
+
+.totalBloque { text-align: center; margin: 6px 0; }
+.metodoPago { font-size: 12px; margin: 2px 0; font-weight: 600; text-transform: uppercase; }
+.totalGrande { font-size: 17px; font-weight: 900; margin: 3px 0; letter-spacing: 0.3px; }
+
+.balance { margin: 4px 0; }
+.balance p { margin: 2px 0; font-size: 12px; }
+
+.fechas { text-align: center; margin: 4px 0; font-size: 12px; font-weight: 600; }
+
+.footer { text-align: center; margin: 4px 0; font-size: 11px; }
+.footer p { margin: 2px 0; }
+.msgGuarde { font-weight: 700; font-size: 12px; }
+
+/* ===== MODAL WHATSAPP ===== */
+.modalOverlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999; padding: 20px; backdrop-filter: blur(2px);
+}
+
+.modalWhatsApp {
+    width: 100%; max-width: 420px;
+    border-radius: 16px; border: 1px solid;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden; animation: modalIn 0.2s ease;
+}
+.light .modalWhatsApp { background: #fff; border-color: #e2e8f0; }
+.dark  .modalWhatsApp { background: #1e293b; border-color: #334155; }
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modalHeader {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-bottom: 1px solid;
+}
+.light .modalHeader { border-color: #e2e8f0; }
+.dark  .modalHeader { border-color: #334155; }
+.modalHeader h3 { font-size: 15px; font-weight: 700; margin: 0; color: #25d366; }
+
+.btnCerrarModal {
+    background: transparent; border: none; cursor: pointer;
+    font-size: 22px; display: flex; align-items: center; padding: 2px;
+}
+.light .btnCerrarModal { color: #94a3b8; }
+.dark  .btnCerrarModal { color: #475569; }
+.btnCerrarModal:hover { color: #ef4444; }
+
+.modalBody { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.light .modalBody p { color: #475569; font-size: 13px; margin: 0; }
+.dark  .modalBody p { color: #94a3b8; font-size: 13px; margin: 0; }
+
+.inputWhatsApp {
+    padding: 9px 12px; border-radius: 8px; border: 1px solid;
+    font-size: 14px; outline: none; width: 100%; box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+.light .inputWhatsApp { background: #f8fafc; border-color: #e2e8f0; color: #0f172a; }
+.dark  .inputWhatsApp { background: #0f172a; border-color: #334155; color: #f1f5f9; }
+.inputWhatsApp:focus { border-color: #25d366; }
+
+.modalAyuda { font-size: 12px !important; }
+.light .modalAyuda { color: #94a3b8 !important; }
+.dark  .modalAyuda { color: #475569 !important; }
+
+.modalFooter {
+    padding: 12px 16px; display: flex; gap: 8px; justify-content: flex-end;
+    border-top: 1px solid;
+}
+.light .modalFooter { border-color: #e2e8f0; }
+.dark  .modalFooter { border-color: #334155; }
+
+.btnCancelar {
+    padding: 8px 16px; border-radius: 8px; border: 1px solid;
+    background: transparent; font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s;
+}
+.light .btnCancelar { border-color: #e2e8f0; color: #475569; }
+.dark  .btnCancelar { border-color: #334155; color: #94a3b8; }
+.btnCancelar:hover { border-color: #0ea5e9; color: #0ea5e9; }
+
+.btnEnviarWhatsApp {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 8px; border: none;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+}
+.btnEnviarWhatsApp:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,211,102,0.4); }
+.btnEnviarWhatsApp ion-icon { font-size: 14px; }
+
+/* ===== PRINT ===== */
+@media print {
+    .controles, .panelOpciones, .modalOverlay { display: none !important; }
+    .vistaPrevia { padding: 0; }
+    .boucher { box-shadow: none; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+    .panelOpciones { width: 100%; position: static; }
+    .vistaPrevia { flex-direction: column; align-items: center; padding: 12px; }
+    .controles { padding: 10px 12px; gap: 8px; }
+    .botonesAccion { margin-left: 0; }
+    .boucherWrapper { width: 100%; }
+}

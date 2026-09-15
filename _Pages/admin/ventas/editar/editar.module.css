@@ -1,0 +1,1161 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1800px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    transition: all 0.3s ease;
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    font-size: 15px;
+    margin: 0;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.btnCancelar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnCancelar {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.dark .btnCancelar {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.btnCancelar:hover {
+    transform: translateY(-2px);
+}
+
+.light .btnCancelar:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .btnCancelar:hover {
+    background: #475569;
+    color: #f1f5f9;
+}
+
+.btnCancelar ion-icon {
+    font-size: 22px;
+}
+
+.alertaEdicion {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 4px solid;
+}
+
+.alertaEdicion.light {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.alertaEdicion.dark {
+    background: #78350f;
+    border-color: #fbbf24;
+    color: #fef3c7;
+}
+
+.alertaEdicion ion-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.light .alertaEdicion ion-icon {
+    color: #f59e0b;
+}
+
+.dark .alertaEdicion ion-icon {
+    color: #fbbf24;
+}
+
+.alertaEdicion div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.alertaEdicion strong {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.alertaEdicion span {
+    font-size: 14px;
+}
+
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    min-height: 400px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.light .cargando {
+    color: #0ea5e9;
+}
+
+.dark .cargando {
+    color: #38bdf8;
+}
+
+.iconoCargando {
+    font-size: 48px;
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.contenido {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 25px;
+}
+
+.columnaIzquierda,
+.columnaDerecha {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.seccion {
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.seccion.light {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.seccion.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.tituloSeccion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .tituloSeccion {
+    color: #0f172a;
+}
+
+.dark .tituloSeccion {
+    color: #f1f5f9;
+}
+
+.tituloSeccion ion-icon {
+    font-size: 24px;
+}
+
+.light .tituloSeccion ion-icon {
+    color: #0ea5e9;
+}
+
+.dark .tituloSeccion ion-icon {
+    color: #38bdf8;
+}
+
+.busquedaProductoContainer,
+.busquedaClienteContainer {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.busquedaProducto,
+.busquedaCliente {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.busquedaProducto > ion-icon:first-child,
+.busquedaCliente > ion-icon:first-child {
+    position: absolute;
+    left: 14px;
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.light .busquedaProducto > ion-icon:first-child,
+.light .busquedaCliente > ion-icon:first-child {
+    color: #64748b;
+}
+
+.dark .busquedaProducto > ion-icon:first-child,
+.dark .busquedaCliente > ion-icon:first-child {
+    color: #94a3b8;
+}
+
+.inputBusqueda {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.light .inputBusqueda {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .inputBusqueda {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .inputBusqueda:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .inputBusqueda:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.inputBusqueda:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btnLimpiarCliente {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.btnLimpiarCliente ion-icon {
+    font-size: 24px;
+}
+
+.light .btnLimpiarCliente ion-icon {
+    color: #ef4444;
+}
+
+.dark .btnLimpiarCliente ion-icon {
+    color: #f87171;
+}
+
+.btnLimpiarCliente:hover {
+    transform: scale(1.1);
+}
+
+.dropdownProductos,
+.dropdownClientes {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 10px;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdownProductos.light,
+.dropdownClientes.light {
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+}
+
+.dropdownProductos.dark,
+.dropdownClientes.dark {
+    background: #1e293b;
+    border: 2px solid #334155;
+}
+
+.dropdownItem,
+.dropdownItemCliente {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .dropdownItem:hover,
+.light .dropdownItemCliente:hover {
+    background: #f1f5f9;
+}
+
+.dark .dropdownItem:hover,
+.dark .dropdownItemCliente:hover {
+    background: #334155;
+}
+
+.productoInfo,
+.clienteInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.productoNombre,
+.clienteNombre {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .productoNombre,
+.light .clienteNombre {
+    color: #0f172a;
+}
+
+.dark .productoNombre,
+.dark .clienteNombre {
+    color: #f1f5f9;
+}
+
+.productoCodigo,
+.clienteDoc {
+    font-size: 12px;
+}
+
+.light .productoCodigo,
+.light .clienteDoc {
+    color: #64748b;
+}
+
+.dark .productoCodigo,
+.dark .clienteDoc {
+    color: #94a3b8;
+}
+
+.productoDatos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.productoStock {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.light .productoStock {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.dark .productoStock {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+.productoPrecio {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.light .productoPrecio {
+    color: #059669;
+}
+
+.dark .productoPrecio {
+    color: #34d399;
+}
+
+.clienteSeleccionado {
+    padding: 16px;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
+.clienteSeleccionado.light {
+    background: #dbeafe;
+    border: 2px solid #93c5fd;
+}
+
+.clienteSeleccionado.dark {
+    background: #1e3a8a;
+    border: 2px solid #3b82f6;
+}
+
+.clienteData {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.clienteNombreSelec {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.light .clienteNombreSelec {
+    color: #1e40af;
+}
+
+.dark .clienteNombreSelec {
+    color: #93c5fd;
+}
+
+.clienteDocSelec {
+    font-size: 13px;
+}
+
+.light .clienteDocSelec {
+    color: #3b82f6;
+}
+
+.dark .clienteDocSelec {
+    color: #60a5fa;
+}
+
+.listaProductos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.listaProductos::-webkit-scrollbar {
+    width: 6px;
+}
+
+.listaProductos::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.listaProductos::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+}
+
+.light .listaProductos::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+}
+
+.dark .listaProductos::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.sinProductos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    border-radius: 10px;
+}
+
+.light .sinProductos {
+    background: #f8fafc;
+}
+
+.dark .sinProductos {
+    background: #0f172a;
+}
+
+.sinProductos ion-icon {
+    font-size: 48px;
+}
+
+.light .sinProductos ion-icon {
+    color: #cbd5e1;
+}
+
+.dark .sinProductos ion-icon {
+    color: #475569;
+}
+
+.sinProductos span {
+    font-size: 14px;
+}
+
+.light .sinProductos span {
+    color: #94a3b8;
+}
+
+.dark .sinProductos span {
+    color: #64748b;
+}
+
+.productoItem {
+    padding: 16px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.productoItem.light {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+}
+
+.productoItem.dark {
+    background: #0f172a;
+    border: 1px solid #334155;
+}
+
+.productoDetalles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.productoNombreItem {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.light .productoNombreItem {
+    color: #0f172a;
+}
+
+.dark .productoNombreItem {
+    color: #f1f5f9;
+}
+
+.productoStockItem {
+    font-size: 12px;
+}
+
+.light .productoStockItem {
+    color: #64748b;
+}
+
+.dark .productoStockItem {
+    color: #94a3b8;
+}
+
+.productoControles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.controlCantidad {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btnCantidad {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnCantidad {
+    background: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .btnCantidad {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+.btnCantidad:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.light .btnCantidad:hover:not(:disabled) {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.dark .btnCantidad:hover:not(:disabled) {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.btnCantidad:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnCantidad ion-icon {
+    font-size: 18px;
+}
+
+.inputCantidad {
+    width: 60px;
+    padding: 6px 8px;
+    border: 2px solid;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .inputCantidad {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .inputCantidad {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+
+.light .inputCantidad:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .inputCantidad:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.controlPrecio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+}
+
+.labelPrecio {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .labelPrecio {
+    color: #059669;
+}
+
+.dark .labelPrecio {
+    color: #34d399;
+}
+
+.inputPrecio {
+    flex: 1;
+    padding: 6px 10px;
+    border: 2px solid;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .inputPrecio {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .inputPrecio {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+
+.light .inputPrecio:focus {
+    outline: none;
+    border-color: #10b981;
+}
+
+.dark .inputPrecio:focus {
+    outline: none;
+    border-color: #34d399;
+}
+
+.productoSubtotal {
+    display: flex;
+    align-items: center;
+    min-width: 100px;
+    justify-content: flex-end;
+}
+
+.productoSubtotal span {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.light .productoSubtotal span {
+    color: #0f172a;
+}
+
+.dark .productoSubtotal span {
+    color: #f1f5f9;
+}
+
+.btnEliminar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.light .btnEliminar {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.dark .btnEliminar {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+.btnEliminar:hover {
+    transform: scale(1.1);
+}
+
+.light .btnEliminar:hover {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.dark .btnEliminar:hover {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.btnEliminar ion-icon {
+    font-size: 20px;
+}
+
+.grupoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.grupoInput:last-child {
+    margin-bottom: 0;
+}
+
+.grupoInput label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.light .grupoInput label {
+    color: #475569;
+}
+
+.dark .grupoInput label {
+    color: #cbd5e1;
+}
+
+.select,
+.input,
+.textarea {
+    padding: 10px 14px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.light .select,
+.light .input,
+.light .textarea {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #0f172a;
+}
+
+.dark .select,
+.dark .input,
+.dark .textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+.light .select:focus,
+.light .input:focus,
+.light .textarea:focus {
+    outline: none;
+    border-color: #0ea5e9;
+}
+
+.dark .select:focus,
+.dark .input:focus,
+.dark .textarea:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.gridMetodosPago {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btnMetodoPago {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 16px;
+    border-radius: 12px;
+    border: 2px solid;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 100px;
+}
+
+.light .btnMetodoPago {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    color: #64748b;
+}
+
+.dark .btnMetodoPago {
+    background: #0f172a;
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.btnMetodoPago ion-icon {
+    font-size: 32px;
+}
+
+.light .btnMetodoPago.seleccionado {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    transform: scale(1.05);
+}
+
+.dark .btnMetodoPago.seleccionado {
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    border-color: #34d399;
+    color: #0f172a;
+    box-shadow: 0 6px 20px rgba(52, 211, 153, 0.4);
+    transform: scale(1.05);
+}
+
+.btnMetodoPago:hover:not(.seleccionado) {
+    transform: translateY(-4px);
+}
+
+.light .btnMetodoPago:hover:not(.seleccionado) {
+    border-color: #0ea5e9;
+    background: #f0f9ff;
+    color: #0ea5e9;
+}
+
+.dark .btnMetodoPago:hover:not(.seleccionado) {
+    border-color: #38bdf8;
+    background: #1e293b;
+    color: #38bdf8;
+}
+
+.cambioBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cambioBox.light {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+    border: 2px solid #10b981;
+}
+
+.cambioBox.dark {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    color: #d1fae5;
+    border: 2px solid #34d399;
+}
+
+.cambioBox strong {
+    font-size: 18px;
+}
+
+.resumenVenta {
+    padding: 25px;
+    border-radius: 12px;
+    position: sticky;
+    top: 90px;
+}
+
+.resumenVenta.light {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.resumenVenta.dark {
+    background: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.tituloResumen {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+
+.light .tituloResumen {
+    color: #0f172a;
+}
+
+.dark .tituloResumen {
+    color: #f1f5f9;
+}
+
+.lineaResumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.light .lineaResumen {
+    color: #64748b;
+}
+
+.dark .lineaResumen {
+    color: #94a3b8;
+}
+
+.lineaResumen span:last-child {
+    font-weight: 600;
+}
+
+.light .lineaResumen span:last-child {
+    color: #0f172a;
+}
+
+.dark .lineaResumen span:last-child {
+    color: #f1f5f9;
+}
+
+.descuento {
+    color: #ef4444;
+}
+
+.separador {
+    height: 1px;
+    margin: 16px 0;
+}
+
+.light .separador {
+    background: #e5e7eb;
+}
+
+.dark .separador {
+    background: #334155;
+}
+
+.lineaTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .lineaTotal {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.dark .lineaTotal {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+.lineaTotal span:last-child {
+    font-size: 24px;
+}
+
+.btnProcesar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.btnProcesar:hover:not(:disabled) {
+    background: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.btnProcesar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btnProcesar ion-icon {
+    font-size: 24px;
+}
+
+@media (max-width: 1200px) {
+    .contenido {
+        grid-template-columns: 1fr;
+    }
+    
+    .resumenVenta {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 20px 15px;
+    }
+    
+    .titulo {
+        font-size: 24px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btnCancelar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .seccion {
+        padding: 20px;
+    }
+
+    .productoControles {
+        flex-wrap: wrap;
+    }
+
+    .controlPrecio {
+        width: 100%;
+    }
+
+    .gridMetodosPago {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,122 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    color: #e2e8f0;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+}
+
+.brandWrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menuBtn {
+    display: none;
+    border: 1px solid #334155;
+    background: transparent;
+    color: #e2e8f0;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+}
+
+.brand {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f8fafc;
+    text-decoration: none;
+}
+
+.empresa {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.usuarioWrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.usuarioNombre {
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+.logoutBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #334155;
+    background: #111827;
+    color: #e2e8f0;
+    border-radius: 8px;
+    padding: 7px 10px;
+    cursor: pointer;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 18px 12px;
+    flex-wrap: wrap;
+}
+
+.navItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #cbd5e1;
+    text-decoration: none;
+    border: 1px solid #1e293b;
+    background: #0b1220;
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.navItem.activo {
+    border-color: #10b981;
+    color: #10b981;
+    background: rgba(16,185,129,0.08);
+}
+
+@media (max-width: 768px) {
+    .menuBtn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .empresa,
+    .usuarioNombre {
+        display: none;
+    }
+
+    .nav {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding-bottom: 14px;
+    }
+
+    .navAbierto {
+        display: flex;
+    }
+
+    .navItem {
+        border-radius: 10px;
+        justify-content: flex-start;
+    }
+}

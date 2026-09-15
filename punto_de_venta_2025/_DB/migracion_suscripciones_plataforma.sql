@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS suscripciones_plataforma (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    usuario_id INT NOT NULL,
+    empresa_id INT NOT NULL,
+    cliente_nombre VARCHAR(255) NOT NULL,
+    cliente_email VARCHAR(255) NOT NULL,
+    negocio_nombre VARCHAR(255) NOT NULL,
+    moneda CHAR(3) NOT NULL DEFAULT 'DOP',
+    monto DECIMAL(14,2) NOT NULL,
+    frecuencia ENUM('daily', 'monthly') NOT NULL DEFAULT 'monthly',
+    proxima_fecha DATE NOT NULL,
+    activo TINYINT(1) NOT NULL DEFAULT 1,
+    creado_por INT NOT NULL,
+    fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_suscripciones_plataforma_usuario (usuario_id),
+    KEY idx_suscripciones_plataforma_vencimiento (activo, proxima_fecha),
+    CONSTRAINT fk_suscripciones_plataforma_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    CONSTRAINT fk_suscripciones_plataforma_empresa FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE,
+    CONSTRAINT fk_suscripciones_plataforma_creado_por FOREIGN KEY (creado_por) REFERENCES usuarios(id) ON DELETE RESTRICT
+);

@@ -1,0 +1,301 @@
+.contenedor {
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.contenedor.light {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #0f172a;
+}
+
+.contenedor.dark {
+    background: linear-gradient(135deg, #0c1426 0%, #111827 100%);
+    color: #e2e8f0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.titulo {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.light .titulo {
+    color: #0c4a6e;
+}
+
+.dark .titulo {
+    color: #7dd3fc;
+}
+
+.subtitulo {
+    margin: 8px 0 0 0;
+    font-size: 0.95rem;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.form {
+    border-radius: 14px;
+    border: 1px solid;
+    padding: 16px;
+    display: grid;
+    gap: 14px;
+}
+
+.light .form {
+    background: #ffffff;
+    border-color: rgba(2, 132, 199, 0.14);
+}
+
+.dark .form {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.gridAgregar {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 10px;
+}
+
+.grupo label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.input,
+.select {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+}
+
+.light .input,
+.light .select {
+    background: #fff;
+    border-color: rgba(2, 132, 199, 0.18);
+    color: #0f172a;
+}
+
+.dark .input,
+.dark .select {
+    background: #0f172a;
+    border-color: rgba(56, 189, 248, 0.24);
+    color: #e2e8f0;
+    -webkit-text-fill-color: #e2e8f0;
+}
+
+.dark .select option {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.light .select option {
+    background: #ffffff;
+    color: #0f172a;
+}
+
+.bloqueDetalle {
+    border-radius: 12px;
+    border: 1px solid;
+    padding: 12px;
+}
+
+.light .bloqueDetalle {
+    border-color: rgba(2, 132, 199, 0.14);
+}
+
+.dark .bloqueDetalle {
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.bloqueDetalle h3 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+}
+
+.hint,
+.vacio {
+    margin: 10px 0 0 0;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.tabla {
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid;
+}
+
+.light .tabla {
+    border-color: rgba(2, 132, 199, 0.12);
+}
+
+.dark .tabla {
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.tabla table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla th,
+.tabla td {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.tabla th {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.light .tabla th {
+    background: #e2e8f0;
+    color: #0c4a6e;
+}
+
+.dark .tabla th {
+    background: #1e293b;
+    color: #7dd3fc;
+}
+
+.light .tabla td {
+    border-top: 1px solid rgba(2, 132, 199, 0.1);
+}
+
+.dark .tabla td {
+    border-top: 1px solid rgba(56, 189, 248, 0.12);
+}
+
+.botones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn,
+.btnSecundario,
+.btnMini,
+.btnEliminar {
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn {
+    border: none;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #fff;
+}
+
+.btnSecundario {
+    border: 1px solid;
+    padding: 10px 14px;
+    text-decoration: none;
+    background: transparent;
+}
+
+.btnMini {
+    border: none;
+    padding: 10px 14px;
+    background: #0ea5e9;
+    color: #fff;
+}
+
+.btnEliminar {
+    border: 1px solid;
+    padding: 6px 10px;
+    background: transparent;
+}
+
+.light .btnSecundario,
+.light .btnEliminar {
+    border-color: rgba(2, 132, 199, 0.26);
+    color: #075985;
+}
+
+.dark .btnSecundario,
+.dark .btnEliminar {
+    border-color: rgba(56, 189, 248, 0.32);
+    color: #bae6fd;
+}
+
+.alerta {
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+}
+
+.ok {
+    background: rgba(16, 185, 129, 0.14);
+    color: #065f46;
+}
+
+.error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #991b1b;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .titulo {
+        font-size: 1.6rem;
+    }
+
+    .btnSecundario {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .grid2,
+    .gridAgregar {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla {
+        overflow-x: auto;
+    }
+
+    .botones {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,281 @@
+.contenedor {
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+}
+
+.contenedor.light {
+    background: #f8fafc;
+}
+
+.contenedor.dark {
+    background: #0f172a;
+}
+
+.header {
+    margin-bottom: 28px;
+}
+
+.titulo {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 6px;
+}
+
+.light .titulo {
+    color: #0f172a;
+}
+
+.dark .titulo {
+    color: #f1f5f9;
+}
+
+.subtitulo {
+    margin: 0;
+    font-size: 15px;
+}
+
+.light .subtitulo {
+    color: #64748b;
+}
+
+.dark .subtitulo {
+    color: #94a3b8;
+}
+
+.estadisticasPrincipales {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.estadCard {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid;
+}
+
+.light .estadCard {
+    background: #ffffff;
+    border-color: #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.dark .estadCard {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.estadIcono {
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.estadIcono ion-icon {
+    font-size: 30px;
+}
+
+.sucursales .estadIcono {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.transferencias .estadIcono {
+    background: #e0e7ff;
+    color: #4f46e5;
+}
+
+.stock .estadIcono {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.movimientos .estadIcono {
+    background: #dcfce7;
+    color: #059669;
+}
+
+.estadInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.estadLabel {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.light .estadLabel {
+    color: #64748b;
+}
+
+.dark .estadLabel {
+    color: #94a3b8;
+}
+
+.estadValor {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.light .estadValor {
+    color: #0f172a;
+}
+
+.dark .estadValor {
+    color: #f1f5f9;
+}
+
+.fila {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 20px;
+}
+
+.panel {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid;
+}
+
+.panel.light {
+    background: #ffffff;
+    border-color: #e5e7eb;
+}
+
+.panel.dark {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.panelHeader {
+    padding: 18px;
+    border-bottom: 1px solid;
+}
+
+.light .panelHeader {
+    border-color: #e5e7eb;
+}
+
+.dark .panelHeader {
+    border-color: #334155;
+}
+
+.panelTitulo {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.light .panelTitulo {
+    color: #0f172a;
+}
+
+.dark .panelTitulo {
+    color: #f1f5f9;
+}
+
+.panelBodyAcciones {
+    padding: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.action {
+    text-decoration: none;
+    border: 1px solid #10b981;
+    color: #047857;
+    background: #ecfdf5;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.panelBodyEstado {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.estadoItem {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.light .estadoItem {
+    border-color: #e5e7eb;
+    background: #f8fafc;
+}
+
+.dark .estadoItem {
+    border-color: #334155;
+    background: #0f172a;
+}
+
+.estadoItem span {
+    font-size: 14px;
+}
+
+.light .estadoItem span {
+    color: #64748b;
+}
+
+.dark .estadoItem span {
+    color: #94a3b8;
+}
+
+.estadoItem strong {
+    font-size: 20px;
+}
+
+.light .estadoItem strong {
+    color: #0f172a;
+}
+
+.dark .estadoItem strong {
+    color: #f1f5f9;
+}
+
+@media (max-width: 980px) {
+    .fila {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .estadisticasPrincipales {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+}
