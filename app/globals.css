@@ -95,6 +95,17 @@ div[class*="nextjs"] {
     display: none !important;
 }
 
+/* Ocultar el botón flotante de Next.js Dev Tools (Next 16: "bolita") */
+#next-logo,
+[data-nextjs-dev-tools-button],
+[data-nextjs-dev-tools-menu],
+nextjs-portal {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 /* ==========================================
    VARIABLES CSS PARA SIDEBAR ADMIN
    ========================================== */

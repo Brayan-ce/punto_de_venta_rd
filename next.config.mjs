@@ -2,11 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   allowedDevOrigins: ['isiweek.com', 'www.isiweek.com', '72.62.128.63'],
-  // Deshabilitar indicador de desarrollo (la "N" en la esquina)
-  devIndicators: {
-    appIsrStatus: false,
-    buildActivity: false,
-  },
+  // Deshabilitar indicadores de desarrollo (la bolita / "N" de Next.js)
+  devIndicators: false,
   turbopack: {
     root: process.cwd(),
   },
