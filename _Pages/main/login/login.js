@@ -27,6 +27,7 @@ export default function Login() {
     const [logoUrl, setLogoUrl] = useState('')
     const [cargandoPlataforma, setCargandoPlataforma] = useState(true)
     const [googleDisponible, setGoogleDisponible] = useState(false)
+    const googleBtnRef = useRef(null)
 
     const [step, setStep] = useState(1)
     const [otpValue, setOtpValue] = useState('')
@@ -123,14 +124,26 @@ export default function Login() {
         if (estaOffline) return
 
         const cargarGoogle = () => {
-            if (!GOOGLE_CLIENT_ID) return
-            window.google?.accounts.id.initialize({
+            if (!GOOGLE_CLIENT_ID || !window.google?.accounts?.id) return
+            window.google.accounts.id.initialize({
                 client_id: GOOGLE_CLIENT_ID,
                 callback: manejarGoogleCredential,
                 auto_select: false,
                 cancel_on_tap_outside: true
             })
-            setGoogleDisponible(Boolean(window.google?.accounts?.id))
+            if (googleBtnRef.current) {
+                googleBtnRef.current.innerHTML = ''
+                window.google.accounts.id.renderButton(googleBtnRef.current, {
+                    type: 'standard',
+                    theme: 'outline',
+                    size: 'large',
+                    text: 'continue_with',
+                    shape: 'rectangular',
+                    logo_alignment: 'left',
+                    width: googleBtnRef.current.offsetWidth || 360
+                })
+            }
+            setGoogleDisponible(true)
         }
 
         const scriptExistente = document.getElementById('google-identity-services')
@@ -610,15 +623,19 @@ export default function Login() {
                             {!estaOffline && (
                                 <>
                                     <div className={estilos.googleDivider}><span>{language === 'en' ? 'or' : 'o'}</span></div>
-                                    <button
-                                        type="button"
-                                        className={estilos.googleBtn}
-                                        disabled={cargando || !googleDisponible}
-                                        onClick={() => window.google?.accounts.id.prompt()}
-                                    >
-                                        <FcGoogle className={estilos.googleIcon} aria-hidden="true" />
-                                        <span>{language === 'en' ? 'Continue with Google' : 'Continuar con Google'}</span>
-                                    </button>
+                                    <div className={estilos.googleBtnWrap}>
+                                        <button
+                                            type="button"
+                                            className={estilos.googleBtn}
+                                            disabled={cargando || !googleDisponible}
+                                            aria-hidden="true"
+                                            tabIndex={-1}
+                                        >
+                                            <FcGoogle className={estilos.googleIcon} aria-hidden="true" />
+                                            <span>{language === 'en' ? 'Continue with Google' : 'Continuar con Google'}</span>
+                                        </button>
+                                        <div ref={googleBtnRef} className={estilos.googleBtnOverlay} />
+                                    </div>
                                 </>
                             )}
                         </form>
