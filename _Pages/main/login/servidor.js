@@ -7,7 +7,7 @@ import { enviarCorreo, generarPlantillaOtp } from '@/lib/smtp/enviarCorreo'
 import { OAuth2Client } from 'google-auth-library'
 import { firmarSesion, opcionesCookieSesion } from '@/lib/auth/session'
 
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '748106039613-f0j9bvjphhfk6a8d013u0ucq7q9k2nqu.apps.googleusercontent.com'
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID)
 
 function generarCodigoOtp() {
@@ -199,6 +199,10 @@ export async function iniciarSesionGoogle(credential) {
     try {
         if (!credential) {
             return { success: false, mensaje: 'No se recibió la credencial de Google' }
+        }
+
+        if (!GOOGLE_CLIENT_ID) {
+            return { success: false, mensaje: 'El inicio de sesión con Google no está configurado' }
         }
 
         const ticket = await googleClient.verifyIdToken({

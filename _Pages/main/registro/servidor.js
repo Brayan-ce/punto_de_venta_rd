@@ -5,11 +5,11 @@ import bcrypt from 'bcrypt'
 import { OAuth2Client } from 'google-auth-library'
 import { headers } from 'next/headers'
 
-const GOOGLE_CLIENT_ID = '748106039613-f0j9bvjphhfk6a8d013u0ucq7q9k2nqu.apps.googleusercontent.com'
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID)
 
 async function verificarCuentaGoogle(credential) {
-    if (!credential) return null
+    if (!credential || !GOOGLE_CLIENT_ID) return null
 
     const ticket = await googleClient.verifyIdToken({
         idToken: credential,

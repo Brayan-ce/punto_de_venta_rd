@@ -7,6 +7,8 @@ import { obtenerPerfilGoogle, registrarUsuario, registrarUsuarioGoogle } from '.
 import { useLanguage } from '../i18n'
 import estilos from './registro.module.css'
 
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''
+
 export default function Registro() {
     const router = useRouter()
     const { t } = useLanguage()
@@ -35,9 +37,11 @@ export default function Registro() {
     const [mostrarConfirmar, setMostrarConfirmar] = useState(false)
 
     useEffect(() => {
+        if (!GOOGLE_CLIENT_ID) return
+
         const cargarGoogle = () => {
             window.google?.accounts.id.initialize({
-                client_id: '748106039613-f0j9bvjphhfk6a8d013u0ucq7q9k2nqu.apps.googleusercontent.com',
+                client_id: GOOGLE_CLIENT_ID,
                 callback: manejarGoogleCredential,
                 auto_select: false,
                 cancel_on_tap_outside: true

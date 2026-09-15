@@ -9,7 +9,7 @@ import { login } from '@/lib/auth/authFacade'
 import { useLanguage } from '../i18n'
 import estilos from './login.module.css'
 
-const GOOGLE_CLIENT_ID = '748106039613-f0j9bvjphhfk6a8d013u0ucq7q9k2nqu.apps.googleusercontent.com'
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''
 
 export default function Login() {
     const router = useRouter()
@@ -123,6 +123,7 @@ export default function Login() {
         if (estaOffline) return
 
         const cargarGoogle = () => {
+            if (!GOOGLE_CLIENT_ID) return
             window.google?.accounts.id.initialize({
                 client_id: GOOGLE_CLIENT_ID,
                 callback: manejarGoogleCredential,
