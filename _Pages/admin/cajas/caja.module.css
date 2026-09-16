@@ -2315,7 +2315,10 @@
     width: 100%;
     margin: 0 !important;
     padding: 22px 24px 40px !important;
+    overflow-x: clip; /* evita que el blob decorativo ::before desborde y deforme */
+    box-sizing: border-box;
 }
+.contenedor * { box-sizing: border-box; }
 
 .header,
 .tabs,
@@ -2337,6 +2340,11 @@
 @media (max-width: 768px) {
     .contenedor { padding: 16px 14px 30px !important; }
     .tabs { margin-bottom: 16px !important; }
+    /* Ocultar el blob decorativo en móvil (era lo que empujaba/deformaba) */
+    .contenedor::before { display: none !important; }
+    .estadCard,
+    .panel,
+    .cajaActivaHeader { width: 100%; }
 }
 
 @media (max-width: 480px) {
