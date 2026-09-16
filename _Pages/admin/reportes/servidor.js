@@ -257,20 +257,35 @@ export async function obtenerReporteCuentasPorPagar() {
 
         connection = await db.getConnection()
         const [detalle] = await connection.execute(
-            `SELECT c.id, c.ncf, c.fecha_compra, c.total monto_total,
-                    DATEDIFF(CURRENT_DATE(), DATE(c.fecha_compra)) dias_documento,
-                    COALESCE(p.razon_social, p.nombre_comercial, 'Sin proveedor') proveedor_nombre,
-                    p.rnc proveedor_rnc, c.estado
-             FROM compras c
-             LEFT JOIN proveedores p ON p.id = c.proveedor_id
-             WHERE c.empresa_id = ? AND c.metodo_pago = 'credito' AND c.estado <> 'anulada'
-             ORDER BY c.fecha_compra ASC`,
+            `SELECT cxp.id AS id,
+                    c.ncf,
+                    c.fecha_compra,
+                    cxp.fecha_emision,
+                    cxp.fecha_vencimiento,
+                    cxp.monto_total,
+                    cxp.monto_pagado,
+                    cxp.saldo_pendiente,
+                    DATEDIFF(CURRENT_DATE(), cxp.fecha_emision) dias_documento,
+                    COALESCE(NULLIF(p.razon_social, ''), NULLIF(p.nombre_comercial, ''), 'Sin proveedor') proveedor_nombre,
+                    p.rnc proveedor_rnc,
+                    cxp.estado
+             FROM cuentas_por_pagar cxp
+             INNER JOIN compras c ON c.id = cxp.compra_id
+             LEFT JOIN proveedores p ON p.id = cxp.proveedor_id
+             WHERE cxp.empresa_id = ?
+               AND cxp.estado IN ('pendiente', 'parcial')
+               AND cxp.saldo_pendiente > 0
+             ORDER BY cxp.fecha_emision ASC`,
             [empresaId]
         )
         const [resumen] = await connection.execute(
-            `SELECT COUNT(*) total_cuentas, COALESCE(SUM(c.total), 0) saldo_total
-             FROM compras c
-             WHERE c.empresa_id = ? AND c.metodo_pago = 'credito' AND c.estado <> 'anulada'`,
+            `SELECT COUNT(*) total_cuentas,
+                    COALESCE(SUM(saldo_pendiente), 0) saldo_total,
+                    COALESCE(SUM(CASE WHEN fecha_vencimiento IS NOT NULL AND fecha_vencimiento < CURRENT_DATE() THEN saldo_pendiente ELSE 0 END), 0) saldo_vencido
+             FROM cuentas_por_pagar
+             WHERE empresa_id = ?
+               AND estado IN ('pendiente', 'parcial')
+               AND saldo_pendiente > 0`,
             [empresaId]
         )
         connection.release()
@@ -506,5 +521,79 @@ export async function obtenerDatosEmpresa() {
         console.error('Error al obtener datos empresa:', error)
         if (connection) connection.release()
         return { success: false, mensaje: 'Error al obtener datos empresa' }
+    }
+}
+
+export async function obtenerReporteResumen(fechaInicio, fechaFin) {
+    let connection
+    try {
+        const cookieStore = await cookies()
+        const userId = cookieStore.get('userId')?.value
+        const empresaId = cookieStore.get('empresaId')?.value
+        if (!userId || !empresaId) return { success: false, mensaje: 'Sesion invalida' }
+
+        connection = await db.getConnection()
+
+        const [porDia] = await connection.execute(
+            `SELECT DATE_FORMAT(v.fecha_venta, '%Y-%m-%d') periodo,
+                    COUNT(*) cantidad,
+                    COALESCE(SUM(v.subtotal), 0) subtotal,
+                    COALESCE(SUM(v.itbis), 0) itbis,
+                    COALESCE(SUM(v.total), 0) total,
+                    COALESCE(SUM(CASE WHEN v.metodo_pago = 'efectivo' THEN v.total ELSE 0 END), 0) efectivo,
+                    COALESCE(SUM(CASE WHEN v.metodo_pago = 'credito' THEN v.total ELSE 0 END), 0) credito
+             FROM ventas v
+             WHERE v.empresa_id = ?
+               AND DATE(v.fecha_venta) BETWEEN ? AND ?
+               AND v.estado = 'emitida'
+             GROUP BY periodo
+             ORDER BY periodo DESC`,
+            [empresaId, fechaInicio, fechaFin]
+        )
+
+        const [porMes] = await connection.execute(
+            `SELECT DATE_FORMAT(v.fecha_venta, '%Y-%m') periodo,
+                    COUNT(*) cantidad,
+                    COALESCE(SUM(v.subtotal), 0) subtotal,
+                    COALESCE(SUM(v.itbis), 0) itbis,
+                    COALESCE(SUM(v.total), 0) total,
+                    COALESCE(SUM(CASE WHEN v.metodo_pago = 'efectivo' THEN v.total ELSE 0 END), 0) efectivo,
+                    COALESCE(SUM(CASE WHEN v.metodo_pago = 'credito' THEN v.total ELSE 0 END), 0) credito
+             FROM ventas v
+             WHERE v.empresa_id = ?
+               AND DATE(v.fecha_venta) BETWEEN ? AND ?
+               AND v.estado = 'emitida'
+             GROUP BY periodo
+             ORDER BY periodo DESC`,
+            [empresaId, fechaInicio, fechaFin]
+        )
+
+        const [resumen] = await connection.execute(
+            `SELECT COUNT(*) total_ventas,
+                    COALESCE(SUM(total), 0) monto_total,
+                    COALESCE(SUM(itbis), 0) total_itbis,
+                    COALESCE(SUM(subtotal), 0) total_subtotal,
+                    COALESCE(AVG(total), 0) promedio_venta
+             FROM ventas
+             WHERE empresa_id = ?
+               AND DATE(fecha_venta) BETWEEN ? AND ?
+               AND estado = 'emitida'`,
+            [empresaId, fechaInicio, fechaFin]
+        )
+
+        connection.release()
+
+        return {
+            success: true,
+            datos: {
+                porDia,
+                porMes,
+                resumen: resumen[0]
+            }
+        }
+    } catch (error) {
+        console.error('Error al generar reporte resumen:', error)
+        if (connection) connection.release()
+        return { success: false, mensaje: 'Error al generar el reporte resumen' }
     }
 }

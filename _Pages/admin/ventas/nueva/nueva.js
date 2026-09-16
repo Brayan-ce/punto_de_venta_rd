@@ -28,8 +28,8 @@ function normalizarEntradaDecimal(valor, maxDecimales = 2) {
 }
 
 const CORRESPONDENCIA_ECF = [
-    { b: 'B01', e: 'E32', es: 'Consumidor Final', en: 'Final Consumer' },
-    { b: 'B02', e: 'E31', es: 'Crédito Fiscal', en: 'Fiscal Credit' },
+    { b: 'B01', e: 'E31', es: 'Crédito Fiscal', en: 'Fiscal Credit' },
+    { b: 'B02', e: 'E32', es: 'Consumidor Final', en: 'Final Consumer' },
     { b: 'B03', e: 'E33', es: 'Nota de Débito', en: 'Debit Note' },
     { b: 'B04', e: 'E34', es: 'Nota de Crédito', en: 'Credit Note' },
     { b: 'B14', e: 'E44', es: 'Regímenes Especiales', en: 'Special Regimes' },
@@ -465,7 +465,10 @@ export default function NuevaVenta({ returnPath = '/admin/ventas', rapidaPath = 
                 setTiposDocumento(res.tiposDocumento)
                 setUnidadesMedida(res.unidadesMedida || [])
                 setPermisosModulos(res.permisosModulos || { pos: false, financiamiento: false, puedeUsarFinanciamientoEnVenta: false })
-                if (res.tiposComprobante.length > 0) setTipoComprobanteId(res.tiposComprobante[0].id)
+                if (res.tiposComprobante.length > 0) {
+                    const porDefecto = res.tiposComprobante.find(t => String(t.codigo || '').toUpperCase() === 'B02')
+                    setTipoComprobanteId((porDefecto || res.tiposComprobante[0]).id)
+                }
             } else {
                 alert(res.mensaje || tr('Error al cargar datos', 'Error loading data'))
                 router.push(returnPath)

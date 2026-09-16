@@ -315,7 +315,7 @@ export default function VentaRapida({ returnPath = '/admin/ventas' }) {
             metodo_pago: metodoPago,
             efectivo_recibido: metodoPago === 'efectivo' ? efectivoVal : parseFloat(total.toFixed(2)),
             cambio: metodoPago === 'efectivo' ? cambioVal : 0,
-            tipo_comprobante_id: tiposComprobante[0]?.id || null,
+            tipo_comprobante_id: (tiposComprobante.find(t => String(t.codigo || '').toUpperCase() === 'B02') || tiposComprobante[0])?.id || null,
             subtotal: parseFloat(subtotal.toFixed(2)),
             descuento: parseFloat(descuento.toFixed(2)),
             monto_gravado: parseFloat(montoGravado.toFixed(2)),

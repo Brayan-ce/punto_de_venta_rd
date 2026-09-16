@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import * as XLSX from 'xlsx'
-import { obtenerReporteVentas, obtenerReporteProductos, obtenerReporteCompras, obtenerReporteCuentasPorCobrar, obtenerReporteCuentasPorPagar, obtenerReporteGastos, obtenerReporteClientes, obtenerReporteInventario, obtenerDatosEmpresa } from './servidor'
+import { obtenerReporteVentas, obtenerReporteProductos, obtenerReporteCompras, obtenerReporteCuentasPorCobrar, obtenerReporteCuentasPorPagar, obtenerReporteGastos, obtenerReporteClientes, obtenerReporteInventario, obtenerReporteResumen, obtenerDatosEmpresa } from './servidor'
 import { useLanguage } from '@/_Pages/admin/i18n'
 import estilos from './reportes.module.css'
 
@@ -22,6 +22,9 @@ export default function ReportesAdmin() {
     const [datosReporte, setDatosReporte] = useState(null)
     const [empresa, setEmpresa] = useState(null)
     const [paginaClientes, setPaginaClientes] = useState(0)
+    const [agrupacionResumen, setAgrupacionResumen] = useState('dia')
+    const [busqueda, setBusqueda] = useState('')
+    const [paginaTabla, setPaginaTabla] = useState(0)
 
     useEffect(() => {
         const temaLocal = localStorage.getItem('tema') || 'light'
@@ -75,6 +78,9 @@ export default function ReportesAdmin() {
             let resultado
             
             switch(tipoReporte) {
+                case 'resumen':
+                    resultado = await obtenerReporteResumen(fechaInicio, fechaFin)
+                    break
                 case 'ventas':
                     resultado = await obtenerReporteVentas(fechaInicio, fechaFin)
                     break
@@ -106,6 +112,8 @@ export default function ReportesAdmin() {
             if (resultado.success) {
                 setDatosReporte(resultado.datos)
                 setPaginaClientes(0)
+                setPaginaTabla(0)
+                setBusqueda('')
             } else {
                 alert(resultado.mensaje || tr('Error al generar reporte', 'Error generating report'))
             }
@@ -233,15 +241,16 @@ export default function ReportesAdmin() {
                 const wsData = [
                     [tr('REPORTE DE CUENTAS POR PAGAR', 'ACCOUNTS PAYABLE REPORT')],
                     [],
-                    [tr('Proveedor', 'Supplier'), 'RNC', 'NCF', tr('Fecha', 'Date'), tr('Monto', 'Amount'), tr('Días Documento', 'Document Days'), tr('Estado', 'Status')],
-                    ...datosReporte.detalle.map(c => [c.proveedor_nombre, c.proveedor_rnc || 'N/A', c.ncf || 'N/A', new Date(c.fecha_compra).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO'), parseFloat(c.monto_total), c.dias_documento, c.estado]),
+                    [tr('Proveedor', 'Supplier'), 'RNC', 'NCF', tr('Fecha', 'Date'), tr('Total', 'Total'), tr('Pagado', 'Paid'), tr('Saldo', 'Balance'), tr('Vencimiento', 'Due Date'), tr('Días', 'Days'), tr('Estado', 'Status')],
+                    ...datosReporte.detalle.map(c => [c.proveedor_nombre, c.proveedor_rnc || 'N/A', c.ncf || 'N/A', c.fecha_emision ? new Date(c.fecha_emision).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO') : 'N/A', parseFloat(c.monto_total), parseFloat(c.monto_pagado), parseFloat(c.saldo_pendiente), c.fecha_vencimiento || 'N/A', c.dias_documento, c.estado]),
                     [],
                     [tr('RESUMEN', 'SUMMARY')],
                     [tr('Total Cuentas:', 'Total Accounts:'), datosReporte.resumen.total_cuentas],
-                    [tr('Saldo Total:', 'Total Balance:'), parseFloat(datosReporte.resumen.saldo_total)]
+                    [tr('Saldo Total:', 'Total Balance:'), parseFloat(datosReporte.resumen.saldo_total)],
+                    [tr('Saldo Vencido:', 'Overdue Balance:'), parseFloat(datosReporte.resumen.saldo_vencido || 0)]
                 ]
                 const ws = XLSX.utils.aoa_to_sheet(wsData)
-                ws['!cols'] = [{ wch: 28 }, { wch: 16 }, { wch: 20 }, { wch: 15 }, { wch: 15 }, { wch: 17 }, { wch: 14 }]
+                ws['!cols'] = [{ wch: 28 }, { wch: 16 }, { wch: 20 }, { wch: 15 }, { wch: 14 }, { wch: 14 }, { wch: 14 }, { wch: 15 }, { wch: 10 }, { wch: 14 }]
                 XLSX.utils.book_append_sheet(wb, ws, tr('Cuentas por Pagar', 'Payables'))
             }
             else if (tipoReporte === 'inventario') {
@@ -318,6 +327,40 @@ export default function ReportesAdmin() {
 
                 XLSX.utils.book_append_sheet(wb, ws, tr('Clientes', 'Customers'))
             }
+            else if (tipoReporte === 'resumen') {
+                const filaResumen = (r) => [
+                    r.periodo,
+                    Number(r.cantidad),
+                    parseFloat(r.subtotal),
+                    parseFloat(r.itbis),
+                    parseFloat(r.total),
+                    parseFloat(r.efectivo),
+                    parseFloat(r.credito)
+                ]
+                const wsData = [
+                    [tr('RESUMEN DE VENTAS', 'SALES SUMMARY')],
+                    [tr(`Periodo: ${fechaInicio} al ${fechaFin}`, `Period: ${fechaInicio} to ${fechaFin}`)],
+                    [],
+                    [tr('POR DÍA', 'BY DAY')],
+                    [tr('Fecha', 'Date'), tr('Cantidad', 'Count'), tr('Subtotal', 'Subtotal'), 'ITBIS', tr('Total', 'Total'), tr('Efectivo', 'Cash'), tr('Crédito', 'Credit')],
+                    ...(datosReporte.porDia || []).map(filaResumen),
+                    [],
+                    [tr('POR MES', 'BY MONTH')],
+                    [tr('Mes', 'Month'), tr('Cantidad', 'Count'), tr('Subtotal', 'Subtotal'), 'ITBIS', tr('Total', 'Total'), tr('Efectivo', 'Cash'), tr('Crédito', 'Credit')],
+                    ...(datosReporte.porMes || []).map(filaResumen),
+                    [],
+                    [tr('TOTALES', 'TOTALS')],
+                    [tr('Total Ventas:', 'Total Sales:'), Number(datosReporte.resumen.total_ventas)],
+                    [tr('Subtotal:', 'Subtotal:'), parseFloat(datosReporte.resumen.total_subtotal)],
+                    ['ITBIS:', parseFloat(datosReporte.resumen.total_itbis)],
+                    [tr('Monto Total:', 'Total Amount:'), parseFloat(datosReporte.resumen.monto_total)],
+                    [tr('Promedio:', 'Average:'), parseFloat(datosReporte.resumen.promedio_venta)]
+                ]
+
+                const ws = XLSX.utils.aoa_to_sheet(wsData)
+                ws['!cols'] = [{ wch: 14 }, { wch: 12 }, { wch: 14 }, { wch: 12 }, { wch: 14 }, { wch: 14 }, { wch: 14 }]
+                XLSX.utils.book_append_sheet(wb, ws, tr('Resumen', 'Summary'))
+            }
 
             const nombreArchivo = `Reporte_${tipoReporte}_${fechaInicio}_${fechaFin}.xlsx`
             XLSX.writeFile(wb, nombreArchivo)
@@ -350,6 +393,7 @@ export default function ReportesAdmin() {
 
     const obtenerIconoReporte = () => {
         switch(tipoReporte) {
+            case 'resumen': return 'stats-chart-outline'
             case 'ventas': return 'cart-outline'
             case 'productos': return 'cube-outline'
             case 'compras': return 'bag-handle-outline'
@@ -364,6 +408,7 @@ export default function ReportesAdmin() {
 
     const obtenerTituloReporte = () => {
         switch(tipoReporte) {
+            case 'resumen': return tr('Resumen de Ventas', 'Sales Summary')
             case 'ventas': return tr('Reporte de Ventas', 'Sales Report')
             case 'productos': return tr('Reporte de Productos', 'Products Report')
             case 'compras': return tr('Reporte de Compras', 'Purchases Report')
@@ -377,6 +422,7 @@ export default function ReportesAdmin() {
     }
 
     const opcionesReporte = [
+        { id: 'resumen', icono: 'stats-chart-outline', titulo: tr('Resumen', 'Summary'), detalle: tr('Totales por día y mes', 'Totals by day and month') },
         { id: 'ventas', icono: 'cart-outline', titulo: tr('Ventas', 'Sales'), detalle: tr('Facturación y tickets', 'Billing and tickets') },
         { id: 'productos', icono: 'cube-outline', titulo: tr('Productos', 'Products'), detalle: tr('Rotación e ingresos', 'Turnover and revenue') },
         { id: 'compras', icono: 'bag-handle-outline', titulo: tr('Compras', 'Purchases'), detalle: tr('Costos y proveedores', 'Costs and suppliers') },
@@ -387,14 +433,38 @@ export default function ReportesAdmin() {
         { id: 'inventario', icono: 'file-tray-stacked-outline', titulo: tr('Inventario', 'Inventory'), detalle: tr('Vencimientos y ubicación en bodega', 'Expiry dates and warehouse location') },
     ]
 
-    const totalFilas = datosReporte
-        ? (datosReporte[tipoReporte]?.length || 0)
-        : 0
-    const totalPaginasClientes = datosReporte?.clientes
-        ? Math.max(1, Math.ceil(datosReporte.clientes.length / CLIENTES_POR_PAGINA))
-        : 1
-    const inicioClientes = paginaClientes * CLIENTES_POR_PAGINA
-    const clientesPagina = datosReporte?.clientes?.slice(inicioClientes, inicioClientes + CLIENTES_POR_PAGINA) || []
+    const coincideBusqueda = (item) => {
+        if (!busqueda.trim()) return true
+        const q = busqueda.trim().toLowerCase()
+        return Object.entries(item || {}).some(([k, v]) => {
+            if (k === 'id' || k === 'compra_id' || k === 'proveedor_id') return false
+            if (v === null || v === undefined || typeof v === 'object') return false
+            return String(v).toLowerCase().includes(q)
+        })
+    }
+
+    const datosTabla = (() => {
+        if (!datosReporte) return { filas: [], total: 0, pagina: 0, totalPaginas: 1 }
+        let arr = []
+        switch (tipoReporte) {
+            case 'resumen': arr = agrupacionResumen === 'dia' ? (datosReporte.porDia || []) : (datosReporte.porMes || []); break
+            case 'ventas': arr = datosReporte.ventas || []; break
+            case 'productos': arr = datosReporte.productos || []; break
+            case 'compras': arr = datosReporte.compras || []; break
+            case 'cxc':
+            case 'cxp':
+            case 'inventario': arr = datosReporte.detalle || []; break
+            case 'gastos': arr = datosReporte.gastos || []; break
+            case 'clientes': arr = datosReporte.clientes || []; break
+            default: arr = []
+        }
+        const filtrado = arr.filter(coincideBusqueda)
+        const totalPaginas = Math.max(1, Math.ceil(filtrado.length / CLIENTES_POR_PAGINA))
+        const pagina = Math.min(paginaTabla, totalPaginas - 1)
+        const filas = filtrado.slice(pagina * CLIENTES_POR_PAGINA, pagina * CLIENTES_POR_PAGINA + CLIENTES_POR_PAGINA)
+        return { filas, total: filtrado.length, pagina, totalPaginas }
+    })()
+    const totalFilas = datosTabla.total
 
     return (
         <div className={`${estilos.contenedor} ${estilos[tema]}`}>
@@ -425,7 +495,7 @@ export default function ReportesAdmin() {
                             key={opcion.id}
                             type="button"
                             className={`${estilos.reportType} ${tipoReporte === opcion.id ? estilos.reportTypeActivo : ''}`}
-                            onClick={() => { setTipoReporte(opcion.id); setDatosReporte(null); setPaginaClientes(0) }}
+                            onClick={() => { setTipoReporte(opcion.id); setDatosReporte(null); setPaginaClientes(0); setPaginaTabla(0); setBusqueda('') }}
                             disabled={cargando || procesando}
                         >
                             <span className={estilos.reportTypeIcon}><ion-icon name={opcion.icono}></ion-icon></span>
@@ -499,6 +569,31 @@ export default function ReportesAdmin() {
                     </div>
 
                     <div className={estilos.resumenGrid}>
+                        {tipoReporte === 'resumen' && (
+                            <>
+                                <div className={estilos.resumenCard}>
+                                    <span className={estilos.resumenLabel}>{tr('Total Ventas', 'Total Sales')}</span>
+                                    <span className={estilos.resumenValor}>{datosReporte.resumen.total_ventas}</span>
+                                </div>
+                                <div className={estilos.resumenCard}>
+                                    <span className={estilos.resumenLabel}>{tr('Subtotal', 'Subtotal')}</span>
+                                    <span className={estilos.resumenValor}>{formatearMoneda(datosReporte.resumen.total_subtotal)}</span>
+                                </div>
+                                <div className={estilos.resumenCard}>
+                                    <span className={estilos.resumenLabel}>ITBIS</span>
+                                    <span className={estilos.resumenValor}>{formatearMoneda(datosReporte.resumen.total_itbis)}</span>
+                                </div>
+                                <div className={estilos.resumenCard}>
+                                    <span className={estilos.resumenLabel}>{tr('Monto Total', 'Total Amount')}</span>
+                                    <span className={estilos.resumenValor}>{formatearMoneda(datosReporte.resumen.monto_total)}</span>
+                                </div>
+                                <div className={estilos.resumenCard}>
+                                    <span className={estilos.resumenLabel}>{tr('Promedio', 'Average')}</span>
+                                    <span className={estilos.resumenValor}>{formatearMoneda(datosReporte.resumen.promedio_venta)}</span>
+                                </div>
+                            </>
+                        )}
+
                         {tipoReporte === 'ventas' && (
                             <>
                                 <div className={estilos.resumenCard}>
@@ -581,6 +676,10 @@ export default function ReportesAdmin() {
                                     <span className={estilos.resumenLabel}>{tr('Saldo Total', 'Total Balance')}</span>
                                     <span className={estilos.resumenValor}>{formatearMoneda(datosReporte.resumen.saldo_total)}</span>
                                 </div>
+                                <div className={estilos.resumenCard}>
+                                    <span className={estilos.resumenLabel}>{tr('Saldo Vencido', 'Overdue Balance')}</span>
+                                    <span className={estilos.resumenValor}>{formatearMoneda(datosReporte.resumen.saldo_vencido || 0)}</span>
+                                </div>
                             </>
                         )}
 
@@ -637,12 +736,51 @@ export default function ReportesAdmin() {
                     </div>
 
                     <div className={estilos.tableHeader}>
-                        <h3>{tr('Detalle del período', 'Period detail')}</h3>
-                        <span>{tr('Datos ordenados por fecha y actividad', 'Data ordered by date and activity')}</span>
+                        <h3>{tipoReporte === 'resumen' ? tr('Resumen por período', 'Summary by period') : tr('Detalle del período', 'Period detail')}</h3>
+                        <div className={estilos.tableHeaderAcciones}>
+                            {tipoReporte === 'resumen' && (
+                                <div className={estilos.grupoDoble}>
+                                    <button
+                                        type="button"
+                                        className={agrupacionResumen === 'dia' ? estilos.btnGenerar : estilos.btnExportar}
+                                        onClick={() => { setAgrupacionResumen('dia'); setPaginaTabla(0) }}
+                                    >
+                                        {tr('Por día', 'By day')}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={agrupacionResumen === 'mes' ? estilos.btnGenerar : estilos.btnExportar}
+                                        onClick={() => { setAgrupacionResumen('mes'); setPaginaTabla(0) }}
+                                    >
+                                        {tr('Por mes', 'By month')}
+                                    </button>
+                                </div>
+                            )}
+                            <div className={estilos.buscadorTabla}>
+                                <ion-icon name="search-outline"></ion-icon>
+                                <input
+                                    type="text"
+                                    value={busqueda}
+                                    onChange={(e) => { setBusqueda(e.target.value); setPaginaTabla(0) }}
+                                    placeholder={tr('Buscar en el reporte...', 'Search report...')}
+                                />
+                            </div>
+                        </div>
                     </div>
                     <div className={estilos.tablaContainer}>
                         <table className={estilos.tabla}>
                             <thead>
+                                {tipoReporte === 'resumen' && (
+                                    <tr>
+                                        <th>{agrupacionResumen === 'dia' ? tr('Fecha', 'Date') : tr('Mes', 'Month')}</th>
+                                        <th>{tr('Cantidad', 'Count')}</th>
+                                        <th>{tr('Subtotal', 'Subtotal')}</th>
+                                        <th>ITBIS</th>
+                                        <th>{tr('Total', 'Total')}</th>
+                                        <th>{tr('Efectivo', 'Cash')}</th>
+                                        <th>{tr('Crédito', 'Credit')}</th>
+                                    </tr>
+                                )}
                                 {tipoReporte === 'ventas' && (
                                     <tr>
                                         <th>{tr('Fecha', 'Date')}</th>
@@ -694,8 +832,11 @@ export default function ReportesAdmin() {
                                         <th>RNC</th>
                                         <th>NCF</th>
                                         <th>{tr('Fecha', 'Date')}</th>
-                                        <th>{tr('Monto', 'Amount')}</th>
-                                        <th>{tr('Días Documento', 'Document Days')}</th>
+                                        <th>{tr('Total', 'Total')}</th>
+                                        <th>{tr('Pagado', 'Paid')}</th>
+                                        <th>{tr('Saldo', 'Balance')}</th>
+                                        <th>{tr('Vencimiento', 'Due Date')}</th>
+                                        <th>{tr('Días', 'Days')}</th>
                                         <th>{tr('Estado', 'Status')}</th>
                                     </tr>
                                 )}
@@ -732,7 +873,19 @@ export default function ReportesAdmin() {
                                 )}
                             </thead>
                             <tbody>
-                                {tipoReporte === 'ventas' && datosReporte.ventas.map((venta, index) => (
+                                {tipoReporte === 'resumen' && datosTabla.filas.map((fila, index) => (
+                                    <tr key={index}>
+                                        <td>{fila.periodo}</td>
+                                        <td>{fila.cantidad}</td>
+                                        <td>{formatearMoneda(fila.subtotal)}</td>
+                                        <td>{formatearMoneda(fila.itbis)}</td>
+                                        <td><strong>{formatearMoneda(fila.total)}</strong></td>
+                                        <td>{formatearMoneda(fila.efectivo)}</td>
+                                        <td>{formatearMoneda(fila.credito)}</td>
+                                    </tr>
+                                ))}
+
+                                {tipoReporte === 'ventas' && datosTabla.filas.map((venta, index) => (
                                     <tr key={index}>
                                         <td>{new Date(venta.fecha_venta).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO')}</td>
                                         <td>{venta.ncf}</td>
@@ -744,7 +897,7 @@ export default function ReportesAdmin() {
                                     </tr>
                                 ))}
 
-                                {tipoReporte === 'productos' && datosReporte.productos.map((producto, index) => (
+                                {tipoReporte === 'productos' && datosTabla.filas.map((producto, index) => (
                                     <tr key={index}>
                                         <td>{producto.nombre}</td>
                                         <td>{producto.categoria_nombre || tr('Sin categoria', 'No category')}</td>
@@ -756,7 +909,7 @@ export default function ReportesAdmin() {
                                     </tr>
                                 ))}
 
-                                {tipoReporte === 'compras' && datosReporte.compras.map((compra, index) => (
+                                {tipoReporte === 'compras' && datosTabla.filas.map((compra, index) => (
                                     <tr key={index}>
                                         <td>{new Date(compra.fecha_compra).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO')}</td>
                                         <td>{compra.ncf || 'N/A'}</td>
@@ -768,7 +921,7 @@ export default function ReportesAdmin() {
                                     </tr>
                                 ))}
 
-                                {tipoReporte === 'cxc' && datosReporte.detalle.map((cuenta, index) => (
+                                {tipoReporte === 'cxc' && datosTabla.filas.map((cuenta, index) => (
                                     <tr key={index}>
                                         <td>{`${cuenta.nombre} ${cuenta.apellidos || ''}`.trim()}</td>
                                         <td>{cuenta.cliente_documento || 'N/A'}</td>
@@ -781,19 +934,22 @@ export default function ReportesAdmin() {
                                     </tr>
                                 ))}
 
-                                {tipoReporte === 'cxp' && datosReporte.detalle.map((cuenta, index) => (
+                                {tipoReporte === 'cxp' && datosTabla.filas.map((cuenta, index) => (
                                     <tr key={index}>
                                         <td>{cuenta.proveedor_nombre}</td>
                                         <td>{cuenta.proveedor_rnc || 'N/A'}</td>
                                         <td>{cuenta.ncf || 'N/A'}</td>
-                                        <td>{new Date(cuenta.fecha_compra).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO')}</td>
+                                        <td>{cuenta.fecha_emision ? new Date(cuenta.fecha_emision).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO') : 'N/A'}</td>
                                         <td>{formatearMoneda(cuenta.monto_total)}</td>
+                                        <td>{formatearMoneda(cuenta.monto_pagado)}</td>
+                                        <td><strong>{formatearMoneda(cuenta.saldo_pendiente)}</strong></td>
+                                        <td>{cuenta.fecha_vencimiento ? formatearFecha(cuenta.fecha_vencimiento) : 'N/A'}</td>
                                         <td>{cuenta.dias_documento}</td>
                                         <td>{cuenta.estado}</td>
                                     </tr>
                                 ))}
 
-                                {tipoReporte === 'gastos' && datosReporte.gastos.map((gasto, index) => (
+                                {tipoReporte === 'gastos' && datosTabla.filas.map((gasto, index) => (
                                     <tr key={index}>
                                         <td>{new Date(gasto.fecha_gasto).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO')}</td>
                                         <td>{gasto.concepto}</td>
@@ -803,7 +959,7 @@ export default function ReportesAdmin() {
                                     </tr>
                                 ))}
 
-                                {tipoReporte === 'clientes' && clientesPagina.map((cliente, index) => (
+                                {tipoReporte === 'clientes' && datosTabla.filas.map((cliente, index) => (
                                     <tr key={index}>
                                         <td>{cliente.nombre} {cliente.apellidos}</td>
                                         <td>{cliente.numero_documento}</td>
@@ -813,7 +969,7 @@ export default function ReportesAdmin() {
                                     </tr>
                                 ))}
 
-                                {tipoReporte === 'inventario' && datosReporte.detalle.map((producto, index) => (
+                                {tipoReporte === 'inventario' && datosTabla.filas.map((producto, index) => (
                                     <tr key={index}>
                                         <td>{producto.nombre}</td>
                                         <td>{producto.sku || 'N/A'}</td>
@@ -829,27 +985,27 @@ export default function ReportesAdmin() {
                             </tbody>
                         </table>
                     </div>
-                    {tipoReporte === 'clientes' && datosReporte.clientes.length > 0 && (
-                        <nav className={estilos.paginacion} aria-label={tr('Paginación de clientes', 'Customer pagination')}>
+                    {datosTabla.total > CLIENTES_POR_PAGINA && (
+                        <nav className={estilos.paginacion} aria-label={tr('Paginación del reporte', 'Report pagination')}>
                             <span className={estilos.paginacionResumen}>
-                                {tr('Mostrando', 'Showing')} {inicioClientes + 1}-{Math.min(inicioClientes + CLIENTES_POR_PAGINA, datosReporte.clientes.length)} {tr('de', 'of')} {datosReporte.clientes.length}
+                                {tr('Mostrando', 'Showing')} {datosTabla.pagina * CLIENTES_POR_PAGINA + 1}-{Math.min((datosTabla.pagina + 1) * CLIENTES_POR_PAGINA, datosTabla.total)} {tr('de', 'of')} {datosTabla.total}
                             </span>
                             <div className={estilos.paginacionControles}>
                                 <button
                                     type="button"
                                     className={estilos.btnPagina}
-                                    onClick={() => setPaginaClientes(pagina => Math.max(0, pagina - 1))}
-                                    disabled={paginaClientes === 0}
+                                    onClick={() => setPaginaTabla(p => Math.max(0, p - 1))}
+                                    disabled={datosTabla.pagina === 0}
                                     aria-label={tr('Página anterior', 'Previous page')}
                                 >
                                     <ion-icon name="chevron-back-outline"></ion-icon>
                                 </button>
-                                <span className={estilos.paginaActual}>{paginaClientes + 1} / {totalPaginasClientes}</span>
+                                <span className={estilos.paginaActual}>{datosTabla.pagina + 1} / {datosTabla.totalPaginas}</span>
                                 <button
                                     type="button"
                                     className={estilos.btnPagina}
-                                    onClick={() => setPaginaClientes(pagina => Math.min(totalPaginasClientes - 1, pagina + 1))}
-                                    disabled={paginaClientes >= totalPaginasClientes - 1}
+                                    onClick={() => setPaginaTabla(p => Math.min(datosTabla.totalPaginas - 1, p + 1))}
+                                    disabled={datosTabla.pagina >= datosTabla.totalPaginas - 1}
                                     aria-label={tr('Página siguiente', 'Next page')}
                                 >
                                     <ion-icon name="chevron-forward-outline"></ion-icon>

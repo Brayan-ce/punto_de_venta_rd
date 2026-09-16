@@ -2279,3 +2279,66 @@
     .panel { padding: 16px; }
     .historialDetalles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ===== Refuerzo responsive (móvil/tablet) ===== */
+@media (max-width: 1024px) {
+    .detallesGrid,
+    .infoGrid { grid-template-columns: 1fr; }
+    .cajasGrid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+}
+
+@media (max-width: 768px) {
+    .cajaActivaHeader { flex-direction: column; }
+    .cajaAcciones { width: 100%; }
+    .btnGasto,
+    .btnCerrar { width: 100%; }
+    .cajaCardStats { grid-template-columns: 1fr; }
+    .cajasGrid { grid-template-columns: 1fr; }
+    .tabs { overflow-x: auto; padding-bottom: 4px; }
+    .modalContenido { width: 100%; max-width: 100%; }
+    .modalFooter { flex-direction: column; }
+    .modalFooter .btnCancelar,
+    .modalFooter .btnGuardar { width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .estadisticasGrid,
+    .historialDetalles { grid-template-columns: 1fr; }
+    .ventaItem,
+    .metodoItem { flex-wrap: wrap; gap: 6px; }
+    .accionesReporte button { min-height: 54px; }
+}
+
+/* ===== Ocupar todo el ancho disponible (sin padding/margenes que encojan) ===== */
+.contenedor {
+    max-width: none !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 22px 24px 40px !important;
+}
+
+.header,
+.tabs,
+.cajaActivaHeader,
+.estadisticasGrid,
+.detallesGrid,
+.cajasGrid,
+.historialList,
+.sinCaja {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+@media (max-width: 1024px) {
+    .contenedor { padding: 20px 18px 36px !important; }
+}
+
+@media (max-width: 768px) {
+    .contenedor { padding: 16px 14px 30px !important; }
+    .tabs { margin-bottom: 16px !important; }
+}
+
+@media (max-width: 480px) {
+    .contenedor { padding: 14px 12px 28px !important; }
+}

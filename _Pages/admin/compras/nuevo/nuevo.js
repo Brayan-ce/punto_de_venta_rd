@@ -23,6 +23,7 @@ export default function NuevaCompra() {
     const [ncf, setNcf] = useState('')
     const [proveedorId, setProveedorId] = useState('')
     const [metodoPago, setMetodoPago] = useState('efectivo')
+    const [fechaVencimiento, setFechaVencimiento] = useState('')
     const [notas, setNotas] = useState('')
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
@@ -251,6 +252,8 @@ export default function NuevaCompra() {
                 itbis: totales.itbis,
                 total: totales.total,
                 metodo_pago: metodoPago,
+                tipo_pago: metodoPago === 'credito' ? 'credito' : 'contado',
+                fecha_vencimiento: metodoPago === 'credito' ? (fechaVencimiento || null) : null,
                 notas: notas.trim() || null,
                 productos: productosSeleccionados.map(p => ({
                     producto_id: p.id,
@@ -392,8 +395,25 @@ export default function NuevaCompra() {
                                 <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                                 <option value="cheque">{tr('Cheque', 'Check')}</option>
                                 <option value="mixto">{tr('Mixto', 'Mixed')}</option>
+                                <option value="credito">{tr('Crédito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
                             </select>
                         </div>
+
+                        {metodoPago === 'credito' && (
+                            <div className={estilos.grupoInput}>
+                                <label>{tr('Fecha de Vencimiento', 'Due Date')}</label>
+                                <input
+                                    type="date"
+                                    value={fechaVencimiento}
+                                    onChange={(e) => setFechaVencimiento(e.target.value)}
+                                    className={estilos.input}
+                                    disabled={procesando}
+                                />
+                                <small style={{ color: 'var(--text-secondary, #64748b)', fontSize: '12px' }}>
+                                    {tr('Se creará automáticamente una cuenta por pagar al proveedor.', 'An accounts payable will be created automatically for the supplier.')}
+                                </small>
+                            </div>
+                        )}
 
                         <div className={estilos.grupoInput}>
                             <label>{tr('Notas', 'Notes')}</label>

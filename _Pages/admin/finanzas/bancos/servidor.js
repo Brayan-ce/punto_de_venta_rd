@@ -71,3 +71,186 @@ export async function registrarMovimientoBancario(datos) {
         return { success: true, mensaje: 'Movimiento registrado' }
     } catch (error) { if (connection) connection.release(); return { success: false, mensaje: 'No se pudo registrar el movimiento' } }
     }
+
+/**
+ * Proveedores con cuentas por pagar pendientes + detalle de facturas.
+ */
+export async function obtenerPendientesProveedores() {
+    let connection
+    try {
+        const { userId, empresaId } = await credenciales()
+        if (!userId || !empresaId) return { success: false, mensaje: 'Sesion invalida' }
+        connection = await db.getConnection()
+
+        const [proveedores] = await connection.execute(
+            `SELECT p.id,
+                    COALESCE(NULLIF(p.razon_social, ''), NULLIF(p.nombre_comercial, ''), CONCAT('Proveedor #', p.id)) AS nombre,
+                    COALESCE(SUM(cxp.saldo_pendiente), 0) AS total_pendiente,
+                    COUNT(*) AS facturas
+             FROM cuentas_por_pagar cxp
+             INNER JOIN proveedores p ON p.id = cxp.proveedor_id
+             WHERE cxp.empresa_id = ?
+               AND cxp.estado IN ('pendiente', 'parcial')
+               AND cxp.saldo_pendiente > 0
+             GROUP BY p.id
+             ORDER BY nombre`,
+            [empresaId]
+        )
+
+        const [facturas] = await connection.execute(
+            `SELECT cxp.id,
+                    cxp.compra_id,
+                    cxp.proveedor_id,
+                    cxp.monto_total,
+                    cxp.monto_pagado,
+                    cxp.saldo_pendiente,
+                    cxp.fecha_emision,
+                    cxp.fecha_vencimiento,
+                    c.ncf,
+                    c.fecha_compra
+             FROM cuentas_por_pagar cxp
+             INNER JOIN compras c ON c.id = cxp.compra_id
+             WHERE cxp.empresa_id = ?
+               AND cxp.estado IN ('pendiente', 'parcial')
+               AND cxp.saldo_pendiente > 0
+             ORDER BY cxp.fecha_emision ASC, cxp.id ASC`,
+            [empresaId]
+        )
+
+        connection.release()
+
+        const serial = (f) => ({
+            ...f,
+            monto_total: Number(f.monto_total || 0),
+            monto_pagado: Number(f.monto_pagado || 0),
+            saldo_pendiente: Number(f.saldo_pendiente || 0),
+            fecha_emision: f.fecha_emision instanceof Date ? f.fecha_emision.toISOString().slice(0, 10) : String(f.fecha_emision || ''),
+            fecha_vencimiento: f.fecha_vencimiento instanceof Date ? f.fecha_vencimiento.toISOString().slice(0, 10) : (f.fecha_vencimiento ? String(f.fecha_vencimiento).slice(0, 10) : null),
+        })
+
+        return {
+            success: true,
+            proveedores: proveedores.map(p => ({ ...p, total_pendiente: Number(p.total_pendiente || 0), facturas: Number(p.facturas || 0) })),
+            facturas: facturas.map(serial)
+        }
+    } catch (error) {
+        console.error('Error al obtener pendientes de proveedores:', error)
+        if (connection) connection.release()
+        return { success: false, mensaje: 'No se pudieron cargar las cuentas por pagar' }
+    }
+}
+
+/**
+ * Registra el pago (total o parcial) de una o varias facturas de proveedor.
+ * datos: { cuenta_bancaria_id, proveedor_id, proveedor_nombre, metodo_pago,
+ *          referencia, nota, fecha_pago, pagos: [{ cxp_id, monto }] }
+ */
+export async function registrarPagoProveedor(datos) {
+    let connection
+    try {
+        const { userId, empresaId } = await credenciales()
+        if (!userId || !empresaId) return { success: false, mensaje: 'Sesion invalida' }
+
+        const pagos = Array.isArray(datos?.pagos)
+            ? datos.pagos.filter(p => Number(p.monto) > 0)
+            : []
+        if (!datos?.cuenta_bancaria_id) return { success: false, mensaje: 'Selecciona la cuenta bancaria' }
+        if (pagos.length === 0) return { success: false, mensaje: 'Ingresa al menos un monto a pagar' }
+
+        connection = await db.getConnection()
+        await connection.beginTransaction()
+
+        let totalPagado = 0
+
+        for (const pago of pagos) {
+            const [rows] = await connection.execute(
+                `SELECT id, compra_id, proveedor_id, monto_pagado, saldo_pendiente
+                 FROM cuentas_por_pagar
+                 WHERE id = ? AND empresa_id = ?
+                 FOR UPDATE`,
+                [pago.cxp_id, empresaId]
+            )
+            const cxp = rows[0]
+            if (!cxp) continue
+
+            const saldo = Number(cxp.saldo_pendiente || 0)
+            const aplicar = Math.min(Number(pago.monto), saldo)
+            if (!(aplicar > 0)) continue
+
+            const concepto = `Pago a proveedor${datos.proveedor_nombre ? ' - ' + datos.proveedor_nombre : ''}`
+
+            const [mov] = await connection.execute(
+                `INSERT INTO movimientos_bancarios
+                    (empresa_id, cuenta_bancaria_id, tipo, concepto, referencia, monto, fecha_movimiento, notas, creado_por)
+                 VALUES (?, ?, 'pago_proveedor', ?, ?, ?, ?, ?, ?)`,
+                [
+                    empresaId,
+                    datos.cuenta_bancaria_id,
+                    concepto,
+                    datos.referencia?.trim() || null,
+                    aplicar,
+                    datos.fecha_pago || new Date().toISOString().slice(0, 10),
+                    datos.nota?.trim() || null,
+                    userId
+                ]
+            )
+
+            await connection.execute(
+                `INSERT INTO pagos_proveedor
+                    (empresa_id, cxp_id, compra_id, proveedor_id, monto, metodo_pago,
+                     cuenta_bancaria_id, movimiento_bancario_id, referencia, fecha_pago, usuario_id, nota)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    empresaId,
+                    cxp.id,
+                    cxp.compra_id,
+                    cxp.proveedor_id,
+                    aplicar,
+                    datos.metodo_pago || 'transferencia',
+                    datos.cuenta_bancaria_id,
+                    mov.insertId,
+                    datos.referencia?.trim() || null,
+                    datos.fecha_pago || new Date().toISOString().slice(0, 10),
+                    userId,
+                    datos.nota?.trim() || null
+                ]
+            )
+
+            await connection.execute(
+                `UPDATE cuentas_por_pagar
+                 SET monto_pagado = monto_pagado + ?,
+                     saldo_pendiente = GREATEST(saldo_pendiente - ?, 0),
+                     estado = CASE WHEN GREATEST(saldo_pendiente - ?, 0) <= 0 THEN 'pagada' ELSE 'parcial' END
+                 WHERE id = ?`,
+                [aplicar, aplicar, aplicar, cxp.id]
+            )
+
+            await connection.execute(
+                `UPDATE compras
+                 SET monto_pagado = monto_pagado + ?,
+                     saldo_pendiente = GREATEST(saldo_pendiente - ?, 0)
+                 WHERE id = ? AND empresa_id = ?`,
+                [aplicar, aplicar, cxp.compra_id, empresaId]
+            )
+
+            totalPagado += aplicar
+        }
+
+        await connection.commit()
+        connection.release()
+
+        if (totalPagado <= 0) {
+            return { success: false, mensaje: 'No se aplicó ningún pago' }
+        }
+
+        return {
+            success: true,
+            mensaje: `Pago registrado por ${new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP' }).format(totalPagado)}`,
+            totalPagado
+        }
+    } catch (error) {
+        console.error('Error al registrar pago a proveedor:', error)
+        if (connection) { await connection.rollback(); connection.release() }
+        return { success: false, mensaje: 'No se pudo registrar el pago al proveedor' }
+    }
+}

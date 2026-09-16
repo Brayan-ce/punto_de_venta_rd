@@ -250,6 +250,12 @@ export async function crearCompra(datosCompra) {
             }
         }
 
+        const esCredito = datosCompra.tipo_pago === 'credito' || datosCompra.metodo_pago === 'credito'
+        const tipoPago = esCredito ? 'credito' : 'contado'
+        const montoPagado = esCredito ? 0 : total
+        const saldoPendiente = esCredito ? total : 0
+        const fechaVencimiento = esCredito ? (datosCompra.fecha_vencimiento || null) : null
+
         const [resultadoCompra] = await connection.execute(
             `INSERT INTO compras (
                 empresa_id,
@@ -261,10 +267,14 @@ export async function crearCompra(datosCompra) {
                 itbis,
                 total,
                 metodo_pago,
+                tipo_pago,
+                monto_pagado,
+                saldo_pendiente,
+                fecha_vencimiento,
                 estado,
                 notas,
                 fecha_compra
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'recibida', ?, NOW())`,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'recibida', ?, NOW())`,
             [
                 empresaId,
                 datosCompra.tipo_comprobante_id,
@@ -275,11 +285,42 @@ export async function crearCompra(datosCompra) {
                 itbis,
                 total,
                 datosCompra.metodo_pago,
+                tipoPago,
+                montoPagado,
+                saldoPendiente,
+                fechaVencimiento,
                 datosCompra.notas
             ]
         )
 
         const compraId = resultadoCompra.insertId
+
+        // Cuenta por pagar automática para compras a crédito
+        if (esCredito) {
+            await connection.execute(
+                `INSERT INTO cuentas_por_pagar (
+                    empresa_id,
+                    compra_id,
+                    proveedor_id,
+                    monto_total,
+                    monto_pagado,
+                    saldo_pendiente,
+                    estado,
+                    fecha_emision,
+                    fecha_vencimiento,
+                    creado_por
+                ) VALUES (?, ?, ?, ?, 0, ?, 'pendiente', CURDATE(), ?, ?)`,
+                [
+                    empresaId,
+                    compraId,
+                    datosCompra.proveedor_id,
+                    total,
+                    total,
+                    fechaVencimiento,
+                    userId
+                ]
+            )
+        }
 
         for (const producto of datosCompra.productos) {
             let productoId = producto.producto_id

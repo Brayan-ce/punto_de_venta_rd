@@ -584,3 +584,83 @@
         min-width: 600px;
     }
 }
+
+/* ===== Ancho completo + buscador de la tabla ===== */
+.contenedor {
+    max-width: none !important;
+    width: 100%;
+    padding: 22px 24px 40px;
+}
+
+.tableHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.tableHeaderAcciones {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+
+.buscadorTabla {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 240px;
+}
+
+.buscadorTabla ion-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 18px;
+    color: #64748b;
+    pointer-events: none;
+}
+
+.buscadorTabla input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px 0 38px;
+    border: 1px solid rgba(148, 163, 184, .45);
+    border-radius: 10px;
+    background: #ffffff;
+    color: #14233a;
+    font: inherit;
+    transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.buscadorTabla input:focus {
+    outline: none;
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+}
+
+.dark .buscadorTabla ion-icon { color: #94a3b8; }
+.dark .buscadorTabla input { background: #111c31; border-color: #334b68; color: #edf7ff; }
+.dark .buscadorTabla input::placeholder { color: #8297ae; }
+
+@media (max-width: 768px) {
+    .contenedor {
+        padding: 16px 14px 32px;
+    }
+
+    .tableHeader {
+        align-items: stretch;
+    }
+
+    .tableHeaderAcciones {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .buscadorTabla {
+        min-width: 0;
+        width: 100%;
+    }
+}
