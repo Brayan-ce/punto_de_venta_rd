@@ -482,20 +482,19 @@
 }
 .googleBtn:disabled { cursor: not-allowed; opacity: 0.65; }
 .googleIcon { flex: 0 0 auto; font-size: 20px; }
-.googleBtnWrap { position: relative; width: 100%; }
-.googleBtnWrap .googleBtn { width: 100%; }
-.googleBtnOverlay {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    opacity: 0;
-    overflow: hidden;
-    border-radius: 10px;
+.googleBtnWrap {
+    position: relative;
+    width: 100%;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.googleBtnOverlay > div,
-.googleBtnOverlay iframe {
+.googleBtnWrap > div,
+.googleBtnWrap iframe {
     width: 100% !important;
-    height: 100% !important;
+    height: 44px !important;
+    border-radius: 10px;
 }
 :global([data-theme="dark"]) .googleDivider::before,
 :global([data-theme="dark"]) .googleDivider::after { background: rgba(255,255,255,0.12); }

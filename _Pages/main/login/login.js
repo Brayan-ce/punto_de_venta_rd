@@ -2,7 +2,6 @@
 import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { FcGoogle } from 'react-icons/fc'
 import { obtenerCopyright, obtenerGuia, obtenerPlataforma, completarSesionSuperAdmin, iniciarSesionGoogle } from './servidor'
 import { useOnlineStatus } from '@/lib/hooks/useOnlineStatus'
 import { login } from '@/lib/auth/authFacade'
@@ -623,19 +622,7 @@ export default function Login() {
                             {!estaOffline && (
                                 <>
                                     <div className={estilos.googleDivider}><span>{language === 'en' ? 'or' : 'o'}</span></div>
-                                    <div className={estilos.googleBtnWrap}>
-                                        <button
-                                            type="button"
-                                            className={estilos.googleBtn}
-                                            disabled={cargando || !googleDisponible}
-                                            aria-hidden="true"
-                                            tabIndex={-1}
-                                        >
-                                            <FcGoogle className={estilos.googleIcon} aria-hidden="true" />
-                                            <span>{language === 'en' ? 'Continue with Google' : 'Continuar con Google'}</span>
-                                        </button>
-                                        <div ref={googleBtnRef} className={estilos.googleBtnOverlay} />
-                                    </div>
+                                    <div className={estilos.googleBtnWrap} ref={googleBtnRef} />
                                 </>
                             )}
                         </form>

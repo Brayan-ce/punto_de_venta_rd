@@ -3635,3 +3635,49 @@
     .sidebarDesktop { display: none; }
     .menuLateral { display: flex; flex-direction: column; }
 }
+
+/* ===== Responsive del header (override final móvil/tablet) ===== */
+.header {
+    width: 100%;
+    max-width: 100%;
+    left: 0;
+    right: 0;
+}
+
+@media (max-width: 1024px) {
+    .navDesktop { display: none !important; }
+    .botonMenu { display: inline-flex !important; }
+    .contenedor {
+        max-width: 100% !important;
+        width: 100%;
+        padding: 0 12px !important;
+        gap: 10px !important;
+    }
+    .logo { flex: 1 1 auto; min-width: 0; }
+    .logoImagen { height: 34px !important; max-width: 120px; }
+    .logoTexto { font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+    .acciones { flex-shrink: 0; gap: 6px !important; }
+    .usuarioInfo { display: none !important; }
+}
+
+@media (max-width: 768px) {
+    .header { height: 58px !important; }
+    .acciones { gap: 5px !important; }
+    .botonNotif, .botonTema { width: 38px !important; height: 38px !important; min-width: 38px !important; }
+    .botonIdioma { width: 42px !important; height: 38px !important; }
+    .avatar, .avatarDefault { width: 32px !important; height: 32px !important; min-width: 32px !important; }
+}
+
+@media (max-width: 480px) {
+    .header { height: 54px !important; }
+    .contenedor { padding: 0 8px !important; gap: 6px !important; }
+    .logoImagen { height: 28px !important; max-width: 92px; }
+    .logoTexto { font-size: 14px; }
+    .acciones { gap: 4px !important; }
+    .botonNotif, .botonTema, .botonIdioma { width: 34px !important; height: 34px !important; min-width: 34px !important; }
+    .botonNotif ion-icon, .botonTema ion-icon, .botonIdioma ion-icon { font-size: 18px !important; }
+    .avatar, .avatarDefault { width: 28px !important; height: 28px !important; min-width: 28px !important; }
+    .usuario { padding: 3px 5px !important; gap: 3px !important; }
+    .chevronIcon { display: none !important; }
+    .notifPanel { width: calc(100vw - 20px) !important; right: -6px; }
+}
