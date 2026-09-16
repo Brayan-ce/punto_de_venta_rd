@@ -39,6 +39,8 @@ export default function HeaderAdmin() {
     const [menuNotifAbierto, setMenuNotifAbierto] = useState(false)
     const [notifData, setNotifData] = useState({ cuotasProximas: [], cuotasVencidas: [], alertas: [], productosPorVencer: [], productosVencidos: [], stats: { proximas: 0, vencidas: 0, alertas: 0, productosPorVencer: 0, productosVencidos: 0 }, config: { mostrarProximas: true, mostrarVencidas: true, mostrarAlertas: true } })
     const [notifTab, setNotifTab] = useState('proximas')
+    const notifTabsRef = useRef(null)
+    const [notifTabsScroll, setNotifTabsScroll] = useState({ mostrar: false, izquierda: false, derecha: false })
     const [totalNotif, setTotalNotif] = useState(0)
     const [cargandoNotif, setCargandoNotif] = useState(false)
     const [notificacionesDescartadas, setNotificacionesDescartadas] = useState(() => new Set())
@@ -615,6 +617,34 @@ export default function HeaderAdmin() {
         }
     }
 
+    const actualizarNotifTabsScroll = useCallback(() => {
+        const el = notifTabsRef.current
+        if (!el) return
+        const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth)
+        const mostrar = maxScroll > 2
+        setNotifTabsScroll({
+            mostrar,
+            izquierda: mostrar && el.scrollLeft > 4,
+            derecha: mostrar && el.scrollLeft < maxScroll - 4
+        })
+    }, [])
+
+    const desplazarNotifTabs = (dir) => {
+        const el = notifTabsRef.current
+        if (!el) return
+        el.scrollBy({ left: dir === 'izquierda' ? -170 : 170, behavior: 'smooth' })
+    }
+
+    useEffect(() => {
+        if (!menuNotifAbierto) return
+        const raf = requestAnimationFrame(actualizarNotifTabsScroll)
+        window.addEventListener('resize', actualizarNotifTabsScroll)
+        return () => {
+            cancelAnimationFrame(raf)
+            window.removeEventListener('resize', actualizarNotifTabsScroll)
+        }
+    }, [menuNotifAbierto, notifTab, actualizarNotifTabsScroll])
+
     const irNotificacion = (notif, tipo = 'vencida') => {
         const clave = `${tipo}:${notif.id}`
         setNotificacionesDescartadas((anteriores) => {
@@ -866,26 +896,54 @@ export default function HeaderAdmin() {
                                                 </button>
                                             </div>
 
-                                            <div className={estilos.notifTabs}>
-                                                {[
-                                                    { key: 'proximas', label: t('header.notifProximas'), count: notifData.stats.proximas, visible: notifData.config?.mostrarProximas !== false },
-                                                    { key: 'vencidas', label: t('header.notifVencidas'), count: notifData.stats.vencidas, visible: notifData.config?.mostrarVencidas !== false },
-                                                    { key: 'alertas', label: t('header.notifAlertas'), count: notifData.stats.alertas, visible: notifData.config?.mostrarAlertas !== false },
-                                                    { key: 'productosPorVencer', label: t('header.notifProductosPorVencer'), count: notifData.stats.productosPorVencer, visible: notifData.config?.mostrarProximas !== false },
-                                                    { key: 'productosVencidos', label: t('header.notifProductosVencidos'), count: notifData.stats.productosVencidos, visible: notifData.config?.mostrarVencidas !== false },
-                                                ]
-                                                    .filter((tab) => tab.visible)
-                                                    .map((tab) => (
-                                                        <button
-                                                            key={tab.key}
-                                                            type="button"
-                                                            className={`${estilos.notifTab} ${notifTab === tab.key ? estilos.notifTabActivo : ''}`}
-                                                            onClick={() => setNotifTab(tab.key)}
-                                                        >
-                                                            {tab.label}
-                                                            {tab.count > 0 && <span className={estilos.notifTabCount}>{tab.count}</span>}
-                                                        </button>
-                                                    ))}
+                                            <div className={estilos.notifTabsWrap}>
+                                                <button
+                                                    type="button"
+                                                    className={estilos.notifTabsArrow}
+                                                    onClick={() => desplazarNotifTabs('izquierda')}
+                                                    aria-label="Desplazar a la izquierda"
+                                                    style={{ visibility: notifTabsScroll.izquierda ? 'visible' : 'hidden' }}
+                                                    tabIndex={notifTabsScroll.izquierda ? 0 : -1}
+                                                >
+                                                    <ion-icon name="chevron-back-outline"></ion-icon>
+                                                </button>
+
+                                                <div
+                                                    className={estilos.notifTabs}
+                                                    ref={notifTabsRef}
+                                                    onScroll={actualizarNotifTabsScroll}
+                                                >
+                                                    {[
+                                                        { key: 'proximas', label: t('header.notifProximas'), count: notifData.stats.proximas, visible: notifData.config?.mostrarProximas !== false },
+                                                        { key: 'vencidas', label: t('header.notifVencidas'), count: notifData.stats.vencidas, visible: notifData.config?.mostrarVencidas !== false },
+                                                        { key: 'alertas', label: t('header.notifAlertas'), count: notifData.stats.alertas, visible: notifData.config?.mostrarAlertas !== false },
+                                                        { key: 'productosPorVencer', label: t('header.notifProductosPorVencer'), count: notifData.stats.productosPorVencer, visible: notifData.config?.mostrarProximas !== false },
+                                                        { key: 'productosVencidos', label: t('header.notifProductosVencidos'), count: notifData.stats.productosVencidos, visible: notifData.config?.mostrarVencidas !== false },
+                                                    ]
+                                                        .filter((tab) => tab.visible)
+                                                        .map((tab) => (
+                                                            <button
+                                                                key={tab.key}
+                                                                type="button"
+                                                                className={`${estilos.notifTab} ${notifTab === tab.key ? estilos.notifTabActivo : ''}`}
+                                                                onClick={() => setNotifTab(tab.key)}
+                                                            >
+                                                                {tab.label}
+                                                                {tab.count > 0 && <span className={estilos.notifTabCount}>{tab.count}</span>}
+                                                            </button>
+                                                        ))}
+                                                </div>
+
+                                                <button
+                                                    type="button"
+                                                    className={estilos.notifTabsArrow}
+                                                    onClick={() => desplazarNotifTabs('derecha')}
+                                                    aria-label="Desplazar a la derecha"
+                                                    style={{ visibility: notifTabsScroll.derecha ? 'visible' : 'hidden' }}
+                                                    tabIndex={notifTabsScroll.derecha ? 0 : -1}
+                                                >
+                                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                                </button>
                                             </div>
 
                                             <div className={estilos.notifLista}>

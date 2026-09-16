@@ -3679,5 +3679,81 @@
     .avatar, .avatarDefault { width: 28px !important; height: 28px !important; min-width: 28px !important; }
     .usuario { padding: 3px 5px !important; gap: 3px !important; }
     .chevronIcon { display: none !important; }
-    .notifPanel { width: calc(100vw - 20px) !important; right: -6px; }
+}
+
+/* ===== Panel de notificaciones: pestañas deslizables y tamaños ===== */
+@media (min-width: 769px) {
+    .notifPanel { width: min(440px, calc(100vw - 32px)); }
+}
+
+.notifTabsWrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 10px 0;
+    flex-shrink: 0;
+}
+
+.notifTabsArrow {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.notifTabsArrow ion-icon { font-size: 15px; }
+.notifPanel.light .notifTabsArrow { background: #f1f5f9; border-color: #e2e8f0; color: #334155; }
+.notifPanel.dark .notifTabsArrow { background: #1e293b; border-color: #475569; color: #e2e8f0; }
+.notifTabsArrow:hover { filter: brightness(0.95); }
+
+.notifTabs {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
+}
+
+.notifTabs::-webkit-scrollbar { height: 6px; }
+.notifTabs::-webkit-scrollbar-track { background: transparent; }
+.notifTabs::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.5);
+    border-radius: 999px;
+}
+
+.notifTab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+}
+
+.notifItem { min-width: 0; }
+.notifDetalle { min-width: 0; }
+.notifNombre {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .notifTabsWrap { padding: 8px 8px 0; gap: 2px; }
+    .notifTabs { gap: 5px; }
+    .notifTabsArrow { width: 24px; height: 24px; }
+    .notifTab { padding: 7px 10px; font-size: 12px; }
+    .notifHeader { padding: 12px 14px; }
+    .notifItem { padding: 10px 12px; gap: 10px; }
+    .notifAvatar { width: 36px; height: 36px; font-size: 14px; }
+    .notifPanel { max-height: calc(100vh - 84px); }
 }
