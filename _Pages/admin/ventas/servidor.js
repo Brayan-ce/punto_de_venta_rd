@@ -325,6 +325,11 @@ export async function obtenerVentasDiaCaja() {
             return { success: true, cajaAbierta: false, ventasDia: 0, cantidadDia: 0 }
         }
 
+        // Usar la fecha local del servidor de la app (igual que el listado),
+        // no CURDATE() de MySQL, para evitar desfases por zona horaria.
+        const ahora = new Date()
+        const hoy = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, '0')}-${String(ahora.getDate()).padStart(2, '0')}`
+
         const [rows] = await connection.execute(
             `SELECT COALESCE(SUM(CASE WHEN v.estado = 'emitida' THEN v.total ELSE 0 END), 0) AS ventas_dia,
                     COUNT(CASE WHEN v.estado = 'emitida' THEN 1 END) AS cantidad_dia,
@@ -333,8 +338,8 @@ export async function obtenerVentasDiaCaja() {
              LEFT JOIN cajas cj ON cj.id = v.caja_id
              WHERE v.empresa_id = ?
                AND v.caja_id = ?
-               AND DATE(v.fecha_venta) = CURDATE()`,
-            [empresaId, cajaId]
+               AND DATE(v.fecha_venta) = ?`,
+            [empresaId, cajaId, hoy]
         )
 
         connection.release()

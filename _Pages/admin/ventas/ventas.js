@@ -76,11 +76,15 @@ export default function VentasAdmin({ basePath = '/admin' }) {
     const [fechaInicio, setFechaInicio] = useState('')
     const [fechaFin, setFechaFin] = useState('')
 
-    // 📄 Paginación
+    // 📄 Paginación / carga progresiva
     const [paginaActual, setPaginaActual] = useState(1)
     const [totalPaginas, setTotalPaginas] = useState(1)
     const [totalVentas, setTotalVentas] = useState(0)
     const [limite] = useState(20) // Fijo en 20 por página
+    const [rangoPaginas, setRangoPaginas] = useState({ desde: 1, hasta: 1 })
+    const [cargandoMas, setCargandoMas] = useState(null) // 'arriba' | 'abajo' | null
+    const sentinelArribaRef = useRef(null)
+    const sentinelAbajoRef = useRef(null)
 
     // 📱 Detección de móvil
     const [vistaMovil, setVistaMovil] = useState(false)
@@ -247,44 +251,47 @@ export default function VentasAdmin({ basePath = '/admin' }) {
         }
     }
 
-    const cargarVentas = async (pagina = paginaActual) => {
+    const construirFiltros = (pagina) => {
+        const filtros = {
+            pagina,
+            limite,
+            busqueda: busqueda.trim() || null
+        }
+
+        // Caja: 'abierta' usa la caja abierta actual, número usa esa caja, 'todas' no filtra
+        if (filtroCaja === 'abierta') {
+            filtros.soloCajaAbierta = true
+        } else if (filtroCaja !== 'todas') {
+            filtros.cajaId = parseInt(filtroCaja)
+        }
+
+        // Período
+        if (periodo === 'personalizado') {
+            filtros.fechaInicio = fechaInicio || null
+            filtros.fechaFin = fechaFin || null
+        } else {
+            const rango = obtenerRangoPeriodo(periodo)
+            filtros.fechaInicio = rango.fechaInicio
+            filtros.fechaFin = rango.fechaFin
+        }
+
+        // Filtros avanzados
+        if (filtrosAvanzados.vendedorId) filtros.vendedorId = filtrosAvanzados.vendedorId
+        if (filtrosAvanzados.clienteId) filtros.clienteId = filtrosAvanzados.clienteId
+        if (filtrosAvanzados.estado) filtros.estado = filtrosAvanzados.estado
+        if (filtrosAvanzados.metodo) filtros.metodo = filtrosAvanzados.metodo
+        if (filtrosAvanzados.minTotal) filtros.minTotal = parseFloat(filtrosAvanzados.minTotal)
+        if (filtrosAvanzados.maxTotal) filtros.maxTotal = parseFloat(filtrosAvanzados.maxTotal)
+
+        return filtros
+    }
+
+    // Carga inicial / recarga por cambio de filtros (reemplaza la lista)
+    const cargarVentas = async (pagina = 1) => {
         const solicitudId = ++ultimaSolicitudRef.current
         setCargando(true)
         try {
-            // 🔹 Construir objeto de filtros (mismo día + misma caja por defecto)
-            const filtros = {
-                pagina,
-                limite,
-                busqueda: busqueda.trim() || null
-            }
-
-            // Caja: 'abierta' usa la caja abierta actual, número usa esa caja, 'todas' no filtra
-            if (filtroCaja === 'abierta') {
-                filtros.soloCajaAbierta = true
-            } else if (filtroCaja !== 'todas') {
-                filtros.cajaId = parseInt(filtroCaja)
-            }
-
-            // Período
-            if (periodo === 'personalizado') {
-                filtros.fechaInicio = fechaInicio || null
-                filtros.fechaFin = fechaFin || null
-            } else {
-                const rango = obtenerRangoPeriodo(periodo)
-                filtros.fechaInicio = rango.fechaInicio
-                filtros.fechaFin = rango.fechaFin
-            }
-
-            // Filtros avanzados
-            if (filtrosAvanzados.vendedorId) filtros.vendedorId = filtrosAvanzados.vendedorId
-            if (filtrosAvanzados.clienteId) filtros.clienteId = filtrosAvanzados.clienteId
-            // if (filtrosAvanzados.tipo) filtros.tipo = filtrosAvanzados.tipo
-            if (filtrosAvanzados.estado) filtros.estado = filtrosAvanzados.estado
-            if (filtrosAvanzados.metodo) filtros.metodo = filtrosAvanzados.metodo
-            if (filtrosAvanzados.minTotal) filtros.minTotal = parseFloat(filtrosAvanzados.minTotal)
-            if (filtrosAvanzados.maxTotal) filtros.maxTotal = parseFloat(filtrosAvanzados.maxTotal)
-
-            const resultado = await obtenerVentas(filtros)
+            const resultado = await obtenerVentas(construirFiltros(pagina))
 
             if (solicitudId !== ultimaSolicitudRef.current) {
                 return
@@ -293,6 +300,7 @@ export default function VentasAdmin({ basePath = '/admin' }) {
             if (resultado.success) {
                 setVentas(resultado.ventas)
                 setResumen(resultado.resumen)
+                setRangoPaginas({ desde: pagina, hasta: pagina })
 
                 if (resultado.paginacion) {
                     setPaginaActual(resultado.paginacion.pagina)
@@ -308,6 +316,60 @@ export default function VentasAdmin({ basePath = '/admin' }) {
             }
         }
     }
+
+    // Carga progresiva: agrega páginas hacia abajo o hacia arriba
+    const cargarPaginaProgresiva = async (direccion) => {
+        if (cargando || cargandoMas) return
+        const pagina = direccion === 'abajo' ? rangoPaginas.hasta + 1 : rangoPaginas.desde - 1
+        if (pagina < 1 || pagina > totalPaginas) return
+
+        setCargandoMas(direccion)
+        const alturaAntes = typeof document !== 'undefined' ? document.documentElement.scrollHeight : 0
+        try {
+            const resultado = await obtenerVentas(construirFiltros(pagina))
+            if (resultado.success && resultado.ventas.length > 0) {
+                setVentas((prev) => direccion === 'abajo'
+                    ? [...prev, ...resultado.ventas]
+                    : [...resultado.ventas, ...prev])
+                setRangoPaginas((prev) => direccion === 'abajo'
+                    ? { ...prev, hasta: pagina }
+                    : { ...prev, desde: pagina })
+                setResumen(resultado.resumen)
+                if (resultado.paginacion) setTotalPaginas(resultado.paginacion.totalPaginas)
+
+                if (direccion === 'arriba') {
+                    requestAnimationFrame(() => {
+                        const alturaDespues = document.documentElement.scrollHeight
+                        window.scrollBy(0, alturaDespues - alturaAntes)
+                    })
+                }
+            }
+        } catch (error) {
+            console.error('Error al cargar más ventas:', error)
+        } finally {
+            setCargandoMas(null)
+        }
+    }
+
+    // Observa los centinelas para carga progresiva (arriba y abajo)
+    useEffect(() => {
+        if (typeof IntersectionObserver === 'undefined') return
+        const obsArriba = new IntersectionObserver((entries) => {
+            if (entries[0]?.isIntersecting) cargarPaginaProgresiva('arriba')
+        }, { rootMargin: '120px 0px 0px 0px' })
+        const obsAbajo = new IntersectionObserver((entries) => {
+            if (entries[0]?.isIntersecting) cargarPaginaProgresiva('abajo')
+        }, { rootMargin: '0px 0px 260px 0px' })
+
+        if (sentinelArribaRef.current) obsArriba.observe(sentinelArribaRef.current)
+        if (sentinelAbajoRef.current) obsAbajo.observe(sentinelAbajoRef.current)
+
+        return () => {
+            obsArriba.disconnect()
+            obsAbajo.disconnect()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [rangoPaginas, totalPaginas, cargando, cargandoMas, ventas.length, periodo, filtroCaja, filtrosAvanzados, fechaInicio, fechaFin, busqueda])
 
     const manejarAbrirCaja = async (e) => {
         e.preventDefault()
@@ -523,6 +585,18 @@ export default function VentasAdmin({ basePath = '/admin' }) {
         const [year, month, day] = fechaString.split('-')
         if (!year || !month || !day) return fechaString
         return `${day}/${month}/${year}`
+    }
+
+    const formatearFechaHora = (valor) => {
+        if (!valor) return t('ventas.nA')
+        const d = new Date(valor)
+        if (isNaN(d.getTime())) return formatearFechaVisual(String(valor).slice(0, 10))
+        const dd = String(d.getDate()).padStart(2, '0')
+        const mm = String(d.getMonth() + 1).padStart(2, '0')
+        const yyyy = d.getFullYear()
+        const hh = String(d.getHours()).padStart(2, '0')
+        const mi = String(d.getMinutes()).padStart(2, '0')
+        return `${dd}/${mm}/${yyyy} ${hh}:${mi}`
     }
 
     const obtenerMetodoActivoTexto = () => {
@@ -1011,7 +1085,15 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                 </div>
             )}
 
-            {/* ========== LISTA DE VENTAS ========== */}
+            {/* ========== LISTA DE VENTAS (carga progresiva) ========== */}
+            <div ref={sentinelArribaRef} className={estilos.sentinel} aria-hidden="true"></div>
+            {cargandoMas === 'arriba' && (
+                <div className={estilos.cargandoMas}>
+                    <span className={estilos.spinnerMini}></span>
+                    {tr('Cargando...', 'Loading...')}
+                </div>
+            )}
+
             {cargando ? <LoadingScreen /> : ventas.length === 0 ? (
                 <div className={estilos.vacio}>
                     <ion-icon name="receipt-outline"></ion-icon>
@@ -1043,6 +1125,10 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                                     <div className={estilos.cardRow}>
                                         <span className={estilos.cardLabel}>{t('ventas.vendedor')}</span>
                                         <span className={estilos.cardValue}>{venta.vendedor_nombre || t('ventas.nA')}</span>
+                                    </div>
+                                    <div className={estilos.cardRow}>
+                                        <span className={estilos.cardLabel}>{tr('Fecha', 'Date')}</span>
+                                        <span className={estilos.cardValue}>{formatearFechaHora(venta.fecha_venta)}</span>
                                     </div>
                                     <div className={estilos.cardRow}>
                                         <div className={estilos.cardBadges}>
@@ -1098,6 +1184,7 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                         <thead className={estilos.tablaHeader}>
                             <tr>
                                 <th>{t('ventas.numTab')}</th>
+                                <th>{tr('Fecha', 'Date')}</th>
                                 <th>{t('ventas.ncfTab')}</th>
                                 <th>{t('ventas.cajaTab')}</th>
                                 <th>{t('ventas.clienteTab')}</th>
@@ -1118,6 +1205,7 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                                 return (
                                     <tr key={venta.id} className={estilos.fila}>
                                         <td className={estilos.numeroCol}>{venta.numero_interno}</td>
+                                        <td className={estilos.fechaCol}>{formatearFechaHora(venta.fecha_venta)}</td>
                                         <td className={estilos.numeroCol}>{venta.ncf || '-'}</td>
                                         <td>{venta.numero_caja ? `#${venta.numero_caja}` : t('ventas.nA')}</td>
                                         <td>{venta.cliente_nombre || t('ventas.consumidorFinal')}</td>
@@ -1178,67 +1266,21 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                 </div>
             )}
 
-            {/* ========== PAGINACIÓN ========== */}
-            {!cargando && ventas.length > 0 && totalPaginas > 1 && (
+            {cargandoMas === 'abajo' && (
+                <div className={estilos.cargandoMas}>
+                    <span className={estilos.spinnerMini}></span>
+                    {tr('Cargando...', 'Loading...')}
+                </div>
+            )}
+            <div ref={sentinelAbajoRef} className={estilos.sentinel} aria-hidden="true"></div>
+
+            {/* ========== INFO DE RESULTADOS ========== */}
+            {!cargando && ventas.length > 0 && (
                 <div className={estilos.paginacion}>
                     <div className={estilos.paginacionInfo}>
                         <span>
-                            {t('ventas.mostrando')} {(paginaActual - 1) * limite + 1}-{Math.min(paginaActual * limite, totalVentas)} {tr('de', 'of')} {totalVentas} {t('ventas.resultadosVentas')}
+                            {t('ventas.mostrando')} 1-{ventas.length} {tr('de', 'of')} {totalVentas} {t('ventas.resultadosVentas')}
                         </span>
-                    </div>
-                    <div className={estilos.paginacionControles}>
-                        <button
-                            className={estilos.btnPaginacion}
-                            onClick={() => {
-                                const nuevaPagina = paginaActual - 1
-                                setPaginaActual(nuevaPagina)
-                                cargarVentas(nuevaPagina)
-                            }}
-                            disabled={paginaActual === 1 || cargando}
-                        >
-                            <ion-icon name="chevron-back-outline"></ion-icon>
-                        </button>
-
-                        <div className={estilos.numerosPagina}>
-                            {Array.from({ length: Math.min(5, totalPaginas) }, (_, i) => {
-                                let numeroPagina
-                                if (totalPaginas <= 5) {
-                                    numeroPagina = i + 1
-                                } else if (paginaActual <= 3) {
-                                    numeroPagina = i + 1
-                                } else if (paginaActual >= totalPaginas - 2) {
-                                    numeroPagina = totalPaginas - 4 + i
-                                } else {
-                                    numeroPagina = paginaActual - 2 + i
-                                }
-
-                                return (
-                                    <button
-                                        key={numeroPagina}
-                                        className={`${estilos.btnNumeroPagina} ${paginaActual === numeroPagina ? estilos.activa : ''}`}
-                                        onClick={() => {
-                                            setPaginaActual(numeroPagina)
-                                            cargarVentas(numeroPagina)
-                                        }}
-                                        disabled={cargando}
-                                    >
-                                        {numeroPagina}
-                                    </button>
-                                )
-                            })}
-                        </div>
-
-                        <button
-                            className={estilos.btnPaginacion}
-                            onClick={() => {
-                                const nuevaPagina = paginaActual + 1
-                                setPaginaActual(nuevaPagina)
-                                cargarVentas(nuevaPagina)
-                            }}
-                            disabled={paginaActual === totalPaginas || cargando}
-                        >
-                            <ion-icon name="chevron-forward-outline"></ion-icon>
-                        </button>
                     </div>
                 </div>
             )}
