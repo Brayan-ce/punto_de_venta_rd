@@ -1128,7 +1128,7 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                                     </div>
                                     <div className={estilos.cardRow}>
                                         <span className={estilos.cardLabel}>{tr('Fecha', 'Date')}</span>
-                                        <span className={estilos.cardValue}>{formatearFechaHora(venta.fecha_venta)}</span>
+                                        <span className={estilos.cardValue}>{venta.fecha_venta_fmt || formatearFechaHora(venta.fecha_venta)}</span>
                                     </div>
                                     <div className={estilos.cardRow}>
                                         <div className={estilos.cardBadges}>
@@ -1205,7 +1205,7 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                                 return (
                                     <tr key={venta.id} className={estilos.fila}>
                                         <td className={estilos.numeroCol}>{venta.numero_interno}</td>
-                                        <td className={estilos.fechaCol}>{formatearFechaHora(venta.fecha_venta)}</td>
+                                        <td className={estilos.fechaCol}>{venta.fecha_venta_fmt || formatearFechaHora(venta.fecha_venta)}</td>
                                         <td className={estilos.numeroCol}>{venta.ncf || '-'}</td>
                                         <td>{venta.numero_caja ? `#${venta.numero_caja}` : t('ventas.nA')}</td>
                                         <td>{venta.cliente_nombre || t('ventas.consumidorFinal')}</td>

@@ -2,6 +2,15 @@
 
 import db from "@/_DB/db"
 import { cookies } from 'next/headers'
+import { DateTime } from 'luxon'
+
+// Zona horaria del negocio (República Dominicana = UTC-4)
+const ZONA_NEGOCIO = process.env.NEGOCIO_TZ || 'America/Santo_Domingo'
+
+// Fecha de "hoy" en la zona del negocio (YYYY-MM-DD)
+function hoyNegocio() {
+    return DateTime.now().setZone(ZONA_NEGOCIO).toFormat('yyyy-MM-dd')
+}
 
 function formatearFechaLocal(fecha) {
     const year = fecha.getFullYear()
@@ -325,10 +334,8 @@ export async function obtenerVentasDiaCaja() {
             return { success: true, cajaAbierta: false, ventasDia: 0, cantidadDia: 0 }
         }
 
-        // Usar la fecha local del servidor de la app (igual que el listado),
-        // no CURDATE() de MySQL, para evitar desfases por zona horaria.
-        const ahora = new Date()
-        const hoy = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, '0')}-${String(ahora.getDate()).padStart(2, '0')}`
+        // Fecha "hoy" en la zona horaria del negocio (coherente con el listado y el navegador).
+        const hoy = hoyNegocio()
 
         const [rows] = await connection.execute(
             `SELECT COALESCE(SUM(CASE WHEN v.estado = 'emitida' THEN v.total ELSE 0 END), 0) AS ventas_dia,
@@ -596,6 +603,7 @@ export async function obtenerVentas({
                     v.despacho_completo,
                     v.razon_anulacion,
                     v.fecha_venta,
+                    DATE_FORMAT(v.fecha_venta, '%d/%m/%Y %H:%i') AS fecha_venta_fmt,
                     v.caja_id,
                     v.tipo_ingreso,
                     v.estado_dgii,

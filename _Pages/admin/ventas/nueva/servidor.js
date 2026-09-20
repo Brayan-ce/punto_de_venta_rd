@@ -9,6 +9,16 @@ import { obtenerGrafoCache } from '@/utils/unidadesGrafoCache'
 import { ejecutarFirmaVentaECF, obtenerEstadoFirmaECF as obtenerEstadoFirmaECFLib } from '@/lib/ecf/firmarVentaEcf'
 import { ECF_SERVIDOR_API, ECF_AMBIENTE_DEFAULT } from '@/lib/ecf/apiEecf'
 import { calcularScoreInicial } from '../../clientes/lib'
+import { DateTime } from 'luxon'
+
+// Zona horaria del negocio (República Dominicana = UTC-4)
+const ZONA_NEGOCIO = process.env.NEGOCIO_TZ || 'America/Santo_Domingo'
+
+// Fecha/hora actual del negocio en formato MySQL (YYYY-MM-DD HH:mm:ss).
+// Se guarda explicitamente en ventas.fecha_venta para no depender de la zona del servidor de BD.
+function fechaHoraNegocioSQL() {
+    return DateTime.now().setZone(ZONA_NEGOCIO).toFormat('yyyy-MM-dd HH:mm:ss')
+}
 
 function sumarPeriodos(fechaStr, cantidad, frecuencia) {
     const d = new Date(fechaStr)
@@ -773,9 +783,9 @@ export async function crearVenta(datosVenta) {
         const hayDespachoParcial = datosVenta.tipo_entrega === 'parcial'
 
         const [resultadoVenta] = await connection.execute(
-            `INSERT INTO ventas (empresa_id, tipo_comprobante_id, ncf, numero_interno, usuario_id, cliente_id, caja_id, subtotal, descuento, monto_gravado, itbis, total, metodo_pago, tipo_entrega, despacho_completo, efectivo_recibido, cambio, estado, notas)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'emitida', ?)`,
-            [empresaId, datosVenta.tipo_comprobante_id, ncf, numeroInterno, userId, datosVenta.cliente_id, cajaId, datosVenta.subtotal, datosVenta.descuento, datosVenta.monto_gravado, datosVenta.itbis, datosVenta.total, datosVenta.metodo_pago, datosVenta.tipo_entrega, !hayDespachoParcial, datosVenta.efectivo_recibido, datosVenta.cambio, datosVenta.notas]
+            `INSERT INTO ventas (empresa_id, tipo_comprobante_id, ncf, numero_interno, usuario_id, cliente_id, caja_id, subtotal, descuento, monto_gravado, itbis, total, metodo_pago, tipo_entrega, despacho_completo, efectivo_recibido, cambio, estado, notas, fecha_venta)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'emitida', ?, ?)`,
+            [empresaId, datosVenta.tipo_comprobante_id, ncf, numeroInterno, userId, datosVenta.cliente_id, cajaId, datosVenta.subtotal, datosVenta.descuento, datosVenta.monto_gravado, datosVenta.itbis, datosVenta.total, datosVenta.metodo_pago, datosVenta.tipo_entrega, !hayDespachoParcial, datosVenta.efectivo_recibido, datosVenta.cambio, datosVenta.notas, fechaHoraNegocioSQL()]
         )
         const ventaId = resultadoVenta.insertId
 

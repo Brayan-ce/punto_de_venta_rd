@@ -16,6 +16,11 @@ import mysql from 'mysql2/promise';
 import { AsyncLocalStorage } from 'async_hooks'
 import { cookies } from 'next/headers'
 
+// Zona horaria del negocio para la conexión MySQL (República Dominicana = UTC-4).
+// Se aplica a cada conexión para que NOW(), CURDATE() y DATE(fecha) trabajen en hora local
+// y coincidan con la fecha que ve el usuario.
+const DB_TIMEZONE = process.env.DB_TIMEZONE || '-04:00';
+
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
@@ -25,7 +30,20 @@ const pool = mysql.createPool({
   connectionLimit: 20,
   waitForConnections: true,
   queueLimit: 0,
+  timezone: DB_TIMEZONE,
+  dateStrings: false,
 });
+
+// Forzar la zona horaria en cada conexión nueva del pool
+try {
+  pool.pool.on('connection', (conn) => {
+    conn.query(`SET time_zone = '${DB_TIMEZONE}'`, (err) => {
+      if (err) console.error('No se pudo setear time_zone en MySQL:', err.message)
+    })
+  })
+} catch (e) {
+  console.error('No se pudo registrar el evento de conexión para time_zone:', e?.message)
+}
 
 // ============================================
 // BLOQUEO DE ESCRITURAS EN MODO OFFLINE
