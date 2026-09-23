@@ -370,7 +370,7 @@ export default function CajaPageAdmin() {
             alert(tr('Permite las ventanas emergentes para imprimir el ticket', 'Allow pop-ups to print the ticket'))
             return
         }
-        ventana.document.write(`<!doctype html><html><head><title>${tr('Cuadre de caja', 'Cash reconciliation')}</title><style>body{font:12px Arial;margin:10px;width:72mm}h1{font-size:16px;margin:0 0 4px}p{margin:0 0 12px}table{width:100%;border-collapse:collapse}td{padding:5px 0;border-bottom:1px dashed #777}td:last-child{text-align:right;font-weight:bold}@media print{body{width:72mm;margin:0}}</style></head><body><h1>${escaparHtml(reporteCierre.empresa)}</h1><p>${tr('Cuadre de Caja', 'Cash Reconciliation')}</p><table>${filas}</table><script>window.onload=()=>window.print()</script></body></html>`)
+        ventana.document.write(`<!doctype html><html><head><title>${tr('Cuadre de caja', 'Cash reconciliation')}</title><style>@page{size:80mm auto;margin:3mm}html,body{margin:0;padding:0;width:74mm;overflow:hidden;color:#000}body{font:11px/1.35 Arial,sans-serif}h1{font-size:15px;margin:0 0 2px;text-align:center}p{margin:0 0 10px;text-align:center}table{width:100%;border-collapse:collapse}td{padding:4px 0;border-bottom:1px dashed #999;font-size:11px}td:last-child{text-align:right;font-weight:bold}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body><h1>${escaparHtml(reporteCierre.empresa)}</h1><p>${tr('Cuadre de Caja', 'Cash Reconciliation')}</p><table>${filas}</table><script>window.onload=function(){setTimeout(function(){window.print()},250)}</script></body></html>`)
         ventana.document.close()
     }
 

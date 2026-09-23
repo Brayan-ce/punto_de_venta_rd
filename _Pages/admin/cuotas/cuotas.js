@@ -411,7 +411,7 @@ export default function CuotasFinanciamiento() {
                                                                     {ESTADO_LABEL[cu.estado]}
                                                                 </span>
                                                                 <div className={estilos.accionesCuota}>
-                                                                    {cu.estado === 'pagada' && cu.ultimo_pago_id && (
+                                                                    {(cu.estado === 'pagada' || cu.estado === 'parcial') && cu.ultimo_pago_id && (
                                                                         <button
                                                                             className={estilos.btnImprimirCuota}
                                                                             onClick={() => abrirImprimir(cu.ultimo_pago_id)}

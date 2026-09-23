@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { obtenerCuotaPorId, actualizarMoraCuota } from './servidor'
 import { obtenerDatosEmpresa } from '../../servidor'
 import { useLanguage } from '../../../i18n/LanguageProvider'
@@ -11,6 +12,7 @@ const ESTADO_COLOR = { pendiente: 'orange', pagada: 'green', vencida: 'red', par
 
 export default function VerCuota({ cuotaId }) {
     const { language } = useLanguage()
+    const router = useRouter()
     const [tema, setTema]         = useState('light')
     const [cargando, setCargando] = useState(true)
     const [data, setData]         = useState(null)
@@ -275,6 +277,13 @@ export default function VerCuota({ cuotaId }) {
                                         <div className={estilos.pagoMontos}>
                                             <span className={estilos.pagoAplicado}>{fmtMoneda(p.aplicado)}</span>
                                             <span className={estilos.pagoTotal}>{tr('Pago total:', 'Total payment:')} {fmtMoneda(p.pago_total)}</span>
+                                            <button
+                                                className={estilos.btnImprimirPago}
+                                                onClick={() => router.push(`/admin/pagos/imprimir/${p.id}`)}
+                                                title={tr('Imprimir recibo', 'Print receipt')}
+                                            >
+                                                <ion-icon name="print-outline"></ion-icon>
+                                            </button>
                                         </div>
                                     </div>
                                 ))}

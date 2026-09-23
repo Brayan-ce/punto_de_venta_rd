@@ -174,11 +174,30 @@ export async function obtenerCuotasContrato(contratoId) {
             const pagado = pagadoPorCuota[cu.id] || 0
             fila.monto_pagado = Math.round(pagado * 100) / 100
             fila.monto_pendiente = Math.round((parseFloat(cu.monto) - pagado) * 100) / 100
-            if (fila.estado === 'pagada') {
+            if (['pagada', 'parcial'].includes(fila.estado)) {
                 fila.ultimo_pago_id = ultimosPagos[cu.id] || null
             }
             return fila
         })
+
+        // Fallback: cuotas pagadas/parciales sin enlace en fin_pago_cuotas (datos legacy).
+        // Busca un fin_pagos del mismo contrato con fecha igual a la fecha_pago de la cuota.
+        const sinEnlace = cuotasSerializadas.filter(
+            (f) => ['pagada', 'parcial'].includes(f.estado) && !f.ultimo_pago_id && f.fecha_pago
+        )
+        if (sinEnlace.length > 0) {
+            for (const fila of sinEnlace) {
+                try {
+                    const [[fallback]] = await connection.execute(
+                        `SELECT pg.id FROM fin_pagos pg
+                         WHERE pg.contrato_id = ? AND pg.empresa_id = ? AND pg.fecha = ?
+                         ORDER BY pg.id DESC LIMIT 1`,
+                        [fila.contrato_id, empresaId, fila.fecha_pago]
+                    )
+                    if (fallback) fila.ultimo_pago_id = fallback.id
+                } catch { /* no romper si falla el fallback */ }
+            }
+        }
 
         connection.release()
         return { success: true, cuotas: cuotasSerializadas }
@@ -237,7 +256,7 @@ export async function registrarPagoCuota(cuotaId, datos) {
             const nuevoEstado = monto >= total ? 'pagada' : 'parcial'
             await connection.execute(
                 `UPDATE fin_cuotas SET estado = ?, fecha_pago = ? WHERE id = ?`,
-                [nuevoEstado, nuevoEstado === 'pagada' ? fechaPago : null, cuotaId]
+                [nuevoEstado, nuevoEstado === 'pendiente' || nuevoEstado === 'vencida' ? null : fechaPago, cuotaId]
             )
             if (nuevoEstado === 'pagada') {
                 await connection.execute(

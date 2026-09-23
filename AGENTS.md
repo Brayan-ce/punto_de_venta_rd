@@ -1,9 +1,16 @@
 # Reglas para el asistente
 
-## PROHIBIDO hacer builds o compilaciones
+## PROHIBIDO hacer builds, compilaciones o instalaciones
 - NUNCA ejecutes Gradle, `assembleDebug`, `compileDebugKotlin`, `./gradlew`, ni ningún otro comando que compile, construya, genere APK o instale la app en un dispositivo.
-- El usuario ejecuta el build y la instalación desde Android Studio en su celular.
-- Tu única tarea es MODIFICAR y CORREGIR el código, y aplicar los cambios correctamente.
+- NUNCA ejecutes `npm install`, `npm i`, `yarn add`, `pnpm add`, ni instales ninguna dependencia. El usuario lo hace manualmente.
+- NUNCA ejecutes `npm run build`, `next build`, `npm run dev`, `npm start`, `pm2 restart`, ni ningún comando de inicialización o arranque del servidor. El usuario lo hace manualmente.
+- El usuario ejecuta el build, la instalación, las dependencias y el arranque manualmente desde su terminal/Android Studio.
+- Tu única tarea es MODIFICAR y CORREGIR el código (web y/o móvil), y aplicar los cambios en los archivos fuente.
+
+## NO tocar Android sin que lo pidan explícitamente
+- NO edites archivos en `_Aplicacion_Movil/`, `android/`, ni ningún `.kt`/`.gradle`/`.xml` de Android, salvo que el usuario te lo pida con claridad.
+- Si el pedido es sobre la web (`_Pages/`, `app/`, `lib/`, etc.), SOLO toca esos archivos.
+- Si dudas si un archivo pertenece al móvil o a la web, pregunta antes de editar.
 
 ## Qué debes hacer
 - Editar archivos de código fuente (Kotlin, XML, etc.) de forma correcta y coherente con el proyecto.

@@ -505,7 +505,7 @@ export async function registrarPagoCuota(cuotaId, datos) {
             const montoInteres = parseFloat(cuota.interes)
 
             // Insertar pago
-            await connection.execute(
+            const [resPago] = await connection.execute(
                 `INSERT INTO fin_pagos
                     (contrato_id, empresa_id, usuario_id, monto, monto_capital, monto_interes, monto_mora, metodo_pago_id, referencia, notas, fecha)
                 VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
@@ -517,14 +517,10 @@ export async function registrarPagoCuota(cuotaId, datos) {
                 ]
             )
 
-            // Insertar relación pago-cuota
-            const [[pagoInsertado]] = await connection.execute(
-                `SELECT id FROM fin_pagos WHERE contrato_id = ? AND empresa_id = ? ORDER BY id DESC LIMIT 1`,
-                [cuota.contrato_id, empresaId]
-            )
+            // Insertar relación pago-cuota (usar insertId directo, sin SELECT — evita condición de carrera)
             await connection.execute(
                 `INSERT INTO fin_pago_cuotas (pago_id, cuota_id, monto) VALUES (?,?,?)`,
-                [pagoInsertado.id, cuotaId, monto]
+                [resPago.insertId, cuotaId, monto]
             )
 
             // Actualizar cuota
