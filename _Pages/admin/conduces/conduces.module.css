@@ -651,3 +651,157 @@
     background: rgba(59, 130, 246, 0.1);
     transform: translateY(-2px);
 }
+
+
+/* ==========================================
+   Impresión del conduce (A4)
+   ========================================== */
+.printContainer {
+    width: 100%;
+    max-width: 190mm;
+    margin: 0 auto;
+    padding: 12mm;
+    background: #fff;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.printHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 2px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+}
+
+.printHeader h1 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.printNumero {
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.printInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.printCol {
+    min-width: 0;
+}
+
+.printCol strong {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #334155;
+    margin-bottom: 4px;
+}
+
+.printCol p {
+    margin: 2px 0;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.printTabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.printTabla thead {
+    background: #f3f4f6;
+    border-bottom: 2px solid #111;
+}
+
+.printTabla th {
+    padding: 9px 8px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    border-bottom: 2px solid #111;
+}
+
+.printTabla td {
+    padding: 8px;
+    border-bottom: 1px solid #d1d5db;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.printTabla tbody tr:last-child td {
+    border-bottom: 2px solid #111;
+}
+
+.firmaSeccion {
+    display: flex;
+    gap: 30px;
+    margin-top: 34px;
+    page-break-inside: avoid;
+}
+
+.firmaCaja {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
+}
+
+.firmaCaja span {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #475569;
+    text-align: center;
+}
+
+.lineaFirma {
+    border-bottom: 1px dashed #111;
+    min-height: 34px;
+}
+
+.printObservaciones {
+    margin-top: 18px;
+    padding-top: 10px;
+    border-top: 1px dashed #94a3b8;
+}
+
+.printObservaciones strong {
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.printObservaciones p {
+    margin: 6px 0 0;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+@page {
+    size: A4;
+    margin: 12mm;
+}
+
+@media print {
+    .printContainer {
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+    }
+}

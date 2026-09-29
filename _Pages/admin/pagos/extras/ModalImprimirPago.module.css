@@ -169,3 +169,7 @@
     .ticket { border: none !important; background: #fff !important; color: #000 !important; }
     .ticketWrap { overflow: visible !important; }
 }
+/* Al capturar con html2canvas se des-recorta para que salga el TOTAL completo */
+.modal.capturando { max-height: none !important; overflow: visible !important; }
+.ticketWrap.capturando { overflow: visible !important; }
+.ticket.capturando { border-color: #e2e8f0 !important; }

@@ -101,16 +101,31 @@ export default function ModalImprimirPago({ pagoId, tema, onClose }) {
     }
 
     const capturarTicketComoImagen = async () => {
-        if (!ticketRef.current) throw new Error('No se encontró el ticket')
-        const canvas = await html2canvas(ticketRef.current, {
-            backgroundColor: '#ffffff',
-            scale: 2,
-            logging: false,
-            useCORS: true,
-            width: ticketRef.current.scrollWidth,
-            height: ticketRef.current.scrollHeight
-        })
-        return new Promise(resolve => canvas.toBlob(blob => resolve(blob), 'image/png', 0.95))
+        if (!ticketRef.current) throw new Error('No se encontro el ticket')
+
+        // El modal corta con max-height:90vh + overflow:hidden y el scroll contenedor
+        // con overflow-y:auto, asi que html2canvas solo ve la parte visible y recortaba
+        // el TOTAL y el pie. Des-recortamos antes de capturar y lo restauramos.
+        const modal = ticketRef.current.closest('[class*="modal"]')
+        const wrap = ticketRef.current.closest('[class*="ticketWrap"]')
+        modal?.classList.add('capturando')
+        wrap?.classList.add('capturando')
+        await new Promise(r => setTimeout(r, 80))
+
+        try {
+            const canvas = await html2canvas(ticketRef.current, {
+                backgroundColor: '#ffffff',
+                scale: 2,
+                logging: false,
+                useCORS: true,
+                width: ticketRef.current.scrollWidth,
+                height: ticketRef.current.scrollHeight
+            })
+            return await new Promise(resolve => canvas.toBlob(blob => resolve(blob), 'image/png', 0.95))
+        } finally {
+            modal?.classList.remove('capturando')
+            wrap?.classList.remove('capturando')
+        }
     }
 
     const esMobile = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768

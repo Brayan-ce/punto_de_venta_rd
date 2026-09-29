@@ -351,7 +351,15 @@
     }
 
     .printTabla {
+        page-break-inside: auto;
+    }
+
+    .printTabla tr {
         page-break-inside: avoid;
+    }
+
+    .printTabla thead {
+        display: table-header-group;
     }
 
     .printFooter {

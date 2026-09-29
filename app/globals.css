@@ -113,6 +113,48 @@ nextjs-portal {
     --sidebar-width: 240px; /* Ancho por defecto del sidebar */
 }
 
+/* Al IMPRIMIR, limpiar el layout del admin para que el comprobante
+   ocupe la hoja completa: sin sidebar fijo, sin márgenes del wrapper. */
+@media print {
+    header,
+    aside,
+    [role="banner"],
+    [role="complementary"],
+    .no-print,
+    .controles,
+    .panelOpciones,
+    .accionesReporte,
+    .btnCarrusel,
+    nav {
+        display: none !important;
+    }
+
+    .admin-content-wrapper {
+        margin-left: 0 !important;
+        padding-top: 0 !important;
+        min-height: 0 !important;
+        background: none !important;
+    }
+
+    /* Contenedores con clase CSS-Module (se colapsan como `xxx-module__contenedor__yyy`) */
+    [class*="__contenedor"],
+    [class*="__printContainer"] {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        background: none !important;
+        box-shadow: none !important;
+    }
+
+    main {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+}
+
 /* Estilos para el wrapper del contenido admin - Usa CSS variables */
 .admin-content-wrapper {
     margin-left: var(--sidebar-width);

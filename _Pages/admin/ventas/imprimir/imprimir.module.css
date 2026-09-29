@@ -451,7 +451,7 @@
     margin: 18px 0;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .totales .fila {
@@ -496,7 +496,7 @@
     margin: 8px 0 10px;
     padding: 4px 0;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .totalLabel {
@@ -513,7 +513,7 @@
     line-height: 1;
     white-space: nowrap;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
 }
