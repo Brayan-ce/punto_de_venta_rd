@@ -406,7 +406,7 @@ export default function NuevaCompra() {
                                 <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                                 <option value="cheque">{tr('Cheque', 'Check')}</option>
                                 <option value="mixto">{tr('Mixto', 'Mixed')}</option>
-                                <option value="credito">{tr('CrÃ©dito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
+                                <option value="credito">{tr('Crédito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
                             </select>
                         </div>
 
@@ -421,7 +421,7 @@ export default function NuevaCompra() {
                                     disabled={procesando}
                                 />
                                 <small style={{ color: 'var(--text-secondary, #64748b)', fontSize: '12px' }}>
-                                    {tr('Se crearÃ¡ automÃ¡ticamente una cuenta por pagar al proveedor.', 'An accounts payable will be created automatically for the supplier.')}
+                                    {tr('Se creará automáticamente una cuenta por pagar al proveedor.', 'An accounts payable will be created automatically for the supplier.')}
                                 </small>
                             </div>
                         )}

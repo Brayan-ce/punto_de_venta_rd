@@ -280,7 +280,7 @@ export default function EditarCompra() {
 
         if (!validarFormulario()) return
 
-        if (!confirm(tr('Â¿Estas seguro de actualizar esta compra? Los cambios afectaran el inventario.', 'Are you sure you want to update this purchase? Changes will affect inventory.'))) {
+        if (!confirm(tr('¿Estas seguro de actualizar esta compra? Los cambios afectaran el inventario.', 'Are you sure you want to update this purchase? Changes will affect inventory.'))) {
             return
         }
 
@@ -427,7 +427,7 @@ export default function EditarCompra() {
                                 <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                                 <option value="cheque">{tr('Cheque', 'Check')}</option>
                                 <option value="mixto">{tr('Mixto', 'Mixed')}</option>
-                                <option value="credito">{tr('Credito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
+                                <option value="credito">{tr('Crédito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
                             </select>
                         </div>
 
@@ -442,7 +442,7 @@ export default function EditarCompra() {
                                     disabled={procesando}
                                 />
                                 <small style={{ color: 'var(--text-secondary, #64748b)', fontSize: '12px' }}>
-                                    {tr('Se crearÃ¡/actualizarÃ¡ la cuenta por pagar al proveedor.', 'The accounts payable for the supplier will be created/updated.')}
+                                    {tr('Se creará/actualizará la cuenta por pagar al proveedor.', 'The accounts payable for the supplier will be created/updated.')}
                                 </small>
                             </div>
                         )}

@@ -125,7 +125,7 @@ export default function VerCompraAdmin() {
             transferencia: { texto: tr('Transferencia', 'Transfer'), color: 'transferencia' },
             cheque: { texto: tr('Cheque', 'Check'), color: 'cheque' },
             mixto: { texto: tr('Mixto', 'Mixed'), color: 'mixto' },
-            credito: { texto: tr('Credito (cuenta por pagar)', 'Credit (accounts payable)'), color: 'credito' },
+            credito: { texto: tr('Crédito (cuenta por pagar)', 'Credit (accounts payable)'), color: 'credito' },
             contado: { texto: tr('Contado', 'Cash paid'), color: 'efectivo' },
             financiamiento: { texto: tr('Financiamiento', 'Financing'), color: 'transferencia' }
         }

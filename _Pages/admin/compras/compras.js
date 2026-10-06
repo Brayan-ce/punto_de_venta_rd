@@ -140,7 +140,7 @@ export default function ComprasAdmin() {
             transferencia: { texto: tr('Transferencia', 'Transfer'), color: 'transferencia' },
             cheque: { texto: tr('Cheque', 'Check'), color: 'cheque' },
             mixto: { texto: tr('Mixto', 'Mixed'), color: 'mixto' },
-            credito: { texto: tr('Credito (cuenta por pagar)', 'Credit (accounts payable)'), color: 'credito' },
+            credito: { texto: tr('Crédito (cuenta por pagar)', 'Credit (accounts payable)'), color: 'credito' },
             contado: { texto: tr('Contado', 'Cash paid'), color: 'efectivo' },
             financiamiento: { texto: tr('Financiamiento', 'Financing'), color: 'transferencia' }
         }
@@ -275,7 +275,7 @@ export default function ComprasAdmin() {
                         <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                         <option value="cheque">{tr('Cheque', 'Check')}</option>
                         <option value="mixto">{tr('Mixto', 'Mixed')}</option>
-                        <option value="credito">{tr('Credito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
+                        <option value="credito">{tr('Crédito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
                     </select>
 
                     <input
