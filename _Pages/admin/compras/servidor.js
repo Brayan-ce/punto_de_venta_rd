@@ -9,6 +9,7 @@ export async function obtenerCompras() {
         const cookieStore = await cookies()
         const userId = cookieStore.get('userId')?.value
         const empresaId = cookieStore.get('empresaId')?.value
+        const userTipo = cookieStore.get('userTipo')?.value
 
         if (!userId || !empresaId) {
             return {
@@ -57,7 +58,8 @@ export async function obtenerCompras() {
         return {
             success: true,
             compras: compras,
-            proveedores: proveedores
+            proveedores: proveedores,
+            userTipo: userTipo || null
         }
 
     } catch (error) {

@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { obtenerCompras, anularCompra } from './servidor'
 import { useLanguage } from '@/_Pages/admin/i18n'
@@ -9,6 +9,8 @@ import LoadingScreen from '@/_EXTRAS/Componentes/LoadingScreen/LoadingScreen'
 
 export default function ComprasAdmin() {
     const router = useRouter()
+    const pathname = usePathname()
+    const baseCompras = pathname && pathname.startsWith('/vendedor') ? '/vendedor/compras' : '/admin/compras'
     const { language } = useLanguage()
     const tr = (es, en) => (language === 'en' ? en : es)
     const [tema, setTema] = useState('light')
@@ -22,6 +24,7 @@ export default function ComprasAdmin() {
     const [filtroMetodo, setFiltroMetodo] = useState('todos')
     const [fechaInicio, setFechaInicio] = useState('')
     const [fechaFin, setFechaFin] = useState('')
+    const [puedeEditar, setPuedeEditar] = useState(false)
 
     useEffect(() => {
         const temaLocal = localStorage.getItem('tema') || 'light'
@@ -52,6 +55,7 @@ export default function ComprasAdmin() {
             if (resultado.success) {
                 setCompras(resultado.compras)
                 setProveedores(resultado.proveedores)
+                setPuedeEditar(resultado.userTipo === 'admin')
             } else {
                 alert(resultado.mensaje || tr('Error al cargar compras', 'Error loading purchases'))
             }
@@ -176,7 +180,7 @@ export default function ComprasAdmin() {
                     <h1 className={estilos.titulo}>{tr('Compras', 'Purchases')}</h1>
                     <p className={estilos.subtitulo}>{tr('Gestiona las compras a proveedores', 'Manage purchases from suppliers')}</p>
                 </div>
-                <Link href="/admin/compras/nuevo" className={estilos.btnNuevo}>
+                <Link href={`${baseCompras}/nuevo`} className={estilos.btnNuevo}>
                     <ion-icon name="add-circle-outline"></ion-icon>
                     <span>{tr('Nueva Compra', 'New Purchase')}</span>
                 </Link>
@@ -353,13 +357,22 @@ export default function ComprasAdmin() {
                                 </div>
                                 <div className={estilos.columnaAcciones} data-label={tr('Acciones', 'Actions')}>
                                     <Link
-                                        href={`/admin/compras/ver/${compra.id}`}
+                                        href={`${baseCompras}/ver/${compra.id}`}
                                         className={estilos.btnIcono}
                                         title={tr('Ver detalles', 'View details')}
                                     >
                                         <ion-icon name="eye-outline"></ion-icon>
                                     </Link>
-                                    {compra.estado === 'recibida' && (
+                                    {puedeEditar && compra.estado === 'recibida' && (
+                                        <Link
+                                            href={`${baseCompras}/editar/${compra.id}`}
+                                            className={`${estilos.btnIcono} ${estilos.editar}`}
+                                            title={tr('Editar compra', 'Edit purchase')}
+                                        >
+                                            <ion-icon name="pencil-outline"></ion-icon>
+                                        </Link>
+                                    )}
+                                    {puedeEditar && compra.estado === 'recibida' && (
                                         <button
                                             className={`${estilos.btnIcono} ${estilos.anular}`}
                                             onClick={() => manejarAnularCompra(compra.id, compra.ncf)}

@@ -1,6 +1,6 @@
-"use client"
+﻿"use client"
 import { useEffect, useState } from 'react'
-import { useRouter, useParams } from 'next/navigation'
+import { useRouter, useParams, usePathname } from 'next/navigation'
 import { obtenerCompra, actualizarCompra, obtenerDatosFormulario } from './servidor'
 import { useLanguage } from '@/_Pages/admin/i18n'
 import estilos from './editar.module.css'
@@ -8,6 +8,8 @@ import LoadingScreen from '@/_EXTRAS/Componentes/LoadingScreen/LoadingScreen'
 
 export default function EditarCompra() {
     const router = useRouter()
+    const pathname = usePathname()
+    const baseCompras = pathname && pathname.startsWith('/vendedor') ? '/vendedor/compras' : '/admin/compras'
     const params = useParams()
     const compraId = params.id
     const { language } = useLanguage()
@@ -29,6 +31,8 @@ export default function EditarCompra() {
     const [fechaVencimiento, setFechaVencimiento] = useState('')
     const [notas, setNotas] = useState('')
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
+    const [impuestoPct, setImpuestoPct] = useState(18)
+    const [aplicarItbis, setAplicarItbis] = useState(true)
 
     const [nombreProductoNuevo, setNombreProductoNuevo] = useState('')
     const [cantidadProductoNuevo, setCantidadProductoNuevo] = useState('')
@@ -87,14 +91,20 @@ export default function EditarCompra() {
                 setProveedores(resultadoFormulario.proveedores)
                 setProductos(resultadoFormulario.productos)
                 setTiposComprobante(resultadoFormulario.tiposComprobante)
+
+                const pct = parseFloat(resultadoFormulario.empresa?.impuesto_porcentaje)
+                if (!isNaN(pct) && pct >= 0) setImpuestoPct(pct)
+
+                const itbisGuardado = parseFloat(compra.itbis || 0)
+                setAplicarItbis(itbisGuardado > 0)
             } else {
                 alert(resultadoCompra.mensaje || resultadoFormulario.mensaje || tr('Error al cargar datos', 'Error loading data'))
-                router.push('/admin/compras')
+                router.push(`${baseCompras}`)
             }
         } catch (error) {
             console.error('Error al cargar datos:', error)
             alert(tr('Error al cargar datos', 'Error loading data'))
-            router.push('/admin/compras')
+            router.push(`${baseCompras}`)
         } finally {
             setCargando(false)
         }
@@ -221,9 +231,9 @@ export default function EditarCompra() {
     })
 
     const calcularTotales = () => {
-        const subtotal = productosSeleccionados.reduce((sum, p) => sum + p.subtotal, 0)
-        const itbis = subtotal * 0.18
-        const total = subtotal + itbis
+        const subtotal = Math.round(productosSeleccionados.reduce((sum, p) => sum + Number(p.subtotal), 0) * 100) / 100
+        const itbis = aplicarItbis ? Math.round(subtotal * impuestoPct) / 100 : 0
+        const total = Math.round((subtotal + itbis) * 100) / 100
         return { subtotal, itbis, total }
     }
 
@@ -256,7 +266,7 @@ export default function EditarCompra() {
 
         if (!validarFormulario()) return
 
-        if (!confirm(tr('¿Estas seguro de actualizar esta compra? Los cambios afectaran el inventario.', 'Are you sure you want to update this purchase? Changes will affect inventory.'))) {
+        if (!confirm(tr('Â¿Estas seguro de actualizar esta compra? Los cambios afectaran el inventario.', 'Are you sure you want to update this purchase? Changes will affect inventory.'))) {
             return
         }
 
@@ -288,7 +298,7 @@ export default function EditarCompra() {
             const resultado = await actualizarCompra(compraId, datosCompra)
             if (resultado.success) {
                 alert(resultado.mensaje)
-                router.push('/admin/compras')
+                router.push(`${baseCompras}`)
             } else {
                 alert(resultado.mensaje || tr('Error al actualizar compra', 'Error updating purchase'))
             }
@@ -323,7 +333,7 @@ export default function EditarCompra() {
                 </div>
                 <button
                     type="button"
-                    onClick={() => router.push('/admin/compras')}
+                    onClick={() => router.push(`${baseCompras}`)}
                     className={estilos.btnCancelar}
                     disabled={procesando}
                 >
@@ -414,7 +424,7 @@ export default function EditarCompra() {
                                     disabled={procesando}
                                 />
                                 <small style={{ color: 'var(--text-secondary, #64748b)', fontSize: '12px' }}>
-                                    {tr('Se creará/actualizará la cuenta por pagar al proveedor.', 'The accounts payable for the supplier will be created/updated.')}
+                                    {tr('Se crearÃ¡/actualizarÃ¡ la cuenta por pagar al proveedor.', 'The accounts payable for the supplier will be created/updated.')}
                                 </small>
                             </div>
                         )}
@@ -441,13 +451,28 @@ export default function EditarCompra() {
                                 <span>{formatearMoneda(totales.subtotal)}</span>
                             </div>
                             <div className={estilos.totalItem}>
-                                <span>ITBIS (18%):</span>
+                                <span>ITBIS ({aplicarItbis ? impuestoPct : 0}%):</span>
                                 <span>{formatearMoneda(totales.itbis)}</span>
                             </div>
                             <div className={`${estilos.totalItem} ${estilos.totalFinal}`}>
                                 <span>Total:</span>
                                 <span>{formatearMoneda(totales.total)}</span>
                             </div>
+                        </div>
+
+                        <div className={estilos.itbisControl}>
+                            <label className={estilos.itbisLabel}>
+                                <input
+                                    type="checkbox"
+                                    className={estilos.itbisCheckbox}
+                                    checked={aplicarItbis}
+                                    onChange={(e) => setAplicarItbis(e.target.checked)}
+                                />
+                                <span className={estilos.itbisTexto}>{tr('Aplicar ITBIS', 'Apply ITBIS')}</span>
+                            </label>
+                            <span className={`${estilos.itbisValor} ${aplicarItbis ? estilos.itbisOn : estilos.itbisOff}`}>
+                                {aplicarItbis ? `${impuestoPct}%` : tr('Sin ITBIS', 'No ITBIS')}
+                            </span>
                         </div>
 
                         <button

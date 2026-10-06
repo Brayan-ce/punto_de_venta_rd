@@ -337,6 +337,87 @@
 .dark .totalFinal {
     border-color: #334155;
 }
+.itbisControl {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+.light .itbisControl {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+.dark .itbisControl {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.itbisLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.light .itbisLabel {
+    color: #0f172a;
+}
+
+.dark .itbisLabel {
+    color: #f1f5f9;
+}
+
+.itbisCheckbox {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: #14b8a6;
+    cursor: pointer;
+}
+
+.itbisTexto {
+    min-width: 0;
+}
+
+.itbisValor {
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.itbisOn {
+    background: #ccfbf1;
+    color: #115e59;
+}
+
+.dark .itbisOn {
+    background: #134e4a;
+    color: #99f6e4;
+}
+
+.itbisOff {
+    background: #fee2e2;
+    color: #991b1b;
+    text-decoration: line-through;
+}
+
+.dark .itbisOff {
+    background: #7f1d1d;
+    color: #fecaca;
+}
 
 .light .totalFinal span:last-child {
     color: #ef4444;

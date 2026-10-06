@@ -1,6 +1,6 @@
-"use client"
+﻿"use client"
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { obtenerDatosFormulario, crearCompra, proximoNcf } from './servidor'
 import { useLanguage } from '@/_Pages/admin/i18n'
 import estilos from './nuevo.module.css'
@@ -8,6 +8,8 @@ import LoadingScreen from '@/_EXTRAS/Componentes/LoadingScreen/LoadingScreen'
 
 export default function NuevaCompra() {
     const router = useRouter()
+    const pathname = usePathname()
+    const baseCompras = pathname && pathname.startsWith('/vendedor') ? '/vendedor/compras' : '/admin/compras'
     const { language } = useLanguage()
     const tr = (es, en) => (language === 'en' ? en : es)
     const [tema, setTema] = useState('light')
@@ -26,6 +28,8 @@ export default function NuevaCompra() {
     const [fechaVencimiento, setFechaVencimiento] = useState('')
     const [notas, setNotas] = useState('')
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
+    const [impuestoPct, setImpuestoPct] = useState(18)
+    const [aplicarItbis, setAplicarItbis] = useState(true)
 
     const [nombreProductoNuevo, setNombreProductoNuevo] = useState('')
     const [cantidadProductoNuevo, setCantidadProductoNuevo] = useState('')
@@ -61,14 +65,16 @@ export default function NuevaCompra() {
                 setProveedores(resultado.proveedores)
                 setProductos(resultado.productos)
                 setTiposComprobante(resultado.tiposComprobante)
+                const pct = parseFloat(resultado.empresa?.impuesto_porcentaje)
+                if (!isNaN(pct) && pct >= 0) setImpuestoPct(pct)
             } else {
                 alert(resultado.mensaje || tr('Error al cargar datos', 'Error loading data'))
-                router.push('/admin/compras')
+                router.push(`${baseCompras}`)
             }
         } catch (error) {
             console.error('Error al cargar datos:', error)
             alert(tr('Error al cargar datos', 'Error loading data'))
-            router.push('/admin/compras')
+            router.push(`${baseCompras}`)
         } finally {
             setCargando(false)
         }
@@ -208,9 +214,9 @@ export default function NuevaCompra() {
     })
 
     const calcularTotales = () => {
-        const subtotal = productosSeleccionados.reduce((sum, p) => sum + Number(p.subtotal), 0)
-        const itbis = subtotal * 0.18
-        const total = subtotal + itbis
+        const subtotal = Math.round(productosSeleccionados.reduce((sum, p) => sum + Number(p.subtotal), 0) * 100) / 100
+        const itbis = aplicarItbis ? Math.round(subtotal * impuestoPct) / 100 : 0
+        const total = Math.round((subtotal + itbis) * 100) / 100
         return { subtotal, itbis, total }
     }
 
@@ -271,7 +277,7 @@ export default function NuevaCompra() {
             const resultado = await crearCompra(datosCompra)
             if (resultado.success) {
                 alert(resultado.mensaje)
-                router.push('/admin/compras')
+                router.push(`${baseCompras}`)
             } else {
                 alert(resultado.mensaje || tr('Error al crear compra', 'Error creating purchase'))
             }
@@ -306,7 +312,7 @@ export default function NuevaCompra() {
                 </div>
                 <button
                     type="button"
-                    onClick={() => router.push('/admin/compras')}
+                    onClick={() => router.push(`${baseCompras}`)}
                     className={estilos.btnCancelar}
                     disabled={procesando}
                 >
@@ -398,7 +404,7 @@ export default function NuevaCompra() {
                                 <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                                 <option value="cheque">{tr('Cheque', 'Check')}</option>
                                 <option value="mixto">{tr('Mixto', 'Mixed')}</option>
-                                <option value="credito">{tr('Crédito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
+                                <option value="credito">{tr('CrÃ©dito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
                             </select>
                         </div>
 
@@ -413,7 +419,7 @@ export default function NuevaCompra() {
                                     disabled={procesando}
                                 />
                                 <small style={{ color: 'var(--text-secondary, #64748b)', fontSize: '12px' }}>
-                                    {tr('Se creará automáticamente una cuenta por pagar al proveedor.', 'An accounts payable will be created automatically for the supplier.')}
+                                    {tr('Se crearÃ¡ automÃ¡ticamente una cuenta por pagar al proveedor.', 'An accounts payable will be created automatically for the supplier.')}
                                 </small>
                             </div>
                         )}
@@ -440,13 +446,28 @@ export default function NuevaCompra() {
                                 <span>{formatearMoneda(totales.subtotal)}</span>
                             </div>
                             <div className={estilos.totalItem}>
-                                <span>ITBIS (18%):</span>
+                                <span>ITBIS ({aplicarItbis ? impuestoPct : 0}%):</span>
                                 <span>{formatearMoneda(totales.itbis)}</span>
                             </div>
                             <div className={`${estilos.totalItem} ${estilos.totalFinal}`}>
                                 <span>Total:</span>
                                 <span>{formatearMoneda(totales.total)}</span>
                             </div>
+                        </div>
+
+                        <div className={estilos.itbisControl}>
+                            <label className={estilos.itbisLabel}>
+                                <input
+                                    type="checkbox"
+                                    className={estilos.itbisCheckbox}
+                                    checked={aplicarItbis}
+                                    onChange={(e) => setAplicarItbis(e.target.checked)}
+                                />
+                                <span className={estilos.itbisTexto}>{tr('Aplicar ITBIS', 'Apply ITBIS')}</span>
+                            </label>
+                            <span className={`${estilos.itbisValor} ${aplicarItbis ? estilos.itbisOn : estilos.itbisOff}`}>
+                                {aplicarItbis ? `${impuestoPct}%` : tr('Sin ITBIS', 'No ITBIS')}
+                            </span>
                         </div>
 
                         <button

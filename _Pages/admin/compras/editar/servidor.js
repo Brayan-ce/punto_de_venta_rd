@@ -156,13 +156,21 @@ export async function obtenerDatosFormulario() {
             ORDER BY codigo ASC`
         )
 
+        const [[empresa]] = await connection.execute(
+            `SELECT impuesto_porcentaje, impuesto_nombre
+            FROM empresas
+            WHERE id = ?`,
+            [empresaId]
+        )
+
         connection.release()
 
         return {
             success: true,
             proveedores: proveedores,
             productos: productos,
-            tiposComprobante: tiposComprobante
+            tiposComprobante: tiposComprobante,
+            empresa: empresa || null
         }
 
     } catch (error) {

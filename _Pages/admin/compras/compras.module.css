@@ -428,7 +428,7 @@
 
 .tablaHeader {
     display: grid;
-    grid-template-columns: 1.2fr 1.4fr 1.7fr 0.9fr 0.8fr 1fr 0.9fr 1.1fr 0.9fr;
+    grid-template-columns: 1.05fr 1.2fr 1.9fr 0.85fr 0.75fr 0.9fr 0.9fr 0.8fr 1.3fr;
     gap: 15px;
     padding: 16px 20px;
     font-size: 12px;
@@ -454,7 +454,7 @@
 
 .fila {
     display: grid;
-    grid-template-columns: 1.2fr 1.4fr 1.7fr 0.9fr 0.8fr 1fr 0.9fr 1.1fr 0.9fr;
+    grid-template-columns: 1.05fr 1.2fr 1.9fr 0.85fr 0.75fr 0.9fr 0.9fr 0.8fr 1.3fr;
     gap: 15px;
     padding: 20px;
     border-bottom: 1px solid;
@@ -714,6 +714,11 @@
     color: #ffffff;
 }
 
+.btnIcono.editar:hover:not(:disabled) {
+    background: #f59e0b;
+    color: #ffffff;
+}
+
 .btnIcono:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -736,7 +741,7 @@
 
     .tablaHeader,
     .fila {
-        min-width: 1000px;
+        min-width: 1060px;
     }
 
     .estadisticas {
