@@ -581,6 +581,11 @@
     color: #3730a3;
 }
 
+.badgeMetodo.credito {
+    background: #ccfbf1;
+    color: #115e59;
+}
+
 .badgeEstado.recibida {
     background: #d1fae5;
     color: #065f46;

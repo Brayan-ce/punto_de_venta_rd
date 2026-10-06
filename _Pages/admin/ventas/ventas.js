@@ -565,9 +565,14 @@ export default function VentasAdmin({ basePath = '/admin' }) {
             tarjeta_credito: { texto: tr('Crédito TC', 'Credit Card'), color: 'tarjetaCredito' },
             transferencia: { texto: tr('Transfer.', 'Transfer'), color: 'transferencia' },
             cheque: { texto: tr('Cheque', 'Check'), color: 'cheque' },
-            credito: { texto: tr('Crédito', 'Credit'), color: 'credito' }
+            credito: { texto: tr('Crédito', 'Credit'), color: 'credito' },
+            financiamiento: { texto: tr('Financiamiento', 'Financing'), color: 'credito' },
+            mixto: { texto: tr('Mixto', 'Mixed'), color: 'transferencia' }
         }
-        return metodos[metodo] || metodos.efectivo
+        if (metodos[metodo]) return metodos[metodo]
+        if (!metodo) return { texto: tr('Sin método', 'No method'), color: 'transferencia' }
+        const texto = String(metodo).replace(/_/g, ' ')
+        return { texto: texto.charAt(0).toUpperCase() + texto.slice(1), color: 'transferencia' }
     }
 
     const getDgiiBadge = (estado) => {
@@ -1034,6 +1039,8 @@ export default function VentasAdmin({ basePath = '/admin' }) {
                                 <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                                 <option value="cheque">{tr('Cheque', 'Check')}</option>
                                 <option value="credito">{t('ventas.credito')}</option>
+                                <option value="mixto">{tr('Mixto', 'Mixed')}</option>
+                                <option value="financiamiento">{tr('Financiamiento', 'Financing')}</option>
                             </select>
                         </div>
 

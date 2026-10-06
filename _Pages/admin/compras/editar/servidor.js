@@ -60,6 +60,8 @@ export async function obtenerCompra(compraId) {
                 c.itbis,
                 c.total,
                 c.metodo_pago,
+                c.tipo_pago,
+                c.fecha_vencimiento,
                 c.estado,
                 c.notas,
                 c.fecha_compra
@@ -140,11 +142,10 @@ export async function obtenerDatosFormulario() {
         )
 
         const [productos] = await connection.execute(
-            `SELECT id, nombre, codigo_barras, precio_compra
+            `SELECT id, nombre, sku, codigo_barras, precio_compra, activo
             FROM productos
             WHERE empresa_id = ?
-            AND activo = TRUE
-            ORDER BY nombre ASC`,
+            ORDER BY activo DESC, nombre ASC`,
             [empresaId]
         )
 
@@ -282,6 +283,83 @@ export async function actualizarCompra(compraId, datosCompra) {
             [compraId]
         )
 
+        const esCredito = datosCompra.metodo_pago === 'credito'
+        const totalCompra = parseFloat(datosCompra.total) || 0
+
+        const [cxpRows] = await connection.execute(
+            `SELECT id, monto_pagado, estado
+             FROM cuentas_por_pagar
+             WHERE compra_id = ? AND empresa_id = ?`,
+            [compraId, empresaId]
+        )
+        const cxpActual = cxpRows[0] || null
+
+        let tipoPagoEditado = esCredito ? 'credito' : 'contado'
+        let montoPagadoEditado = 0
+        let saldoPendienteEditado = 0
+
+        if (esCredito) {
+            montoPagadoEditado = parseFloat(cxpActual?.monto_pagado || 0)
+            saldoPendienteEditado = Math.max(0, totalCompra - montoPagadoEditado)
+
+            const estadoCxP = montoPagadoEditado <= 0
+                ? 'pendiente'
+                : (saldoPendienteEditado <= 0 ? 'pagada' : 'parcial')
+
+            if (cxpActual) {
+                await connection.execute(
+                    `UPDATE cuentas_por_pagar
+                     SET proveedor_id = ?,
+                         monto_total = ?,
+                         saldo_pendiente = ?,
+                         estado = ?,
+                         fecha_vencimiento = ?
+                     WHERE id = ?`,
+                    [
+                        datosCompra.proveedor_id,
+                        totalCompra,
+                        saldoPendienteEditado,
+                        estadoCxP,
+                        datosCompra.fecha_vencimiento || null,
+                        cxpActual.id
+                    ]
+                )
+            } else {
+                await connection.execute(
+                    `INSERT INTO cuentas_por_pagar
+                        (empresa_id, compra_id, proveedor_id, monto_total, monto_pagado,
+                         saldo_pendiente, estado, fecha_emision, fecha_vencimiento, creado_por)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, CURDATE(), ?, ?)`,
+                    [
+                        empresaId,
+                        compraId,
+                        datosCompra.proveedor_id,
+                        totalCompra,
+                        montoPagadoEditado,
+                        saldoPendienteEditado,
+                        estadoCxP,
+                        datosCompra.fecha_vencimiento || null,
+                        userId
+                    ]
+                )
+            }
+        } else {
+            montoPagadoEditado = totalCompra
+            saldoPendienteEditado = 0
+
+            if (cxpActual && cxpActual.estado !== 'anulada') {
+                await connection.execute(
+                    `UPDATE cuentas_por_pagar
+                     SET monto_total = ?,
+                         saldo_pendiente = 0,
+                         estado = 'anulada',
+                         fecha_vencimiento = NULL
+                     WHERE id = ?`,
+                    [totalCompra, cxpActual.id]
+                )
+            }
+        }
+
         await connection.execute(
             `UPDATE compras 
             SET tipo_comprobante_id = ?,
@@ -291,6 +369,10 @@ export async function actualizarCompra(compraId, datosCompra) {
                 itbis = ?,
                 total = ?,
                 metodo_pago = ?,
+                tipo_pago = ?,
+                monto_pagado = ?,
+                saldo_pendiente = ?,
+                fecha_vencimiento = ?,
                 notas = ?
             WHERE id = ? AND empresa_id = ?`,
             [
@@ -301,6 +383,10 @@ export async function actualizarCompra(compraId, datosCompra) {
                 datosCompra.itbis,
                 datosCompra.total,
                 datosCompra.metodo_pago,
+                tipoPagoEditado,
+                montoPagadoEditado,
+                saldoPendienteEditado,
+                esCredito ? (datosCompra.fecha_vencimiento || null) : null,
                 datosCompra.notas,
                 compraId,
                 empresaId

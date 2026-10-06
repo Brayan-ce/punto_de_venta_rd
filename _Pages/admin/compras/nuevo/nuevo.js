@@ -199,10 +199,13 @@ export default function NuevaCompra() {
         }
     }
 
-    const productosFiltrados = productos.filter(p =>
-        p.nombre.toLowerCase().includes(busquedaProducto.toLowerCase()) ||
-        p.codigo_barras?.toLowerCase().includes(busquedaProducto.toLowerCase())
-    )
+    const productosFiltrados = productos.filter(p => {
+        const q = busquedaProducto.trim().toLowerCase()
+        if (!q) return true
+        return String(p.nombre || '').toLowerCase().includes(q) ||
+            String(p.codigo_barras || '').toLowerCase().includes(q) ||
+            String(p.sku || '').toLowerCase().includes(q)
+    })
 
     const calcularTotales = () => {
         const subtotal = productosSeleccionados.reduce((sum, p) => sum + Number(p.subtotal), 0)
@@ -486,10 +489,22 @@ export default function NuevaCompra() {
                                                 className={estilos.productoItem}
                                                 onClick={() => agregarProductoExistente(producto)}
                                             >
-                                                <span className={estilos.productoNombre}>{producto.nombre}</span>
+                                                <span className={estilos.productoNombre}>
+                                                    {producto.nombre}
+                                                    {!producto.activo && (
+                                                        <span className={estilos.productoInactivo}>{tr('Inactivo', 'Inactive')}</span>
+                                                    )}
+                                                </span>
                                                 <span className={estilos.productoPrecio}>{formatearMoneda(producto.precio_compra)}</span>
                                             </button>
                                         ))}
+                                    </div>
+                                )}
+
+                                {mostrarListaProductos && busquedaProducto.trim() && productosFiltrados.length === 0 && (
+                                    <div className={`${estilos.listaSinResultados} ${estilos[tema]}`}>
+                                        <ion-icon name="search-outline"></ion-icon>
+                                        <span>{tr('No se encontraron productos con ese nombre, codigo o SKU', 'No products found with that name, code or SKU')}</span>
                                     </div>
                                 )}
                             </div>

@@ -129,11 +129,10 @@ export async function obtenerDatosFormulario() {
         )
 
         const [productos] = await connection.execute(
-            `SELECT id, nombre, codigo_barras, precio_compra
+            `SELECT id, nombre, sku, codigo_barras, precio_compra, activo
             FROM productos
             WHERE empresa_id = ?
-            AND activo = TRUE
-            ORDER BY nombre ASC`,
+            ORDER BY activo DESC, nombre ASC`,
             [empresaId]
         )
 
@@ -524,6 +523,14 @@ export async function anularCompra(compraId) {
             `UPDATE compras 
             SET estado = 'anulada'
             WHERE id = ? AND empresa_id = ?`,
+            [compraId, empresaId]
+        )
+
+        await connection.execute(
+            `UPDATE cuentas_por_pagar
+            SET estado = 'anulada',
+                saldo_pendiente = 0
+            WHERE compra_id = ? AND empresa_id = ? AND estado <> 'anulada'`,
             [compraId, empresaId]
         )
 

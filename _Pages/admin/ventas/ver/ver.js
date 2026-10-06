@@ -95,9 +95,14 @@ export default function VerVentaAdmin({ returnPath = '/admin/ventas', basePath =
             tarjeta_credito: { texto: 'Tarjeta Crédito', icono: 'card-outline' },
             transferencia: { texto: 'Transferencia', icono: 'swap-horizontal-outline' },
             cheque: { texto: 'Cheque', icono: 'document-text-outline' },
+            credito: { texto: 'Crédito', icono: 'time-outline' },
+            financiamiento: { texto: 'Financiamiento', icono: 'wallet-outline' },
             mixto: { texto: 'Mixto', icono: 'wallet-outline' }
         }
-        return metodos[metodo] || metodos.efectivo
+        if (metodos[metodo]) return metodos[metodo]
+        if (!metodo) return { texto: 'Sin método', icono: 'help-circle-outline' }
+        const texto = String(metodo).replace(/_/g, ' ')
+        return { texto: texto.charAt(0).toUpperCase() + texto.slice(1), icono: 'wallet-outline' }
     }
 
     const getTipoEntregaBadge = (tipo) => {

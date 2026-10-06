@@ -398,6 +398,16 @@
     color: #d8b4fe;
 }
 
+.metodoBadge.credito {
+    background: #ccfbf1;
+    color: #115e59;
+}
+
+.dark .metodoBadge.credito {
+    background: #134e4a;
+    color: #99f6e4;
+}
+
 .tablaProductos {
     overflow-x: auto;
 }

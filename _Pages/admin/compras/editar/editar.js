@@ -26,6 +26,7 @@ export default function EditarCompra() {
     const [ncf, setNcf] = useState('')
     const [proveedorId, setProveedorId] = useState('')
     const [metodoPago, setMetodoPago] = useState('efectivo')
+    const [fechaVencimiento, setFechaVencimiento] = useState('')
     const [notas, setNotas] = useState('')
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
@@ -69,7 +70,8 @@ export default function EditarCompra() {
                 setTipoComprobanteId(compra.tipo_comprobante_id.toString())
                 setNcf(compra.ncf)
                 setProveedorId(compra.proveedor_id.toString())
-                setMetodoPago(compra.metodo_pago)
+                setMetodoPago(compra.metodo_pago || 'efectivo')
+                setFechaVencimiento(compra.fecha_vencimiento ? String(compra.fecha_vencimiento).slice(0, 10) : '')
                 setNotas(compra.notas || '')
                 
                 const productosConInfo = compra.detalles.map(detalle => ({
@@ -210,10 +212,13 @@ export default function EditarCompra() {
         setProductosSeleccionados(productosSeleccionados.filter((p, i) => i !== index))
     }
 
-    const productosFiltrados = productos.filter(p =>
-        p.nombre.toLowerCase().includes(busquedaProducto.toLowerCase()) ||
-        p.codigo_barras?.toLowerCase().includes(busquedaProducto.toLowerCase())
-    )
+    const productosFiltrados = productos.filter(p => {
+        const q = busquedaProducto.trim().toLowerCase()
+        if (!q) return true
+        return String(p.nombre || '').toLowerCase().includes(q) ||
+            String(p.codigo_barras || '').toLowerCase().includes(q) ||
+            String(p.sku || '').toLowerCase().includes(q)
+    })
 
     const calcularTotales = () => {
         const subtotal = productosSeleccionados.reduce((sum, p) => sum + p.subtotal, 0)
@@ -267,6 +272,8 @@ export default function EditarCompra() {
                 itbis: totales.itbis,
                 total: totales.total,
                 metodo_pago: metodoPago,
+                tipo_pago: metodoPago === 'credito' ? 'credito' : 'contado',
+                fecha_vencimiento: metodoPago === 'credito' ? (fechaVencimiento || null) : null,
                 notas: notas.trim() || null,
                 productos: productosSeleccionados.map(p => ({
                     producto_id: p.id,
@@ -392,8 +399,25 @@ export default function EditarCompra() {
                                 <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                                 <option value="cheque">{tr('Cheque', 'Check')}</option>
                                 <option value="mixto">{tr('Mixto', 'Mixed')}</option>
+                                <option value="credito">{tr('Credito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
                             </select>
                         </div>
+
+                        {metodoPago === 'credito' && (
+                            <div className={estilos.grupoInput}>
+                                <label>{tr('Fecha de Vencimiento', 'Due Date')}</label>
+                                <input
+                                    type="date"
+                                    value={fechaVencimiento}
+                                    onChange={(e) => setFechaVencimiento(e.target.value)}
+                                    className={estilos.input}
+                                    disabled={procesando}
+                                />
+                                <small style={{ color: 'var(--text-secondary, #64748b)', fontSize: '12px' }}>
+                                    {tr('Se creará/actualizará la cuenta por pagar al proveedor.', 'The accounts payable for the supplier will be created/updated.')}
+                                </small>
+                            </div>
+                        )}
 
                         <div className={estilos.grupoInput}>
                             <label>{tr('Notas', 'Notes')}</label>
@@ -466,10 +490,22 @@ export default function EditarCompra() {
                                                 className={estilos.productoItem}
                                                 onClick={() => agregarProductoExistente(producto)}
                                             >
-                                                <span className={estilos.productoNombre}>{producto.nombre}</span>
+                                                <span className={estilos.productoNombre}>
+                                                    {producto.nombre}
+                                                    {!producto.activo && (
+                                                        <span className={estilos.productoInactivo}>{tr('Inactivo', 'Inactive')}</span>
+                                                    )}
+                                                </span>
                                                 <span className={estilos.productoPrecio}>{formatearMoneda(producto.precio_compra)}</span>
                                             </button>
                                         ))}
+                                    </div>
+                                )}
+
+                                {mostrarListaProductos && busquedaProducto.trim() && productosFiltrados.length === 0 && (
+                                    <div className={`${estilos.listaSinResultados} ${estilos[tema]}`}>
+                                        <ion-icon name="search-outline"></ion-icon>
+                                        <span>{tr('No se encontraron productos con ese nombre, codigo o SKU', 'No products found with that name, code or SKU')}</span>
                                     </div>
                                 )}
                             </div>

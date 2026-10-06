@@ -135,9 +135,15 @@ export default function ComprasAdmin() {
             tarjeta_credito: { texto: tr('Tarjeta Credito', 'Credit Card'), color: 'tarjeta' },
             transferencia: { texto: tr('Transferencia', 'Transfer'), color: 'transferencia' },
             cheque: { texto: tr('Cheque', 'Check'), color: 'cheque' },
-            mixto: { texto: tr('Mixto', 'Mixed'), color: 'mixto' }
+            mixto: { texto: tr('Mixto', 'Mixed'), color: 'mixto' },
+            credito: { texto: tr('Credito (cuenta por pagar)', 'Credit (accounts payable)'), color: 'credito' },
+            contado: { texto: tr('Contado', 'Cash paid'), color: 'efectivo' },
+            financiamiento: { texto: tr('Financiamiento', 'Financing'), color: 'transferencia' }
         }
-        return metodos[metodo] || metodos.efectivo
+        if (metodos[metodo]) return metodos[metodo]
+        if (!metodo) return { texto: tr('Sin metodo', 'No method'), color: 'mixto' }
+        const texto = String(metodo).replace(/_/g, ' ')
+        return { texto: texto.charAt(0).toUpperCase() + texto.slice(1), color: 'mixto' }
     }
 
     const calcularTotales = () => {
@@ -265,6 +271,7 @@ export default function ComprasAdmin() {
                         <option value="transferencia">{tr('Transferencia', 'Transfer')}</option>
                         <option value="cheque">{tr('Cheque', 'Check')}</option>
                         <option value="mixto">{tr('Mixto', 'Mixed')}</option>
+                        <option value="credito">{tr('Credito (cuenta por pagar)', 'Credit (accounts payable)')}</option>
                     </select>
 
                     <input
