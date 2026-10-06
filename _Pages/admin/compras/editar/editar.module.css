@@ -954,3 +954,43 @@
         min-width: 700px;
     }
 }
+
+.inputSoloLectura {
+    cursor: not-allowed;
+    font-family: monospace;
+    letter-spacing: 1px;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(100, 116, 139, 0.08) 6px, rgba(100, 116, 139, 0.08) 12px);
+}
+
+.light .inputSoloLectura {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+.dark .inputSoloLectura {
+    background-color: #0f172a;
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+.inputSoloLectura:focus {
+    outline: none;
+    box-shadow: none !important;
+    border-color: #e2e8f0 !important;
+}
+
+.ayudaNcf {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.light .ayudaNcf {
+    color: #64748b;
+}
+
+.dark .ayudaNcf {
+    color: #94a3b8;
+}

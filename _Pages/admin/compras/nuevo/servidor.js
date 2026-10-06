@@ -3,6 +3,21 @@
 import db from "@/_DB/db"
 import { cookies } from 'next/headers'
 
+// Convierte cualquier fecha recibida (Date de mysql2, ISO o 'YYYY-MM-DD') a 'YYYY-MM-DD'.
+// Si no es valida devuelve null para no romper la columna DATE.
+function normalizarFechaISO(valor) {
+    if (!valor) return null
+    if (valor instanceof Date && !isNaN(valor.getTime())) {
+        const y = valor.getFullYear()
+        const m = String(valor.getMonth() + 1).padStart(2, '0')
+        const d = String(valor.getDate()).padStart(2, '0')
+        return `${y}-${m}-${d}`
+    }
+    const partes = String(valor).match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)
+    if (!partes) return null
+    return `${partes[1]}-${partes[2].padStart(2, '0')}-${partes[3].padStart(2, '0')}`
+}
+
 async function validarDatosFiscalesCompra(connection, datosCompra, empresaId, compraId = null) {
     const proveedorId = Number(datosCompra.proveedor_id)
     const ncf = String(datosCompra.ncf || '').trim().toUpperCase()
@@ -261,7 +276,7 @@ export async function crearCompra(datosCompra) {
         const tipoPago = esCredito ? 'credito' : 'contado'
         const montoPagado = esCredito ? 0 : total
         const saldoPendiente = esCredito ? total : 0
-        const fechaVencimiento = esCredito ? (datosCompra.fecha_vencimiento || null) : null
+        const fechaVencimiento = esCredito ? normalizarFechaISO(datosCompra.fecha_vencimiento) : null
 
         const [resultadoCompra] = await connection.execute(
             `INSERT INTO compras (

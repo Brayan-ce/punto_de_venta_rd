@@ -227,7 +227,7 @@ export default function NuevaCompra() {
         }
 
         if (!ncf.trim()) {
-            alert(tr('Ingresa el NCF', 'Enter NCF'))
+            alert(tr('No se generó el NCF. Selecciona el tipo de comprobante e inténtalo de nuevo.', 'The NCF was not generated. Select the voucher type and try again.'))
             return false
         }
 
@@ -352,24 +352,26 @@ export default function NuevaCompra() {
                                 <input
                                     type="text"
                                     value={ncf}
-                                    onChange={(e) => setNcf(e.target.value)}
-                                    className={estilos.input}
+                                    readOnly
+                                    className={`${estilos.input} ${estilos.inputSoloLectura}`}
                                     required
                                     disabled={procesando}
                                     placeholder="B0100000001"
+                                    title={tr('El NCF se genera automáticamente', 'The NCF is generated automatically')}
                                 />
-                                {ncf && (
-                                    <button
-                                        type="button"
-                                        className={estilos.btnX}
-                                        onClick={() => setNcf('')}
-                                        disabled={procesando}
-                                        title={tr('Limpiar NCF', 'Clear NCF')}
-                                    >
-                                        <ion-icon name="close-outline"></ion-icon>
-                                    </button>
-                                )}
+                                <button
+                                    type="button"
+                                    className={estilos.btnX}
+                                    onClick={() => generarNcf(tipoComprobanteId)}
+                                    disabled={procesando || !tipoComprobanteId}
+                                    title={tr('Regenerar NCF', 'Regenerate NCF')}
+                                >
+                                    <ion-icon name="refresh-outline"></ion-icon>
+                                </button>
                             </div>
+                            <small className={estilos.ayudaNcf}>
+                                {tr('Se genera automáticamente al elegir el tipo de comprobante (evita NCF repetidos).', 'It is generated automatically when you select the voucher type (avoids duplicate NCFs).')}
+                            </small>
                             </div>
                         </div>
 

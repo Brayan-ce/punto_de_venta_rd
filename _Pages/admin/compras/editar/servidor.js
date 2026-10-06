@@ -3,6 +3,21 @@
 import db from "@/_DB/db"
 import { cookies } from 'next/headers'
 
+// Convierte cualquier fecha recibida (Date de mysql2, ISO o 'YYYY-MM-DD') a 'YYYY-MM-DD'.
+// Si no es valida devuelve null para no romper la columna DATE.
+function normalizarFechaISO(valor) {
+    if (!valor) return null
+    if (valor instanceof Date && !isNaN(valor.getTime())) {
+        const y = valor.getFullYear()
+        const m = String(valor.getMonth() + 1).padStart(2, '0')
+        const d = String(valor.getDate()).padStart(2, '0')
+        return `${y}-${m}-${d}`
+    }
+    const partes = String(valor).match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)
+    if (!partes) return null
+    return `${partes[1]}-${partes[2].padStart(2, '0')}-${partes[3].padStart(2, '0')}`
+}
+
 async function validarDatosFiscalesCompra(connection, datosCompra, empresaId, compraId) {
     const proveedorId = Number(datosCompra.proveedor_id)
     const ncf = String(datosCompra.ncf || '').trim().toUpperCase()
@@ -328,7 +343,7 @@ export async function actualizarCompra(compraId, datosCompra) {
                         totalCompra,
                         saldoPendienteEditado,
                         estadoCxP,
-                        datosCompra.fecha_vencimiento || null,
+                        normalizarFechaISO(datosCompra.fecha_vencimiento),
                         cxpActual.id
                     ]
                 )
@@ -346,7 +361,7 @@ export async function actualizarCompra(compraId, datosCompra) {
                         montoPagadoEditado,
                         saldoPendienteEditado,
                         estadoCxP,
-                        datosCompra.fecha_vencimiento || null,
+                        normalizarFechaISO(datosCompra.fecha_vencimiento),
                         userId
                     ]
                 )
@@ -394,7 +409,7 @@ export async function actualizarCompra(compraId, datosCompra) {
                 tipoPagoEditado,
                 montoPagadoEditado,
                 saldoPendienteEditado,
-                esCredito ? (datosCompra.fecha_vencimiento || null) : null,
+                esCredito ? (normalizarFechaISO(datosCompra.fecha_vencimiento)) : null,
                 datosCompra.notas,
                 compraId,
                 empresaId

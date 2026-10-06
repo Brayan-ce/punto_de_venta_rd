@@ -6,6 +6,20 @@ import { useLanguage } from '@/_Pages/admin/i18n'
 import estilos from './editar.module.css'
 import LoadingScreen from '@/_EXTRAS/Componentes/LoadingScreen/LoadingScreen'
 
+// mysql2 devuelve DATE como objeto Date; convertirlo a 'YYYY-MM-DD' para <input type="date">
+function aFechaInput(valor) {
+    if (!valor) return ''
+    if (valor instanceof Date && !isNaN(valor.getTime())) {
+        const y = valor.getFullYear()
+        const m = String(valor.getMonth() + 1).padStart(2, '0')
+        const d = String(valor.getDate()).padStart(2, '0')
+        return `${y}-${m}-${d}`
+    }
+    const partes = String(valor).match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)
+    if (!partes) return ''
+    return `${partes[1]}-${partes[2].padStart(2, '0')}-${partes[3].padStart(2, '0')}`
+}
+
 export default function EditarCompra() {
     const router = useRouter()
     const pathname = usePathname()
@@ -75,7 +89,7 @@ export default function EditarCompra() {
                 setNcf(compra.ncf)
                 setProveedorId(compra.proveedor_id.toString())
                 setMetodoPago(compra.metodo_pago || 'efectivo')
-                setFechaVencimiento(compra.fecha_vencimiento ? String(compra.fecha_vencimiento).slice(0, 10) : '')
+                setFechaVencimiento(aFechaInput(compra.fecha_vencimiento))
                 setNotas(compra.notas || '')
                 
                 const productosConInfo = compra.detalles.map(detalle => ({
@@ -369,12 +383,16 @@ export default function EditarCompra() {
                                 <input
                                     type="text"
                                     value={ncf}
-                                    onChange={(e) => setNcf(e.target.value)}
-                                    className={estilos.input}
+                                    readOnly
+                                    className={`${estilos.input} ${estilos.inputSoloLectura}`}
                                     required
                                     disabled={procesando}
                                     placeholder="B0100000001"
+                                    title={tr('El NCF no se puede modificar', 'The NCF cannot be modified')}
                                 />
+                                <small className={estilos.ayudaNcf}>
+                                    {tr('El NCF se emitió al crear la compra y no se puede editar.', 'The NCF was issued when the purchase was created and cannot be edited.')}
+                                </small>
                             </div>
                         </div>
 
