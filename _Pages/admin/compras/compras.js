@@ -110,13 +110,13 @@ export default function ComprasAdmin() {
         return cumpleBusqueda && cumpleProveedor && cumpleEstado && cumpleMetodo && cumpleFecha
     })
 
-    const formatearFecha = (fecha) => {
-        return new Date(fecha).toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO', {
+    const formatearFechaCorta = (fecha) => {
+        const d = new Date(fecha)
+        if (isNaN(d.getTime())) return String(fecha || '')
+        return d.toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO', {
             year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
+            month: '2-digit',
+            day: '2-digit'
         })
     }
 
@@ -314,35 +314,44 @@ export default function ComprasAdmin() {
                     <div className={estilos.tablaBody}>
                         {comprasFiltradas.map((compra) => (
                             <div key={compra.id} className={`${estilos.fila} ${estilos[tema]}`}>
-                                <div className={estilos.columna}>
+                                <div className={estilos.columna} data-label={tr('NCF', 'Invoice no.')}>
                                     <span className={estilos.ncf}>{compra.ncf}</span>
                                 </div>
-                                <div className={estilos.columna}>
+                                <div className={estilos.columna} data-label={tr('Proveedor', 'Supplier')}>
                                     <span className={estilos.proveedor}>{compra.proveedor_nombre}</span>
                                 </div>
-                                <div className={estilos.columna}>
-                                    <span className={`${estilos.badgeMetodo} ${estilos[getMetodoPagoBadge(compra.metodo_pago).color]}`}>
-                                        {getMetodoPagoBadge(compra.metodo_pago).texto}
-                                    </span>
+                                <div className={estilos.columna} data-label={tr('Metodo', 'Payment')}>
+                                    <div className={estilos.metodoCelda}>
+                                        <span className={`${estilos.badgeMetodo} ${estilos[getMetodoPagoBadge(compra.metodo_pago).color]}`}>
+                                            {getMetodoPagoBadge(compra.metodo_pago).texto}
+                                        </span>
+                                        {compra.tipo_pago === 'credito' && compra.estado !== 'anulada' && (
+                                            <span className={estilos.saldoCredito}>
+                                                {parseFloat(compra.saldo_pendiente || 0) > 0
+                                                    ? `${tr('Por pagar', 'Owed')}: ${formatearMoneda(compra.saldo_pendiente)}`
+                                                    : tr('Pagada', 'Paid')}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className={estilos.columna}>
+                                <div className={estilos.columna} data-label={tr('Subtotal', 'Subtotal')}>
                                     <span className={estilos.monto}>{formatearMoneda(compra.subtotal)}</span>
                                 </div>
-                                <div className={estilos.columna}>
+                                <div className={estilos.columna} data-label="ITBIS">
                                     <span className={estilos.monto}>{formatearMoneda(compra.itbis)}</span>
                                 </div>
-                                <div className={estilos.columna}>
+                                <div className={estilos.columna} data-label={tr('Total', 'Total')}>
                                     <span className={estilos.montoTotal}>{formatearMoneda(compra.total)}</span>
                                 </div>
-                                <div className={estilos.columna}>
+                                <div className={estilos.columna} data-label={tr('Estado', 'Status')}>
                                     <span className={`${estilos.badgeEstado} ${estilos[compra.estado]}`}>
                                         {compra.estado === 'recibida' ? tr('Recibida', 'Received') : compra.estado === 'anulada' ? tr('Anulada', 'Canceled') : tr('Pendiente', 'Pending')}
                                     </span>
                                 </div>
-                                <div className={estilos.columna}>
-                                    <span className={estilos.fecha}>{formatearFecha(compra.fecha_compra)}</span>
+                                <div className={estilos.columna} data-label={tr('Fecha', 'Date')}>
+                                    <span className={estilos.fecha}>{formatearFechaCorta(compra.fecha_compra)}</span>
                                 </div>
-                                <div className={estilos.columnaAcciones}>
+                                <div className={estilos.columnaAcciones} data-label={tr('Acciones', 'Actions')}>
                                     <Link
                                         href={`/admin/compras/ver/${compra.id}`}
                                         className={estilos.btnIcono}

@@ -327,6 +327,9 @@
 .infoValor {
     font-size: 16px;
     font-weight: 600;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .light .infoValor {
@@ -335,6 +338,42 @@
 
 .dark .infoValor {
     color: #f1f5f9;
+}
+
+.saldoPendiente {
+    color: #b45309;
+}
+
+.dark .saldoPendiente {
+    color: #fbbf24;
+}
+
+.saldoPagado {
+    color: #059669;
+}
+
+.dark .saldoPagado {
+    color: #34d399;
+}
+
+.pistaPago {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px dashed;
+}
+
+.light .pistaPago {
+    background: #fffbeb;
+    border-color: #fcd34d;
+    color: #92400e;
+}
+
+.dark .pistaPago {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: #92400e;
+    color: #fcd34d;
 }
 
 .metodoBadge {
@@ -346,6 +385,11 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     width: fit-content;
+    max-width: 100%;
+    align-self: flex-start;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.35;
 }
 
 .metodoBadge.efectivo {
@@ -416,6 +460,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1.2fr 1.2fr;
     gap: 16px;
+    min-width: 560px;
     padding: 14px 20px;
     font-size: 12px;
     font-weight: 700;
@@ -445,6 +490,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr 1.2fr 1.2fr;
     gap: 16px;
+    min-width: 560px;
     padding: 20px;
     border-radius: 10px;
     align-items: center;
@@ -763,6 +809,12 @@
     }
 }
 
+@media (max-width: 1240px) {
+    .filaResumen {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 1024px) {
     .filaResumen {
         grid-template-columns: 1fr;
@@ -784,15 +836,18 @@
 
     .headerAcciones {
         width: 100%;
-        justify-content: stretch;
+        gap: 10px;
     }
 
     .btnImprimir,
     .btnEditar,
     .btnAnular,
     .btnVolver {
-        flex: 1;
+        flex: 1 1 calc(50% - 5px);
         justify-content: center;
+        padding: 12px 14px;
+        font-size: 14px;
+        min-width: 0;
     }
 
     .panel {
@@ -801,10 +856,45 @@
 
     .tablaProductos {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .tablaHeader,
     .tablaBody .fila {
         min-width: 600px;
+    }
+}
+
+@media (max-width: 460px) {
+    .contenedor {
+        padding: 16px 12px;
+    }
+
+    .titulo {
+        font-size: 21px;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+    }
+
+    .btnImprimir,
+    .btnEditar,
+    .btnAnular,
+    .btnVolver {
+        flex: 1 1 100%;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .tablaHeader,
+    .tablaBody .fila {
+        min-width: 520px;
+    }
+
+    .infoValor {
+        font-size: 15px;
     }
 }

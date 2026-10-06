@@ -98,6 +98,17 @@ export default function VerCompraAdmin() {
         })
     }
 
+    const formatearFechaCorta = (fecha) => {
+        if (!fecha) return ''
+        const d = new Date(fecha)
+        if (isNaN(d.getTime())) return String(fecha)
+        return d.toLocaleDateString(language === 'en' ? 'en-US' : 'es-DO', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        })
+    }
+
     const formatearMoneda = (monto) => {
         return new Intl.NumberFormat(language === 'en' ? 'en-US' : 'es-DO', {
             style: 'currency',
@@ -210,6 +221,28 @@ export default function VerCompraAdmin() {
                             <span className={estilos.infoLabel}>{tr('Usuario:', 'User:')}</span>
                             <span className={estilos.infoValor}>{compra.usuario_nombre}</span>
                         </div>
+                        {compra.tipo_pago === 'credito' && compra.estado !== 'anulada' && (
+                            <div className={`${estilos.infoItem} ${estilos.full}`}>
+                                <span className={estilos.infoLabel}>{tr('Cuenta por pagar:', 'Accounts payable:')}</span>
+                                {parseFloat(compra.saldo_pendiente || 0) > 0 ? (
+                                    <>
+                                        <span className={`${estilos.infoValor} ${estilos.saldoPendiente}`}>
+                                            {tr('Pendiente', 'Pending')} · {formatearMoneda(compra.saldo_pendiente)}
+                                            {compra.fecha_vencimiento
+                                                ? ` · ${tr('Vence', 'Due')} ${formatearFechaCorta(compra.fecha_vencimiento)}`
+                                                : ''}
+                                        </span>
+                                        <span className={estilos.pistaPago}>
+                                            {tr('Para abonar ve a Finanzas > Bancos > Pago a proveedor.', 'To make a payment go to Finance > Banks > Supplier payment.')}
+                                        </span>
+                                    </>
+                                ) : (
+                                    <span className={`${estilos.infoValor} ${estilos.saldoPagado}`}>
+                                        {tr('Pagada', 'Paid')}
+                                    </span>
+                                )}
+                            </div>
+                        )}
                         {compra.notas && (
                             <div className={`${estilos.infoItem} ${estilos.full}`}>
                                 <span className={estilos.infoLabel}>{tr('Notas:', 'Notes:')}</span>

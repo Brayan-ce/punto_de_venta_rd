@@ -428,7 +428,7 @@
 
 .tablaHeader {
     display: grid;
-    grid-template-columns: 1.3fr 1.5fr 1.2fr 1fr 1fr 1fr 1fr 1.2fr 1fr;
+    grid-template-columns: 1.2fr 1.4fr 1.7fr 0.9fr 0.8fr 1fr 0.9fr 1.1fr 0.9fr;
     gap: 15px;
     padding: 16px 20px;
     font-size: 12px;
@@ -454,7 +454,7 @@
 
 .fila {
     display: grid;
-    grid-template-columns: 1.3fr 1.5fr 1.2fr 1fr 1fr 1fr 1fr 1.2fr 1fr;
+    grid-template-columns: 1.2fr 1.4fr 1.7fr 0.9fr 0.8fr 1fr 0.9fr 1.1fr 0.9fr;
     gap: 15px;
     padding: 20px;
     border-bottom: 1px solid;
@@ -487,6 +487,7 @@
     align-items: center;
     font-size: 14px;
     min-width: 0;
+    overflow: hidden;
 }
 
 .light .columna {
@@ -502,6 +503,8 @@
     align-items: center;
     justify-content: flex-end;
     gap: 8px;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .ncf {
@@ -529,11 +532,21 @@
 .monto {
     font-weight: 600;
     font-family: monospace;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .montoTotal {
     font-size: 15px;
     font-weight: 700;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .light .montoTotal {
@@ -551,7 +564,12 @@
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+    line-height: 1.3;
+    max-width: 100%;
+    min-width: 0;
     width: fit-content;
     letter-spacing: 0.5px;
 }
@@ -586,6 +604,37 @@
     color: #115e59;
 }
 
+.metodoCelda {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.saldoCredito {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.light .saldoCredito {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.dark .saldoCredito {
+    background: rgba(245, 158, 11, 0.16);
+    color: #fbbf24;
+}
+
 .badgeEstado.recibida {
     background: #d1fae5;
     color: #065f46;
@@ -603,6 +652,11 @@
 
 .fecha {
     font-size: 13px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .light .fecha {
@@ -616,6 +670,7 @@
 .btnIcono {
     width: 36px;
     height: 36px;
+    flex-shrink: 0;
     border-radius: 8px;
     border: none;
     display: flex;
@@ -667,18 +722,21 @@
 @media (max-width: 1400px) {
     .tablaHeader,
     .fila {
-        grid-template-columns: 1.2fr 1.3fr 1.1fr 0.9fr 0.9fr 0.9fr 0.9fr 1.1fr 1fr;
+        gap: 10px;
+        padding-left: 14px;
+        padding-right: 14px;
     }
 }
 
 @media (max-width: 1024px) {
     .tabla {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .tablaHeader,
     .fila {
-        min-width: 1200px;
+        min-width: 1000px;
     }
 
     .estadisticas {
@@ -724,5 +782,126 @@
 
     .estadisticas {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .tabla,
+    .light .tabla,
+    .dark .tabla {
+        overflow-x: hidden;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+        border: none;
+    }
+
+    .tablaHeader {
+        display: none;
+    }
+
+    .tablaBody {
+        gap: 12px;
+    }
+
+    .fila {
+        min-width: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px 12px;
+        padding: 16px;
+        border-radius: 14px;
+        border: 1px solid;
+    }
+
+    .light .fila,
+    .dark .fila {
+        background: rgba(255, 255, 255, 0.92);
+        border-color: #e5e7eb;
+    }
+
+    .dark .fila,
+    .dark .fila:hover {
+        background: #1e293b;
+        border-color: #334155;
+    }
+
+    .light .fila:hover {
+        background: #ffffff;
+    }
+
+    .fila:last-child {
+        border-bottom: 1px solid;
+    }
+
+    .fila .columna {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        overflow: visible;
+    }
+
+    .fila .columna[data-label]::before,
+    .fila .columnaAcciones[data-label]::before {
+        content: attr(data-label);
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        opacity: 0.6;
+    }
+
+    .light .fila .columna[data-label]::before,
+    .light .fila .columnaAcciones[data-label]::before {
+        color: #64748b;
+    }
+
+    .dark .fila .columna[data-label]::before,
+    .dark .fila .columnaAcciones[data-label]::before {
+        color: #94a3b8;
+    }
+
+    .fila .badgeMetodo,
+    .fila .badgeEstado {
+        max-width: 100%;
+    }
+
+    .fila .columnaAcciones {
+        grid-column: 1 / -1;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px 10px;
+        overflow: visible;
+        border-top: 1px dashed;
+        padding-top: 14px;
+        margin-top: 2px;
+    }
+
+    .fila .columnaAcciones[data-label]::before {
+        flex-basis: 100%;
+    }
+
+    .light .fila .columnaAcciones {
+        border-color: #e2e8f0;
+    }
+
+    .dark .fila .columnaAcciones {
+        border-color: #334155;
+    }
+
+    .fila .btnIcono {
+        width: 44px;
+        height: 44px;
+        border: 1px solid;
+    }
+
+    .light .fila .btnIcono {
+        border-color: #e2e8f0;
+        background: #f8fafc;
+    }
+
+    .dark .fila .btnIcono {
+        border-color: #334155;
+        background: #0f172a;
     }
 }
